@@ -78,6 +78,30 @@ npm run dev        # http://localhost:3000
 Backend (`localhost:8000`) çalışırken arayüzü tarayıcıda açın. Arayüz, her yanıtın
 altında dayandığı **kaynak belgeleri** ve benzerlik skorunu gösterir.
 
+## Ajansal akış (agentic flow)
+
+BAKAY basit `retrieve→generate` yerine modüler ajansal bir akış kullanır
+(`docs/reference/` altındaki referans desenden uyarlandı):
+
+```
+Soru → [0] Yönlendirme → [1] Sorgu yeniden yazma → [2] Retrieval
+     → [3] Yeterlilik kapısı → [4] Grounded üretim → [5] Dayanak doğrulama → Yanıt
+```
+
+Düğümler `.env` ile açılır/kapanır. **Skor kapısı bedavadır** (ekstra LLM yok);
+**LLM-ağırlıklı düğümler latency ekler**, bu yüzden varsayılan kapalıdır:
+
+| Düğüm | .env değişkeni | Varsayılan | Maliyet |
+|-------|----------------|-----------|---------|
+| Kapsam yönlendirme | `AGENT_ROUTE` | kapalı | 1 LLM çağrısı |
+| Sorgu yeniden yazma | `AGENT_REWRITE` | kapalı | 1 LLM çağrısı |
+| Yeterlilik kapısı | `SCORE_THRESHOLD` | 0.30 | bedava |
+| Dayanak doğrulama | `AGENT_VERIFY` | kapalı | 1 LLM çağrısı |
+
+> Not: Mutlak kosinüs skoruyla kapsam ayrımı LaBSE'de güvenilmezdir (alakasız soru
+> meşru sorudan yüksek skor alabilir). Güvenilir yönlendirme için `AGENT_ROUTE`
+> (LLM) kullanın; embedding karşılaştırması İP2'de bu sorunu ele alır.
+
 ## Dizin yapısı
 
 ```

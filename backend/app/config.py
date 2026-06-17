@@ -41,6 +41,15 @@ class Settings(BaseSettings):
     # Retrieval
     top_k: int = 5
 
+    # --- Ajansal akış düğümleri ---
+    # Skor-tabanlı yönlendirme/yeterlilik kapısı: en yüksek skor bunun altındaysa
+    # soru kapsam dışı sayılır (belge uydurulmaz). Bedava (ekstra LLM yok).
+    score_threshold: float = 0.30
+    # LLM-ağırlıklı düğümler (her biri ~bir LLM çağrısı = latency). Varsayılan kapalı.
+    agent_route: bool = False     # LLM ile kapsam yönlendirmesi (skor kapısı güvenilmez)
+    agent_rewrite: bool = False   # sorgu yeniden yazma (retrieval kalitesi)
+    agent_verify: bool = False    # üretilen yanıtın dayanak doğrulaması
+
     # Telemetri / loglama
     log_dir: str = "./data/logs"
     db_path: str = "./data/bakay.db"
