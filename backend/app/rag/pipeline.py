@@ -6,6 +6,7 @@ yanıt kaynaklarıyla birlikte döner (açıklanabilirlik / XAI).
 """
 from __future__ import annotations
 
+import re
 import time
 
 from app.config import settings
@@ -28,6 +29,15 @@ KAYNAKLAR:
 SORU: {question}
 
 YANIT:"""
+
+
+def _strip_reasoning(text: str) -> str:
+    """Reasoning modellerinin <think>...</think> bloğunu son yanıttan çıkarır."""
+    cleaned = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE)
+    # Kapanmamış <think> (model kesilirse) — etiket sonrasını al
+    if "<think>" in cleaned.lower():
+        cleaned = re.split(r"</think>", cleaned, flags=re.IGNORECASE)[-1]
+    return cleaned.strip()
 
 
 def _build_context(hits: list[dict]) -> str:
@@ -54,7 +64,7 @@ def answer(question: str, top_k: int | None = None) -> ChatResponse:
     prompt = SYSTEM_PROMPT.format(
         context=_build_context(hits), question=question
     )
-    text = llm.generate(prompt)
+    text = _strip_reasoning(llm.generate(prompt))
 
     sources = [
         Source(document=h["document"], snippet=h["text"][:300], score=h["score"])

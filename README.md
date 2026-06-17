@@ -22,8 +22,8 @@ veren, kaynak gösteren bir demo. Sonra her katmanı tek tek güçlendiriyoruz. 
 |----|--------|-------|
 | İP1 | Veri toplama, temizleme, paragraf segmentasyonu | 🟢 çalışıyor (statik) |
 | İP2 | Embedding modeli seçimi & karşılaştırma | 🟡 iskelet |
-| İP3 | Retrieval katmanı (FAISS / Chroma / ES hybrid) | 🟡 Chroma hazır |
-| İP4 | Generation (RAG) — LLM seçimi | 🟡 Gemini + yerel |
+| İP3 | Retrieval katmanı (FAISS / Chroma / ES hybrid) | 🟢 Chroma çalışıyor |
+| İP4 | Generation (RAG) — LLM seçimi | 🟢 yerel Türkçe Gemma 9B |
 | İP5 | API + web arayüzü + dağıtım | ⬜ planlandı |
 
 ## Başlangıç teknik kararları (değiştirilebilir, kod pluggable)
