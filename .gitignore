@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Ortam değişkenleri (API anahtarları burada — asla commit etme)
+.env
+*.env
+!.env.example
+
+# Veri ve modeller
+data/raw/
+data/processed/
+data/chroma/
+*.faiss
+*.bin
+models/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Loglar
+*.log
