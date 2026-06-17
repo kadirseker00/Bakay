@@ -68,12 +68,28 @@ def _normalize_url(url: str) -> str:
     return normalized
 
 
+def _is_pdf_link(url: str) -> bool:
+    return url.lower().split("?")[0].endswith(".pdf")
+
+
 class Crawler:
-    def __init__(self, seed: str, max_pages: int, delay: float):
+    def __init__(
+        self,
+        seed: str,
+        max_pages: int,
+        delay: float,
+        contains: str = "",
+        exclude: tuple[str, ...] = (),
+    ):
         self.seed = _normalize_url(seed)
         self.root_netloc = urlparse(self.seed).netloc
         self.max_pages = max_pages
         self.delay = delay
+        # Yalnızca bu metni içeren URL'leri takip et (ör. "/tr" -> Türkçe odak).
+        # PDF bağlantıları bu filtreden muaftır (asıl belgeler).
+        self.contains = contains
+        # Bu metinlerden birini içeren URL'leri atla (ör. "burs" -> PII isim listeleri).
+        self.exclude = tuple(e.lower() for e in exclude if e)
         self.seen: set[str] = set()
         self.session = requests.Session()
         self.session.headers.update(HEADERS)
@@ -149,10 +165,17 @@ class Crawler:
         links: list[str] = []
         for a in soup.find_all("a", href=True):
             absolute = _normalize_url(urljoin(base_url, a["href"]))
-            if absolute.startswith(("http://", "https://")) and _same_site(
-                absolute, self.root_netloc
-            ):
-                links.append(absolute)
+            if not absolute.startswith(("http://", "https://")):
+                continue
+            if not _same_site(absolute, self.root_netloc):
+                continue
+            # exclude filtresi: istenmeyen (ör. PII isim listesi) URL'leri tamamen atla
+            if any(x in absolute.lower() for x in self.exclude):
+                continue
+            # contains filtresi: PDF'ler muaf, diğerleri filtreden geçmeli
+            if self.contains and not _is_pdf_link(absolute) and self.contains not in absolute:
+                continue
+            links.append(absolute)
         return links
 
 
@@ -167,10 +190,23 @@ def main() -> None:
     parser.add_argument(
         "--delay", type=float, default=1.0, help="İstekler arası bekleme (sn)"
     )
+    parser.add_argument(
+        "--contains",
+        default="",
+        help="Yalnızca bu metni içeren URL'leri takip et (ör. /tr). PDF'ler muaf.",
+    )
+    parser.add_argument(
+        "--exclude",
+        nargs="*",
+        default=[],
+        help="Bu metinleri içeren URL'leri atla (ör. --exclude burs liste). PII koruması.",
+    )
     args = parser.parse_args()
 
     print(f"Tarama başlıyor: {args.seed}  (maks {args.max_pages} belge)")
-    Crawler(args.seed, args.max_pages, args.delay).run()
+    Crawler(
+        args.seed, args.max_pages, args.delay, args.contains, tuple(args.exclude)
+    ).run()
 
 
 if __name__ == "__main__":
