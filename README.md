@@ -20,7 +20,7 @@ veren, kaynak gösteren bir demo. Sonra her katmanı tek tek güçlendiriyoruz. 
 
 | İP | İçerik | Durum |
 |----|--------|-------|
-| İP1 | Veri toplama, temizleme, paragraf segmentasyonu | 🟡 iskelet |
+| İP1 | Veri toplama, temizleme, paragraf segmentasyonu | 🟢 çalışıyor (statik) |
 | İP2 | Embedding modeli seçimi & karşılaştırma | 🟡 iskelet |
 | İP3 | Retrieval katmanı (FAISS / Chroma / ES hybrid) | 🟡 Chroma hazır |
 | İP4 | Generation (RAG) — LLM seçimi | 🟡 Gemini + yerel |
@@ -52,7 +52,10 @@ cp ../.env.example ../.env   # ve GEMINI_API_KEY değerini gir
 ## Kullanım (uçtan uca demo)
 
 ```bash
-# 1) Belgeleri data/raw/ içine koy (PDF, HTML veya .txt)
+# 1) Belgeleri topla: KTMÜ sitesini tara (HTML + PDF -> data/raw/web/)
+#    veya elindeki dosyaları data/raw/ içine elle koy.
+python -m app.ingest.crawl --seed https://www.manas.edu.kg --max-pages 100
+
 # 2) İndeksle (temizle → parçala → embed → Chroma'ya yaz)
 python -m app.ingest.run
 
@@ -77,6 +80,7 @@ backend/app/
     llm.py           # pluggable LLM (Gemini / yerel Ollama)
     pipeline.py      # RAG orkestrasyonu (retrieve → prompt → generate)
   ingest/
+    crawl.py         # KTMÜ web/PDF toplayıcı (nazik, robots'a uyan tarayıcı)
     loaders.py       # PDF / HTML / metin yükleyiciler
     clean.py         # Türkçe temizleme & normalize (NFC)
     chunk.py         # paragraf bazlı parçalama
