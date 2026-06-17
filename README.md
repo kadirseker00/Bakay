@@ -24,7 +24,7 @@ veren, kaynak gösteren bir demo. Sonra her katmanı tek tek güçlendiriyoruz. 
 | İP2 | Embedding modeli seçimi & karşılaştırma | 🟡 iskelet |
 | İP3 | Retrieval katmanı (FAISS / Chroma / ES hybrid) | 🟢 Chroma çalışıyor |
 | İP4 | Generation (RAG) — LLM seçimi | 🟢 yerel Türkçe Gemma 9B |
-| İP5 | API + web arayüzü + dağıtım | ⬜ planlandı |
+| İP5 | API + web arayüzü + dağıtım | 🟢 FastAPI + Next.js sohbet |
 
 ## Başlangıç teknik kararları (değiştirilebilir, kod pluggable)
 
@@ -66,6 +66,17 @@ uvicorn app.main:app --reload
 curl -X POST localhost:8000/chat -H "content-type: application/json" \
   -d '{"question": "Bütünleme sınavına kimler girebilir?"}'
 ```
+
+## Web arayüzü (frontend)
+
+```bash
+cd frontend
+npm install
+npm run dev        # http://localhost:3000
+```
+
+Backend (`localhost:8000`) çalışırken arayüzü tarayıcıda açın. Arayüz, her yanıtın
+altında dayandığı **kaynak belgeleri** ve benzerlik skorunu gösterir.
 
 ## Dizin yapısı
 

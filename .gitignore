@@ -24,6 +24,9 @@ node_modules/
 .next/
 out/
 dist/
+.env*.local
+next-env.d.ts
+*.tsbuildinfo
 
 # IDE / OS
 .vscode/
