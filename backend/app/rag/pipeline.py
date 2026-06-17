@@ -9,6 +9,7 @@ from __future__ import annotations
 import re
 import time
 
+from app import telemetry
 from app.config import settings
 from app.rag.llm import get_llm
 from app.rag.vectorstore import get_store
@@ -22,6 +23,8 @@ Kurallar:
 - Kaynaklarda yanıt yoksa, açıkça "Bu konuda elimdeki belgelerde bilgi bulamadım." de. UYDURMA.
 - Türkçe, açık ve resmi bir dille yanıtla.
 - İlgili olduğunda hangi belgeye dayandığını belirt.
+- ÖNEMLİ: Akıl yürütme adımlarını veya <think> bloğu YAZMA. Düşünme sürecini gösterme;
+  doğrudan, öz ve net bir yanıt ver.
 
 KAYNAKLAR:
 {context}
@@ -49,29 +52,58 @@ def _build_context(hits: list[dict]) -> str:
 
 def answer(question: str, top_k: int | None = None) -> ChatResponse:
     start = time.perf_counter()
+    qid = telemetry.new_query_id()
+    k = top_k or settings.top_k
     store = get_store()
     llm = get_llm()
 
-    hits = store.query(question, top_k=top_k or settings.top_k)
+    # --- Retrieval ---
+    t0 = time.perf_counter()
+    hits = store.query(question, top_k=k)
+    retrieval_ms = int((time.perf_counter() - t0) * 1000)
 
     if not hits:
-        return ChatResponse(
-            answer="Bu konuda elimdeki belgelerde bilgi bulamadım.",
-            sources=[],
-            latency_ms=int((time.perf_counter() - start) * 1000),
-        )
+        total_ms = int((time.perf_counter() - start) * 1000)
+        no_info = "Bu konuda elimdeki belgelerde bilgi bulamadım."
+        telemetry.log_query({
+            "id": qid, "question": question, "provider": settings.llm_provider,
+            "model": _model_name(), "embedding_model": settings.embedding_model,
+            "top_k": k, "n_sources": 0, "retrieval_ms": retrieval_ms,
+            "generation_ms": 0, "total_ms": total_ms, "prompt": None,
+            "raw_answer": None, "answer": no_info, "sources": [],
+        })
+        return ChatResponse(query_id=qid, answer=no_info, sources=[], latency_ms=total_ms)
 
-    prompt = SYSTEM_PROMPT.format(
-        context=_build_context(hits), question=question
-    )
-    text = _strip_reasoning(llm.generate(prompt))
+    # --- Generation ---
+    prompt = SYSTEM_PROMPT.format(context=_build_context(hits), question=question)
+    t1 = time.perf_counter()
+    raw = llm.generate(prompt)
+    generation_ms = int((time.perf_counter() - t1) * 1000)
+    text = _strip_reasoning(raw)
 
     sources = [
         Source(document=h["document"], snippet=h["text"][:300], score=h["score"])
         for h in hits
     ]
+    total_ms = int((time.perf_counter() - start) * 1000)
+
+    telemetry.log_query({
+        "id": qid, "question": question, "provider": settings.llm_provider,
+        "model": _model_name(), "embedding_model": settings.embedding_model,
+        "top_k": k, "n_sources": len(sources), "retrieval_ms": retrieval_ms,
+        "generation_ms": generation_ms, "total_ms": total_ms, "prompt": prompt,
+        "raw_answer": raw, "answer": text,
+        "sources": [s.model_dump() for s in sources],
+    })
+
     return ChatResponse(
-        answer=text,
-        sources=sources,
-        latency_ms=int((time.perf_counter() - start) * 1000),
+        query_id=qid, answer=text, sources=sources, latency_ms=total_ms
+    )
+
+
+def _model_name() -> str:
+    return (
+        settings.ollama_model
+        if settings.llm_provider == "ollama"
+        else settings.gemini_model
     )

@@ -25,6 +25,11 @@ class Settings(BaseSettings):
 
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "mistral"
+    # Hız ayarları: reasoning'i kapatmak (think=false) en büyük latency kazancı
+    ollama_think: bool = False
+    ollama_temperature: float = 0.3
+    ollama_num_ctx: int = 8192
+    ollama_num_predict: int = 1024
 
     # Embedding
     embedding_model: str = "sentence-transformers/LaBSE"
@@ -36,10 +41,26 @@ class Settings(BaseSettings):
     # Retrieval
     top_k: int = 5
 
+    # Telemetri / loglama
+    log_dir: str = "./data/logs"
+    db_path: str = "./data/bakay.db"
+
     @property
     def chroma_path(self) -> Path:
         p = Path(self.chroma_dir)
         return p if p.is_absolute() else ROOT / p
+
+    def _resolve(self, p: str) -> Path:
+        path = Path(p)
+        return path if path.is_absolute() else ROOT / path
+
+    @property
+    def log_path(self) -> Path:
+        return self._resolve(self.log_dir)
+
+    @property
+    def db_file(self) -> Path:
+        return self._resolve(self.db_path)
 
 
 @lru_cache

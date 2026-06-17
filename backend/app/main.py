@@ -9,9 +9,10 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app import telemetry
 from app.config import settings
 from app.rag import pipeline
-from app.schemas import ChatRequest, ChatResponse
+from app.schemas import ChatRequest, ChatResponse, FeedbackRequest
 
 app = FastAPI(
     title="BAKAY API",
@@ -43,3 +44,15 @@ def health() -> dict:
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest) -> ChatResponse:
     return pipeline.answer(req.question, top_k=req.top_k)
+
+
+@app.post("/feedback")
+def feedback(req: FeedbackRequest) -> dict:
+    ok = telemetry.log_feedback(req.query_id, req.rating, req.comment)
+    return {"ok": ok}
+
+
+@app.get("/stats")
+def stats() -> dict:
+    """Loglanan sorgu/gecikme/geri bildirim özeti (izleme + makale için)."""
+    return telemetry.stats()

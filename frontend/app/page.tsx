@@ -10,7 +10,11 @@ type Message = {
   content: string;
   sources?: Source[];
   latency_ms?: number;
+  query_id?: string;
+  feedback?: "up" | "down";
 };
+
+const STORAGE_KEY = "bakay_history";
 
 const EXAMPLES = [
   "Bütünleme sınavına kimler girebilir?",
@@ -24,9 +28,40 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
+  // Sohbet geçmişini tarayıcıda sakla (yeniden yüklemede korunur)
   useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        setMessages(JSON.parse(saved));
+      } catch {}
+    }
+  }, []);
+
+  useEffect(() => {
+    if (messages.length) localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
+
+  function clearHistory() {
+    localStorage.removeItem(STORAGE_KEY);
+    setMessages([]);
+  }
+
+  async function sendFeedback(idx: number, rating: "up" | "down") {
+    const msg = messages[idx];
+    if (!msg.query_id) return;
+    setMessages((m) =>
+      m.map((x, i) => (i === idx ? { ...x, feedback: rating } : x))
+    );
+    try {
+      await fetch(`${API_URL}/feedback`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query_id: msg.query_id, rating }),
+      });
+    } catch {}
+  }
 
   async function ask(question: string) {
     if (!question.trim() || loading) return;
@@ -48,6 +83,7 @@ export default function Home() {
           content: data.answer,
           sources: data.sources,
           latency_ms: data.latency_ms,
+          query_id: data.query_id,
         },
       ]);
     } catch (e) {
@@ -67,9 +103,18 @@ export default function Home() {
   return (
     <div className="app">
       <header className="header">
-        <h1>🗿 BAKAY</h1>
-        <div className="sub">
-          KTMÜ resmi belgelerine dayalı, kaynak gösteren kurumsal asistan
+        <div className="header-row">
+          <div>
+            <h1>🗿 BAKAY</h1>
+            <div className="sub">
+              KTMÜ resmi belgelerine dayalı, kaynak gösteren kurumsal asistan
+            </div>
+          </div>
+          {messages.length > 0 && (
+            <button className="clear" onClick={clearHistory} title="Geçmişi temizle">
+              🗑 Temizle
+            </button>
+          )}
         </div>
       </header>
 
@@ -104,8 +149,29 @@ export default function Home() {
                   ))}
                 </details>
               )}
-              {m.latency_ms != null && (
-                <div className="meta">{(m.latency_ms / 1000).toFixed(1)} sn</div>
+              {m.role === "assistant" && m.query_id && (
+                <div className="actions">
+                  {m.latency_ms != null && (
+                    <span className="meta">{(m.latency_ms / 1000).toFixed(1)} sn</span>
+                  )}
+                  <button
+                    className={`fb ${m.feedback === "up" ? "active" : ""}`}
+                    onClick={() => sendFeedback(i, "up")}
+                    disabled={!!m.feedback}
+                    title="Yararlı"
+                  >
+                    👍
+                  </button>
+                  <button
+                    className={`fb ${m.feedback === "down" ? "active" : ""}`}
+                    onClick={() => sendFeedback(i, "down")}
+                    disabled={!!m.feedback}
+                    title="Yararlı değil"
+                  >
+                    👎
+                  </button>
+                  {m.feedback && <span className="meta">geri bildirim alındı, teşekkürler</span>}
+                </div>
               )}
             </div>
           </div>

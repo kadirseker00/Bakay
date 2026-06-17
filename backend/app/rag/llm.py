@@ -48,10 +48,20 @@ class OllamaLLM:
         self.http = httpx.Client(timeout=120)
 
     def generate(self, prompt: str) -> str:
-        resp = self.http.post(
-            f"{self.base_url}/api/generate",
-            json={"model": self.model, "prompt": prompt, "stream": False},
-        )
+        payload = {
+            "model": self.model,
+            "prompt": prompt,
+            "stream": False,
+            # think=false → reasoning modellerinde <think> üretimini atlar (hız).
+            # Model desteklemiyorsa Ollama bunu yok sayar.
+            "think": settings.ollama_think,
+            "options": {
+                "temperature": settings.ollama_temperature,
+                "num_ctx": settings.ollama_num_ctx,
+                "num_predict": settings.ollama_num_predict,
+            },
+        }
+        resp = self.http.post(f"{self.base_url}/api/generate", json=payload)
         resp.raise_for_status()
         return resp.json().get("response", "").strip()
 

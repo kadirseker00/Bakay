@@ -141,7 +141,51 @@ body {
 .meta {
   font-size: 11px;
   color: var(--muted);
-  margin-top: 6px;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.clear {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.clear:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.fb {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px 9px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.fb:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+.fb.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.fb:disabled {
+  cursor: default;
+  opacity: 0.7;
 }
 
 .composer {

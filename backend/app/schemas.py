@@ -15,6 +15,13 @@ class Source(BaseModel):
 
 
 class ChatResponse(BaseModel):
+    query_id: str          # geri bildirim bu id ile ilişkilendirilir
     answer: str
     sources: list[Source]
     latency_ms: int
+
+
+class FeedbackRequest(BaseModel):
+    query_id: str
+    rating: str = Field(..., pattern="^(up|down)$", description="'up' | 'down'")
+    comment: str | None = None
