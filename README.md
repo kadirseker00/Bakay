@@ -1,4 +1,19 @@
+<div align="center">
+
+<img src="docs/brand/bakay-logo-v3.png" alt="BAKAY logo" width="160" />
+
 # BAKAY — Bütünleşik Akıllı Kurumsal Asistan Yazılımı
+
+**Kırgızistan-Türkiye Manas Üniversitesi (KTMÜ) için RAG tabanlı, kaynak gösteren kurumsal bilgi asistanı**
+
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688?logo=fastapi&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-frontend-000000?logo=nextdotjs&logoColor=white)
+![LLM](https://img.shields.io/badge/LLM-YT%C3%9C%20COSMOS%20Turkish--Gemma%209B-5A4FCF)
+![Status](https://img.shields.io/badge/durum-geli%C5%9Ftirme%20a%C5%9Famas%C4%B1-yellow)
+![License](https://img.shields.io/badge/lisans-%C3%BCcretsiz%20(%C5%9Fimdilik)-brightgreen)
+
+</div>
 
 > Kırgızistan-Türkiye Manas Üniversitesi (KTMÜ) için RAG (Retrieval-Augmented
 > Generation) tabanlı, kaynak gösteren ve doğrulanabilir kurumsal bilgi asistanı.
@@ -23,18 +38,24 @@ veren, kaynak gösteren bir demo. Sonra her katmanı tek tek güçlendiriyoruz. 
 | İP1 | Veri toplama, temizleme, paragraf segmentasyonu | 🟢 çalışıyor (statik) |
 | İP2 | Embedding modeli seçimi & karşılaştırma | 🟡 iskelet |
 | İP3 | Retrieval katmanı (FAISS / Chroma / ES hybrid) | 🟢 Chroma çalışıyor |
-| İP4 | Generation (RAG) — LLM seçimi | 🟢 yerel Türkçe Gemma 9B |
+| İP4 | Generation (RAG) — LLM seçimi | 🟢 YTÜ COSMOS Turkish-Gemma 9B (yerel) |
 | İP5 | API + web arayüzü + dağıtım | 🟢 FastAPI + Next.js sohbet |
 
 ## Başlangıç teknik kararları (değiştirilebilir, kod pluggable)
 
-| Konu | Başlangıç | Sonra (makale karşılaştırması) |
-|------|-----------|-------------------------------|
-| LLM | Gemini API | Mistral 7B, Llama-3, Qwen2 (yerel) |
+| Konu | Mevcut | Sonra (makale karşılaştırması) |
+|------|--------|-------------------------------|
+| LLM | **YTÜ COSMOS Turkish-Gemma 9B** (yerel, Ollama üzerinden) | Mistral 7B, Llama-3, Qwen2 (yerel) |
 | Embedding | LaBSE / multilingual-e5 | BERTurk, XLM-R, Instructor |
 | Vektör DB | ChromaDB | FAISS, Elasticsearch (BM25+hybrid) |
 | Backend | FastAPI | — |
 | Frontend | Next.js | — |
+
+> **LLM notu:** Başlangıçta Gemini API planlanmıştı, ancak bölge erişim engeli
+> nedeniyle kullanılamadı. Bunun yerine [YTÜ COSMOS](https://huggingface.co/ytu-ce-cosmos)
+> ekibinin Türkçe için ince ayarlı **Turkish-Gemma-9B** modeli yerelde
+> (Ollama, GPU) çalıştırılıyor. Kod pluggable: `LLM_PROVIDER` ile sağlayıcı
+> değiştirilebilir.
 
 ---
 
@@ -46,7 +67,21 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-cp ../.env.example ../.env   # ve GEMINI_API_KEY değerini gir
+cp ../.env.example ../.env
+```
+
+LLM için yerel **YTÜ COSMOS Turkish-Gemma 9B** modelini Ollama ile çalıştırın
+(GPU önerilir):
+
+```bash
+# Ollama kurulu değilse: https://ollama.com/download
+# Modeli Ollama'ya ekleyin (HF: ytu-ce-cosmos/Turkish-Gemma-9b).
+# Örn. bir Modelfile ile yerel etiket oluşturup:
+ollama create turkish-gemma-9b -f Modelfile
+
+# .env içinde:
+#   LLM_PROVIDER=ollama
+#   OLLAMA_MODEL=turkish-gemma-9b   # Ollama'da kullandığınız etiket
 ```
 
 ## Kullanım (uçtan uca demo)
@@ -123,3 +158,14 @@ backend/app/
 data/
   raw/ processed/ chroma/
 ```
+
+---
+
+## Lisans
+
+BAKAY şu an **ücretsiz** olarak geliştiriliyor ve KTMÜ kapsamındaki akademik/araştırma
+kullanımına açıktır. İleriki sürümlerde ürünleşme durumunda **ücretli bir lisansa**
+geçilebilir. Kullanım koşulları netleştikçe burası güncellenecektir; ticari kullanım
+için lütfen proje sahibiyle iletişime geçin.
+
+© 2026 BAKAY — Abdulkadir Şeker, KTMÜ Bilgisayar Mühendisliği.
