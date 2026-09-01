@@ -33,12 +33,27 @@ def load_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
 
 
+def load_docx(path: Path) -> str:
+    """python-docx ile Word belgesinden paragraf ve tablo metnini çıkarır."""
+    import docx
+
+    doc = docx.Document(path)
+    parts = [p.text for p in doc.paragraphs if p.text.strip()]
+    for table in doc.tables:
+        for row in table.rows:
+            cells = [c.text.strip() for c in row.cells if c.text.strip()]
+            if cells:
+                parts.append(" | ".join(cells))
+    return "\n".join(parts)
+
+
 _LOADERS = {
     ".pdf": load_pdf,
     ".html": load_html,
     ".htm": load_html,
     ".txt": load_text,
     ".md": load_text,
+    ".docx": load_docx,
 }
 
 
