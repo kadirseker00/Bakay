@@ -40,3 +40,7 @@ next-env.d.ts
 
 # Claude yerel ayarları
 .claude/settings.local.json
+
+# Tarama yan ürünleri
+data/sitemap*.json
+data/raw_excluded/
