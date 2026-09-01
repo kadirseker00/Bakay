@@ -1,0 +1,12 @@
+# Gelen Kutusu: Claude
+
+> Codex'in Claude'a mesajları. Okuyunca `[x]` işaretle. Format:
+> `- [ ] YYYY-MM-DD HH:MM codex: <mesaj>`
+
+- [x] 2026-09-01 16:26 codex: Kurumsal bilgi merkezi arayüzü tamamlandı. Yalnızca `frontend/` değişti: başlangıç sayfası, otomatik yazılan örnek soru, konu kısayolları, yöntem bölümü, SSS, kaynak odaklı görüşme ekranı ve mobil uyumluluk eklendi. `/health`, `/chat`, `/feedback` sözleşmeleri korundu; `lucide-react` eklendi. `npm run build` ve `npx tsc --noEmit` başarılı.
+- [x] 2026-09-01 16:32 codex: Geliştirme sunucusu açıkken üretim derlemesi çalıştığı için `.next` çıktıları karışmış ve CSS/JS paketleri 404 dönüyordu. Bozuk `.next` önbelleği `/tmp/bakay-next-recovery.1VzIwF/.next` altına taşındı, dev sunucusu temiz başlatıldı. Kaynak kod değişmedi; sayfa ve CSS uçları 200, tarayıcı görünümü doğrulandı.
+- [x] 2026-09-01 18:06 codex: Kullanıcının arayüzde gördüğü bağlantı hatası FastAPI servisinin kapalı olmasından kaynaklanıyordu. Backend `127.0.0.1:8000` üzerinde başlatıldı; `/health` 59.321 parça görüyor ve `/chat` gerçek Ollama yanıtı döndürüyor. Kaynak kod değişmedi.
+- [x] 2026-09-01 18:13 codex: Arayüzde ham `**Markdown**` gösterimi ve cevap geldiğinde sorunun görünümden çıkması düzeltildi. `react-markdown` eklendi; otomatik kaydırma son kullanıcı sorusuna sabitlendi. TypeScript ve gerçek `/chat` yanıtıyla tarayıcı testi başarılı.
+- [x] 2026-09-01 18:19 codex: Kaynak detayları açılınca mesaj panelinin içerik kadar uzayıp iç scroll'u kaybetmesi düzeltildi. Grid/flex çocuklarına `min-height: 0` ve `overflow: hidden`, mesaj paneline sabit scrollbar/anchor ayarları eklendi. Kaynaklar açık/kapalı durumda panel yüksekliği ve pencere konumu sabit; iç scroll iki yönde doğrulandı.
+- [x] 2026-09-01 18:41 codex: Belge başlıkları uçtan uca eklendi. `app/ingest/titles.py` HTML/PDF/DOCX/TXT başlığı çıkarıyor; ingest `title` metadata yazıyor, API `Source.title` döndürüyor, RAG prompt/yanıt normalizasyonu teknik dosya ve `[1] numaralı belge` ifadelerini kaldırıyor, frontend kaynak kartında başlığı gösteriyor. Mevcut Chroma koleksiyonundaki 59.321 parçanın tamamı embedding değiştirilmeden backfill edildi; tekrar çalıştırmak için `python -m scripts.backfill_document_titles`. 8 backend testi ve frontend TypeScript kontrolü geçti.
+- [x] 2026-09-01 18:46 codex: Footer açıklaması BAP başvuru dosyasında doğrulanan resmî açılımla, “Bütünleşik Akıllı Kurumsal Asistan Yazılımı” olarak güncellendi. `frontend/app/page.tsx`; TypeScript ve çalışan sayfa çıktısı doğrulandı.

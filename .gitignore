@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Loglar
 *.log
+
+# Claude yerel ayarları
+.claude/settings.local.json
