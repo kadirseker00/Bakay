@@ -16,7 +16,7 @@
 | ✅ | Belge başlıklarının metadata, API, prompt ve arayüze taşınması | codex | 2026-09-01 | — |
 | ✅ | Footer metninin BAP dosyasındaki BAKAY açılımıyla güncellenmesi | codex | 2026-09-01 | — |
 | ✅ | Aday öğrenci rehberi menüsü ve etkileşimli soru alanı | codex | 2026-09-01 | — |
-| 🔄 | Aday öğrenci rehberi kapsamlı QA, üretim derlemesi ve hata düzeltmeleri | codex | 2026-09-01 | `frontend/`, gerektiğinde aday soru metinleri |
+| ✅ | Aday öğrenci rehberi kapsamlı QA, üretim derlemesi ve hata düzeltmeleri | codex | 2026-09-01 | — |
 | ✅ | Aday öğrenci veri desteği: kapsam testi, turksam temizliği (−19.6k parça), oidb taraması, uçtan uca doğrulama | claude | 2026-09-01 | — |
 
 ## Bekleyen işler (sahipsiz — ToDoTask.md'den)

@@ -30,6 +30,11 @@ Kurallar:
 - Kaynaklarda yanıt yoksa, açıkça "Bu konuda elimdeki belgelerde bilgi bulamadım." de. UYDURMA.
 - Türkçe, açık ve resmi bir dille yanıtla.
 - İlgili olduğunda hangi belgeye dayandığını belirt.
+- Kaynak gösterirken teknik dosya adını veya "[1] numaralı belge" ifadesini kullanma;
+  bunun yerine KAYNAKLAR bölümünde ilgili parçanın yanında yazan başlığı doğal cümle içinde an.
+- Yalnızca KAYNAKLAR bölümünde verilen kaynak başlıklarını kullan; başlık uydurma veya
+  başka bir belgenin başlığını örnek olarak anma.
+- Yanıtında [1], [2] gibi kaynak numaralarını hiç yazma.
 - ÖNEMLİ: Akıl yürütme adımlarını veya <think> bloğu YAZMA. Düşünme sürecini gösterme;
   doğrudan, öz ve net bir yanıt ver.
 
@@ -74,8 +79,78 @@ def _strip_reasoning(text: str) -> str:
 def _build_context(hits: list[dict]) -> str:
     blocks = []
     for i, h in enumerate(hits, 1):
-        blocks.append(f"[{i}] ({h['document']})\n{h['text']}")
+        blocks.append(f"[{i}] {h['title']}\n{h['text']}")
     return "\n\n".join(blocks)
+
+
+def _label_source_references(text: str, hits: list[dict]) -> str:
+    """Modelin numaralı kaynak atıflarını gerçek belge başlıklarına dönüştürür."""
+    titles = {index: hit["title"] for index, hit in enumerate(hits, 1)}
+
+    def title_for(match: re.Match[str]) -> str:
+        title = titles.get(int(match.group(1)))
+        return f"**{title}**" if title else match.group(0)
+
+    def document_title_for(match: re.Match[str]) -> str:
+        label = title_for(match)
+        if label == match.group(0):
+            return label
+
+        reference = match.group(0).casefold()
+        if re.search(r"belge(?:sinde|de)\b", reference):
+            return f"{label} adlı kaynakta"
+        if re.search(r"belge(?:sinden|den)\b", reference):
+            return f"{label} adlı kaynaktan"
+        if re.search(r"belge(?:sinin|nin)\b", reference):
+            return f"{label} adlı kaynağın"
+        if re.search(r"belge(?:sine|ye)\b", reference):
+            return f"{label} adlı kaynağa"
+        if re.search(r"belge(?:sini|yi)\b", reference):
+            return f"{label} adlı kaynağı"
+        return label
+
+    # Örn. "**[1] numaralı belge** (docs_mevzuattr.pdf)" veya
+    # "[1] numaralı KTMÜ Mevzuatı belgesinde".
+    numbered_document = re.compile(
+        r"(?:\*\*)?\[(\d+)\]\s*numaralı"
+        r"(?:\s+[^()\n]{1,120}?)?\s+"
+        r"belge(?:si)?(?:nden|den|nde|nin|ne|ni|ye|yi|de)?"
+        r"(?:\*\*)?(?:\s*\([^()\n]*\))?",
+        flags=re.IGNORECASE,
+    )
+    text = numbered_document.sub(document_title_for, text)
+    text = re.sub(
+        r"(?:\*\*)?\[(\d+)\]\s+belge(?:si)?(?:nden|den|nde|nin|ne|ni|ye|yi|de)?(?:\*\*)?",
+        document_title_for,
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(r"(?:\*\*)?\[(\d+)\](?:\*\*)?", title_for, text)
+
+    # Model bazen numaranın ardından bağlamda gördüğü başlığı da tekrar yazar:
+    # "([1] Faaliyet Raporu)" -> "(**Faaliyet Raporu** Faaliyet Raporu)".
+    for title in dict.fromkeys(titles.values()):
+        escaped = re.escape(title)
+        label = f"**{title}**"
+        text = re.sub(
+            rf"{re.escape(label)}\s*\(\s*{escaped}\s*\)",
+            label,
+            text,
+            flags=re.IGNORECASE,
+        )
+        text = re.sub(
+            rf"{re.escape(label)}\s+{escaped}(?=\s*(?:[),.;:!?]|$))",
+            label,
+            text,
+            flags=re.IGNORECASE,
+        )
+        text = re.sub(
+            rf"{re.escape(label)}\s+(?:ve|ile)\s+{re.escape(label)}(?:ler|lar)?",
+            label,
+            text,
+            flags=re.IGNORECASE,
+        )
+    return text
 
 
 def _route_in_scope(question: str, llm) -> bool:
@@ -161,7 +236,7 @@ def answer(question: str, top_k: int | None = None) -> ChatResponse:
     t1 = time.perf_counter()
     raw = llm.generate(prompt)
     generation_ms = int((time.perf_counter() - t1) * 1000)
-    text = _strip_reasoning(raw)
+    text = _label_source_references(_strip_reasoning(raw), hits)
     steps.append("generate")
 
     # --- Düğüm 5: Dayanak doğrulama (opsiyonel) ---
@@ -173,7 +248,12 @@ def answer(question: str, top_k: int | None = None) -> ChatResponse:
             text += "\n\n_(Not: Bu yanıtın kaynak belgelerle tam örtüştüğü doğrulanamadı.)_"
 
     sources = [
-        Source(document=h["document"], snippet=h["text"][:300], score=h["score"])
+        Source(
+            document=h["document"],
+            title=h["title"],
+            snippet=h["text"][:300],
+            score=h["score"],
+        )
         for h in hits
     ]
     total_ms = int((time.perf_counter() - start) * 1000)

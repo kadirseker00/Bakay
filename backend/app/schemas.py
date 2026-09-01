@@ -10,6 +10,7 @@ class ChatRequest(BaseModel):
 class Source(BaseModel):
     """Yanıtın dayandığı belge parçası — açıklanabilirlik için."""
     document: str          # kaynak belge adı / URL
+    title: str | None = None  # kullanıcıya gösterilecek gerçek belge başlığı
     snippet: str           # ilgili paragraf
     score: float           # benzerlik skoru
 

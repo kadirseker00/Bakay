@@ -9,6 +9,7 @@ from __future__ import annotations
 from functools import lru_cache
 
 from app.config import settings
+from app.ingest.titles import title_from_filename
 from app.rag.embeddings import get_embedder
 
 
@@ -48,10 +49,13 @@ class VectorStore:
         metas = res.get("metadatas", [[]])[0]
         dists = res.get("distances", [[]])[0]
         for text, meta, dist in zip(docs, metas, dists):
+            metadata = meta or {}
+            document = metadata.get("document", "bilinmiyor")
             hits.append(
                 {
                     "text": text,
-                    "document": (meta or {}).get("document", "bilinmiyor"),
+                    "document": document,
+                    "title": metadata.get("title") or title_from_filename(document),
                     # cosine distance -> benzerlik skoru
                     "score": round(1.0 - float(dist), 4),
                 }
