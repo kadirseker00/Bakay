@@ -19,6 +19,7 @@
 | ✅ | Aday öğrenci rehberi kapsamlı QA, üretim derlemesi ve hata düzeltmeleri | codex | 2026-09-01 | — |
 | ✅ | Aday öğrenci veri desteği: kapsam testi, turksam temizliği (−19.6k parça), oidb taraması, uçtan uca doğrulama | claude | 2026-09-01 | — |
 | ✅ | Turkish-Gemma 9B ve Qwen3.5 9B için sabit kaynaklı 30 soruluk karşılaştırma, ölçüm aracı ve sonuç raporu | codex | 2026-09-07 | — |
+| 🔄 | Qwen3.5 9B varsayılanı ve 50 soruluk kaynak bağlı uzman inceleme paketi, gold şeması, doğrulama/testler | codex | 2026-09-07 | `backend/app/config.py`, `backend/app/main.py`, `backend/evaluation/`, `backend/scripts/`, `backend/tests/`, `data/eval/`, `docs/evaluation/`, `.env.example`, `README.md`, `ToDoTask.md`, `AGENTS.md`, `.env` (yerel) |
 
 ## Bekleyen işler (sahipsiz — ToDoTask.md'den)
 

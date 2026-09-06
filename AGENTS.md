@@ -2,7 +2,8 @@
 
 BAKAY: KTMÜ için RAG tabanlı, kaynak gösteren Türkçe kurumsal bilgi asistanı.
 Backend FastAPI (`backend/app/`), frontend Next.js 14 (`frontend/`), embedding
-LaBSE, vektör DB ChromaDB (`data/chroma/`), LLM yerel Ollama (Turkish-Gemma 9B).
+LaBSE, vektör DB ChromaDB (`data/chroma/`), LLM yerel Ollama (Qwen3.5 9B).
+Turkish-Gemma 9B karşılaştırma modeli olarak korunur.
 
 ## Eş zamanlı çalışma (Claude ile)
 

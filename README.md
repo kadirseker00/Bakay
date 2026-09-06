@@ -9,7 +9,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688?logo=fastapi&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-frontend-000000?logo=nextdotjs&logoColor=white)
-![LLM](https://img.shields.io/badge/LLM-YT%C3%9C%20COSMOS%20Turkish--Gemma%209B-5A4FCF)
+![LLM](https://img.shields.io/badge/LLM-Qwen3.5%209B-168A73)
 ![Status](https://img.shields.io/badge/durum-geli%C5%9Ftirme%20a%C5%9Famas%C4%B1-yellow)
 ![License](https://img.shields.io/badge/lisans-%C3%BCcretsiz%20(%C5%9Fimdilik)-brightgreen)
 
@@ -38,24 +38,24 @@ veren, kaynak gösteren bir demo. Sonra her katmanı tek tek güçlendiriyoruz. 
 | İP1 | Veri toplama, temizleme, paragraf segmentasyonu | 🟢 çalışıyor (statik) |
 | İP2 | Embedding modeli seçimi & karşılaştırma | 🟡 iskelet |
 | İP3 | Retrieval katmanı (FAISS / Chroma / ES hybrid) | 🟢 Chroma çalışıyor |
-| İP4 | Generation (RAG) — LLM seçimi | 🟢 YTÜ COSMOS Turkish-Gemma 9B (yerel) |
+| İP4 | Generation (RAG) — LLM seçimi | 🟢 Qwen3.5 9B (yerel) |
 | İP5 | API + web arayüzü + dağıtım | 🟢 FastAPI + Next.js sohbet |
 
 ## Başlangıç teknik kararları (değiştirilebilir, kod pluggable)
 
 | Konu | Mevcut | Sonra (makale karşılaştırması) |
 |------|--------|-------------------------------|
-| LLM | **YTÜ COSMOS Turkish-Gemma 9B** (yerel, Ollama üzerinden) | Mistral 7B, Llama-3, Qwen2 (yerel) |
+| LLM | **Qwen3.5 9B** (yerel, Ollama üzerinden) | Turkish-Gemma 9B, onaylı veriyle LoRA |
 | Embedding | LaBSE / multilingual-e5 | BERTurk, XLM-R, Instructor |
 | Vektör DB | ChromaDB | FAISS, Elasticsearch (BM25+hybrid) |
 | Backend | FastAPI | — |
 | Frontend | Next.js | — |
 
 > **LLM notu:** Başlangıçta Gemini API planlanmıştı, ancak bölge erişim engeli
-> nedeniyle kullanılamadı. Bunun yerine [YTÜ COSMOS](https://huggingface.co/ytu-ce-cosmos)
-> ekibinin Türkçe için ince ayarlı **Turkish-Gemma-9B** modeli yerelde
-> (Ollama, GPU) çalıştırılıyor. Kod pluggable: `LLM_PROVIDER` ile sağlayıcı
-> değiştirilebilir.
+> nedeniyle kullanılamadı. Yerel varsayılan artık **Qwen3.5 9B**; Turkish-Gemma 9B
+> karşılaştırma modeli olarak korunuyor. [30 soruluk pilot karşılaştırma](docs/evaluation/2026-09-07/report.md)
+> model seçiminin gerekçesini ve sınırlılıklarını içerir; bu çalışma insan onaylı gold test değildir.
+> `LLM_PROVIDER` ile sağlayıcı değiştirilebilir.
 
 ---
 
@@ -70,18 +70,16 @@ pip install -r requirements.txt
 cp ../.env.example ../.env
 ```
 
-LLM için yerel **YTÜ COSMOS Turkish-Gemma 9B** modelini Ollama ile çalıştırın
+LLM için yerel **Qwen3.5 9B** modelini Ollama ile çalıştırın
 (GPU önerilir):
 
 ```bash
 # Ollama kurulu değilse: https://ollama.com/download
-# Modeli Ollama'ya ekleyin (HF: ytu-ce-cosmos/Turkish-Gemma-9b).
-# Örn. bir Modelfile ile yerel etiket oluşturup:
-ollama create turkish-gemma-9b -f Modelfile
+ollama pull qwen3.5:9b
 
 # .env içinde:
 #   LLM_PROVIDER=ollama
-#   OLLAMA_MODEL=turkish-gemma-9b   # Ollama'da kullandığınız etiket
+#   OLLAMA_MODEL=qwen3.5:9b
 ```
 
 ## Kullanım (uçtan uca demo)

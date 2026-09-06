@@ -36,6 +36,7 @@ def health() -> dict:
     return {
         "status": "ok",
         "llm_provider": settings.llm_provider,
+        "llm_model": pipeline._model_name(),
         "embedding_model": settings.embedding_model,
         "indexed_chunks": get_store().count(),
     }

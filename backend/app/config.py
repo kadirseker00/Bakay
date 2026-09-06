@@ -18,13 +18,13 @@ class Settings(BaseSettings):
     )
 
     # LLM sağlayıcı seçimi: "gemini" | "ollama"
-    llm_provider: str = "gemini"
+    llm_provider: str = "ollama"
 
     gemini_api_key: str = ""
     gemini_model: str = "gemini-2.5-flash"
 
     ollama_base_url: str = "http://localhost:11434"
-    ollama_model: str = "mistral"
+    ollama_model: str = "qwen3.5:9b"
     # Hız ayarları: reasoning'i kapatmak (think=false) en büyük latency kazancı
     ollama_think: bool = False
     ollama_temperature: float = 0.3
