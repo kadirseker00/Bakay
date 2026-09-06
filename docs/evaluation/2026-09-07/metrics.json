@@ -1,0 +1,54 @@
+{
+  "snapshot_sha256": "ecaeab2501cfc967e4a5c97c1d590291ccd2c8ce4ae9ab762ab12c785ac19851",
+  "n_questions": 30,
+  "models": {
+    "hf.co/ytu-ce-cosmos/Turkish-Gemma-9b-T1-GGUF:Q4_K_M": {
+      "completed": 30,
+      "errors": 0,
+      "missing": [],
+      "empty_answers": 0,
+      "truncated": 1,
+      "raw_think_blocks": 30,
+      "separate_thinking_answers": 0,
+      "p50_seconds": 24.81,
+      "p95_seconds": 63.33,
+      "mean_seconds": 29.03,
+      "mean_tokens_per_second": 25.57,
+      "mean_output_tokens": 587.6,
+      "answers_under_10_seconds": 0,
+      "quality_review": {
+        "grounded": 21,
+        "complete": 21,
+        "citation_correct": 24,
+        "turkish_clear": 28,
+        "grounded_and_complete": 21,
+        "all_criteria": 18,
+        "reviewer": "Codex kaynak ve yanıt incelemesi; bağımsız insan veya kör değerlendirme değil"
+      }
+    },
+    "qwen3.5:9b": {
+      "completed": 30,
+      "errors": 0,
+      "missing": [],
+      "empty_answers": 0,
+      "truncated": 0,
+      "raw_think_blocks": 0,
+      "separate_thinking_answers": 0,
+      "p50_seconds": 7.71,
+      "p95_seconds": 17.86,
+      "mean_seconds": 8.77,
+      "mean_tokens_per_second": 32.99,
+      "mean_output_tokens": 168,
+      "answers_under_10_seconds": 22,
+      "quality_review": {
+        "grounded": 25,
+        "complete": 22,
+        "citation_correct": 24,
+        "turkish_clear": 30,
+        "grounded_and_complete": 22,
+        "all_criteria": 19,
+        "reviewer": "Codex kaynak ve yanıt incelemesi; bağımsız insan veya kör değerlendirme değil"
+      }
+    }
+  }
+}

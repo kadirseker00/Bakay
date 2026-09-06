@@ -18,6 +18,7 @@
 | ✅ | Aday öğrenci rehberi menüsü ve etkileşimli soru alanı | codex | 2026-09-01 | — |
 | ✅ | Aday öğrenci rehberi kapsamlı QA, üretim derlemesi ve hata düzeltmeleri | codex | 2026-09-01 | — |
 | ✅ | Aday öğrenci veri desteği: kapsam testi, turksam temizliği (−19.6k parça), oidb taraması, uçtan uca doğrulama | claude | 2026-09-01 | — |
+| ✅ | Turkish-Gemma 9B ve Qwen3.5 9B için sabit kaynaklı 30 soruluk karşılaştırma, ölçüm aracı ve sonuç raporu | codex | 2026-09-07 | — |
 
 ## Bekleyen işler (sahipsiz — ToDoTask.md'den)
 
