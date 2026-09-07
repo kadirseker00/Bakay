@@ -1,0 +1,49 @@
+[
+  {
+    "id": "ug",
+    "title": "KTMÜ Önlisans ve Lisans Eğitim-Öğretim Yönetmeliği (Yeni)",
+    "path": "data/raw/web/upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+    "url": "https://oidb.manas.edu.kg/upload/global/Onlisans%20ve%20lisans%20egitim.pdf",
+    "kind": "pdf",
+    "pages": [1, 3, 4, 6, 7, 8, 9, 10, 12, 13, 14],
+    "printed_page_offset": 152,
+    "scope_note": "Tıp Fakültesi kapsam dışı (Madde 1-2). Yürürlük ve değişiklik zinciri uzman onayı bekliyor."
+  },
+  {
+    "id": "pg",
+    "title": "KTMÜ Lisansüstü Eğitim-Öğretim ve Sınav Yönetmeliği",
+    "path": "data/raw/web/upload_global_Lisansustu_20egitim.pdf_ecd8a9f0.pdf",
+    "url": "https://oidb.manas.edu.kg/upload/global/Lisansustu%20egitim.pdf",
+    "kind": "pdf",
+    "pages": [4, 5, 8, 9, 12, 13, 15],
+    "printed_page_offset": 202,
+    "scope_note": "Lisansüstü programlar; program yönergeleri ve daha yüksek başvuru eşikleri ayrıca doğrulanmalı."
+  },
+  {
+    "id": "faq-general",
+    "title": "KTMÜ Öğrenci İşleri: Genel Bilgiler SSS",
+    "path": "data/raw/web/tr_faq_1_da634bf1.html",
+    "url": "https://oidb.manas.edu.kg/tr/faq/1",
+    "kind": "html",
+    "selector": "#faqlist",
+    "scope_note": "Yayımlanma/güncelleme tarihi bilinmiyor. Tıp ücretinin tutarı verilmemiş."
+  },
+  {
+    "id": "faq-prep",
+    "title": "KTMÜ Öğrenci İşleri: Hazırlık Dil Eğitimi SSS",
+    "path": "data/raw/web/tr_faq_7_3bc18714.html",
+    "url": "https://oidb.manas.edu.kg/tr/faq/7",
+    "kind": "html",
+    "selector": "#faqlist",
+    "scope_note": "Hazırlık sınıfı SSS; lisansüstü dil muafiyeti kurallarıyla birleştirilmemeli. Tarih ve güncel yönetmeliğe uyum doğrulanmalı."
+  },
+  {
+    "id": "faq-visa",
+    "title": "KTMÜ Öğrenci İşleri: Vize ve Oturum İşlemleri SSS",
+    "path": "data/raw/web/tr_faq_4_fe79012c.html",
+    "url": "https://oidb.manas.edu.kg/tr/faq/4",
+    "kind": "html",
+    "selector": "#faqlist",
+    "scope_note": "Yalnızca vize sözcüğünün anlam ayrımı için; bu pakette vize tutarı veya güncel göç işlemi tavsiyesi üretilmez."
+  }
+]

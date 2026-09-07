@@ -19,9 +19,14 @@
 | ✅ | Aday öğrenci rehberi kapsamlı QA, üretim derlemesi ve hata düzeltmeleri | codex | 2026-09-01 | — |
 | ✅ | Aday öğrenci veri desteği: kapsam testi, turksam temizliği (−19.6k parça), oidb taraması, uçtan uca doğrulama | claude | 2026-09-01 | — |
 | ✅ | Turkish-Gemma 9B ve Qwen3.5 9B için sabit kaynaklı 30 soruluk karşılaştırma, ölçüm aracı ve sonuç raporu | codex | 2026-09-07 | — |
-| 🔄 | Qwen3.5 9B varsayılanı ve 50 soruluk kaynak bağlı uzman inceleme paketi, gold şeması, doğrulama/testler | codex | 2026-09-07 | `backend/app/config.py`, `backend/app/main.py`, `backend/evaluation/`, `backend/scripts/`, `backend/tests/`, `data/eval/`, `docs/evaluation/`, `.env.example`, `README.md`, `ToDoTask.md`, `AGENTS.md`, `.env` (yerel) |
+| ✅ | Qwen3.5 9B varsayılanı ve 50 soruluk kaynak bağlı uzman inceleme paketi, gold şeması, doğrulama/testler; yanıltıcı doğrulama etiketi | codex | 2026-09-07 | — |
 
 ## Bekleyen işler (sahipsiz — ToDoTask.md'den)
+
+- İlk 50 taslağa iki bağımsız insan incelemesi ve güncel kaynak sürümü kontrolü; henüz gold kayıt yok
+- Öncelikli kalite kusuru: lisansüstü kabul/mazeret sorularında yanlış madde retrieval; `docs/evaluation/gold-v1/verification.md`
+- Belirsiz "vize"/"muafiyet"/sınav itirazı sorularında anlam ve öğrenim düzeyi açıklaması isteme
+- Onaylı ayrı train verisiyle LoRA, kural tabanlı knowledge graph pilotu ve kavram sözlüğü; kapsam `docs/evaluation/gold-v1/README.md`
 
 - Görev #6: karşılaştırmalı deneyler (embedding + LLM, MRR@10/Recall@5/latency/halüsinasyon)
 - Kırgızca dil desteği

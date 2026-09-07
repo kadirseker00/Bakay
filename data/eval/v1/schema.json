@@ -1,0 +1,284 @@
+{
+  "$defs": {
+    "Case": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^BAKAY-\\d{3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "question": {
+          "minLength": 10,
+          "title": "Question",
+          "type": "string"
+        },
+        "paraphrases": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Paraphrases",
+          "type": "array"
+        },
+        "answer": {
+          "minLength": 15,
+          "title": "Answer",
+          "type": "string"
+        },
+        "required_points": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Required Points",
+          "type": "array"
+        },
+        "forbidden_claims": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Forbidden Claims",
+          "type": "array"
+        },
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "title": "Citations",
+          "type": "array"
+        },
+        "behavior": {
+          "enum": [
+            "answer",
+            "clarify",
+            "abstain"
+          ],
+          "title": "Behavior",
+          "type": "string"
+        },
+        "category": {
+          "minLength": 1,
+          "title": "Category",
+          "type": "string"
+        },
+        "scope": {
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        },
+        "group_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Group Ids",
+          "type": "array"
+        },
+        "split": {
+          "default": "unassigned",
+          "enum": [
+            "unassigned",
+            "train",
+            "dev",
+            "test"
+          ],
+          "title": "Split",
+          "type": "string"
+        },
+        "exposure": {
+          "default": "development_exposed",
+          "enum": [
+            "development_exposed",
+            "private_holdout"
+          ],
+          "title": "Exposure",
+          "type": "string"
+        },
+        "author": {
+          "default": "codex_draft",
+          "enum": [
+            "codex_draft",
+            "human"
+          ],
+          "title": "Author",
+          "type": "string"
+        },
+        "status": {
+          "default": "pending_review",
+          "enum": [
+            "pending_review",
+            "approved",
+            "rejected"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "review_notes": {
+          "default": "Kaynak sürümü, kapsam ve cevap iki uzman tarafından doğrulanmalı.",
+          "minLength": 1,
+          "title": "Review Notes",
+          "type": "string"
+        },
+        "reviews": {
+          "items": {
+            "$ref": "#/$defs/Review"
+          },
+          "title": "Reviews",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "question",
+        "paraphrases",
+        "answer",
+        "required_points",
+        "forbidden_claims",
+        "citations",
+        "behavior",
+        "category",
+        "scope",
+        "group_ids"
+      ],
+      "title": "Case",
+      "type": "object"
+    },
+    "Citation": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "minLength": 1,
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "section": {
+          "minLength": 1,
+          "title": "Section",
+          "type": "string"
+        },
+        "quote": {
+          "minLength": 15,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "section",
+        "quote"
+      ],
+      "title": "Citation",
+      "type": "object"
+    },
+    "Review": {
+      "additionalProperties": false,
+      "properties": {
+        "reviewer_id": {
+          "minLength": 3,
+          "title": "Reviewer Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "human",
+            "ai"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "approve",
+            "revise",
+            "reject"
+          ],
+          "title": "Decision",
+          "type": "string"
+        },
+        "reviewed_at": {
+          "format": "date-time",
+          "title": "Reviewed At",
+          "type": "string"
+        },
+        "content_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "source_version_checked": {
+          "title": "Source Version Checked",
+          "type": "boolean"
+        },
+        "note": {
+          "minLength": 1,
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reviewer_id",
+        "kind",
+        "decision",
+        "reviewed_at",
+        "content_sha256",
+        "source_version_checked",
+        "note"
+      ],
+      "title": "Review",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "created_on": {
+      "format": "date",
+      "title": "Created On",
+      "type": "string"
+    },
+    "truth_scope": {
+      "const": "archived_source_snapshot_not_current_policy",
+      "title": "Truth Scope",
+      "type": "string"
+    },
+    "language": {
+      "const": "tr",
+      "title": "Language",
+      "type": "string"
+    },
+    "evidence_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Evidence Sha256",
+      "type": "string"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/Case"
+      },
+      "minItems": 1,
+      "title": "Cases",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "title",
+    "created_on",
+    "truth_scope",
+    "language",
+    "evidence_sha256",
+    "cases"
+  ],
+  "title": "Dataset",
+  "type": "object"
+}

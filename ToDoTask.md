@@ -8,7 +8,7 @@
 
 **Proje:** KTMÜ BAP, GAP-A, 01/01/2026 – 31/12/2026 (12 ay)
 **Yürütücü:** Yrd. Doç. Dr. Abdulkadir Şeker (KTMÜ, Bilgisayar Mühendisliği)
-**Son güncelleme:** 2026-06-18
+**Son güncelleme:** 2026-09-07
 
 ---
 
@@ -19,7 +19,7 @@
 | İP1 | Veri toplama / temizleme / segmentasyon | 🟢 statik çalışıyor | Kapsamı genişlet, periyodik tarama, PII denetimi |
 | İP2 | Embedding modeli seçimi & karşılaştırma | 🟡 iskelet | Karşılaştırmalı deney (LaBSE/e5/BERTurk/XLM-R) |
 | İP3 | Retrieval katmanı | 🟢 Chroma çalışıyor | FAISS/ES hibrit (BM25+dense), yeniden sıralama |
-| İP4 | Generation (LLM) | 🟢 Turkish-Gemma 9B | Düşük gecikmeli instruct model, çoklu LLM karşılaştırması |
+| İP4 | Generation (LLM) | 🟢 Qwen3.5 9B varsayılan | İnsan onaylı değerlendirme, LoRA karşılaştırması |
 | İP5 | API + arayüz + dağıtım | 🟢 FastAPI + Next.js | Dağıtım, kimlik/erişim, gözlemlenebilirlik |
 | **İP6** | **Çok-dillilik (Kırgızca / Rusça)** | 🔴 yok | Kırgızca belge + soru-cevap + değerlendirme |
 | — | **Bilimsel çıktı (görev #6)** | 🟡 telemetri hazır | Değerlendirme seti + metrikler + makale |
@@ -37,7 +37,10 @@ Makalenin gövdesi burası. Hedef: BAKAY'ın tasarım kararlarını (embedding, 
 DB, LLM, ajansal düğümler) **tekrarlanabilir** bir protokolle karşılaştırmak.
 
 ### 2.1 Değerlendirme veri seti
-- [ ] KTMÜ belgelerinden **altın soru-cevap seti** oluştur (≈100–200 soru).
+- [x] İlk 50 kaynak bağlı soru-cevap taslağı, 5 belge/SSS kaynağı, JSON Schema, hash/alıntı doğrulaması ve uzman inceleme paketi: `docs/evaluation/gold-v1/`.
+- [x] İki insan onayı, kural ailesi bölümleme ve LoRA train dışa aktarım kapısı. Henüz onaylı gold kayıt yok.
+- [ ] İlk 50 soruyu iki bağımsız uzmana incelet; güncel kaynak sürümlerini, istisnaları ve kural ailelerini doğrula.
+- [ ] KTMÜ belgelerinden **altın soru-cevap seti** oluştur (hedef 100 dev + 200 saklı test; LoRA train ayrı).
   - Her madde: `soru`, `beklenen_yanıt`, `dayanak_belge`, `dayanak_paragraf`,
     `kategori` (yönetmelik/takvim/burs/kayıt…), `kapsam_içi mi?`, `dil` (TR/KY/RU).
   - **Kapsam-dışı** (alakasız) sorular ekle — yönlendirme/abstain ölçümü için.
@@ -68,12 +71,13 @@ DB, LLM, ajansal düğümler) **tekrarlanabilir** bir protokolle karşılaştır
 
 ## 3. İP4 — Generation: gecikme sorunu (öncelik #2)
 
-> **Bilinen kısıt:** Mevcut tek yerel model `Turkish-Gemma-9b-T1` bir *reasoning*
-> modelidir; her yanıttan önce `<think>` bloğu üretir, yanıt süresi ~15–24 sn.
-> `think=false` ve prompt talimatıyla susturulamadı. Form hedefi <10 sn.
+> **7 Eylül güncellemesi:** Qwen3.5 9B varsayılan oldu; Turkish-Gemma karşılaştırma için korunuyor.
+> Sabit kaynaklı 30 soruluk pilotta Qwen generation medyanı 7,71 sn, Gemma 24,81 sn.
+> Bunlar uçtan uca veya insan onaylı gold başarı iddiası değildir; `docs/evaluation/2026-09-07/report.md`.
+> Form hedefi <10 sn için soğuk/sıcak uçtan uca ölçümler ve kaynak kalitesi çalışması sürmeli.
 
-- [ ] **Akıl yürütmeyen (instruct) yerel model** ekle ve ölç: Mistral 7B,
-  Llama-3 8B, Qwen2 7B (Ollama). Gecikme/kalite dengesini karşılaştır.
+- [x] Qwen3.5 9B kur, `think=false` ile Turkish-Gemma karşılaştırması yap ve kullanıcı kararıyla varsayılan seç.
+- [ ] Onaylı ayrı train verisiyle LoRA/QLoRA eğitimi ve taban Qwen karşılaştırması; eğitim öncesi donanım/çerçeve uyum kontrolü.
 - [ ] LLM sağlayıcı katmanını (`app/rag/llm.py`) çoklu-model karşılaştırması
   için parametrik tut; `LLM_PROVIDER`/`OLLAMA_MODEL` zaten pluggable.
 - [ ] **Gemini kısıtını belgele:** Bişkek'ten `403 PERMISSION_DENIED` (Kırgızistan
@@ -103,6 +107,10 @@ DB, LLM, ajansal düğümler) **tekrarlanabilir** bir protokolle karşılaştır
 ---
 
 ## 5. İP3 — Retrieval katmanı
+
+- [ ] Kaynak, madde, kapsam, süre birimi ve geçerlilik taşıyan dar knowledge graph pilotu (ilk aday: sınav itirazları).
+- [ ] ÖİDB/ÇAP gibi kısaltmalar, yurt/öğrenci evi eşlemeleri, burs alt türleri ve vize çok anlamlılığı için insan onaylı kavram sözlüğü.
+- [ ] Graph ve terim katmanını düz RAG'a karşı ablation ile ölç; tasarım notları `docs/evaluation/gold-v1/README.md`.
 
 - [ ] **Hibrit retrieval:** BM25 (sözlük) + dense (embedding) birleşimi;
   Elasticsearch veya hafif BM25 + ChromaDB.

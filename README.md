@@ -57,6 +57,14 @@ veren, kaynak gösteren bir demo. Sonra her katmanı tek tek güçlendiriyoruz. 
 > model seçiminin gerekçesini ve sınırlılıklarını içerir; bu çalışma insan onaylı gold test değildir.
 > `LLM_PROVIDER` ile sağlayıcı değiştirilebilir.
 
+### Kaynak bağlı soru-cevap verisi
+
+[İlk 50 soruluk uzman inceleme paketi](docs/evaluation/gold-v1/review-packet.md) hazırdır.
+Tamamı insan onayı bekleyen taslaktır; gold test veya LoRA eğitim verisi değildir.
+[Protokol](docs/evaluation/gold-v1/README.md), kaynak hash'leri, JSON Schema ve doğrulama araçları
+`data/eval/v1/` ile `backend/evaluation/dataset.py` içinde sürümlenir.
+İki güncel insan onayı olmadan gold/LoRA dışa aktarımı engellenir.
+
 ---
 
 ## Kurulum

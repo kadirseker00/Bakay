@@ -1,0 +1,182 @@
+{
+  "created_at": "2026-09-06T21:02:36.437519+00:00",
+  "health": {
+    "status": "ok",
+    "llm_provider": "ollama",
+    "llm_model": "qwen3.5:9b",
+    "embedding_model": "sentence-transformers/LaBSE",
+    "indexed_chunks": 39659
+  },
+  "method": "Canlı RAG; ilk sorgu soğuk olabilir. Teknik kontrol; cevap kalitesi ayrıca incelenmeli.",
+  "dataset_evidence_sha256": "d13b4853cb30dedca980050bd52991312347a539564ddc77f0b92ea29ccc08b3",
+  "results": [
+    {
+      "id": "BAKAY-025",
+      "question": "Lisansüstü başvurusunda ALES 55 puanım varsa yazılı ve sözlü sınavlardan muaf olur muyum?",
+      "response": {
+        "query_id": "53a7edd96a0c44ff81335381e0cbec07",
+        "answer": "Lisansüstü başvuruda en az 55 puana sahip olduğunuzda, sadece **yazılı sınava girmekten** muaf olursunuz; ancak **sözlü sınava girmek zorundasınız**. Bu kurala göre bilim sınavı notu, yazılı ve sözlü sınavların her birinin %50'si alınarak hesaplanır. Bilim sınavına hiç girmediğiniz veya bu iki sınavdan biriyle 70/100 puanın altında aldığınız durumlarda kayıt hakkı kazanamazsınız.\n\nBu bilgiler **LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ** ve **KTMÜ Mevzuatı** belgelerinde yer almaktadır.",
+        "sources": [
+          {
+            "document": "tr_apply_98f96934.html",
+            "title": "LİSANSÜSTÜ EĞİTİM ENSTİTÜSÜ",
+            "snippet": "ALES Sınavında (geçerlilik süresi en fazla 3 yıl) en az \n55 puana\n veya buna eşdeğer uluslararası geçerliliği olan GRE veya GMAT (geçerlilik süresi en fazla 5 yıl) puanlara sahip olan adaylar Yazılı Sınava girmek istemedikleri takdirde Yazılı Sınav puanları en az 70 kabul edilir. Ancak sözlü sınava ",
+            "score": 0.6867
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "ır. \nb) Öğretim dili yabancı dil olan programlarda bilim sınavı o dilden yapılır. \nc) Bilim sınavı notu, yazılı sınavı notunun %50’si ve sözlü sınavının %50’si alınarak hesaplanır. \n(5) \nALES notu en az 55 veya buna eşdeğer uluslararası geçerliliği olan GRE veya GMAT puanlara \nsahip olan aday başvur",
+            "score": 0.6498
+          },
+          {
+            "document": "upload_global_Lisansustu_20egitim.pdf_ecd8a9f0.pdf",
+            "title": "LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ",
+            "snippet": "ır. \nb) Öğretim dili yabancı dil olan programlarda bilim sınavı o dilden yapılır. \nc) Bilim sınavı notu, yazılı sınavı notunun %50’si ve sözlü sınavının %50’si alınarak hesaplanır. \n(5) \nALES notu en az 55 veya buna eşdeğer uluslararası geçerliliği olan GRE veya GMAT puanlara \nsahip olan aday başvur",
+            "score": 0.6498
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "r dil belgesine sahip \nolmayan adayların Üniversite tarafından yapılacak olan “Yabancı Dil Seviyesi Belirleme \nSınavı”ndan en az 60 (altmış); yabancı dille eğitim-öğretim yapılan programlara veya \nyabancı dil eğitimi yapılan programlara atanacaklarda ise en az 85 (seksen beş) puan veya \nuluslararası",
+            "score": 0.618
+          },
+          {
+            "document": "tr_faq_7_3bc18714.html",
+            "title": "Hazırlık Dil Eğitimi",
+            "snippet": "Evet, Hazırlık sınıfında Öğrenciler derslerin %85 ine devam etmek zorundadırlar. Bu zorunluluğu yerine getirmeyen Öğrencilerin Üniversite ile ilişikleri kesilir.\n \nEvet, Hazırlık sınıfında Öğrenciler derslerin %85 ine devam etmek zorundadırlar. Bu zorunluluğu yerine getirmeyen Öğrencilerin Üniversit",
+            "score": 0.6112
+          }
+        ],
+        "latency_ms": 11251
+      },
+      "wall_ms": 11258
+    },
+    {
+      "id": "BAKAY-036",
+      "question": "Lisansüstü mazeret sınavı başvurusu için süre kaç gün ve ne zaman başlar?",
+      "response": {
+        "query_id": "f00a792830e949cb9a7a98475d170b45",
+        "answer": "Lisansüstü programlardaki (Doktora) yeterlik sınavları ile ilgili olarak, KTMÜ Mevzuatı'nda yer alan \"DOKTORA PROGRAMI UYGULAMA YÖNERGESİ\" belgesinde mazeret sınavına ilişkin özel bir başvuru süresi veya başlangıç tarihi belirtilmemiştir.\n\nBelgede sadece yeterlik sınavının Mart-Mayıs ve Ekim-Aralık aylarında iki kez yapıldığı, öğrencinin en geç beşinci yarıyılda sınava girmek zorunda olduğu ve başvuruların ilgili dönemlere (Mart-Mayıs için 15 Şubat–30 Mart; Ekim-Aralık için 15 Eylül–30 Ekim) ait olduğunu ifade edilmiştir. Mazeret sınavlarının ise derslerin bitim tarihinden önce veya takip eden yarıyılın ders ekleme silme tarihinden önce yapılacağı genel bir hüküm \"KTMÜ Mevzuatı\"ndaki diğer parçada yer almaktadır ancak bu belgede lisansüstü mazeret başvurusunun ne zaman başladığına dair spesifik süre bilgisi bulunmamaktadır.\n\nBu konuda elimdeki belgelerde bilgi bulamadım.",
+        "sources": [
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "fta önce ilan edilir. \nc) Ara sınavların mazeret sınavları derslerin bitim tarihinden önce, yarıyıl sonu sınavlarının \nmazeret sınavları ise takip eden yarıyılın ders ekleme silme tarihinden önce yapılacak şekilde \nplanlanır ve uygulanır. \nd) Devlet sınavları ve bitirme tezi savunma sınavları, akade",
+            "score": 0.5553
+          },
+          {
+            "document": "tr_page_10_747ba998.html",
+            "title": "Öğrenci Işleri Dairesi Başkanlığı",
+            "snippet": "Önlisans ve Lisans Eğitim-Öğretim Yönetmeliği\nKurum içi Yatay ve Dikey Geçiş Son Başvuru Tarihi\nKTMÜSEM 2025-2026 Eğitim-Öğretim Yılı Güz Döneminde Ek Olarak Açılacak Kurslar için Son Kayıt Tarihi",
+            "score": 0.5087
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "rı Kırgız Cumhuriyeti Bilim ve Eğitim Bakanlığı Mevzuatı çerçevesinde belirlenen devlet \nsınavı ve bitirme tezi savunma sınavına girer. \n(2) \nDevlet sınavı ve bitirme tezi savunma sınavının yeri, günü ve saati Akademik Takvime uygun \nolarak bölüm başkanlığı tarafından belirlenir ve 10 gün öncesinden",
+            "score": 0.5058
+          },
+          {
+            "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+            "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+            "snippet": "rı Kırgız Cumhuriyeti Bilim ve Eğitim Bakanlığı Mevzuatı çerçevesinde belirlenen devlet \nsınavı ve bitirme tezi savunma sınavına girer. \n(2) \nDevlet sınavı ve bitirme tezi savunma sınavının yeri, günü ve saati Akademik Takvime uygun \nolarak bölüm başkanlığı tarafından belirlenir ve 10 gün öncesinden",
+            "score": 0.5058
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "KTMÜ MEVZUATI \n \n \n \n412 \n DOKTORA PROGRAMI UYGULAMA YÖNERGESİ \nSayfa:412 \n \nYeterlik Sınavının Yapılması \nMadde 12– (1) Doktora programında 60 AKTS’lik derslerini tamamlayıp genel akademik not \nortalaması en az 3.00/4.00 olan öğrenci izleyen yarıyılda doktora yeterlik sınavına kayıt yaptırır. \n(2)",
+            "score": 0.5032
+          }
+        ],
+        "latency_ms": 10470
+      },
+      "wall_ms": 10477
+    },
+    {
+      "id": "BAKAY-046",
+      "question": "Vize için ne yapmam gerekiyor?",
+      "response": {
+        "query_id": "24dc4c55c5054e7e8bea363b0c1acf4a",
+        "answer": "Türkiye'den Kırgızistan'a gelirken vize almak zorunludur. T.C. ÖSYS ile yükseköğretim programlarına yerleşme hakkı kazanan adaylar, yurda gelişlerinden önce giriş vizesi almalıdır; bu başvuru elektronik ortamda gerçekleştirilir ve en geç yurda geliş tarihinden 20-25 gün öncesine kadar yapılması gerekmektedir. Vize işlemleri için gerekli detaylı bilgi \"Vize ve Oturum İşlemleri\" başlıklı kaynakta yer almaktadır.",
+        "sources": [
+          {
+            "document": "tr_faq_3_ef017b75.html",
+            "title": "Kayıt İşlemleri",
+            "snippet": "Üniversiteye yerleştirildiğimi öğrendikten sonra öncelikli olarak yapmam gereken işlemler nelerdir?\nÖncelikli olarak zaman alan işlemleri yapmalısınız. Bu anlamda, öncelikli işlemler, Sağlık Kurulu (Heyet) Raporu almak, eğer yoksa pasaport çıkartmak, uçak rezervasyonunu yaptırmak(biletini almak) ve ",
+            "score": 0.5464
+          },
+          {
+            "document": "tr_faq_7_3bc18714.html",
+            "title": "Hazırlık Dil Eğitimi",
+            "snippet": "Hazırlık sınıfı eğitim-öğretim süresinden sayılıyor mu?\nHazırlık sınıfı öğrencileri burs alabiliyorlar mı?\nHazırlık sınıfı öğrencilerinin askerlik tecil işlemleri Üniversite tarafından mı yapiliyor?\nEvet, askerliğini yapmamış olan erkek öğrencilerin askerlik tecil işlemleri Hazırlık sınıfından itiba",
+            "score": 0.475
+          },
+          {
+            "document": "tr_faq_4_fe79012c.html",
+            "title": "Vize ve Oturum İşlemleri",
+            "snippet": "Anasayfa\n -F.A.Q - Vize ve Oturum İşlemleri\nTürkiye'den Kırgızistan'a gelirken vize almak gerekiyor mu? Vize işlemleri nasıl yapılıyor?\nT.C. ÖSYS ile yerleşen öğrenciler: Üniversitemiz yükseköğretim programlarına yerleşme hakkı kazanan T.C. uyruklu adayların Kırgızistan’a gelmeden önce giriş vizesi ",
+            "score": 0.4416
+          },
+          {
+            "document": "tr_faq_4_fe79012c.html",
+            "title": "Vize ve Oturum İşlemleri",
+            "snippet": "1 yıllık vize oturum ücreti ne kadardır?\nÖğrenciler için 1 yıllık çok giriş çıkışlı vize ve oturum ücreti yaklasık 183 ABD Dolarıdır.\nKırgızistan'a giriş yaptıktan sonra kaç gün içerisinde pasaportumu Üniversite görevlilerine teslim etmem gerekiyor?\n3(üç) is günü içerisinde teslim etmeniz gerekiyor.",
+            "score": 0.4393
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "ne uyacağımı ve yurda \ngiriş ve çıkışlarda kapıdak görevli personele ve sorulduğunda yurt idarecilerine tanıtma \nkartımı gösterme kurallarına uyacağımı, \n9) Yurt Müdürlüğü'nce bana teslim edilen oda, yatak, dolap, masa vs. den başka bir yeı işgal \netmeyeceğimi ve kullanmayacağımı, eşya ve malzemenin",
+            "score": 0.4316
+          }
+        ],
+        "latency_ms": 6545
+      },
+      "wall_ms": 6551
+    },
+    {
+      "id": "BAKAY-050",
+      "question": "Bana üniversiteyle ilgisi olmayan bir çikolatalı kek tarifi verir misin?",
+      "response": {
+        "query_id": "b6f7784bcdc94ff9bcd48d6eb3e02189",
+        "answer": "Bu konuda elimdeki belgelerde bilgi bulamadım. Verilen kaynaklar Kırgızistan-Türkiye Manas Üniversitesi'nin yönetmelikleri, faaliyet raporları ve akademik personel tanımları gibi kurumsal konulara odaklanmaktadır; çikolatalı kek tarifi veya üniversite dışındaki yemek tarifleri hakkında içerik barındırmamaktadır.",
+        "sources": [
+          {
+            "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+            "title": "Kırgızistan-Tьrkiye Manas Ьniversitesi",
+            "snippet": "azırlayıp üniversite yönetimine \nsunmak, \nc) Üniversitede faaliyet gösteren tiyatro, spor, folklor vb. kulüplerin yönetiminde \nen az bir kiĢi ile konseyi temsil etmek, \nd) Üniversitede veya üniversite dıĢında öğrenciler arasında yapılacak bilimsel, \nsosyal, kültürel, sportif ve turistik etkinliklerd",
+            "score": 0.4669
+          },
+          {
+            "document": "docs_2013_Idare_Faaliyet_Raporu.pdf",
+            "title": "2013 İDARE FAALİYET RAPORU",
+            "snippet": "ne önem vermek, \n Teknoloji geliştirme bölgesi oluşturmak, mevcut teknoloji geliştirme merkezini bu bölge ile \nbütünleştirerek ulusal üretime bilimsel ve teknolojik yenilikler ve geliştirmelerle ivme \nkazandırmak, \n Öğrencilerin sosyal-kültürel-sanatsal ve sportif gelişim gereksinimlerini karşılay",
+            "score": 0.4546
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "ları ve öğrenciler ile mezunlar arasında kurumsal bağlılığa hizmet edecek \nbiçimde sosyal ağlar kurulmasına imkân verecek çalışmalar yapmak. \n(3) \nÜniversite öğrencileri, mezunları ve çalışanlarının bireysel kariyer planlamalarına yönelik \nyetkinliklerinin geliştirilmesi için kurs, seminer, sertifik",
+            "score": 0.4489
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": ", \n Rektör: Üniversite Rektörünü, \n Rektör Vekili: Üniversite Rektör Birinci Yardımcısını, \n Dekan/Müdür: Üniversiteye bağlı fakülte/enstitü/yüksekokul/ meslek yüksekokulu amirini, \n Öğretim Üyesi: Bütün çalışmalarını Üniversitede yapan sürekli sözleşmeli (tam zamanlı) \nprofesörleri, doçentleri ",
+            "score": 0.4485
+          },
+          {
+            "document": "docs_2013_Idare_Faaliyet_Raporu.pdf",
+            "title": "2013 İDARE FAALİYET RAPORU",
+            "snippet": "tmek, \n Üniversitenin Yerel Ağının (Network) bakım ve işletimini yapmak, \n Ulusal ve uluslararası ağlarla sürekli ve sorunsuz Yerel Ağ bağlantısını sağlamak, \n Akademik ve idari birimlerin hizmetlerini bilişim teknolojilerini kullanarak yapabilmeleri için \ngerekli teknik desteği sağlamak, \n Üniv",
+            "score": 0.4452
+          }
+        ],
+        "latency_ms": 5208
+      },
+      "wall_ms": 5213
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "cases": 50,
+  "sources": 5,
+  "evidence_units": 21,
+  "behaviors": {
+    "answer": 45,
+    "clarify": 3,
+    "abstain": 2
+  },
+  "statuses": {
+    "pending_review": 50
+  },
+  "splits": {
+    "unassigned": 50
+  },
+  "raw_verified": true,
+  "evidence_sha256": "d13b4853cb30dedca980050bd52991312347a539564ddc77f0b92ea29ccc08b3"
+}

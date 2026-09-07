@@ -1,0 +1,467 @@
+{
+  "schema_version": 1,
+  "title": "BAKAY kaynak bağlı ilk 50 soru: uzman inceleme taslağı",
+  "created_on": "2026-09-07",
+  "truth_scope": "archived_source_snapshot_not_current_policy",
+  "language": "tr",
+  "evidence_sha256": "d13b4853cb30dedca980050bd52991312347a539564ddc77f0b92ea29ccc08b3",
+  "cases": [
+    {
+      "id": "BAKAY-001", "question": "Lisans kesin kaydımı kendim yapamazsam vekil gönderebilir miyim?",
+      "paraphrases": ["Lisans kaydı için noter vekâleti kabul ediliyor mu?"],
+      "answer": "Evet. İlan edilen kesin kayıt tarihlerinde bizzat başvurabilir veya noter aracılığıyla tayin ettiğiniz vekille kayıt yaptırabilirsiniz. Süresinde kayıt yaptırmayan aday öğrenci olma hakkını kaybeder.",
+      "required_points": ["Noter aracılığıyla tayin edilmiş vekil kabul edilir.", "İlan edilen kayıt süresine uyulmalıdır."],
+      "forbidden_claims": ["Herhangi bir yakının vekâletsiz kayıt yapabileceği.", "Kayıt süresinin vekil kullanınca uzadığı."],
+      "citations": [{"evidence_id": "ug:p3", "section": "Madde 10(2)", "quote": "Üniversiteye kayıt hakkı kazanan aday kesin kaydını, ilan edilen tarihlerde bizzat kendisi yapar veya noter vasıtasıyla tayin ettiği vekili aracılığıyla yaptırır. Belirlenen süre içinde kayıt yaptırmayan aday, öğrenci olma hakkını kaybeder."}],
+      "behavior": "answer", "category": "registration", "scope": "Önlisans/lisans adayları; Tıp hariç", "group_ids": ["ug-registration"]
+    },
+    {
+      "id": "BAKAY-002", "question": "Başka bir üniversitede örgün lisans kaydım varken Manas'ta da lisansa kayıt olabilir miyim?",
+      "paraphrases": ["Aynı anda iki örgün lisans kaydı mümkün mü?"],
+      "answer": "Bu yönetmeliğe göre kayıt şartlarından biri, aynı seviyede örgün öğretim yapan başka bir yükseköğretim kurumuna kayıtlı olmamaktır. Bu nedenle belirtilen durumda Manas'a ikinci örgün lisans kaydı yapılamaz.",
+      "required_points": ["Yasak aynı seviyedeki örgün yükseköğretim kaydı içindir."],
+      "forbidden_claims": ["Farklı seviyeler veya açıköğretim için de bu maddeyle kesin yasak ilan etmek."],
+      "citations": [{"evidence_id": "ug:p3", "section": "Madde 10(1)(b)", "quote": "Aynı seviyede örgün öğretim yapan başka bir yükseköğretim kurumuna kayıtlı olmamak."}],
+      "behavior": "answer", "category": "registration", "scope": "Önlisans/lisans adayları; Tıp hariç", "group_ids": ["ug-registration"]
+    },
+    {
+      "id": "BAKAY-003", "question": "Önlisans, lisans ve veterinerlikte normal öğrenim süresi kaç yarıyıl? Hazırlık buna dahil mi?",
+      "paraphrases": ["Manas'ta hazırlık hariç önlisans, lisans ve veterinerlik ne kadar sürer?"],
+      "answer": "Normal süre önlisansta 4, lisansta 8, Veteriner Fakültesinde 10 yarıyıldır. Hazırlık sınıfında geçirilen süre programın normal ve azami öğrenim sürelerine dahil değildir.",
+      "required_points": ["4 / 8 / 10 yarıyıl sırasını doğru eşleştirmek.", "Hazırlığın normal ve azami süreye dahil olmadığını belirtmek."],
+      "forbidden_claims": ["Bu yönetmeliği Tıp Fakültesine uygulamak.", "Normal süre ile azami süreyi karıştırmak."],
+      "citations": [{"evidence_id": "ug:p3", "section": "Madde 14(1), başlangıç", "quote": "Normal öğrenim süresi hazırlık sınıfı hariç önlisans programlarında 4 yarıyıl, lisans"}, {"evidence_id": "ug:p4", "section": "Madde 14(1), devamı", "quote": "programlarında 8 yarıyıl, Veteriner Fakültesinde ise 10 yarıyıldır."}, {"evidence_id": "ug:p4", "section": "Madde 14(3)", "quote": "Hazırlık sınıfında geçirilen süre program süresine ve azami öğrenim süresine dâhil değildir."}],
+      "behavior": "answer", "category": "duration", "scope": "Önlisans/lisans ve Veteriner; Tıp hariç", "group_ids": ["ug-duration"]
+    },
+    {
+      "id": "BAKAY-004", "question": "Lisansta ilk kez aldığım teorik ve uygulamalı derslere ne kadar devam etmeliyim?",
+      "paraphrases": ["Lisans derslerinde yoklama sınırı teorik ve uygulamada yüzde kaç?"],
+      "answer": "İlk kez alınan teorik dersin en az %70'ine, uygulamalı dersin en az %80'ine devam gerekir. Ders iki kısmı birlikte içeriyorsa teorik kısımda %70, uygulamada %80 şartı ayrı ayrı sağlanmalıdır.",
+      "required_points": ["Teorik %70, uygulama %80.", "Karma derste iki bölümün devamı ayrı değerlendirilir."],
+      "forbidden_claims": ["Her iki ders türü için tek bir oran vermek.", "Hazırlıktaki %85 oranını lisansa uygulamak."],
+      "citations": [{"evidence_id": "ug:p7", "section": "Madde 28(1)", "quote": "İlk defa kayıt olunan teorik dersin en az %70’ine, uygulamalı dersin en az %80’ine, teorik ve uygulamadan oluşan dersin teorik kısmının en az %70’ine ve uygulama kısmının en az %80’ine katılmak gerekir."}],
+      "behavior": "answer", "category": "attendance", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["attendance"]
+    },
+    {
+      "id": "BAKAY-005", "question": "Lisansta devamını aldığım ama kaldığım dersi tekrar alırken devam zorunlu mu?",
+      "paraphrases": ["Lisansta yoklamadan değil nottan kaldım, tekrar derse girmem gerekir mi?"],
+      "answer": "Devam şartını daha önce yerine getirip başarısız olduğunuz veya not yükseltmek için tekrar aldığınız derste normalde devam aranmaz. Ancak Spor Bilimleri ve Güzel Sanatlar fakültelerinin bireysel uygulamalı derslerinde fakülte yönetim kurulu devam zorunluluğu koyabilir. Devamsızlıktan tekrar alınan derslerde ise devam gerekir.",
+      "required_points": ["Devam alıp nottan kalma ile devamsızlığı ayırmak.", "Bireysel uygulamalı ders istisnasını belirtmek."],
+      "forbidden_claims": ["Tekrar alınan hiçbir derste devam gerekmediği."],
+      "citations": [{"evidence_id": "ug:p8", "section": "Madde 28(3-5)", "quote": "Devamsızlık sebebiyle tekrar alınan dersler için devam şartı aranır. (4) Devam şartı yerine getirilen ve başarısız olunan veya not yükseltmek için tekrar alınan dersten devam şartı aranmaz. (5) Spor Bilimleri Fakültesi ve Güzel Sanatlar Fakültesinde bireysel uygulamalı derslerin tekrar alınışında Fakülte Yönetim Kurulu kararı ile devam zorunluluğu aranabilir."}],
+      "behavior": "answer", "category": "attendance", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["attendance"]
+    },
+    {
+      "id": "BAKAY-006", "question": "Başka üniversiteden Manas'a yatay ya da dikey geçiş yapabilir miyim?",
+      "paraphrases": ["Dışarıdan KTMÜ lisans programına transfer öğrenci kabul ediliyor mu?"],
+      "answer": "Bu yönetmelik başka yükseköğretim kurumlarından yatay ve dikey geçişle öğrenci kabul edilmediğini belirtiyor. Buna karşılık Manas'ın kendi öğrencileri gerekli şartları sağlarsa ilgili yönerge kapsamında kurum içinde geçiş yapabilir.",
+      "required_points": ["Kurum dışından kabul edilmez.", "Kurum içi geçiş gerekli şartlarla mümkündür."],
+      "forbidden_claims": ["Kurum içi ve dışı geçişi aynı kabul etmek.", "Lisansüstüne de otomatik olarak aynı yasak koymak."],
+      "citations": [{"evidence_id": "ug:p7", "section": "Madde 26(1)", "quote": "Başka yükseköğretim kurumlarından Üniversiteye yatay ve dikey geçiş yoluyla öğrenci kabul edilmez. Gerekli şartları sağlayan Üniversitenin öğrencisi ilgili bölüme/programa yatay ve dikey geçiş yapabilir."}],
+      "behavior": "answer", "category": "transfer", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["ug-transfer"]
+    },
+    {
+      "id": "BAKAY-007", "question": "Manas'ta çift anadal veya yandal yapma imkânı var mı?",
+      "paraphrases": ["Lisans okurken ikinci bölümde ÇAP ya da yan dal yapabilir miyim?"],
+      "answer": "Lisans öğrencisine kendi programına ek olarak başka bölümde yandal veya çift anadal programına eş zamanlı kayıt izni verilebilir. Ayrıntılı şartlar ilgili Yandal ve Çift Anadal Programı yönergelerinde düzenlenir; bu madde tek başına kabul garantisi değildir.",
+      "required_points": ["İzin verilebileceğini, otomatik hak olmadığını belirtmek.", "Şartlar için ilgili yönergelere yönlendirmek."],
+      "forbidden_claims": ["Kaynakta olmayan GANO, kontenjan veya başvuru tarihi uydurmak."],
+      "citations": [{"evidence_id": "ug:p7", "section": "Madde 27", "quote": "Lisans programlarında bir bölümün öğrencisine, kendi lisans programına ek olarak bir başka bölümde yandal veya çift anadal programına aynı zamanda kayıt olma izni verilebilir."}],
+      "behavior": "answer", "category": "programs", "scope": "Lisans; Tıp hariç", "group_ids": ["ug-double-major"],
+      "review_notes": "ÇAP/çift anadal ve yan dal/yandal varyantları elle kontrol edilmeli; yönergedeki sayısal şartlar bu pakette yok."
+    },
+    {
+      "id": "BAKAY-008", "question": "Lisansta üçüncü yarıyıldayım, GANO'm 1,70. Genel ders yükü kuralına göre en çok kaç AKTS alabilirim?",
+      "paraphrases": ["3. dönemde ortalamam 1.80'in altında; olağan ders yükü tavanım nedir?"],
+      "answer": "İlk iki yarıyıl dışındaki genel kurala göre GANO'su 1,80'in altında olan öğrenci 32 AKTS'ye kadar ders alabilir. 1,80 ve üzerindekiler için kendi ve alt yarıyıllardan 42 AKTS sınırı vardır.",
+      "required_points": ["Bu durumda 32 AKTS.", "1,80 eşiği ve ilk iki yarıyıl istisnasını korumak."],
+      "forbidden_claims": ["1,70 GANO için olağan sınırı 42 AKTS diye vermek."],
+      "citations": [{"evidence_id": "ug:p6", "section": "Madde 21(7)", "quote": "1. Yarıyıl ve 2.Yarıyıl hariç bir yarıyılda, o yarıyıla kadar olan GANO’su dörtlük sisteme göre 1.80’in altında olan öğrenci 32 AKTS'ye kadar, GANO’su dörtlük sisteme göre 1.80 ve üstünde olan öğrenci alt yarıyıllardan ve kendi yarıyılından 42 AKTS'ye kadar ders alabilir."}],
+      "behavior": "answer", "category": "credits", "scope": "Lisans; olağan ders yükü, Tıp hariç", "group_ids": ["ug-credits"]
+    },
+    {
+      "id": "BAKAY-009", "question": "Üçüncü yarıyıldan itibaren üstten ders almak için GANO ve ders şartı nedir?",
+      "paraphrases": ["Lisansta üst dönem dersi seçebilmem için hangi koşullar gerekiyor?"],
+      "answer": "GANO en az 3,00 olmalı ve alt yarıyılların bütün dersleri başarılmış olmalıdır. Üçüncü yarıyıldan itibaren önce kendi yarıyılında yükümlü olunan dersler alınır; toplam 42 AKTS aşılmadan üst yarıyıldan ders alınabilir.",
+      "required_points": ["En az 3,00 GANO ve alt yarıyılların tüm derslerinde başarı.", "Üçüncü yarıyıldan itibaren, kendi dersleri öncelikli, toplam en çok 42 AKTS."],
+      "forbidden_claims": ["Yalnızca yüksek ortalamanın yeterli olduğu."],
+      "citations": [{"evidence_id": "ug:p6", "section": "Madde 21(8)", "quote": "GANO’su dörtlük sisteme göre 3.00 ve üstünde olan ve alt yarıyıllardan bütün derslerini başarıyla tamamlayan öğrenci, 3.Yarıyıldan itibaren kayıt yaptıracağı yarıyıldan almakla yükümlü olduğu derslerini aldıktan sonra, 42 AKTS'yi aşmamak kaydıyla üst yarıyıllardan ders alabilir."}],
+      "behavior": "answer", "category": "credits", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["ug-credits"]
+    },
+    {
+      "id": "BAKAY-010", "question": "Lisansta CC aldığım dersi not yükseltmek için tekrarlarsam hangi not geçerli olur?",
+      "paraphrases": ["CC dersini yeniden alıp daha düşük not alırsam eski notum korunur mu?"],
+      "answer": "Ders yükü sınırları içinde DD, DC veya CC olan dersleri not yükseltmek için tekrar alabilirsiniz. Bu durumda en yüksek not değil, en son alınan not geçerlidir.",
+      "required_points": ["CC dahil tekrar mümkündür, ders yükü sınırına tabidir.", "Son alınan not geçerlidir."],
+      "forbidden_claims": ["Eski ve yeni notun ortalamasının veya yüksek olanın kullanılacağı."],
+      "citations": [{"evidence_id": "ug:p13", "section": "Madde 42", "quote": "Ders yükü sınırları içinde kalmak şartıyla öğrenci, notlarını yükseltmek üzere başarı notu DD, DC ve /veya CC olan derslere tekrar kayıt yaptırabilir. Bu durumda en son alınan not geçerli sayılır."}],
+      "behavior": "answer", "category": "grades", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["ug-grade-repeat"]
+    },
+    {
+      "id": "BAKAY-011", "question": "Manas lisansına ilk kayıtta eski üniversitemde başardığım dersleri saydırmanın şartları neler?",
+      "paraphrases": ["Önceden geçtiğim lisans dersleri için muafiyet başvurusu nasıl değerlendirilir?"],
+      "answer": "Bölüm Başkanlığına transkript ve ders içerikleri eklenmiş yazılı başvuru gerekir. Son 5 yılda alınmış, en az CC ile başarılmış, AKTS ve içeriği uygun dersler değerlendirilebilir. Muafiyet toplamı program AKTS'sinin üçte birini aşamaz; kurul kabulüyle kesinleşir.",
+      "required_points": ["Transkript ve ders içerikleriyle Bölüm Başkanlığına yazılı başvuru.", "Son 5 yıl, en az CC, uygun içerik ve AKTS.", "Program AKTS'sinin en çok üçte biri; kurul kabulü."],
+      "forbidden_claims": ["Başarılmış tüm derslerin otomatik sayılacağı.", "Lisansüstündeki yarı AKTS sınırını uygulamak."],
+      "citations": [{"evidence_id": "ug:p7", "section": "Madde 25(2-3)", "quote": "Ders saydırma ve ders muafiyetleri işlemleri öğrencinin Bölüm Başkanlığına, ekinde not durum belgesi ve ders içerikleri bulunan yazılı başvurusu ile başlatılır."}, {"evidence_id": "ug:p7", "section": "Madde 25(3)", "quote": "öğrenci son 5 yıl içinde alınmış olması ve başarı notunun en az CC olması şartıyla AKTS’si ve içeriği uygun olan derslerden muaf tutulabilir. Muaf tutulacak ders AKTS sayısı, kayıtlı olduğu programın AKTS sayısının 1/3‘ünden fazla olamaz. İntibak işlemleri Bölüm Akademik Kurulunun kararı ve Birim Yönetim Kurulunun kabulü ile kesinleşir."}],
+      "behavior": "answer", "category": "exemption", "scope": "Önlisans/lisansa ilk kayıt; Tıp hariç", "group_ids": ["exemption"]
+    },
+    {
+      "id": "BAKAY-012", "question": "Lisansta seçmeli dersin açılması için en az kaç öğrencinin kayıt olması gerekir?",
+      "paraphrases": ["Bir seçmeli derse yalnızca altı kişi yazıldıysa ders normal şartlarda açılır mı?"],
+      "answer": "Zorunlu haller dışında en az 7 öğrenci gerekir. Ekle-sil süresi sonuna kadar yeterli kayıt yoksa seçmeli ders açılmaz.",
+      "required_points": ["En az 7 öğrenci ve zorunlu hal istisnası.", "Kontrol ekle-sil süresi sonunda yapılır."],
+      "forbidden_claims": ["İstisnasız her durumda yedi kişi şartı olduğunu söylemek."],
+      "citations": [{"evidence_id": "ug:p7", "section": "Madde 22", "quote": "Zorunlu haller dışında bir seçmeli dersin açılabilmesi için en az yedi (7) öğrencinin derse kayıt yaptırması gerekir. Ders ekleme silme süresi sonuna kadar bir derse yeteri kadar öğrenci kayıt yaptırmamış ise o ders açılmaz."}],
+      "behavior": "answer", "category": "courses", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["ug-elective"]
+    },
+    {
+      "id": "BAKAY-013", "question": "Lisansta finalden 40 almam dersten kesin geçtiğim anlamına gelir mi?",
+      "paraphrases": ["Final barajını geçtim; lisans dersini otomatik geçmiş sayılır mıyım?"],
+      "answer": "Hayır. Finalden en az 40 almak tek başına geçmeye yetmez; devam şartı ve dersin toplam değerlendirmesi de gerekir. Dersten başarılı sayılmak için başarı harf notu en az DD olmalıdır.",
+      "required_points": ["40 yalnızca final için alt eşiktir.", "Devam şartı ve en az DD başarı notu da gerekir."],
+      "forbidden_claims": ["Finalden 40 alan herkesin dersten geçtiği.", "Lisansüstündeki 50 puan eşiğini lisansa aktarmak."],
+      "citations": [{"evidence_id": "ug:p12", "section": "Madde 40(3)", "quote": "Devam şartını yerine getirmeyen, yarıyıl sonu sınavına girmeyen veya yarıyıl sonu sınavında en az 40 puan alamayan öğrenci başarısız sayılır."}, {"evidence_id": "ug:p12", "section": "Madde 40(5)", "quote": "Bir dersten başarılı sayılmak için o dersin başarı harf notunun en az DD olması gerekir."}],
+      "behavior": "answer", "category": "grades", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["passing-grades"]
+    },
+    {
+      "id": "BAKAY-014", "question": "Lisans öğrencisiyim, mazeret sınavı için ne zaman ve hangi belgelerle başvurmalıyım?",
+      "paraphrases": ["Lisansta raporum bitince mazeret sınavı başvurusunu nereye yapacağım?"],
+      "answer": "Mazeretin bitiminden sonraki hafta içinde Mazeret Sınavı Başvuru Formuyla Bölüm Başkanlığına başvurmalısınız. Sağlık mazeretinde Üniversite Sağlık Merkezince onaylı rapor, diğer mazeretlerde ilgili kanıtlayıcı belgeler gerekir. Sınav hakkı mazeretin kurulca kabulüne bağlıdır.",
+      "required_points": ["Mazeret bitiminden sonraki hafta.", "Form, Bölüm Başkanlığı ve mazeret belgeleri.", "Sağlık raporu Üniversite Sağlık Merkezi onaylı olmalı; mazeret kabulü gerekir."],
+      "forbidden_claims": ["Lisansüstündeki sınav bitiminden itibaren 3 iş günü kuralını kullanmak."],
+      "citations": [{"evidence_id": "ug:p9", "section": "Madde 33(1)", "quote": "Birim Yönetim Kurulunun kararı ile mazereti kabul edilen öğrencinin giremediği dersin ara sınav ve/veya yarıyıl sonu sınavı yerine yapılan sınavdır."}, {"evidence_id": "ug:p9", "section": "Madde 33(3)", "quote": "Mazeret sınavına girmek isteyen öğrenci mazeretinin bitimden sonraki hafta içinde Mazeret Sınavı Başvuru Formunu doldurarak bölüm başkanlığına başvurur. Formun ekinde Üniversitenin Sağlık Merkezi tarafından onaylanmış sağlık raporu ile diğer mazeretlerin (doğal afet, birinci veya ikinci dereceden akrabaların ölümü, gözaltına alınma, tutuklanma, vb. durumlar) belgeleri bulunur."}],
+      "behavior": "answer", "category": "exams", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["excuse-exam"]
+    },
+    {
+      "id": "BAKAY-015", "question": "Lisans final sınav programı sınavların başlamasından kaç gün önce ilan edilir?",
+      "paraphrases": ["Lisans yarıyıl sonu sınav takvimi kaç gün önceden duyurulmalı?"],
+      "answer": "Program, akademik takvimdeki yarıyıl sonu sınavlarının başlama tarihinden 15 gün önce ilan edilir. İlan edilen sınav tarihi zorunlu haller dışında değiştirilemez.",
+      "required_points": ["15 gün önce.", "Tarih değişikliği için zorunlu hal istisnası."],
+      "forbidden_claims": ["15 iş günü demek.", "Kaynakta olmayan güncel sınav tarihi vermek."],
+      "citations": [{"evidence_id": "ug:p9", "section": "Madde 32(2)", "quote": "Yarıyıl sonu sınav programı, bölüm/program başkanlığınca düzenlenir ve Birim Yönetim Kurulu kararıyla akademik takviminde belirlenen yarıyıl sonu sınavlarının başlama tarihinden on beş (15) gün öncesinden ilan edilir. Zorunlu haller hariç ilan edilen sınav tarihi değiştirilemez."}],
+      "behavior": "answer", "category": "exams", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["ug-exam-announcement"]
+    },
+    {
+      "id": "BAKAY-016", "question": "Mezuniyet için sadece stajım kaldı; tek ders sınavına girip tamamlayabilir miyim?",
+      "paraphrases": ["Lisans stajını tek ders sınavıyla geçmek mümkün mü?"],
+      "answer": "Hayır. Bitirme tezi, staj, intörn dersi ve sektör uygulamaları gibi uygulama gerektiren çalışmalarda tek ders sınavı hakkı tanınmaz.",
+      "required_points": ["Staj için tek ders sınavı hakkı yoktur."],
+      "forbidden_claims": ["Mezuniyete tek yükümlülük kalmasının staj için sınav hakkı verdiği."],
+      "citations": [{"evidence_id": "ug:p10", "section": "Madde 35(3)", "quote": "Bitirme tezi, staj, intörn dersi, sektör uygulamaları gibi uygulama gerektiren çalışmalarda tek ders sınav hakkı tanınmaz."}],
+      "behavior": "answer", "category": "graduation", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["ug-single-course"]
+    },
+    {
+      "id": "BAKAY-017", "question": "Lisans dersimin sınav sonucundaki maddi hataya kaç gün içinde itiraz edebilirim?",
+      "paraphrases": ["Lisans not itirazını hangi süre içinde ve nereye yazmalıyım?"],
+      "answer": "Sonuçların ilanından itibaren 7 iş günü içinde Birim Amirliğine yazılı maddi hata itirazı yapılabilir. Süresinde yapılmayan başvurular değerlendirilmez; bu maddeye göre sonuca yeniden itiraz hakkı yoktur.",
+      "required_points": ["İlandan itibaren 7 iş günü, Birim Amirliği, yazılı başvuru.", "Süresiz veya tekrarlanan itiraz hakkı tanımamak."],
+      "forbidden_claims": ["7 takvim günü demek.", "Lisansüstü yeniden itiraz yolunu bu soruya uygulamak."],
+      "citations": [{"evidence_id": "ug:p13", "section": "Madde 43", "quote": "Öğrenci dersin sınav sonuçları ilanından itibaren yedi (7) iş günü içinde Birim Amirliğine yazılı olarak maddi hata itirazında bulunabilir."}, {"evidence_id": "ug:p13", "section": "Madde 43, son", "quote": "Öğrencinin sonuca yeniden itiraz etme hakkı yoktur. Süresi içinde yapılmayan maddi hata itirazları değerlendirmeye alınmaz."}],
+      "behavior": "answer", "category": "appeals", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["exam-appeal"]
+    },
+    {
+      "id": "BAKAY-018", "question": "Önlisans ve lisansta kaydımı toplam kaç yarıyıl dondurabilirim?",
+      "paraphrases": ["Kayıt dondurmanın tek seferlik ve toplam dönem sınırları nedir?"],
+      "answer": "Mazeret nedeniyle Birim Yönetim Kurulu kararıyla, tek seferde en çok 2 yarıyıl olmak üzere önlisansta toplam 2, lisansta toplam 4 yarıyıl kayıt dondurulabilir. Dondurulan süre öğrenim süresinden sayılmaz.",
+      "required_points": ["Kurul kararı ve mazeret gerekir.", "Tek seferde 2; toplam önlisans 2, lisans 4 yarıyıl.", "Öğrenim süresinden sayılmaz."],
+      "forbidden_claims": ["Lisansta tek seferde dört yarıyıl olağan hak olarak verilebilir demek."],
+      "citations": [{"evidence_id": "ug:p14", "section": "Madde 46(1-2)", "quote": "Kayıt dondurmak isteyen öğrenci mazeretlerinden dolayı Birim Yönetim Kurulu kararı ile öğrenimi süresince bir defada iki yarıyılı aşmamak kaydıyla önlisans programlarında iki, lisans programlarında dört yarıyıl süre ile kaydını dondurabilir. (2) Kayıt dondurma süreleri öğrenim süresinden sayılmaz."}],
+      "behavior": "answer", "category": "leave", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["ug-freeze"]
+    },
+    {
+      "id": "BAKAY-019", "question": "Lisans kaydımı dondurduğum dönemde burs almaya ve öğrenci evinde kalmaya devam eder miyim?",
+      "paraphrases": ["Kayıt dondurunca burs ve yurt hakkım da durur mu?"],
+      "answer": "Bu yönetmeliğe göre kayıt dondurulan süre boyunca öğrencilik hakları da dondurulur. Bu dönemde burs, öğrenci evlerinde barınma ve öğrencilere sağlanan diğer imkânlardan yararlanılamaz.",
+      "required_points": ["Kayıt dondurulan süreyle sınırlı hak dondurması.", "Hem burs hem öğrenci evinde barınma kapsamda."],
+      "forbidden_claims": ["Burs veya yurt hakkının dondurma döneminde otomatik devam ettiği.", "Hakların kalıcı olarak iptal edildiği."],
+      "citations": [{"evidence_id": "ug:p14", "section": "Madde 46(6)", "quote": "Öğrencinin kaydı dondurulduğu süre zarfında öğrencilik hakları da dondurulur (burs, öğrenci evlerinde barınma hakkı ve öğrencilere sağlanan diğer imkânlardan yararlanamaz)."}],
+      "behavior": "answer", "category": "scholarship_housing", "scope": "Önlisans/lisans; kayıt dondurma, Tıp hariç", "group_ids": ["ug-freeze"],
+      "review_notes": "Öğrenci evi/yurt/barınma yakın anlamlı sorguları aynı kural ailesinde tutulmalı. Güncel burs yönetmeliğiyle çapraz kontrol bekliyor."
+    },
+    {
+      "id": "BAKAY-020", "question": "Lisansta YANO ile GANO'nun farkı nedir; G ve K notları ortalamaya girer mi?",
+      "paraphrases": ["Dönem ortalaması ve genel ortalama nasıl ayrılıyor, kredisiz dersler etkiler mi?"],
+      "answer": "YANO yalnız ilgili yarıyılın, GANO ise en az iki yarıyılda alınan bütün derslerin AKTS ağırlıklı ortalamasıdır. G ve K notları ortalamaya katılmaz; F1, F2, FF ve FD katılır.",
+      "required_points": ["Yarıyıl ile genel kapsam ayrımı ve AKTS ağırlığı.", "G/K hariç, F1/F2/FF/FD dahil."],
+      "forbidden_claims": ["Bütün dersleri AKTS ağırlığı olmadan eşit ortalamak.", "G/K notlarını sıfır saymak."],
+      "citations": [{"evidence_id": "ug:p12", "section": "Madde 41(1)", "quote": "Herhangi bir yarıyılın ağırlıklı not ortalaması (YANO); o yarıyılda kayıt yaptırılan her bir derste alınan başarı notunun dersin AKTS’siyle çarpımından oluşan toplam değerin, alınan derslerin AKTS toplamına bölünmesi ile hesaplanır."}, {"evidence_id": "ug:p12", "section": "Madde 41(1), GANO", "quote": "Genel ağırlıklı not ortalaması (GANO) ise öğrencinin en az iki (2) yarıyılda kayıt yaptırdığı her bir dersten aldığı başarı puanının dersin AKTS’siyle çarpımından oluşan toplam değerin, alınan bütün derslerin AKTS toplamına bölünmesi ile hesaplanır."}, {"evidence_id": "ug:p12", "section": "Madde 41(2)", "quote": "F1, F2, FF ve FD notları, not ortalaması hesaplamalarına katılır; G ve K notları not ortalaması hesaplamalarına katılmaz."}],
+      "behavior": "answer", "category": "terminology", "scope": "Önlisans/lisans; Tıp hariç", "group_ids": ["ug-average"]
+    },
+    {
+      "id": "BAKAY-021", "question": "Yüksek lisans ve doktora başvurularında asgari mezuniyet ortalaması kaç?",
+      "paraphrases": ["Lisansüstü başvurusu için diploma notu barajları neler?"],
+      "answer": "Yüksek lisans için en az 2,00/4,00, doktora için en az 2,50/4,00 gerekir. İlgili akademik kurul kararı ve Enstitü Yönetim Kurulu onayıyla daha yüksek eşik belirlenebilir; dörtlük olmayan notlar Senatonun kabul ettiği tabloyla çevrilir.",
+      "required_points": ["Yüksek lisans 2,00; doktora 2,50.", "Daha yüksek program eşiği konulabilir.", "Dörtlük dışı not için Senato tablosu."],
+      "forbidden_claims": ["Bu eşikleri sağlayanın kesin kabul edileceği.", "Yüzlük notu basitçe 25'e bölmek."],
+      "citations": [{"evidence_id": "pg:p4", "section": "Madde 10(5)", "quote": "Yüksek lisans programına başvuranlarda mezuniyet not ortalamasının en az 2.00/4.00, doktora programına başvuranlarda en az 2.50/4.00 olması gerekir. Dörtlük sistemde olmayan notlar Senato tarafından kabul edilen Not Çevirim Tablosuna göre dörtlük sisteme dönüştürülür ve değerlendirmeye alınır. EABD/EASD akademik kurulunun kararı ve Enstitü Yönetim Kurulunun onayı ile daha yüksek bir not belirlenebilir."}],
+      "behavior": "answer", "category": "graduate_admission", "scope": "Yüksek lisans/doktora adayları", "group_ids": ["pg-admission"]
+    },
+    {
+      "id": "BAKAY-022", "question": "Yüksek lisans başvurusunda yabancı dil belgesi her programda zorunlu mu?",
+      "paraphrases": ["Dil puanı olmadan yüksek lisansa başvuru yapabilir miyim?"],
+      "answer": "Genel kuralda yüksek lisans başvurusunda yabancı dil şartı aranmaz. Ancak ilgili akademik kurul kararı ve Enstitü Yönetim Kurulu onayıyla dil belgesi istenebilir; başvuracağınız programın ilanını kontrol etmek gerekir.",
+      "required_points": ["Genel kural dil şartı yok.", "Yetkili kurul kararıyla belge istenebilir."],
+      "forbidden_claims": ["Hiçbir yüksek lisans programında dil belgesi istenemez demek.", "Doktora dil barajını yüksek lisansa zorunlu tutmak."],
+      "citations": [{"evidence_id": "pg:p4", "section": "Madde 10(6)", "quote": "Yüksek lisans programlarına başvurularda yabancı dil şartı aranmaz. Ancak EABD/EASD akademik kurulunun kararı ve Enstitü Yönetim Kurulunun onayı ile yabancı dil belgesi istenebilir."}],
+      "behavior": "answer", "category": "graduate_admission", "scope": "Yüksek lisans adayları; öğretim dili muafiyeti ayrı konu", "group_ids": ["pg-admission"]
+    },
+    {
+      "id": "BAKAY-023", "question": "Doktora başvurusu için üniversitenin dil sınavından veya T.C. ÖSYM sınavından kaç puan gerekir?",
+      "paraphrases": ["Doktora yabancı dil barajı her iki sınavda da 55 mi?"],
+      "answer": "Üniversitenin ÖSYM birimince yapılan dil sınavında en az 60, T.C. ÖSYM sınavında en az 55 veya kabul edilen eşdeğer puan gerekir. Program için daha yüksek puan belirlenebilir; kabul edilen belgeler ve eşdeğerlikler ilgili kararlarla belirlenir.",
+      "required_points": ["Üniversite sınavı 60, T.C. ÖSYM 55 veya eşdeğer.", "Daha yüksek program eşiği ve belge kabulü kararları."],
+      "forbidden_claims": ["Her iki sınav için 55 demek.", "Başvuru dil barajını öğretim dili muafiyet sınavıyla karıştırmak."],
+      "citations": [{"evidence_id": "pg:p4", "section": "Madde 10(7)", "quote": "Doktora programında hangi yabancı dil belgesinin kabul edileceği EABD/EASD akademik kurulunun önerisi ve Enstitü Yönetim Kurulunun kararı ile belirlenir. Yabancı dil puanı Üniversite ÖSYM tarafından yapılan yabancı dil sınavından en az 60, T.C. ÖSYM tarafından yapılan yabancı dil sınavından en az 55 puan veya Senato tarafından kabul edilen yabancı dillerden T.C. ÖSYM tarafından yapılan yabancı dil sınavına eşdeğer puan gerekir. EABD/EASD akademik kurulunun kararı ve Enstitü Yönetim Kurulunun onayı ile daha yüksek bir yabancı dil puanı belirlenebilir."}],
+      "behavior": "answer", "category": "graduate_admission", "scope": "Doktora adayları", "group_ids": ["pg-admission"]
+    },
+    {
+      "id": "BAKAY-024", "question": "Aynı alım döneminde birden fazla lisansüstü programa başvurabilir miyim?",
+      "paraphrases": ["İki yüksek lisans programına birlikte başvuru yapabilir miyim?"],
+      "answer": "Bu yönetmeliğe göre aday birden fazla programa başvuramaz.",
+      "required_points": ["Birden fazla programa başvuru yapılamaz."],
+      "forbidden_claims": ["Adayın istediği kadar lisansüstü programa başvurabileceği."],
+      "citations": [{"evidence_id": "pg:p5", "section": "Madde 10(8)", "quote": "Aday birden fazla programa başvuramaz."}],
+      "behavior": "answer", "category": "graduate_admission", "scope": "Lisansüstü alım başvuruları", "group_ids": ["pg-admission"]
+    },
+    {
+      "id": "BAKAY-025", "question": "Lisansüstü başvurusunda ALES 55 puanım varsa yazılı ve sözlü sınavlardan muaf olur muyum?",
+      "paraphrases": ["ALES 55 ile Manas lisansüstü bilim sınavının tamamını atlayabilir miyim?"],
+      "answer": "En az 55 ALES veya eşdeğer GRE/GMAT puanını başvuruda beyan eden aday yazılı sınava girmeyebilir. Ancak sözlü sınava girmek zorundadır; bu belge iki sınavdan birden muafiyet sağlamaz.",
+      "required_points": ["En az 55 ALES veya eşdeğer GRE/GMAT.", "Başvuruda beyanla yazılı muafiyeti; sözlü zorunlu."],
+      "forbidden_claims": ["Sözlü sınavdan da muafiyet.", "Personel alımındaki 60 ALES kuralını kullanmak."],
+      "citations": [{"evidence_id": "pg:p5", "section": "Madde 12(5)", "quote": "ALES notu en az 55 veya buna eşdeğer uluslararası geçerliliği olan GRE veya GMAT puanlara sahip olan aday başvuruda beyan etmek şartıyla yazılı sınava girmeyebilir. Ancak sözlü sınava girmek zorundadır."}],
+      "behavior": "answer", "category": "graduate_admission", "scope": "Bilim sınavına tabi lisansüstü adayları", "group_ids": ["pg-science-exam"]
+    },
+    {
+      "id": "BAKAY-026", "question": "Lisansüstü başvuruda kullanılan ALES, GRE ve GMAT belgeleri kaç yıl geçerli?",
+      "paraphrases": ["Manas lisansüstü kabulünde ALES ile GRE/GMAT geçerlilik süreleri aynı mı?"],
+      "answer": "Bu yönetmelikte ALES belgesinin geçerliliği 3 yıl, GRE ve GMAT belgelerinin geçerliliği 5 yıl olarak belirtilmiştir. Bu, incelenen kaynak sürümünün kuralıdır; başvuru öncesi güncel ilanla teyit edilmelidir.",
+      "required_points": ["ALES 3 yıl, GRE/GMAT 5 yıl.", "Yanıtı kaynak sürümüyle sınırlamak."],
+      "forbidden_claims": ["Bütün belgelerin 5 yıl veya süresiz geçerli olduğunu söylemek."],
+      "citations": [{"evidence_id": "pg:p5", "section": "Madde 12(5)", "quote": "ALES belgesi geçerlilik süresi 3 yıl, GRE ve GMAT belgelerinin geçerlilik süresi 5 yıldır."}],
+      "behavior": "answer", "category": "graduate_admission", "scope": "Arşiv yönetmelik sürümündeki lisansüstü kabul kuralı", "group_ids": ["pg-science-exam"],
+      "review_notes": "Yüksek güncellik riski: dış sınav kurumunun güncel süreleriyle veya yeni ilanla farklılık olabilir. Güncel kural etiketi verilmemeli."
+    },
+    {
+      "id": "BAKAY-027", "question": "Lisansüstü bilim sınavında yazılıdan 65, sözlüden 90 alırsam ortalamayla başarılı sayılır mıyım?",
+      "paraphrases": ["Yüksek lisans yazılı sınavım 65, mülakatım 90; yüksek ortalama yeter mi?"],
+      "answer": "Hayır. Yazılı veya sözlü sınavlardan birinin 70/100'ün altında olması başarısız sayılmaya ve kayıt hakkı kazanamamaya neden olur. Yüksek sözlü notu 65 olan yazılı notunu telafi etmez.",
+      "required_points": ["Her iki sınav için ayrı 70/100 alt eşiği.", "Verilen durumda aday başarısızdır."],
+      "forbidden_claims": ["77,5 ortalamanın tek başına kabul için yeterli olduğu."],
+      "citations": [{"evidence_id": "pg:p5", "section": "Madde 12(6)", "quote": "Bilim sınavına girmeyen aday veya bilim sınavının yazılı veya sözlü sınavlarından birinden notu 70/100 puanın altında olan aday başarısız sayılır ve kayıt hakkı kazanmaz."}],
+      "behavior": "answer", "category": "graduate_admission", "scope": "Yazılı ve sözlü bilim sınavına giren lisansüstü aday", "group_ids": ["pg-science-exam"]
+    },
+    {
+      "id": "BAKAY-028", "question": "Yüksek lisans kabulünde mezuniyet notu ile bilim sınavının ağırlıkları nedir?",
+      "paraphrases": ["Yüksek lisans başvuru başarı puanı nasıl hesaplanıyor?"],
+      "answer": "Başarı değerlendirmesinde mezuniyet notunun %50'si ile bilim sınavı notunun %50'si alınır. Bilim sınavı notu da yazılının %50'si ve sözlünün %50'sinden oluşur; ayrı sınav başarı koşulları ayrıca sağlanmalıdır.",
+      "required_points": ["Mezuniyet %50 + bilim %50.", "Bilim sınavı içinde yazılı %50 + sözlü %50."],
+      "forbidden_claims": ["Doktoradaki %35/%15/%50 formülünü yüksek lisansa uygulamak."],
+      "citations": [{"evidence_id": "pg:p5", "section": "Madde 12(4)(c)", "quote": "Bilim sınavı notu, yazılı sınavı notunun %50’si ve sözlü sınavının %50’si alınarak hesaplanır."}, {"evidence_id": "pg:p5", "section": "Madde 12(7)", "quote": "Başarı puanları değerlendirmesinde yüksek lisans için mezuniyet notunun %50’si ve bilim sınav notunun %50’si"}, {"evidence_id": "pg:p5", "section": "Madde 12(6)", "quote": "bilim sınavının yazılı veya sözlü sınavlarından birinden notu 70/100 puanın altında olan aday başarısız sayılır"}],
+      "behavior": "answer", "category": "graduate_admission", "scope": "Yazılı/sözlü bilim sınavına giren yüksek lisans adayı", "group_ids": ["pg-science-exam"]
+    },
+    {
+      "id": "BAKAY-029", "question": "Doktora kabul başarı puanında mezuniyet, yabancı dil ve bilim sınavı yüzde kaç etkili?",
+      "paraphrases": ["Doktora başvurusunun sıralama puanı hangi ağırlıklarla hesaplanıyor?"],
+      "answer": "Doktora için mezuniyet notunun %35'i, yabancı dil puanının %15'i ve bilim sınavı notunun %50'si dikkate alınır. Başarı puanları eşitse sırasıyla bilim sınavı, mezuniyet notu ve yabancı dil puanına bakılır.",
+      "required_points": ["Mezuniyet %35, dil %15, bilim sınavı %50.", "Eşitlikte bilim, mezuniyet, dil sırası."],
+      "forbidden_claims": ["Yabancı dili hesaba katmamak.", "Ağırlıkları yanlış alanlara atamak."],
+      "citations": [{"evidence_id": "pg:p5", "section": "Madde 12(7)", "quote": "doktora için mezuniyet notunun %35’i, yabancı dil puanının %15’i ve bilim sınav notunun %50’si dikkate alınır. Adayların başarı puanlarının eşitliği durumunda sırasıyla, bilim sınavı puanı, mezuniyet notu ve yabancı dil puanına göre sıralama yapılır."}],
+      "behavior": "answer", "category": "graduate_admission", "scope": "Doktora adayları", "group_ids": ["pg-science-exam"]
+    },
+    {
+      "id": "BAKAY-030", "question": "Lisansüstünde üniversitenin Türkçe veya Kırgızca öğretim dili muafiyet sınavından kaç puan almalıyım?",
+      "paraphrases": ["Yüksek lisans dil muafiyetinde Türkçe ve Kırgızca için üniversite sınav barajı kaç?"],
+      "answer": "Üniversitenin Kırgız Türkçesi ve/veya Türkiye Türkçesi muafiyet sınavından en az 67 puan alan öğrenciler ilgili öğretim dilinden muaf tutulur. Sınav tarihleri öğrenci alım ilanında belirtilir.",
+      "required_points": ["En az 67 puan.", "Öğretim dili muafiyetine ilişkin olduğunu korumak."],
+      "forbidden_claims": ["Doktora başvuru yabancı dil eşiği olan 55/60 ile karıştırmak."],
+      "citations": [{"evidence_id": "pg:p8", "section": "Madde 19(7)", "quote": "Kırgız Türkçesi ve/veya Türkiye Türkçesi için Üniversitenin yapacağı muafiyet sınavından en az 67 puan alan öğrenciler bu öğretim dillerinden muaf tutulur. Üniversite tarafından yapılan muafiyet sınavlarının tarihleri öğrenci alım ilanında belirtilir."}],
+      "behavior": "answer", "category": "exemption", "scope": "Lisansüstü; öğretim dili Türkçe/Kırgızca olan programlar", "group_ids": ["exemption"]
+    },
+    {
+      "id": "BAKAY-031", "question": "Lisansüstü bilimsel hazırlık programı en çok kaç yarıyıl sürer ve bir yarıyılda kaç ders olur?",
+      "paraphrases": ["Alanım farklıysa bilimsel hazırlığın süre ve dönemlik ders sınırı nedir?"],
+      "answer": "Eksikleri gidermek amacıyla en çok 2 yarıyıl bilimsel hazırlık açılabilir. Bir yarıyılda en az 2, en fazla 4 dersten oluşur. Bu, dil hazırlığından ayrı bir programdır.",
+      "required_points": ["En çok 2 yarıyıl; yarıyıl başına 2-4 ders.", "Dil hazırlığıyla karıştırmamak."],
+      "forbidden_claims": ["Bilimsel hazırlığın herkese zorunlu olduğu.", "En fazla dört yarıyıl demek."],
+      "citations": [{"evidence_id": "pg:p8", "section": "Madde 20(1)", "quote": "eksikliklerini gidermek amacıyla en çok 2 yarıyıl bilimsel hazırlık programı açılabilir."}, {"evidence_id": "pg:p9", "section": "Madde 20(2)", "quote": "Bilimsel hazırlık programı 1 yarıyılda en az 2 en fazla 4 dersten oluşur."}],
+      "behavior": "answer", "category": "scientific_preparation", "scope": "Bilimsel hazırlık gerektiren lisansüstü öğrencileri", "group_ids": ["pg-scientific-prep"]
+    },
+    {
+      "id": "BAKAY-032", "question": "Bilimsel hazırlık dersleri lisansüstü kredi yükümden sayılır ve ortalamama katılır mı?",
+      "paraphrases": ["Yüksek lisans bilimsel hazırlığında geçtiğim dersler mezuniyet kredisine dahil mi?"],
+      "answer": "Hayır. Bilimsel hazırlık dersleri lisansüstü programın gerekli dersleri yerine geçmez ve kredi yükünden sayılmaz. Mezuniyet not durum belgesinde gösterilir, ancak akademik ortalamaya katılmaz; bilimsel hazırlıkta geçen süre de kayıtlı program süresinden sayılmaz.",
+      "required_points": ["Ders/kredi yükü yerine geçmez.", "Transkriptte görünür, ortalamaya katılmaz.", "Süre program süresinden sayılmaz."],
+      "forbidden_claims": ["Bu derslerin transkriptte hiç gösterilmediği.", "Program kredi yükünü azalttığı."],
+      "citations": [{"evidence_id": "pg:p9", "section": "Madde 20(5)", "quote": "Bilimsel hazırlık programında alınan dersler ilgili lisansüstü programını tamamlamak için gerekli görülen derslerin yerine geçemez, kredi yükünden sayılmaz, mezuniyet not durum belgesinde gösterilir ancak akademik not ortalamasına katılmaz."}, {"evidence_id": "pg:p9", "section": "Madde 20(8)", "quote": "Bilimsel hazırlık programından geçirilecek süre öğrencinin kayıtlı olduğu programın süresinden sayılmaz."}],
+      "behavior": "answer", "category": "scientific_preparation", "scope": "Lisansüstü bilimsel hazırlık", "group_ids": ["pg-scientific-prep"]
+    },
+    {
+      "id": "BAKAY-033", "question": "Lisansüstüne kesin kayıttan sonra danışman ne zaman atanır; o zamana kadar kim ilgilenir?",
+      "paraphrases": ["Yüksek lisans danışman atama süresi ve geçici sorumlu kim?"],
+      "answer": "Danışman, yarıyıl ders kayıtlarının başlangıcından itibaren 1 ay içinde ilgili akademik kurulun önerisi ve Enstitü Yönetim Kurulu kararıyla atanır. Atanana kadar bu görevi EABD/EASD başkanı yürütür.",
+      "required_points": ["Başlangıç noktası ders kayıtlarının başlangıcı; süre 1 ay.", "Kurul önerisi/kararı ve geçici olarak EABD/EASD başkanı."],
+      "forbidden_claims": ["Süreyi öğrencinin başvuru gününden başlatmak."],
+      "citations": [{"evidence_id": "pg:p9", "section": "Madde 21(1)", "quote": "Lisansüstü programına kesin kayıt yaptıran her bir öğrenciye öğrenim süresince rehberlik etmek üzere yarıyıl ders kayıtlarının başlangıç tarihinden itibaren 1 ay içinde EABD/EASD akademik kurulun önerisi ve Enstitü Yönetim Kurulunun kararı ile danışman atanır. Danışman atanıncaya kadar bu görevi EABD/EASD başkanı yürütür."}],
+      "behavior": "answer", "category": "advising", "scope": "Lisansüstü öğrencileri", "group_ids": ["pg-advisor"]
+    },
+    {
+      "id": "BAKAY-034", "question": "Yüksek lisansta devamını aldığım ancak başarısız olduğum derse tekrar devam etmem gerekir mi?",
+      "paraphrases": ["Lisansüstünde nottan kaldığım derste tekrar yoklama zorunlu mu?"],
+      "answer": "Evet. Lisansüstü yönetmeliğinde devamsızlık veya başarısızlık nedeniyle tekrar alınan derslerde devam şartı aranır. Teorik derslerde en az %70, uygulamalarda %80 devam gerekir.",
+      "required_points": ["Başarısızlık nedeniyle tekrarda da devam gerekir.", "Teorik %70, uygulama %80."],
+      "forbidden_claims": ["Lisanstaki devamdan muaf tekrar kuralını yüksek lisansa uygulamak."],
+      "citations": [{"evidence_id": "pg:p12", "section": "Madde 30(1)", "quote": "Öğrenci kayıt yaptırdığı teorik dersin en az yüzde 70’ine, uygulamalı ders ve uygulamaların ise yüzde 80’ine devam etmek zorundadır."}, {"evidence_id": "pg:p12", "section": "Madde 30(3)", "quote": "Devamsızlık veya başarısızlık sebebiyle tekrar alınan dersler için devam şartı aranır."}],
+      "behavior": "answer", "category": "attendance", "scope": "Lisansüstü öğrencileri", "group_ids": ["attendance"]
+    },
+    {
+      "id": "BAKAY-035", "question": "Yüksek lisans ve doktorada final alt sınırı ve dersten geçme harf notu nedir?",
+      "paraphrases": ["Lisansüstünde finalden kaç almak ve hangi harf notuna ulaşmak gerekiyor?"],
+      "answer": "Yarıyıl sonu sınavından en az 50 puan almak gerekir; bu tek başına dersi geçirmez. Ders başarı notu yüksek lisansta en az CC, doktora/sanatta yeterlikte en az CB olmalıdır.",
+      "required_points": ["Final en az 50.", "Yüksek lisans CC, doktora/sanatta yeterlik CB."],
+      "forbidden_claims": ["Lisansın 40 final/DD notunu kullanmak.", "Yüksek lisans ders saydırma eşiği olan CB'yi ders geçmeye uygulamak."],
+      "citations": [{"evidence_id": "pg:p13", "section": "Madde 32(3)", "quote": "Yarıyıl sonu sınavına girmeyen veya yaryıl sonu sınavında en az elli puan alamayan öğrenci başarısız sayılır."}, {"evidence_id": "pg:p13", "section": "Madde 32(5)", "quote": "Bir dersten başarılı sayılmak için o dersin başarı notunun yüksek lisans programında en az CC, doktora/Sanatta yeterlik programında CB olması gerekir."}],
+      "behavior": "answer", "category": "grades", "scope": "Lisansüstü ders başarı koşulları", "group_ids": ["passing-grades"]
+    },
+    {
+      "id": "BAKAY-036", "question": "Lisansüstü mazeret sınavı başvurusu için süre kaç gün ve ne zaman başlar?",
+      "paraphrases": ["Yüksek lisans sınavını mazeretle kaçırdım; başvuru süresi rapor bitiminden mi sayılır?"],
+      "answer": "Bu yönetmelikte süre sınavların sona ermesinden itibaren en geç 3 iş günüdür. Geçerli sağlık raporu bulunan veya mazereti Enstitü Yönetim Kurulunca kabul edilen öğrenci için ara sınav/final yerine mazeret sınavı yapılabilir.",
+      "required_points": ["Sınavların sona ermesinden itibaren 3 iş günü.", "Geçerli sağlık raporu veya kurulca kabul edilmiş mazeret."],
+      "forbidden_claims": ["3 takvim günü demek.", "Süreyi rapor bitiminden başlatmak veya lisansın bir hafta kuralını kullanmak."],
+      "citations": [{"evidence_id": "pg:p13", "section": "Madde 31(5)", "quote": "Sınavların sona ermesinden itibaren en geç 3 iş günü içinde başvurmak kaydıyla; geçerli sağlık raporu olan ya da mazereti Enstitü Yönetim Kurulu kararı ile kabul edilen öğrenciye, ara sınav ve yarıyıl sonu sınavları yerine geçecek olan mazeret sınavları yapılır."}],
+      "behavior": "answer", "category": "exams", "scope": "Lisansüstü öğrencileri", "group_ids": ["excuse-exam"]
+    },
+    {
+      "id": "BAKAY-037", "question": "Lisansüstü ders sınavı notuna itiraz süresi nedir; ilk karara yeniden itiraz edebilir miyim?",
+      "paraphrases": ["Yüksek lisans sınav itirazında ilk başvuru ve ikinci itiraz nereye, kaç gün içinde yapılır?"],
+      "answer": "Sınav sonucu açıklandıktan itibaren 7 gün içinde Enstitüye yazılı itiraz yapılabilir. Enstitü Yönetim Kurulu kararının ilanından sonra 7 gün içinde Üniversite Yönetim Kuruluna yazılı başvuruyla itiraz yinelenebilir.",
+      "required_points": ["İlk başvuru sonuç açıklanmasından itibaren 7 gün, Enstitüye yazılı.", "Yeniden başvuru kurul kararının ilanından sonra 7 gün, Üniversite Yönetim Kuruluna."],
+      "forbidden_claims": ["İlk başvuru süresini 7 iş günü diye değiştirmek.", "Lisans kuralına dayanarak yeniden itiraz yok demek."],
+      "citations": [{"evidence_id": "pg:p15", "section": "Madde 34", "quote": "Öğrenci dersin sınav sonuçları açıklandıktan itibaren 7 gün içinde Enstitüye yazılı olarak itiraz edebilir."}, {"evidence_id": "pg:p15", "section": "Madde 34, son", "quote": "Öğrencinin sonuca itirazını yinelemesi, Enstitü Yönetim Kurulu kararının ilanı tarihinden sonra 7 gün içinde Üniversite Yönetim Kuruluna yazılı olarak başvurması ile gerçekleşir."}],
+      "behavior": "answer", "category": "appeals", "scope": "Lisansüstü ders sınavı; tez savunması ayrı", "group_ids": ["exam-appeal"]
+    },
+    {
+      "id": "BAKAY-038", "question": "Lisansüstü tez savunmasında başarısız oldum; itirazı ne kadar sürede nereye yapabilirim?",
+      "paraphrases": ["Tez savunması sonucuna itiraz için yüksek lisansta 7 gün mü var?"],
+      "answer": "Tez savunmasında başarısız olan öğrenci sınav tarihinden itibaren 2 ay içinde Enstitüye yazılı itiraz edebilir. Bu süre ders sınavı notuna itirazın 7 günlük süresiyle karıştırılmamalıdır.",
+      "required_points": ["Sınav tarihinden itibaren 2 ay.", "Enstitüye yazılı başvuru; başarısız tez savunması kapsamı."],
+      "forbidden_claims": ["Ders sınavı itirazındaki 7 günü kullanmak.", "İki ayı kaynak olmadan 60 gün olarak sabitlemek."],
+      "citations": [{"evidence_id": "pg:p15", "section": "Madde 36(1)", "quote": "Tez savunma sınavında başarısız olan öğrenci, sınav tarihinden itibaren 2 ay içinde Enstitüye yazılı olarak itiraz edebilir."}],
+      "behavior": "answer", "category": "appeals", "scope": "Lisansüstü tez savunması", "group_ids": ["exam-appeal"]
+    },
+    {
+      "id": "BAKAY-039", "question": "Manas Üniversitesi hangi şehirde ve devlet üniversitesi mi?",
+      "paraphrases": ["KTMÜ nerede bulunuyor, özel üniversite mi?"],
+      "answer": "Üniversite Kırgızistan'ın başkenti Bişkek'tedir. Öğrenci İşleri SSS sayfasında Kırgızistan ve Türkiye'de özel statülü devlet üniversitesi olarak tanımlanır.",
+      "required_points": ["Bişkek, Kırgızistan.", "Özel statülü devlet üniversitesi."],
+      "forbidden_claims": ["Özel statülü ifadesini özel/vakıf üniversitesi diye yorumlamak."],
+      "citations": [{"evidence_id": "faq-general:html", "section": "SSS 2-3", "quote": "Üniversite, Kırgızistan'ın başkenti Bişkek'tedir."}, {"evidence_id": "faq-general:html", "section": "SSS 3", "quote": "Üniversite, Kırgızistan'da ve Türkiye'de Özel Statülü Devlet Üniversitesi statüsündedir."}],
+      "behavior": "answer", "category": "prospective_student", "scope": "Genel kurumsal bilgi", "group_ids": ["institution-identity"]
+    },
+    {
+      "id": "BAKAY-040", "question": "Manas'ta bütün bölümler ücretsiz mi; Tıp için de aynı şey geçerli mi?",
+      "paraphrases": ["KTMÜ öğrenim ücretinde Tıp Fakültesi istisna mı?"],
+      "answer": "Öğrenci İşleri Genel Bilgiler SSS'si eğitim-öğretimin Tıp Fakültesi hariç tamamen ücretsiz olduğunu belirtiyor. Bu bilgiye dayanarak Tıbbın ücretsiz olduğu söylenemez; sayfa Tıp için ücret tutarı vermiyor.",
+      "required_points": ["Ücretsiz eğitim bilgisindeki Tıp istisnası.", "Tıp için tutar uydurmamak."],
+      "forbidden_claims": ["Tüm bölümler istisnasız ücretsizdir demek.", "Yurt, ulaşım ve yaşam giderlerini de ücretsiz ilan etmek."],
+      "citations": [{"evidence_id": "faq-general:html", "section": "SSS 9", "quote": "Üniversitede eğitim-öğretim (Tıp Fakültesi hariç) tamamen ücretsizdir."}],
+      "behavior": "answer", "category": "prospective_student", "scope": "SSS kaynak sürümündeki öğrenim ücreti açıklaması", "group_ids": ["tuition"]
+    },
+    {
+      "id": "BAKAY-041", "question": "Türkiye'den gelen öğrenci hazırlıkta Kırgızca mı öğreniyor; muaf olursa birinci sınıfa geçebilir mi?",
+      "paraphrases": ["Türkiyeli aday için Kırgızca hazırlığı ve doğrudan bölüme başlama koşulu nedir?"],
+      "answer": "SSS'ye göre Türkiye'den gelen öğrenci Kırgızca dil hazırlığı okur. Sorumlu olduğu dil hazırlık programının muafiyet sınavında başarılı olan öğrenci doğrudan birinci sınıfa başlayabilir. Bazı programlarda İngilizce veya Rusça hazırlık yükümlülüğü de bulunduğundan bütün sorumlu diller dikkate alınmalıdır.",
+      "required_points": ["Kırgızca hazırlığı.", "Sorumlu olunan dil muafiyet sınavlarında başarıyla doğrudan birinci sınıf.", "Programın ek İngilizce/Rusça şartlarını göz ardı etmemek."],
+      "forbidden_claims": ["Her Türkiye vatandaşı sınavsız hazırlıktan muaftır demek."],
+      "citations": [{"evidence_id": "faq-prep:html", "section": "SSS 4", "quote": "Türkiye’den gelen öğrenciler hazırlık sınıfında zorunlu olarak Kırgızca Dil Hazırlık Programı okuyacaklardır. Sorumlu olduğu dil hazırlık programının muafiyet sınavında başarılı olan öğrenciler doğrudan birinci sınıfa başlayabilirler."}, {"evidence_id": "faq-prep:html", "section": "SSS 9", "quote": "Ancak Rusça ve İngilizce ön şartı olan programlara kayıtlı olan Öğrencilerin Hazırlık sınıfından muaf olabilmeleri için o dilin muafiyet sınavında da başarılı olmaları gerekmektedir."}],
+      "behavior": "answer", "category": "prospective_student", "scope": "SSS hazırlık bilgisi; Türkiye'den kabul edilen aday", "group_ids": ["exemption"]
+    },
+    {
+      "id": "BAKAY-042", "question": "Hazırlık dil sınıfında devam zorunluluğu lisans derslerindeki gibi yüzde 70 mi?",
+      "paraphrases": ["Hazırlık sınıfında derslere yüzde kaç devam etmek gerekiyor?"],
+      "answer": "Hayır. Hazırlık Dil Eğitimi SSS sayfasında hazırlık derslerine en az %85 devam zorunluluğu belirtiliyor. Bu oran lisans teorik derslerinin %70 oranıyla karıştırılmamalıdır.",
+      "required_points": ["Hazırlık SSS'sindeki %85 oranı.", "Hazırlık ve lisans derslerini ayırmak."],
+      "forbidden_claims": ["Hazırlığa lisans teorik ders oranı olan %70'i uygulamak."],
+      "citations": [{"evidence_id": "faq-prep:html", "section": "SSS 7", "quote": "Hazırlık sınıfında Öğrenciler derslerin %85 ine devam etmek zorundadırlar."}],
+      "behavior": "answer", "category": "attendance", "scope": "Dil hazırlık sınıfı; SSS kaynak sürümü", "group_ids": ["attendance"],
+      "review_notes": "SSS'de aynı yanıt yinelenmiş. Özellikle yaptırım kısmı güncel Dil Hazırlık Yönetmeliğiyle teyit edilmeli; bu soru yalnız devam oranını sınar."
+    },
+    {
+      "id": "BAKAY-043", "question": "Hazırlık öğrencileri de burs alabiliyor mu?",
+      "paraphrases": ["Burs imkânı yalnız bölüme geçen öğrenciler için mi var?"],
+      "answer": "Hazırlık Dil Eğitimi SSS'sine göre hazırlık öğrencileri de burs alabilir. Bu kısa yanıt herkesin otomatik burs alacağı, burs tutarı veya bütün burs türlerinin koşulları hakkında bir garanti vermiyor.",
+      "required_points": ["Hazırlık öğrencileri burs alabilir.", "Otomatik hak veya tutar iddiası yok."],
+      "forbidden_claims": ["Her hazırlık öğrencisine koşulsuz aynı bursun ödendiği.", "Kaynakta olmayan aylık tutar vermek."],
+      "citations": [{"evidence_id": "faq-prep:html", "section": "SSS 13", "quote": "Hazırlık sınıfı öğrencileri burs alabiliyorlar mı? Evet, alabiliyorlar."}],
+      "behavior": "answer", "category": "scholarships", "scope": "Hazırlık öğrencileri; burs alabilme olanağı", "group_ids": ["prep-scholarship"],
+      "review_notes": "Burs üst kavramı bütün burs türlerinin koşullarına genişletilmemeli. Güncel burs yönergesiyle insan kontrolü gerekiyor."
+    },
+    {
+      "id": "BAKAY-044", "question": "Öğrenci kimlik kartımı ÖİDB'den mi alacağım?",
+      "paraphrases": ["Öğrenci İşleri kimlik kartını teslim eden birim mi?"],
+      "answer": "Evet. Hazırlık Dil Eğitimi SSS'si öğrenci kimlik kartının Öğrenci İşleri Dairesi Başkanlığından alınacağını belirtiyor.",
+      "required_points": ["ÖİDB kısaltmasını Öğrenci İşleri Dairesi Başkanlığına eşlemek.", "Kimlik kartı teslim birimini doğru belirtmek."],
+      "forbidden_claims": ["Kaynakta olmayan oda, kişi veya çalışma saati uydurmak."],
+      "citations": [{"evidence_id": "faq-prep:html", "section": "SSS 15", "quote": "Öğrenci Kimlik Kartınızı Öğrenci İşleri Dairesi Başkanlığından alacaksınız."}],
+      "behavior": "answer", "category": "terminology", "scope": "Öğrenci kimliği teslimi; SSS kaynak sürümü", "group_ids": ["student-card"]
+    },
+    {
+      "id": "BAKAY-045", "question": "Sınav sonucuna itiraz etmek için kaç günüm var?",
+      "paraphrases": ["Not itirazının son başvuru süresi nedir?"],
+      "answer": "Önlisans/lisans mı, lisansüstü öğrencisi misiniz; itirazınız ders sınavına mı tez savunmasına mı? Süreler farklı: lisans ders sınavında 7 iş günü, lisansüstü ders sınavında 7 gün, başarısız lisansüstü tez savunmasında 2 ay olarak düzenleniyor.",
+      "required_points": ["Öğrenim düzeyi ve sınav türünü sormak.", "Tek bir süreyi tüm öğrencilere uygulamamak."],
+      "forbidden_claims": ["Hiç açıklama istemeden herkese 7 gün demek."],
+      "citations": [{"evidence_id": "ug:p13", "section": "Madde 43", "quote": "Öğrenci dersin sınav sonuçları ilanından itibaren yedi (7) iş günü içinde Birim Amirliğine yazılı olarak maddi hata itirazında bulunabilir."}, {"evidence_id": "pg:p15", "section": "Madde 34", "quote": "Öğrenci dersin sınav sonuçları açıklandıktan itibaren 7 gün içinde Enstitüye yazılı olarak itiraz edebilir."}, {"evidence_id": "pg:p15", "section": "Madde 36(1)", "quote": "Tez savunma sınavında başarısız olan öğrenci, sınav tarihinden itibaren 2 ay içinde Enstitüye yazılı olarak itiraz edebilir."}],
+      "behavior": "clarify", "category": "ambiguity", "scope": "Öğrenim düzeyi ve sınav türü belirtilmemiş", "group_ids": ["exam-appeal"]
+    },
+    {
+      "id": "BAKAY-046", "question": "Vize için ne yapmam gerekiyor?",
+      "paraphrases": ["Vize işlemini nasıl halledeceğim?"],
+      "answer": "Vize derken dersin ara sınavını mı, yoksa Kırgızistan'a giriş/oturum vizesini mi kastediyorsunuz? İşlemler farklı olduğu için önce bunu netleştirelim.",
+      "required_points": ["Ara sınav ve giriş/oturum vizesi anlamlarını ayırıp açıklama istemek."],
+      "forbidden_claims": ["Anlamı netleşmeden pasaport belgesi, vize tutarı veya sınav tarihi vermek."],
+      "citations": [{"evidence_id": "ug:p9", "section": "Madde 33(1), sınav bağlamı", "quote": "öğrencinin giremediği dersin ara sınav ve/veya yarıyıl sonu sınavı yerine yapılan sınavdır."}, {"evidence_id": "faq-visa:html", "section": "SSS 1, giriş vizesi bağlamı", "quote": "Türkiye'den Kırgızistan'a gelirken vize almak gerekiyor mu? Vize işlemleri nasıl yapılıyor?"}],
+      "behavior": "clarify", "category": "polysemy", "scope": "Vize sözcüğünün anlamı belirtilmemiş", "group_ids": ["visa-sense", "excuse-exam"],
+      "review_notes": "Vize=ara sınav eşlemesi uzman tarafından dilsel olarak doğrulanmalı; mevzuat alıntısı yalnız ara sınav kavramını kanıtlar. Göç prosedürlerinin güncelliği bu sorunun hedefi değil."
+    },
+    {
+      "id": "BAKAY-047", "question": "Muafiyet için ne yapmalıyım?",
+      "paraphrases": ["Muaf olmak istiyorum, hangi başvuruyu yapacağım?"],
+      "answer": "Hazırlık dilinden muafiyeti mi, yoksa daha önce aldığınız dersleri saydırmayı mı kastediyorsunuz? Ayrıca öğrenim düzeyinizi belirtir misiniz? Bu işlemlerin belgeleri ve değerlendirme koşulları farklıdır.",
+      "required_points": ["Dil hazırlığı muafiyeti ile ders saydırmayı ayırmak.", "Öğrenim düzeyini sormak."],
+      "forbidden_claims": ["Her muafiyet başvurusuna tek bir puan veya belge listesi vermek."],
+      "citations": [{"evidence_id": "ug:p7", "section": "Madde 25(2)", "quote": "Ders saydırma ve ders muafiyetleri işlemleri öğrencinin Bölüm Başkanlığına, ekinde not durum belgesi ve ders içerikleri bulunan yazılı başvurusu ile başlatılır."}, {"evidence_id": "faq-prep:html", "section": "SSS 4", "quote": "Sorumlu olduğu dil hazırlık programının muafiyet sınavında başarılı olan öğrenciler doğrudan birinci sınıfa başlayabilirler."}],
+      "behavior": "clarify", "category": "ambiguity", "scope": "Muafiyet türü ve öğrenim düzeyi belirsiz", "group_ids": ["exemption"]
+    },
+    {
+      "id": "BAKAY-048", "question": "2026-2027 yılında Manas Tıp Fakültesinin yıllık ücreti tam olarak kaç dolar?",
+      "paraphrases": ["Manas Tıp için 2026-2027 kesin yıllık öğrenim ücretini dolar olarak söyler misin?"],
+      "answer": "Bu kaynak paketinden 2026-2027 Tıp Fakültesi ücretinin kesin tutarını doğrulayamıyorum. SSS yalnızca Tıp Fakültesini ücretsiz eğitim açıklamasının dışında tutuyor. Kesin tutar için o yıla ait resmî ücret ilanı veya Öğrenci İşleri teyidi gerekir.",
+      "required_points": ["Kaynak paketinde kesin tutar bulunmadığı için rakam vermemek.", "Tıp istisnasının ücret tutarı anlamına gelmediğini belirtmek.", "Yıla ait resmî kaynağa yönlendirmek."],
+      "forbidden_claims": ["Tıp ücretsizdir demek.", "Tutar, para birimi veya taksit planı uydurmak.", "Bütün üniversite veritabanında böyle bir belge kesinlikle yok demek."],
+      "citations": [{"evidence_id": "faq-general:html", "section": "SSS 9, yalnız istisna bilgisi", "quote": "Üniversitede eğitim-öğretim (Tıp Fakültesi hariç) tamamen ücretsizdir."}],
+      "behavior": "abstain", "category": "missing_evidence", "scope": "2026-2027 Tıp ücret tutarı; yalnız sağlanan kaynak paketi", "group_ids": ["tuition"],
+      "review_notes": "Bu abstain etiketi kapalı kaynak paketi içindir. Canlı RAG ilgili yılın ücret belgesini bulursa artık abstain beklenmez; önce dayanak yeterliliği yeniden etiketlenmeli."
+    },
+    {
+      "id": "BAKAY-049", "question": "Lisansta nottan kaldığım derste devam aranmazken yüksek lisansta tekrar devam gerekir mi?",
+      "paraphrases": ["Devamı alınmış başarısız dersin tekrarında lisans ve lisansüstü kuralları aynı mı?"],
+      "answer": "Aynı değil. Lisansta devamı önceden sağlanan başarısız derste normalde yeniden devam aranmaz; Spor Bilimleri ve Güzel Sanatlar bireysel uygulamalı derslerinde kurul kararıyla istisna olabilir. Lisansüstünde ise başarısızlık nedeniyle tekrar alınan derste devam şartı aranır.",
+      "required_points": ["İki öğrenim düzeyinin kurallarını ayrı belirtmek.", "Lisanstaki bireysel uygulamalı ders istisnasını korumak."],
+      "forbidden_claims": ["Kaynaklar farklı öğrencileri düzenlediği halde çelişki var deyip birini rastgele seçmek."],
+      "citations": [{"evidence_id": "ug:p8", "section": "Madde 28(4-5)", "quote": "Devam şartı yerine getirilen ve başarısız olunan veya not yükseltmek için tekrar alınan dersten devam şartı aranmaz. (5) Spor Bilimleri Fakültesi ve Güzel Sanatlar Fakültesinde bireysel uygulamalı derslerin tekrar alınışında Fakülte Yönetim Kurulu kararı ile devam zorunluluğu aranabilir."}, {"evidence_id": "pg:p12", "section": "Madde 30(3)", "quote": "Devamsızlık veya başarısızlık sebebiyle tekrar alınan dersler için devam şartı aranır."}],
+      "behavior": "answer", "category": "cross_document", "scope": "Lisans (Tıp hariç) ile lisansüstü devam karşılaştırması", "group_ids": ["attendance"]
+    },
+    {
+      "id": "BAKAY-050", "question": "Bana üniversiteyle ilgisi olmayan bir çikolatalı kek tarifi verir misin?",
+      "paraphrases": ["Manas belgelerini boş ver, evde çikolatalı kek nasıl yapılır?"],
+      "answer": "KTMÜ'nün kurumsal bilgileri ve öğrenci işlemleri hakkında yardımcı olabilirim. Bu soru kapsamımın dışında; üniversiteyle ilgili bir sorunuz varsa sorabilirsiniz.",
+      "required_points": ["Kurum dışı isteği kısa ve nazik biçimde kapsam dışında bırakmak.", "Üniversite belgesi veya ilgisiz kaynak uydurmamak."],
+      "forbidden_claims": ["Kek tarifi vermek veya bir yönetmeliği tarifin kaynağı olarak sunmak."],
+      "citations": [], "behavior": "abstain", "category": "out_of_scope", "scope": "Kurum dışı istek; ürün davranış politikası", "group_ids": ["out-of-scope-food"],
+      "review_notes": "Belge bilgisi ölçmez; kurumsal asistanın kapsam politikasını ölçer. İnsan ürün sahibi bu beklenen davranışı onaylamalı."
+    }
+  ]
+}
