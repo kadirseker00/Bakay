@@ -618,7 +618,7 @@ export default function Home() {
                         <summary>
                           <span>
                             <LibraryBig size={17} />
-                            {message.sources.length} kaynakta doğrulandı
+                            {message.sources.length} kaynak parçası
                           </span>
                           <ChevronDown className="summary-chevron" size={18} />
                         </summary>
