@@ -1,0 +1,244 @@
+{
+  "version": "0.2.2",
+  "created_at": "2026-10-01T05:34:11.551966+00:00",
+  "api_version": "0.2.2",
+  "ui_version_matches": true,
+  "initial_attempt": [
+    {
+      "request": {
+        "question": "lisans",
+        "history": [
+          {
+            "role": "user",
+            "content": "başka okuldan geçtiğim dersleri saydırabilir miyim?"
+          },
+          {
+            "role": "assistant",
+            "content": "**Önlisans/lisans için**, **ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)** (Madde 25) şöyle diyor:\n\n> Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha önce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersleri saydırabilir.\n\nBu konuda önlisans/lisans ve lisansüstü için farklı hükümler var. Hangi öğrenim düzeyi için soruyorsunuz: önlisans/lisans, yüksek lisans veya doktora?"
+          }
+        ]
+      },
+      "query_id": "6f7a2490427240ed86429b12bbb5ac5c",
+      "answer": "Evet, KTMÜ'ye ilk kez kayıt yaptıran bir öğrenci daha önce almış ve başarmış olduğu diğer yükseköğretim kurumlarından gelen derslerini saydırtabilir. Bu işlem için Bölüm Başkanlığına not durum belgesi ve ders içerikleri bulunan yazılı başvuru yapılması gerekir; komisyon tarafından son 5 yıl içinde alınmış olması, başarı notunun en az CC olması ve AKTS'si ile içeriği uygunluğu kontrol edilir.\n\n**Temel şartlar:**\n*   Öğrencinin KTMÜ'ye **ilk kez kayıt yaptırdığı**;\n*   Daha önce kaydolduğu yükseköğretim kurumundan almış olduğu derslerin, başvuru sahibince son **5 yıl içinde alınmış olması**;\n*   Başarı notunun en az **CC** olmasını;\n*   Dersin AKTS sayısının kayıtlı olduğu programın toplam AKTS sayısının **1/3'ünden fazla olmamasını**;\n*   Dersin içeriğinin uygunluğunu gerektirir.\n\nBu işlemler Bölüm Başkanlığına, ekinde not durum belgesi ve ders içerikleri bulunan yazılı başvuru ile başlatılır; muaf tutulacak ders AKTS sayısı programın toplamının üçte birinden fazla olamaz. İntibak işlemleri Bölüm Akademik Kurulunun kararı ve Birim Yönetim Kurulunun kabulüyle kesinleşir.",
+      "sources": [
+        {
+          "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+          "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+          "snippet": "enci dersten muaf tutulur ve \nmuafiyet notu öğrencinin Not Durum Belgesine işlenir. \n \nDers Saydırma, Ders Muafiyeti ve İntibak \nMadde 25– (1) Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha \nönce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersl",
+          "score": 0.4027
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": " değiştirilebilir. \nc) Yaz Okuluna kayıt yaptıran her öğrenci en fazla 2 (iki) ders alabilir. \nd) Birinci sınıf öğrencisi, üçüncü ve dördüncü sınıftan; ikinci sınıf öğrencisi ise dördüncü \nsınıftan ders alamaz. \ne) Öğrenci, aynı zamanda hem staj yapıp hem de yaz okulundan ders alamaz. \nf) Yaz Okulun",
+          "score": 0.5694
+        },
+        {
+          "document": "ru_trainers_masters_99011dd0.html",
+          "title": "Факультет спортивных наук - Отделение тренерского обучения",
+          "snippet": "Выпускники могут осуществлять профессиональную деятельность в других областях и (или) сферах профессиональной деятельности при условии соответствия уровня их образования и полученных компетенций требованиям к квалификации работника (в образовательных учреждениях разного уровня и типа: общеобразовате",
+          "score": 0.5782
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": "KTMÜ MEVZUATI \n \n \n \n \n214 \n LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ \nSayfa:214 \n \n(2) \nDoktora/sanatta yeterlik programında bir dersin bir yarıyılda açılması için o derse en az \nkaç öğrencinin kayıtlı olması gerektiği doktora/sanatta yeterlik programı uygulama \nyönergesi ile belirlenir. \n \n",
+          "score": 0.4084
+        },
+        {
+          "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+          "title": "Kırgızistan-Tьrkiye Manas Ьniversitesi",
+          "snippet": "a çeĢitli nedenlerden dolayı döneminde alamadıkları dersleri, \nyaz döneminde almalarına imkan sağlayarak, derslerdeki yığılmaları önlemek, \nc) Üstün baĢarılı öğrencilerin, üst yarıyıllardan ders alabilmelerine olanak \nsağlamak, \nd) Öğrencilere, düĢük notla geçtikleri derslerde, notlarını yükseltmele",
+          "score": 0.5043
+        }
+      ],
+      "latency_ms": 13381
+    },
+    {
+      "request": {
+        "question": "Lisansta daha önce aldığım dersleri saydırmanın şartları neler?"
+      },
+      "query_id": "259659f45f044629813e9f17fc9d026f",
+      "answer": "Lisans programına ilk kez kayıt yaptıran öğrenciler, daha önce almış ve başarmış oldukları derslerin saydırılmasını talep edebilir. Bu işlem için Bölüm Başkanlığı'na not durum belgesi ve ders içerikleri bulunan yazılı başvuru yapılması gerekir; muaf tutulacak dersten en az CC harf notu alınmış olması şarttır.\n\n**Temel şartlar:**\n*   Öğrencinin son 5 yıl içinde almış olduğu dersler saydırılabilir.\n*   Muaf tutulan dersin AKTS sayısı, öğrencinin kayıtlı olduğu programın toplam AKTS sayısının **1/3'ünden fazla olamaz**.\n\nBu işlemler Bölüm Akademik Kurulunun kararı ve Birim Yönetim Kurulunun kabulü ile kesinleşir. Kaynak: ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ).",
+      "sources": [
+        {
+          "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+          "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+          "snippet": "enci dersten muaf tutulur ve \nmuafiyet notu öğrencinin Not Durum Belgesine işlenir. \n \nDers Saydırma, Ders Muafiyeti ve İntibak \nMadde 25– (1) Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha \nönce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersl",
+          "score": 0.3999
+        },
+        {
+          "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+          "title": "Kırgızistan-Tьrkiye Manas Ьniversitesi",
+          "snippet": "63/130 \n- Öğrenciyle ilgili kiĢisel tanıtım formu \n- Öğrencinin devam ettiği programdaki derslerin listesi \n- Öğrencinin aldığı dersler \n- Derslerdeki baĢarı durumu \n- Öğrencinin öğrenimine ara verip vermediğine iliĢkin bilgi \n- Öğrencinin aldığı burslar, ödüller ve varsa cezalar \n- Fakülte/Yüksekok",
+          "score": 0.5399
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": "KTMÜ MEVZUATI \n \n \n \n \n214 \n LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ \nSayfa:214 \n \n(2) \nDoktora/sanatta yeterlik programında bir dersin bir yarıyılda açılması için o derse en az \nkaç öğrencinin kayıtlı olması gerektiği doktora/sanatta yeterlik programı uygulama \nyönergesi ile belirlenir. \n \n",
+          "score": 0.3813
+        },
+        {
+          "document": "tr_faq_3_ef017b75.html",
+          "title": "Kayıt İşlemleri",
+          "snippet": "Üniversiteye yerleştirildiğimi öğrendikten sonra öncelikli olarak yapmam gereken işlemler nelerdir?\nÖncelikli olarak zaman alan işlemleri yapmalısınız. Bu anlamda, öncelikli işlemler, Sağlık Kurulu (Heyet) Raporu almak, eğer yoksa pasaport çıkartmak, uçak rezervasyonunu yaptırmak(biletini almak) ve ",
+          "score": 0.5639
+        },
+        {
+          "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+          "title": "Kırgızistan-Tьrkiye Manas Ьniversitesi",
+          "snippet": "57/130 \nanadal lisans / önlisans programı danıĢmanları ile iletiĢim içinde görev yapar. \nc) Ġki programa birden saydırılacak dersler bölümler arasında kararlaĢtırılır ve \ndaha önce alınanlar öğrencinin programa kabulü sırasında, daha sonra \nalınanlar ise alındıkları dönem içinde Fakülte, Yüksek Okul",
+          "score": 0.3987
+        }
+      ],
+      "latency_ms": 11185
+    },
+    {
+      "request": {
+        "question": "Lisans öğrencisiyim. Teorik ve uygulamalı derslerde devam zorunluluğu yüzde kaç?"
+      },
+      "query_id": "2723610ea74644479c12ff61167f7e38",
+      "answer": "Lisans programlarında teorik derslerin en az %70'ine, uygulamalı derslerin ise en az %80'ine devam etmek zorunludur. Bu şartları yerine getirmeyen öğrenciler devamsız sayılır ve yarıyıl sonu sınavına alınmazlar.\n\n**Temel şartlar:**\n*   Teorik derslerdeki **devam oranı**: En az %70 olmalıdır;\n*   Uygulamalı dersler için **devam oranı**: En az %80 olmalıdır;\n*   Bu sürelerin altında kalan öğrenciler, ilgili dersten **devamsız** sayılır ve sınav hakkından mahrum kalır.\n\nİlgili hükümler \"Önlisans ve Lisans Eğitim-Öğretim Yönetmeliği (Yeni)\" belgesinde düzenlenmiştir. Devam şartı yerine getirilen ancak başarısız olunan veya not yükseltmek için tekrar alınan derslerde devam zorunluluğu aranmaz; fakat devamsızlık sebebiyle tekrar alınan dersler için bu oran yine geçerlidir. Spor Bilimleri Fakültesi ve Güzel Sanatlar Fakültelerinde bireysel uygulamalı derslerin tekrar alınışında ise Fakülte Yönetim Kurulu kararı ile devam zorunluluğu aranabilir.",
+      "sources": [
+        {
+          "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+          "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+          "snippet": "e Dikey Geçişler \nMadde 26- (1) Başka yükseköğretim kurumlarından Üniversiteye yatay ve dikey geçiş yoluyla \nöğrenci kabul edilmez. Gerekli şartları sağlayan Üniversitenin öğrencisi ilgili bölüme/programa \nyatay ve dikey geçiş yapabilir. Yatay ve dikey geçiş işlemleri Kırgızistan Türkiye Manas Ünive",
+          "score": 0.5105
+        },
+        {
+          "document": "tr_faq_7_3bc18714.html",
+          "title": "Hazırlık Dil Eğitimi",
+          "snippet": "Evet, Hazırlık sınıfında Öğrenciler derslerin %85 ine devam etmek zorundadırlar. Bu zorunluluğu yerine getirmeyen Öğrencilerin Üniversite ile ilişikleri kesilir.\n \nEvet, Hazırlık sınıfında Öğrenciler derslerin %85 ine devam etmek zorundadırlar. Bu zorunluluğu yerine getirmeyen Öğrencilerin Üniversit",
+          "score": 0.5513
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": "aşarı \nMadde 22. \n1) Yüksek lisans yapan öğrencinin tez aşamasına geçebilmesi için ağırlıklı genel not \nortalaması 2.50'den az olması halinde, ortalama şartını sağlayıncaya kadar tekrar veya \nyeni ders almakla yükümlüdür. \n2) Doktora yapan öğrencinin yeterlilik sınavına girmesi için ağırlıklı not or",
+          "score": 0.4563
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": "m programında bulunan zorunlu ortak yabancı dil derslerinden muaf tutulur. \nMuafiyet sınavında başarılı olması durumunda, öğrencinin bu sınavdan aldığı notu not \ndurum belgesine işlenir. \n \nDerslere Devam \nMadde 17. Derslere ve uygulamalara devam zorunludur. Öğrencinin başarısızlık nedeniyle tekrar ",
+          "score": 0.4398
+        },
+        {
+          "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+          "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+          "snippet": "KTMÜ MEVZUATI \n \n \n \n \n160 \n ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ) \nSayfa:160 \n \ndikkate alınmaz. Öğrencinin izinli sayıldığı süre zarfında yapılan sınavlar için mazeret sınavı \nhakkı verilir. \n(3) \nDevamsızlık sebebiyle tekrar alınan dersler için devam şartı aranır. \n(4) \nDevam şart",
+          "score": 0.3539
+        }
+      ],
+      "latency_ms": 12955
+    }
+  ],
+  "final_cases": [
+    {
+      "request": {
+        "question": "lisans",
+        "history": [
+          {
+            "role": "user",
+            "content": "başka okuldan geçtiğim dersleri saydırabilir miyim?"
+          },
+          {
+            "role": "assistant",
+            "content": "**Önlisans/lisans için**, **ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)** (Madde 25) şöyle diyor:\n\n> Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha önce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersleri saydırabilir.\n\nBu konuda önlisans/lisans ve lisansüstü için farklı hükümler var. Hangi öğrenim düzeyi için soruyorsunuz: önlisans/lisans, yüksek lisans veya doktora?"
+          }
+        ]
+      },
+      "query_id": "aeb31745a93242098edbfd4f0fc95205",
+      "answer": "Evet, üniversitenize ilk kez kayıt yaptırdığınız önlisans veya lisans programına ait bir dersten muafiyet alabilirsiniz.\n\n**Temel şartlar:**\n*   Daha önce kaydolduğunuz yükseköğretim kurumundan almış ve başarmış olduğunuz derslerin **son 5 yıl içinde alınmış olması**;\n*   Başarılı notunun en az **CC** olmaları;\n*   Dersin içeriği ve AKTS sayısının kayıtlı olduğu programın koşulları ile uygunluğu sağlanması gerekir.\n\nBu işlemler için Bölüm Başkanlığına, ek olarak Not Durum Belgesi ve ders içerikleri bulunan yazılı başvuru yapılması gerekmektedir.",
+      "sources": [
+        {
+          "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+          "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+          "snippet": "enci dersten muaf tutulur ve \nmuafiyet notu öğrencinin Not Durum Belgesine işlenir. \n \nDers Saydırma, Ders Muafiyeti ve İntibak \nMadde 25– (1) Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha \nönce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersl",
+          "score": 0.4027
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": " değiştirilebilir. \nc) Yaz Okuluna kayıt yaptıran her öğrenci en fazla 2 (iki) ders alabilir. \nd) Birinci sınıf öğrencisi, üçüncü ve dördüncü sınıftan; ikinci sınıf öğrencisi ise dördüncü \nsınıftan ders alamaz. \ne) Öğrenci, aynı zamanda hem staj yapıp hem de yaz okulundan ders alamaz. \nf) Yaz Okulun",
+          "score": 0.5694
+        },
+        {
+          "document": "ru_trainers_masters_99011dd0.html",
+          "title": "Факультет спортивных наук - Отделение тренерского обучения",
+          "snippet": "Выпускники могут осуществлять профессиональную деятельность в других областях и (или) сферах профессиональной деятельности при условии соответствия уровня их образования и полученных компетенций требованиям к квалификации работника (в образовательных учреждениях разного уровня и типа: общеобразовате",
+          "score": 0.5782
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": "KTMÜ MEVZUATI \n \n \n \n \n214 \n LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ \nSayfa:214 \n \n(2) \nDoktora/sanatta yeterlik programında bir dersin bir yarıyılda açılması için o derse en az \nkaç öğrencinin kayıtlı olması gerektiği doktora/sanatta yeterlik programı uygulama \nyönergesi ile belirlenir. \n \n",
+          "score": 0.4084
+        },
+        {
+          "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+          "title": "Kırgızistan-Tьrkiye Manas Ьniversitesi",
+          "snippet": "a çeĢitli nedenlerden dolayı döneminde alamadıkları dersleri, \nyaz döneminde almalarına imkan sağlayarak, derslerdeki yığılmaları önlemek, \nc) Üstün baĢarılı öğrencilerin, üst yarıyıllardan ders alabilmelerine olanak \nsağlamak, \nd) Öğrencilere, düĢük notla geçtikleri derslerde, notlarını yükseltmele",
+          "score": 0.5043
+        }
+      ],
+      "latency_ms": 30514,
+      "presentation_checks": {
+        "time_emphasized": true,
+        "grade_emphasized": true,
+        "limit_emphasized": false,
+        "condition_list": true
+      }
+    },
+    {
+      "request": {
+        "question": "Lisansta daha önce aldığım dersleri saydırmanın şartları neler?"
+      },
+      "query_id": "9771b34219eb483e87acb2bc12d8956d",
+      "answer": "Lisans programına ilk kez kayıt yaptıran öğrenciler, daha önce almış ve başarmış oldukları derslerin saydırmak istemeleri durumunda belirli akademik kriterlere uymaları gerekmektedir.\n\n**Temel şartlar:**\n*   Öğrenci son **5 yıl içinde** alınmış olması gereken bir dersi başarıyla tamamlamalıdır;\n*   Dersin harf notu en az **CC** olmalıdır;\n*   Dersin AKTS sayısı, öğrencinin kayıtlı olduğu lisans programının toplam AKTS sayısının **1/3'ünden fazla** olmaması gerekir.\n\nBu işlemler için öğrenci Bölüm Başkanlığına ek olarak not durum belgesi ve ders içerikleri bulunan yazılı bir başvuru ile başvurmalıdır; ilgili komisyon tarafından onaylanan muafiyetler, bölüm akademik kurulunun kararıyla kesinleşir.",
+      "sources": [
+        {
+          "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+          "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+          "snippet": "enci dersten muaf tutulur ve \nmuafiyet notu öğrencinin Not Durum Belgesine işlenir. \n \nDers Saydırma, Ders Muafiyeti ve İntibak \nMadde 25– (1) Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha \nönce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersl",
+          "score": 0.3999
+        },
+        {
+          "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+          "title": "Kırgızistan-Tьrkiye Manas Ьniversitesi",
+          "snippet": "63/130 \n- Öğrenciyle ilgili kiĢisel tanıtım formu \n- Öğrencinin devam ettiği programdaki derslerin listesi \n- Öğrencinin aldığı dersler \n- Derslerdeki baĢarı durumu \n- Öğrencinin öğrenimine ara verip vermediğine iliĢkin bilgi \n- Öğrencinin aldığı burslar, ödüller ve varsa cezalar \n- Fakülte/Yüksekok",
+          "score": 0.5399
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": "KTMÜ MEVZUATI \n \n \n \n \n214 \n LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ \nSayfa:214 \n \n(2) \nDoktora/sanatta yeterlik programında bir dersin bir yarıyılda açılması için o derse en az \nkaç öğrencinin kayıtlı olması gerektiği doktora/sanatta yeterlik programı uygulama \nyönergesi ile belirlenir. \n \n",
+          "score": 0.3813
+        },
+        {
+          "document": "tr_faq_3_ef017b75.html",
+          "title": "Kayıt İşlemleri",
+          "snippet": "Üniversiteye yerleştirildiğimi öğrendikten sonra öncelikli olarak yapmam gereken işlemler nelerdir?\nÖncelikli olarak zaman alan işlemleri yapmalısınız. Bu anlamda, öncelikli işlemler, Sağlık Kurulu (Heyet) Raporu almak, eğer yoksa pasaport çıkartmak, uçak rezervasyonunu yaptırmak(biletini almak) ve ",
+          "score": 0.5639
+        },
+        {
+          "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+          "title": "Kırgızistan-Tьrkiye Manas Ьniversitesi",
+          "snippet": "57/130 \nanadal lisans / önlisans programı danıĢmanları ile iletiĢim içinde görev yapar. \nc) Ġki programa birden saydırılacak dersler bölümler arasında kararlaĢtırılır ve \ndaha önce alınanlar öğrencinin programa kabulü sırasında, daha sonra \nalınanlar ise alındıkları dönem içinde Fakülte, Yüksek Okul",
+          "score": 0.3987
+        }
+      ],
+      "latency_ms": 10902,
+      "presentation_checks": {
+        "time_emphasized": true,
+        "grade_emphasized": true,
+        "limit_emphasized": true,
+        "condition_list": true
+      }
+    }
+  ],
+  "final_checked_at": "2026-10-01T05:38:03.789979+00:00",
+  "limitation": "Vurgu mevcut metni biçimlendirir; model ilk takip cevabında kaynakta bulunan 1/3 sınırını üretmedi."
+}

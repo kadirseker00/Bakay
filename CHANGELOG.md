@@ -6,6 +6,19 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.2.2 — 2026-10-01
+
+- Yanıtın kısa sonucundan sonra temel şartları ayrı maddelerde sun.
+- Süre, asgari not, kredi/AKTS sınırı, içerik uygunluğu ve gerekli belgelerin
+  kritik değerlerini kalın vurgula; şartları parantez içine gömme.
+- Kaynaktaki alt/üst sınırların yönünü ve ilgili koşulları koruma talimatı eklendi.
+- Süre, asgari harf notu ve oranlar mevcut cevap metninden otomatik kalınlaştırılır;
+  sayı/hüküm değiştirilmez, mevcut Markdown ve bağlantılar korunur.
+
+Doğrulama: 78 backend testi; canlı iki ders saydırma cevabında süre/not vurgusu
+ve maddeli sunum, API/arayüz 0.2.2. Bir takip cevabında 1/3 şartı eksildi;
+vurgu adımı eksik hükmü geri getirmez. Ayrıntılar `docs/answer-presentation.md`.
+
 ## 0.2.1 — 2026-10-01
 
 - Öğrenim düzeyi belirsizken önce ilgili hükmün kısa, tam ilk cümlesini

@@ -31,6 +31,20 @@ Kurallar:
 - Kaynaklarda yanıt yoksa, açıkça "Bu konuda elimdeki belgelerde bilgi bulamadım." de. UYDURMA.
 - Türkçe, açık ve resmi bir dille yanıtla.
 - İlgili olduğunda hangi belgeye dayandığını belirt.
+- İlk paragraf yalnızca tek bir kısa sonuç cümlesi olsun; şartları girişte tekrarlama.
+  Başvuruya veya uygunluğa karar verdiren şartları ardından
+  **Temel şartlar:** altında ayrı maddelerde yaz. Kaynakta bulunan ilgili şartların
+  tümünü koru; şartları "gibi" diyerek belirsiz bir örnek listesine dönüştürme.
+- Süre sınırını, asgari başarı notunu, kredi/AKTS üst sınırını, içerik uygunluğunu
+  ve zorunlu belgeleri ilgili olduklarında görünür kıl. Her maddede kritik eşik
+  veya şartın kendisini **kalın** yaz; yalnız madde başlığını kalınlaştırma.
+- Temel şartları parantez içine veya uzun bir cümlenin arasına gömme. Başvuru
+  yeri ve karar/onay sürecini şartlardan sonra kısa bir paragrafta açıkla.
+- Süre ve asgari not şartını girişte bırakma: her birini Temel şartlar bölümünde
+  kendi maddesinde göster. Sayısal değeri ve notu kalınlaştır; "süre" veya "not"
+  gibi başlıkları kalın yazmak tek başına yeterli değildir.
+- Kaynaktaki "en az", "en fazla", "aşamaz" gibi sınırların yönünü aynen koru.
+  Olumlu bir şartı sağlamak, başvurunun reddedilme gerekçesi gibi ifade edilmemeli.
 - Hükümlerin öğrenim düzeyini ve kapsamını koru. Soru öğrenim düzeyini belirtmiyorsa
   açıklarken hangi düzey için geçerli olduğunu söyle; lisans ve lisansüstü koşullarını birleştirme.
 - Aynı konuda farklı öğrenim düzeylerinin kuralları varsa ve soru düzeyi belirtmiyorsa,
@@ -109,6 +123,25 @@ def _build_context(hits: list[dict]) -> str:
         label = f"\nÖğrenim kapsamı: {scope}" if scope else ""
         blocks.append(f"[{i}] {h['title']}{label}\n{h.get('context_text', h['text'])}")
     return "\n\n".join(blocks)
+
+
+def _highlight_key_details(text: str) -> str:
+    """Mevcut süre/not/oran değerlerini vurgular; metne bilgi eklemez."""
+    protected = re.compile(
+        r"(\*\*[^*\n]+\*\*|`[^`\n]+`|\[[^\]\n]*\]\([^\)\n]*\)|https?://\S+)"
+    )
+    minimum = r"(?:(?:en az|en fazla|en çok|azami|asgari)\s+)?"
+    value = r"(?:\d+(?:[.,]\d+)?|bir|iki|üç|dört|beş|altı|yedi|sekiz|dokuz|on)"
+    detail = re.compile(
+        rf"(?<!\w)(?:{minimum}%\s*\d+(?:[.,]\d+)?"
+        rf"|{minimum}\d+\s*/\s*\d+"
+        rf"|(?:son\s+)?{minimum}{value}\s+(?:yıl|ay|hafta|gün|saat|AKTS|kredi)\b"
+        r"|en az\s+[\"“]?(?:AA|BA|BB|CB|CC|DC|DD|FD|FF)[\"”]?(?!\w))",
+        flags=re.IGNORECASE,
+    )
+    parts = protected.split(text)
+    return "".join(part if i % 2 else detail.sub(lambda m: f"**{m.group(0)}**", part)
+                   for i, part in enumerate(parts))
 
 
 def _scope_preanswer(question: str, hits: list[dict]) -> str:
@@ -386,7 +419,7 @@ def answer(question: str, top_k: int | None = None,
     t1 = time.perf_counter()
     raw = llm.generate(prompt)
     generation_ms = int((time.perf_counter() - t1) * 1000)
-    text = _label_source_references(_strip_reasoning(raw), hits)
+    text = _highlight_key_details(_label_source_references(_strip_reasoning(raw), hits))
     steps.append("generate")
 
     # --- Düğüm 5: Dayanak doğrulama (opsiyonel) ---

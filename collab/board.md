@@ -49,3 +49,5 @@
 - Fakülte alt alanları robots.txt kapalı — kurum içi tarama izni alınırsa eklenecek
 
 | ✅ | Uygulama ve raporlar v0.2.0 olarak commit edildi; ortak VERSION ve ad altında sürüm. v0.2.1 kaynaklı ön cevap + düzey sorusu denendi; 75 test, canlı iki soru/takip ve API/UI sürümü doğrulandı | codex | 2026-10-01 | — |
+
+| ✅ | v0.2.2: temel şartlar ayrı maddeler, süre/not/oran değerlerine otomatik kalın vurgu; 78 test, canlı iki ders saydırma sunumu ve API/UI sürümü doğrulandı. Eksik koşul üretimi ayrı kusur olarak raporda | codex | 2026-10-01 | — |
