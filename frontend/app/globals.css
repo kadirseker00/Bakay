@@ -118,6 +118,13 @@ textarea:focus-visible {
   line-height: 1.3;
 }
 
+.brand-version {
+  font-size: 10px;
+  line-height: 1.3;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
 .site-nav {
   display: flex;
   align-items: center;

@@ -1,0 +1,36 @@
+{
+  "snapshot_sha256": "2500be7ecac426513f156c94ed328b51a9a672d2f929bc79c1d355c9a5bf3104",
+  "n_questions": 12,
+  "models": {
+    "qwen3.5:9b": {
+      "completed": 12,
+      "errors": 0,
+      "missing": [],
+      "empty_answers": 0,
+      "truncated": 0,
+      "raw_think_blocks": 0,
+      "separate_thinking_answers": 0,
+      "p50_seconds": 4.11,
+      "p95_seconds": 6.61,
+      "mean_seconds": 4.34,
+      "mean_tokens_per_second": 34.85,
+      "mean_output_tokens": 99.2,
+      "answers_under_10_seconds": 12
+    },
+    "hf.co/ytu-ce-cosmos/Turkish-Gemma-9b-T1-GGUF:Q4_K_M": {
+      "completed": 12,
+      "errors": 0,
+      "missing": [],
+      "empty_answers": 0,
+      "truncated": 0,
+      "raw_think_blocks": 12,
+      "separate_thinking_answers": 0,
+      "p50_seconds": 14.27,
+      "p95_seconds": 21.36,
+      "mean_seconds": 15.3,
+      "mean_tokens_per_second": 32.72,
+      "mean_output_tokens": 471.4,
+      "answers_under_10_seconds": 1
+    }
+  }
+}

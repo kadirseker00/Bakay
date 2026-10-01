@@ -1,0 +1,104 @@
+{
+  "reviewer": "Codex, tek AI değerlendirici; uzman/gold onayı değildir",
+  "snapshot_sha256": "2500be7ecac426513f156c94ed328b51a9a672d2f929bc79c1d355c9a5bf3104",
+  "model": "qwen3.5:9b",
+  "rubric": "Kaynak desteği: iddialar doğru kapsamla verilen bağlamda mı? Tamlık: taslak required_points maddelerinin tümü. Davranış: answer/clarify/abstain beklentisi. Bir maddede temel sayı doğru olsa bile gerekli koşul eksikse tamlık false.",
+  "cases": [
+    {
+      "id": "BAKAY-001",
+      "answer_sha256": "1c4873ce591667c65b8e1c70233a26004270871756c89da719a0033e4602571c",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Noter vekili doğru; ilan edilen süre koşulu atlanmış."
+    },
+    {
+      "id": "BAKAY-004",
+      "answer_sha256": "2bf45375d07466fdc1dfa4a3cd44cddd90dca32592c1161399e6ef20d484d327",
+      "source_supported": true,
+      "all_required_points": true,
+      "expected_behavior_met": true,
+      "note": "Teorik 70 ve uygulama varsa 80 şartını aynı derste ayrı ifade ediyor."
+    },
+    {
+      "id": "BAKAY-014",
+      "answer_sha256": "dbe2140032d7d88ea1d5f0e24162711c1800a8e19162be449eefe7d1326c62e6",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Süre, form, bölüm ve onaylı rapor doğru; mazeretin kurulca kabulü atlanmış."
+    },
+    {
+      "id": "BAKAY-021",
+      "answer_sha256": "f40a1c6224fc3828909488d0dbd144d901f5bf925d82b24edb0dabd90f62d36a",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "2,00/2,50 doğru; daha yüksek program eşiği ve Senato çevirim tablosu atlanmış."
+    },
+    {
+      "id": "BAKAY-025",
+      "answer_sha256": "1a456326586b9b15aa71875d1a571c208fd946f990203b41d1854e9249af1d2c",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "55/eşdeğer belge ve sözlü zorunluluğu doğru; başvuruda beyan koşulu yok."
+    },
+    {
+      "id": "BAKAY-036",
+      "answer_sha256": "b5f2c7d167aa9f44ccf272b6d2e16dd367079b024a518ee89530df4d3bcf565e",
+      "source_supported": false,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "3 iş günü doğru ama başlangıç sınavların sona ermesi yerine tüm süreçlerin tamamlanması; rapor/kurul koşulu da yok."
+    },
+    {
+      "id": "BAKAY-039",
+      "answer_sha256": "eba1829624475227b2728467c41173e6b7acbd78080c09eab2edef6f1577ace5",
+      "source_supported": true,
+      "all_required_points": true,
+      "expected_behavior_met": true,
+      "note": "Şehir ve devlet üniversitesi statüsü doğru."
+    },
+    {
+      "id": "BAKAY-045",
+      "answer_sha256": "90d2eccfb07d29b105a0dcd731f93b9e0b4d082730c32712598d70a9fea78a13",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": false,
+      "note": "Üç süreyi doğru ayırıyor; kullanıcıya düzey ve sınav türü sorulmuyor."
+    },
+    {
+      "id": "BAKAY-046",
+      "answer_sha256": "aff08b3b4afb11987a0d3438616e8745228b14f755d9cd2cbb8f63620d937b58",
+      "source_supported": false,
+      "all_required_points": false,
+      "expected_behavior_met": false,
+      "note": "Bağlamda yalnız vize sorusu var, cevap hükmü yok; zorunluluk iddiası dayanıksız ve anlam ayrımı sorulmuyor."
+    },
+    {
+      "id": "BAKAY-048",
+      "answer_sha256": "a78b5280a6d837645f6747f18d0abf58a12b46b884509dff113d10ccf22a0d1f",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Tutar uydurmuyor ve Tıp istisnasını koruyor; güncel yıla ait resmî kaynağa yönlendirme yok."
+    },
+    {
+      "id": "BAKAY-049",
+      "answer_sha256": "8fe79241eac45cf3725ede90fc07f217b27a767402b8169d565617e6a1e4504b",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Lisansüstü devamı doğru; lisanstaki kural ve bireysel uygulama istisnası atlanmış."
+    },
+    {
+      "id": "BAKAY-050",
+      "answer_sha256": "3ba0931972412e4550e3e0e8cf891fca81a58c2170de5b6e5b52fa5bbc79bfc0",
+      "source_supported": true,
+      "all_required_points": true,
+      "expected_behavior_met": true,
+      "note": "Tarif vermeden kurum dışı isteği reddediyor; somut kaynak uydurmuyor."
+    }
+  ]
+}

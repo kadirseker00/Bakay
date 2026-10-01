@@ -1,0 +1,104 @@
+{
+  "reviewer": "Codex, tek AI değerlendirici; uzman/gold onayı değildir",
+  "snapshot_sha256": "28ba6793cb2609f0301630486562a79afd3dea0731f84d082e75cf4813976be6",
+  "model": "qwen3.5:9b",
+  "rubric": "Kaynak desteği: iddialar doğru kapsamla verilen bağlamda mı? Tamlık: taslak required_points maddelerinin tümü. Davranış: answer/clarify/abstain beklentisi. Bir maddede temel sayı doğru olsa bile gerekli koşul eksikse tamlık false.",
+  "cases": [
+    {
+      "id": "BAKAY-001",
+      "answer_sha256": "fbeb55fbc3710b23b6dce84bbe834c9899d6bbcda69dd9242100c31f359e93ac",
+      "source_supported": false,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Lisans sorusuna lisansüstü Enstitü kaydı ve ek belge koşulları uygulanıyor; noter bilgisi kısmen örtüşse de kapsam yanlış."
+    },
+    {
+      "id": "BAKAY-004",
+      "answer_sha256": "c6d55a3cfba9168c51ffbb9fa01c9fd558b26d85e0b9e8933afdc97db7bd20db",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "70/80 doğru; karma dersin iki kısmının ayrı şartları atlanmış."
+    },
+    {
+      "id": "BAKAY-014",
+      "answer_sha256": "5449eb40c434950153af10f3901bf9051517fad77540565b2c8ae8ecaacf5c5a",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": false,
+      "note": "İlgili madde bulunmadığı için çekimser; beklenen tarih, form ve kurul koşulu yanıtlanmıyor."
+    },
+    {
+      "id": "BAKAY-021",
+      "answer_sha256": "32eb6cf8ca889f4f938159729a7b3bbc95909f819af37ea3d4a50c100146ca8b",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": false,
+      "note": "Başvuru koşulunu bulamadığını doğru ayırıyor; fakat beklenen 2,00/2,50 başvuru cevabı yok."
+    },
+    {
+      "id": "BAKAY-025",
+      "answer_sha256": "c2f14b871d29d15d06c964ba4d26a8b6496397ca59e2e557917510409be4e8ba",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Yazılı/sözlü ayrımı doğru; başvuruda beyan koşulu atlanmış. İlgisiz ek sınav hesabı var."
+    },
+    {
+      "id": "BAKAY-036",
+      "answer_sha256": "9938cee9913bd51d230e78823d0fd7b2f7b7b1921a8a360e5f956b2cfb4d7528",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": false,
+      "note": "Süre kaynağı retrieval sonucunda yok; çekimser cevap başvuru süresini vermiyor."
+    },
+    {
+      "id": "BAKAY-039",
+      "answer_sha256": "3bd16793e261ad3da3f6e7cbde31a7fe41eaae29690f3944cf192d49a5ccc480",
+      "source_supported": true,
+      "all_required_points": true,
+      "expected_behavior_met": true,
+      "note": "Bişkek ve özel statülü devlet üniversitesi bilgileri doğru."
+    },
+    {
+      "id": "BAKAY-045",
+      "answer_sha256": "1b9a75247044714ad7181312bee5e0cef266c9214576a19c9f9af6d40df6305f",
+      "source_supported": false,
+      "all_required_points": false,
+      "expected_behavior_met": false,
+      "note": "Düzey/sınav türünü sormadan lisansüstünün 7 gün kuralını genelliyor."
+    },
+    {
+      "id": "BAKAY-046",
+      "answer_sha256": "9f49da44826f468ac7756574fd967559aba89202c76c96bd64ae5258f7ac93a7",
+      "source_supported": false,
+      "all_required_points": false,
+      "expected_behavior_met": false,
+      "note": "Ara sınav/giriş vizesi ayrımı sorulmadan giriş vizesi anlamı varsayılıyor."
+    },
+    {
+      "id": "BAKAY-048",
+      "answer_sha256": "c2fe118f904f8e39854b97140d0765f4b732839b6b8c7908c293ca5a91c5d6d1",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Kesin tutar uydurulmuyor; Tıp istisnası ve yıla ait resmî kaynağa yönlendirme yok."
+    },
+    {
+      "id": "BAKAY-049",
+      "answer_sha256": "a8b6e44517774a6df362386f22ccaf81b429e44f5fef90228a4468643b084ee8",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": false,
+      "note": "İki düzeyin devam kuralları bulunmadığı için karşılaştırma yapılamıyor."
+    },
+    {
+      "id": "BAKAY-050",
+      "answer_sha256": "8d7548b5d09c25b953c19cfe33f775bb2c82b36ae56319ce15e50598c0180aa9",
+      "source_supported": true,
+      "all_required_points": true,
+      "expected_behavior_met": true,
+      "note": "Kurum dışı tarife cevap vermiyor; tarif veya somut belge adı uydurmuyor."
+    }
+  ]
+}

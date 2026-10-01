@@ -1,0 +1,119 @@
+{
+  "created_at": "2026-10-01T04:11:51.828146+00:00",
+  "dataset_sha256": "8771aa0c51060b1205c9008862555934cc3bdb0dcd830a6cec3527fd7192b864",
+  "evidence_sha256": "c804670786032ffbbfa5a634173b4e6b89957917efcf9f648a4bdbd6040515d0",
+  "collection": "ktmu_docs",
+  "collection_metadata": {
+    "hnsw:space": "cosine"
+  },
+  "indexed_chunks": 39659,
+  "corpus_sha256": "e66204c8ef72b596bbde4918d0d6a51a889f0b942120c433bdb1841818777df1",
+  "pilot_chunks": 1983,
+  "pilot_sha256": "ae31d0c75f3bd6d46f398adcbf8d3120e6b251bd43730319f3bfa4e9df39d8d9",
+  "embedding": "sentence-transformers/LaBSE",
+  "max_seq_length": 256,
+  "device": "mps:0",
+  "bm25_build_seconds": 2.901918332965579,
+  "metrics": {
+    "dense": {
+      "n_answer_queries": 90,
+      "hit_at_5_count": 27,
+      "all_citations_at_5_count": 16,
+      "all_full_quotes_at_5_count": 12,
+      "citation_recall_at_5": 0.2351851851851852,
+      "mrr_at_10": 0.19799382716049382,
+      "original": {
+        "n_answer_queries": 45,
+        "hit_at_5_count": 18,
+        "all_citations_at_5_count": 10,
+        "all_full_quotes_at_5_count": 8,
+        "citation_recall_at_5": 0.3074074074074074,
+        "mrr_at_10": 0.23296296296296296
+      },
+      "paraphrases": {
+        "n_answer_queries": 45,
+        "hit_at_5_count": 9,
+        "all_citations_at_5_count": 6,
+        "all_full_quotes_at_5_count": 4,
+        "citation_recall_at_5": 0.16296296296296298,
+        "mrr_at_10": 0.1630246913580247
+      },
+      "p50_retrieval_ms": 56.09902099240571,
+      "p95_retrieval_ms": 98.30754197901115
+    },
+    "bm25": {
+      "n_answer_queries": 90,
+      "hit_at_5_count": 44,
+      "all_citations_at_5_count": 35,
+      "all_full_quotes_at_5_count": 28,
+      "citation_recall_at_5": 0.43703703703703706,
+      "mrr_at_10": 0.34432980599647267,
+      "original": {
+        "n_answer_queries": 45,
+        "hit_at_5_count": 26,
+        "all_citations_at_5_count": 21,
+        "all_full_quotes_at_5_count": 17,
+        "citation_recall_at_5": 0.5222222222222223,
+        "mrr_at_10": 0.40433862433862433
+      },
+      "paraphrases": {
+        "n_answer_queries": 45,
+        "hit_at_5_count": 18,
+        "all_citations_at_5_count": 14,
+        "all_full_quotes_at_5_count": 11,
+        "citation_recall_at_5": 0.35185185185185186,
+        "mrr_at_10": 0.284320987654321
+      },
+      "p50_retrieval_ms": 1.1501040135044605,
+      "p95_retrieval_ms": 2.2198749938979745
+    },
+    "hybrid_rrf": {
+      "n_answer_queries": 90,
+      "hit_at_5_count": 49,
+      "all_citations_at_5_count": 36,
+      "all_full_quotes_at_5_count": 26,
+      "citation_recall_at_5": 0.4703703703703704,
+      "mrr_at_10": 0.37619929453262785,
+      "original": {
+        "n_answer_queries": 45,
+        "hit_at_5_count": 28,
+        "all_citations_at_5_count": 22,
+        "all_full_quotes_at_5_count": 17,
+        "citation_recall_at_5": 0.5592592592592592,
+        "mrr_at_10": 0.4828395061728395
+      },
+      "paraphrases": {
+        "n_answer_queries": 45,
+        "hit_at_5_count": 21,
+        "all_citations_at_5_count": 14,
+        "all_full_quotes_at_5_count": 9,
+        "citation_recall_at_5": 0.3814814814814815,
+        "mrr_at_10": 0.2695590828924162
+      },
+      "p50_retrieval_ms": 57.33341648010537,
+      "p95_retrieval_ms": 100.54295900044963
+    }
+  },
+  "missing_citation_anchors": {
+    "BAKAY-043": [
+      "SSS 13"
+    ],
+    "BAKAY-043-p1": [
+      "SSS 13"
+    ]
+  },
+  "example_chunks": [
+    {
+      "id": "ornek_yonetmelik.txt::0::28b851fe",
+      "text": "KTMÜ ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (ÖRNEK)\nBütünleme sınavı, yarıyıl sonu (final) sınavına girme hakkı olduğu halde bu sınava\ngiremeyen veya girdiği halde başarısız olan öğrenciler için yapılır. Bütünleme\nsınavına girebilmek için ilgili dersin yarıyıl sonu sınavına girme şartlarının\nsağlanmış olması gerekir. Devamsızlık nedeniyle final sınavına girme hakkı\nkazanamayan öğrenci bütünleme sınavına da giremez.\nBir dersin başarı notu; ara sınav, ödev ve benzeri yarıyıl içi çalışmaların %40'ı\nile yarıyıl sonu veya bütünleme sınavının %60'ı esas alınarak hesaplanır. Bir\ndersten başarılı sayılabilmek için yarıyıl sonu veya bütünleme sınav notunun en az\n50 olması ve başarı notunun en az CC olması gerekir.",
+      "document": "ornek_yonetmelik.txt",
+      "title": "KTMÜ ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (ÖRNEK)"
+    },
+    {
+      "id": "ornek_yonetmelik.txt::1::73e89438",
+      "text": "Öğrenciler her yarıyıl başında, akademik takvimde belirtilen süre içinde katkı payı\nveya öğrenim ücretini ödeyerek ve ders kaydını yaparak kayıtlarını yenilemek\nzorundadır. Süresi içinde kaydını yenilemeyen öğrenci o yarıyıldaki derslere devam\nedemez ve sınavlara giremez. Kayıt yenilemeyen öğrencinin kaybettiği süre öğrenim\nsüresinden sayılır.\nÜniversite tarafından sağlanan başarı bursları, genel not ortalaması (GNO) 3.00 ve\nüzeri olan öğrencilere akademik başarıları esas alınarak verilir. Burs başvuruları\nher akademik yıl başında Sağlık, Kültür ve Spor Daire Başkanlığı (SKS) tarafından\nilan edilen takvime göre alınır.",
+      "document": "ornek_yonetmelik.txt",
+      "title": "KTMÜ ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (ÖRNEK)"
+    }
+  ]
+}

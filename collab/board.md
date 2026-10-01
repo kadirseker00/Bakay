@@ -20,8 +20,22 @@
 | ✅ | Aday öğrenci veri desteği: kapsam testi, turksam temizliği (−19.6k parça), oidb taraması, uçtan uca doğrulama | claude | 2026-09-01 | — |
 | ✅ | Turkish-Gemma 9B ve Qwen3.5 9B için sabit kaynaklı 30 soruluk karşılaştırma, ölçüm aracı ve sonuç raporu | codex | 2026-09-07 | — |
 | ✅ | Qwen3.5 9B varsayılanı ve 50 soruluk kaynak bağlı uzman inceleme paketi, gold şeması, doğrulama/testler; yanıltıcı doğrulama etiketi | codex | 2026-09-07 | — |
+| ✅ | İlk altı aylık BAP gelişme raporu: Ocak-Haziran kayıtlarıyla İP1 ve İP2 tamamlandı, İP3 devam; 5 sayfalık Word taslağı, mali/idari alanlar doldurulacak | codex | 2026-09-07 | — |
+| ✅ | İlk altı aylık raporun Kırgızca formda hazırlanması ve TR/KG dosyalarının report-1 altında toplanması; kullanıcının proje no ve 12.02.2026-12.08.2026 dönemi iki dilde eşleştirildi, görsel kontrol tamam | codex | 2026-09-07 | — |
+
+| ✅ | Sohbet hafızası: son 6 turdan kullanıcı sorularıyla bağlam çözümü, tarayıcı geçmişi ve yeni sohbet; 57 test + frontend derlemesi geçti, yerel API yenilendi, Qwen ve tarayıcı kontrolleri tamam | codex | 2026-10-01 | — |
+
+| ✅ | Yerel backend ve arayüz başlatıldı; health ve sayfa/CSS 200, Qwen3.5 9B ile /chat yanıtı alındı (konum sorusunda doğru kaynak bulunamadı; kalite kusuru sürüyor) | codex | 2026-10-01 | — |
 
 ## Bekleyen işler (sahipsiz — ToDoTask.md'den)
+
+| 🔄 | Kullanıcının ders saydırma → “lisans için?” hafıza hatasının giderilmesi; kapsam seçiminde konu terimlerinin korunması ve canlı regresyon | codex | 2026-10-01 | `backend/app/rag/pipeline.py`, `backend/tests/test_memory.py`, `docs/chat-memory.md` |
+
+| ✅ | Üniversite RAG/KG araştırması: DomainRAG, WikiRAG-TR, KG-RAGdataset ve HCMUT; gerçek dosya, şema ve lisans sınırları raporlandı | codex | 2026-10-01 | — |
+
+| ✅ | Ders saydırma: PDF ve indeks doğrulandı; hibrit erişim, tekilleştirme, kapsam kapısı ve kapsam takibi düzeltildi. 69 test; 8/8 hedef ilk 5; 90 geliştirme sorgusunda alıntı erişimi 27→65; canlı API, kalan üretim kusurları ve rapor | codex | 2026-10-01 | — |
+
+| ✅ | 100 sorguda RAG; 3 embedding/1.983 parça; 12 soruda canlı Qwen ve ortak oracle kaynaklı Qwen/Gemma, 36 cevap incelemesi ve rapor. Hibrit/E5 güçlü aday; örnek belge, kısa SSS cevap kaybı ve kapsam kusurları saptandı | codex | 2026-10-01 | — |
 
 - İlk 50 taslağa iki bağımsız insan incelemesi ve güncel kaynak sürümü kontrolü; henüz gold kayıt yok
 - Öncelikli kalite kusuru: lisansüstü kabul/mazeret sorularında yanlış madde retrieval; `docs/evaluation/gold-v1/verification.md`
@@ -33,3 +47,5 @@
 - Kullanıcının arayüzden kendi belgesini yükleyebilmesi (İP5 ek)
 - Taranmış PDF'ler (akademik takvimler) için OCR desteği
 - Fakülte alt alanları robots.txt kapalı — kurum içi tarama izni alınırsa eklenecek
+
+| 🔄 | Mevcut uygulama değişikliklerinin commit edilmesi, SemVer ve ad altında sürüm; ardından kaynaklı ön cevap deneyi | codex | 2026-10-01 | `VERSION`, `CHANGELOG.md`, `README.md`, `.gitignore`, `frontend/package.json`, `frontend/package-lock.json`, `frontend/next.config.mjs`, `frontend/app/page.tsx`, `frontend/app/globals.css`, `backend/app/main.py`, `backend/app/rag/pipeline.py`, `backend/tests/test_course_transfer.py`, `docs/course-transfer-retrieval.md`, `docs/course-transfer-retrieval.json` |

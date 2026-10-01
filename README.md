@@ -22,6 +22,12 @@ BAKAY; üniversitenin yönetmelik, yönerge, akademik takvim, burs/kayıt prosed
 gibi resmi belgelerini anlamlandırır ve kullanıcının Türkçe sorularına **kaynağıyla
 birlikte** yanıt verir.
 
+Sürüm kökteki `VERSION` dosyasında `MAJOR.MINOR.PATCH` biçiminde tutulur;
+API ve arayüz bu dosyadan okur. Sürüm artırılırken `frontend/package.json` ve
+`frontend/package-lock.json` da eşitlenir; değişiklikler [CHANGELOG.md](CHANGELOG.md)
+dosyasına eklenir. Arayüz yapılandırması sürümü başlangıç/derleme anında okuduğu
+için sürüm değişikliğinden sonra servisler yeniden başlatılır veya yeniden derlenir.
+
 ---
 
 ## Geliştirme stratejisi: "ince dilim"

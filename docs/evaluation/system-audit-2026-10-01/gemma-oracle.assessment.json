@@ -1,0 +1,104 @@
+{
+  "reviewer": "Codex, tek AI değerlendirici; uzman/gold onayı değildir",
+  "snapshot_sha256": "2500be7ecac426513f156c94ed328b51a9a672d2f929bc79c1d355c9a5bf3104",
+  "model": "hf.co/ytu-ce-cosmos/Turkish-Gemma-9b-T1-GGUF:Q4_K_M",
+  "rubric": "Kaynak desteği: iddialar doğru kapsamla verilen bağlamda mı? Tamlık: taslak required_points maddelerinin tümü. Davranış: answer/clarify/abstain beklentisi. Bir maddede temel sayı doğru olsa bile gerekli koşul eksikse tamlık false.",
+  "cases": [
+    {
+      "id": "BAKAY-001",
+      "answer_sha256": "1b4d604f8ef6678c7443526d68f20769da7d1bf8bcd38f6eefa8c22d01a2f3f2",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Noter vekili doğru; ilan edilen süre koşulu atlanmış."
+    },
+    {
+      "id": "BAKAY-004",
+      "answer_sha256": "442bbf61ab19d4088aaf13d4a0d3ddfe2bb4806ba09f3b4c1fd8744f67f2c5c7",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "70/80 doğru; karma dersin iki kısmının ayrı şartları açık değil."
+    },
+    {
+      "id": "BAKAY-014",
+      "answer_sha256": "095212ef81f618acf0f2b38e953704ec5d544ce5751364517461d86f0218aa4f",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Başvuru süresi ve evrak akışı doğru; kurulun mazereti kabul etmesi şartı yok."
+    },
+    {
+      "id": "BAKAY-021",
+      "answer_sha256": "eda5e5a449eda37c60bdebc51d0b147732be028adb9c13300b05c06ec0454c8b",
+      "source_supported": false,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "2,00/2,50 ve çevirim doğru; yalnız daha yüksek eşik konulabilirken şartlar esnetilebilir deniyor."
+    },
+    {
+      "id": "BAKAY-025",
+      "answer_sha256": "1eda828af92e887552d589b74fcee766db465686e720904e0af08f3a33f0dc7d",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Yazılı/sözlü ayrımı doğru; başvuruda beyan ve eşdeğer GRE/GMAT bilgisi atlanmış."
+    },
+    {
+      "id": "BAKAY-036",
+      "answer_sha256": "0a42b264cfd387e520a67366b95740376840f7ccb74b2f7fe311a3272e50f803",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Başlangıç ve 3 iş günü doğru; geçerli rapor/kurulca kabul koşulu atlanmış."
+    },
+    {
+      "id": "BAKAY-039",
+      "answer_sha256": "35df8f354e3fe374cd4b8026efee2b6bc92b1dc92064490165a1d6005e747f65",
+      "source_supported": true,
+      "all_required_points": true,
+      "expected_behavior_met": true,
+      "note": "Bişkek ve özel statülü devlet üniversitesi bilgileri doğru."
+    },
+    {
+      "id": "BAKAY-045",
+      "answer_sha256": "b941821515e5a70a3e75315a48b3ae33d23685424d276611a2ac17a66343f739",
+      "source_supported": false,
+      "all_required_points": false,
+      "expected_behavior_met": false,
+      "note": "Süreler doğru; tez dersleri hariç istisnası kaynakta yok ve açıklama istemiyor."
+    },
+    {
+      "id": "BAKAY-046",
+      "answer_sha256": "330de7e4b093b0492270816f437b852d2c6bd685779f3cb2ead32d35983c844a",
+      "source_supported": false,
+      "all_required_points": false,
+      "expected_behavior_met": false,
+      "note": "Kaynakta olmayan 60 günlük vizesiz giriş ve pasaport koşulu üretiliyor; anlam ayrımı da sorulmuyor."
+    },
+    {
+      "id": "BAKAY-048",
+      "answer_sha256": "d1d500848075d7fb848bf7995116da32675e640be5b8b483f487411fe56d544c",
+      "source_supported": true,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Tutar uydurulmuyor; güncel ücret ilanına/ÖİDB teyidine yönlendirme yok."
+    },
+    {
+      "id": "BAKAY-049",
+      "answer_sha256": "cb94820ea49fcf0087ef25b45669586e44d16dae5fb470c53d6c7639ad542504",
+      "source_supported": false,
+      "all_required_points": true,
+      "expected_behavior_met": true,
+      "note": "İki düzey ve bireysel uygulama istisnası var; ancak lisansüstüne not yükseltme için de devam ekliyor ve kaynakta olmayan madde 5 atfı var."
+    },
+    {
+      "id": "BAKAY-050",
+      "answer_sha256": "e60f2d300ca67a2e301fde5f9ff55b451f7085ca64e71d18a10a072d3bfb3cf8",
+      "source_supported": false,
+      "all_required_points": false,
+      "expected_behavior_met": true,
+      "note": "Tarifi reddediyor; fakat boş bağlama rağmen kaynakların akademik yapı/tarihçe/idari düzenleme içerdiğini söylüyor."
+    }
+  ]
+}

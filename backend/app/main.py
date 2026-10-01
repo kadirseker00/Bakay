@@ -10,14 +10,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import telemetry
-from app.config import settings
+from app.config import ROOT, settings
 from app.rag import pipeline
 from app.schemas import ChatRequest, ChatResponse, FeedbackRequest
 
 app = FastAPI(
     title="BAKAY API",
     description="KTMÜ için RAG tabanlı kurumsal bilgi asistanı",
-    version="0.1.0",
+    version=(ROOT / "VERSION").read_text(encoding="utf-8").strip(),
 )
 
 # Geliştirme aşamasında frontend'in (Next.js) erişebilmesi için CORS açık.
@@ -35,6 +35,7 @@ def health() -> dict:
 
     return {
         "status": "ok",
+        "version": app.version,
         "llm_provider": settings.llm_provider,
         "llm_model": pipeline._model_name(),
         "embedding_model": settings.embedding_model,
@@ -44,7 +45,7 @@ def health() -> dict:
 
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest) -> ChatResponse:
-    return pipeline.answer(req.question, top_k=req.top_k)
+    return pipeline.answer(req.question, top_k=req.top_k, history=req.history)
 
 
 @app.post("/feedback")

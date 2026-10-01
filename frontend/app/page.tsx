@@ -31,20 +31,10 @@ import {
   X,
 } from "lucide-react";
 import Logo from "./components/Logo";
+import { buildHistory, persistHistory, restoreHistory } from "./lib/chat-memory";
+import type { Message } from "./lib/chat-memory";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-const STORAGE_KEY = "bakay_history";
-
-type Source = { document: string; title?: string | null; snippet: string; score: number };
-type Message = {
-  role: "user" | "assistant";
-  content: string;
-  sources?: Source[];
-  latency_ms?: number;
-  query_id?: string;
-  feedback?: "up" | "down";
-  error?: boolean;
-};
 type Health = { indexed_chunks: number; llm_provider: string; embedding_model: string };
 type ConnectionState = "checking" | "online" | "offline";
 type Topic = { title: string; description: string; question: string; icon: LucideIcon };
@@ -252,6 +242,7 @@ function Brand({ onHome }: { onHome?: () => void }) {
       <Logo size={42} />
       <span className="brand-copy">
         <strong>BAKAY</strong>
+        <span className="brand-version">v{process.env.NEXT_PUBLIC_APP_VERSION}</span>
         <small>KTMÜ Bilgi Asistanı</small>
       </span>
     </a>
@@ -260,6 +251,8 @@ function Brand({ onHome }: { onHome?: () => void }) {
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [historyReady, setHistoryReady] = useState(false);
+  const [historySaved, setHistorySaved] = useState(true);
   const [input, setInput] = useState("");
   const [typedPrompt, setTypedPrompt] = useState("");
   const [promptAnimationStopped, setPromptAnimationStopped] = useState(false);
@@ -276,15 +269,8 @@ export default function Home() {
   const isConversation = messages.length > 0;
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) setMessages(parsed);
-      } catch {
-        localStorage.removeItem(STORAGE_KEY);
-      }
-    }
+    setMessages(restoreHistory());
+    setHistoryReady(true);
 
     fetch(`${API_URL}/health`)
       .then((response) => {
@@ -299,16 +285,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (messages.length > 0) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-    }
+    if (historyReady) setHistorySaved(persistHistory(messages));
 
     if (messages.at(-1)?.role === "user") {
       requestAnimationFrame(() => {
         latestQuestionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     }
-  }, [messages]);
+  }, [messages, historyReady]);
 
   useEffect(() => {
     if (!isConversation || !shouldFocusConversationRef.current) return;
@@ -395,7 +379,7 @@ export default function Home() {
   function clearHistory() {
     requestControllerRef.current?.abort();
     requestControllerRef.current = null;
-    localStorage.removeItem(STORAGE_KEY);
+    setHistorySaved(persistHistory([]));
     setMessages([]);
     setInput("");
     setLoading(false);
@@ -429,10 +413,9 @@ export default function Home() {
 
   async function ask(question: string) {
     const cleanQuestion = question.trim();
-    if (!cleanQuestion || loading) return;
+    if (!cleanQuestion || loading || !historyReady || requestControllerRef.current) return;
 
     const controller = new AbortController();
-    requestControllerRef.current?.abort();
     requestControllerRef.current = controller;
     shouldFocusConversationRef.current = true;
     setMenuOpen(false);
@@ -445,11 +428,12 @@ export default function Home() {
       const response = await fetch(`${API_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: cleanQuestion }),
+        body: JSON.stringify({ question: cleanQuestion, history: buildHistory(messages) }),
         signal: controller.signal,
       });
       if (!response.ok) throw new Error(`Sunucu hatası: ${response.status}`);
       const data = await response.json();
+      if (controller.signal.aborted) return;
       setMessages((current) => [
         ...current,
         {
@@ -555,7 +539,7 @@ export default function Home() {
             {isConversation && (
               <button className="new-question" onClick={clearHistory}>
                 <MessageSquarePlus size={17} />
-                <span>Yeni soru</span>
+                <span>Yeni sohbet</span>
               </button>
             )}
             {!isConversation && (
@@ -721,7 +705,12 @@ export default function Home() {
                 onResize={resizeTextarea}
                 onAsk={ask}
               />
-              <p>BAKAY hata yapabilir; önemli kararlar için gösterilen kaynağı doğrulayın.</p>
+              <p>
+                {historySaved
+                  ? "Sohbet bu tarayıcıda saklanır. Yeni sohbet, geçmişi ve konuşma bağlamını temizler."
+                  : "Tarayıcı sohbeti kaydedemedi; sayfa yenilenirse geçmiş kaybolabilir."}
+                {" "}BAKAY hata yapabilir; önemli kararlar için gösterilen kaynağı doğrulayın.
+              </p>
             </div>
           </section>
 
@@ -1029,6 +1018,7 @@ function QuestionComposer({
         <textarea
           ref={textareaRef}
           rows={1}
+          maxLength={2000}
           value={input}
           aria-label="KTMÜ hakkında sorunuzu yazın"
           placeholder={animatedPrompt ? "" : "KTMÜ hakkında sorunuzu yazın..."}

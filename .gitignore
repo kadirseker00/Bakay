@@ -24,6 +24,7 @@ models/
 # Node / Next.js
 node_modules/
 .next/
+.next-build/
 out/
 dist/
 .env*.local

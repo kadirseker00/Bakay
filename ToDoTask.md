@@ -8,7 +8,7 @@
 
 **Proje:** KTMÜ BAP, GAP-A, 01/01/2026 – 31/12/2026 (12 ay)
 **Yürütücü:** Yrd. Doç. Dr. Abdulkadir Şeker (KTMÜ, Bilgisayar Mühendisliği)
-**Son güncelleme:** 2026-09-07
+**Son güncelleme:** 2026-10-01
 
 ---
 
@@ -137,6 +137,12 @@ DB, LLM, ajansal düğümler) **tekrarlanabilir** bir protokolle karşılaştır
 
 ## 7. İP5 — API, arayüz, dağıtım
 
+- [x] Aynı sohbet için hafıza: son 6 tamamlanmış tur, bağlamlı takip soruları,
+  tarayıcıda geçmiş ve “Yeni sohbet” ile sıfırlama; `docs/chat-memory.md`.
+- [ ] Hafızayı çok turlu değerlendirme setiyle ölç: konu değişimi, öğrenim düzeyi
+  düzeltmesi, belirsizlik, önceki yanlış yanıt ve gecikme karşılaştırması.
+- [ ] Kimlikli kalıcı sohbetler ve kullanıcı tarafından yönetilen profil/tercih
+  hafızası; kimlik/erişim katmanıyla birlikte tasarla.
 - [ ] **Dağıtım:** KTMÜ erişilebilir bir ortama kur (yerel sunucu/GPU); reverse
   proxy, HTTPS, ortam ayrımı (geliştirme/üretim).
 - [ ] Kimlik doğrulama / erişim denetimi (kurumsal kullanım için).
