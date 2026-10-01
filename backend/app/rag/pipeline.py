@@ -19,7 +19,7 @@ import time
 from app import telemetry
 from app.config import settings
 from app.rag.llm import get_llm
-from app.rag.retrieval import education_level, needs_education_level
+from app.rag.retrieval import education_level, needs_education_level, terms, text_key
 from app.rag.vectorstore import get_store
 from app.schemas import ChatMessage, ChatResponse, Source
 
@@ -109,6 +109,32 @@ def _build_context(hits: list[dict]) -> str:
         label = f"\nÖğrenim kapsamı: {scope}" if scope else ""
         blocks.append(f"[{i}] {h['title']}{label}\n{h.get('context_text', h['text'])}")
     return "\n\n".join(blocks)
+
+
+def _scope_preanswer(question: str, hits: list[dict]) -> str:
+    """İlgili hükmün tam ilk cümlesini kapsamıyla göster, ardından düzeyi sor."""
+    phrases = {term for term in terms(question) if term.startswith("#")}
+    provision = re.compile(
+        r"(?P<heading>[^\n]+)\n\s*Madde\s+(?P<article>\d+)\s*[–—.\-]"
+        r"\s*(?:\(1\)\s*)?(?P<body>.*?)(?=\n[^\n]*\n\s*Madde\s+\d+|\Z)",
+        flags=re.DOTALL | re.IGNORECASE,
+    )
+    for hit in hits:
+        for match in provision.finditer(hit.get("context_text", hit["text"])):
+            if not phrases.intersection(terms(match["heading"])):
+                continue
+            level = education_level(hit["title"]) or education_level(match["body"])
+            scope = {"undergraduate": "Önlisans/lisans", "graduate": "Lisansüstü"}.get(level)
+            sentence = re.match(r"(.+?[.!?])(?:\s|$)", text_key(match["body"]))
+            if not scope or not sentence:
+                continue
+            quote = sentence.group(1)
+            # Kesilmiş/uzun cümleyi özetleme; sayısal şartları düzey seçimine bırak.
+            if not 40 <= len(quote) <= 360 or re.search(r"[\d%]", quote):
+                continue
+            return (f"**{scope} için**, **{hit['title']}** (Madde {match['article']}) "
+                    f"şöyle diyor:\n\n> {quote}\n\n{NEEDS_LEVEL}")
+    return NEEDS_LEVEL
 
 
 def _label_source_references(text: str, hits: list[dict]) -> str:
@@ -344,12 +370,15 @@ def answer(question: str, top_k: int | None = None,
     ]
     if needs_education_level(effective_question, hits):
         steps.append("scope:needs_level")
+        text = _scope_preanswer(effective_question, hits)
+        if text != NEEDS_LEVEL:
+            steps.append("scope:source_preanswer")
         total_ms = int((time.perf_counter() - start) * 1000)
         _log(qid, question, k, sources=sources, retrieval_ms=retrieval_ms,
              generation_ms=0, total_ms=total_ms, prompt=None, raw=None,
-             text=NEEDS_LEVEL, route="needs_context", top_score=top_score,
+             text=text, route="needs_context", top_score=top_score,
              rewritten=rewritten_query, steps=steps)
-        return ChatResponse(query_id=qid, answer=NEEDS_LEVEL, sources=sources, latency_ms=total_ms)
+        return ChatResponse(query_id=qid, answer=text, sources=sources, latency_ms=total_ms)
 
     # --- Düğüm 4: Grounded üretim ---
     context = _build_context(hits)

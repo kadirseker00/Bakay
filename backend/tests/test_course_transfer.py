@@ -155,7 +155,11 @@ class CourseTransferTests(unittest.TestCase):
              patch.multiple(pipeline.settings, agent_route=False, agent_rewrite=False, agent_verify=False):
             store.return_value.query.return_value = hits
             response = pipeline.answer("başka kurumdan aldığım dersi saydırabilir miyim")
-        self.assertEqual(response.answer, pipeline.NEEDS_LEVEL)
+        self.assertTrue(response.answer.endswith(pipeline.NEEDS_LEVEL))
+        self.assertIn("Madde 25", response.answer)
+        self.assertIn("dersleri saydırabilir.", response.answer)
+        self.assertNotIn("CB", response.answer)
+        self.assertNotIn("CC", response.answer)
         self.assertEqual(response.sources[0].document, "ug.pdf")
         llm.generate.assert_not_called()
         self.assertFalse(needs_education_level("Lisansta dersi saydırabilir miyim?", hits))
@@ -166,6 +170,26 @@ class CourseTransferTests(unittest.TestCase):
                 {"title": "Lisansüstü Yönetmeliği", "text": "Doktora azami öğrenim süresi."}]
         self.assertFalse(needs_education_level("Ders saydırmanın şartları neler?", hits))
         self.assertFalse(needs_education_level("Yurt başvuru belgeleri neler?", hits))
+
+    def test_preanswer_skips_irrelevant_or_incomplete_provisions_and_thresholds(self):
+        for text in [
+            "Ders Saydırma\nMadde 25– (1) Üniversitenin bir lisans öğrencisi derslerini saydırabil",
+            "Ders Saydırma\nMadde 25– (1) Lisans öğrencisi son 5 yılda aldığı derslerini saydırabilir.",
+            "Devam Zorunluluğu\nMadde 28– (1) Lisans öğrencileri derslere devam etmek zorundadır.",
+        ]:
+            with self.subTest(text=text):
+                hits = [{"title": TITLE, "text": text}]
+                self.assertEqual(pipeline._scope_preanswer("ders saydırma", hits), pipeline.NEEDS_LEVEL)
+
+    def test_preanswer_followup_keeps_question_and_ignores_quoted_facts(self):
+        original = "başka kurumdan aldığım dersi saydırabilir miyim"
+        preanswer = pipeline._scope_preanswer(original, [{"title": TITLE, "text": ARTICLE}])
+        history = [ChatMessage(role="user", content=original),
+                   ChatMessage(role="assistant", content=preanswer)]
+        llm = Mock()
+        resolved = pipeline._resolve_question("Lisans için soruyorum.", history, llm)
+        self.assertEqual(resolved, "Lisans için: " + original)
+        llm.generate.assert_not_called()
 
 
 if __name__ == "__main__":

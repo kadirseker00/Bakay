@@ -70,3 +70,30 @@ kontrolü, retrieval/generation başarı oranı veya <10 saniye hedefinin kanıt
 1 Ekim 2026 kontrolünde 57 backend testi, TypeScript kontrolü ve üretim derlemesi
 geçti. Tarayıcıdan kaynaklı takip yanıtı, yenilemede geri yükleme ve “Yeni sohbet”
 sonrasında yenilemede de boş kalma doğrulandı. Yerel API yeni kodla yeniden başlatıldı.
+
+### Kullanıcı denemesiyle bulunan düzey seçimi hatası (1 Ekim)
+
+“başka kurumdan aldığım dersleri saydırmanın şartları nedir?” ardından “lisans
+için?” sorulduğunda geçmiş API'ye ulaştı, fakat LLM yeniden yazma sırasında
+“saydırma” terimini çıkardı. Arama yanlış maddelere yöneldi. Önceki kısa seçim
+koruması yalnızca asistanın sabit `NEEDS_LEVEL` metnini verdiği durumda çalışıyordu.
+
+Kısa öğrenim düzeyi seçimi artık önceki asistan yanıtının metnine bağlı olmadan
+son altı turdaki en yakın bağımsız kullanıcı sorusuna eklenir. Asıl konu terimleri
+korunur; önceki öğrenim düzeyi değiştirilir. Ara düzey seçimleri ve kısa takip
+soruları konu olarak kullanılmaz. Bağımsız konu bulunamazsa açıklama istenir.
+Bu yol yeniden yazma için LLM çağrısı yapmaz. Örneğin gerçek denemedeki soru:
+
+`lisans için: başka kurumdan aldığım dersleri saydırmanın şartları nedir?`
+
+Asistanın farklı yanıtları, tekrar düzey değişimi, aradaki kısa takip sorusu ve
+konusuz seçim için regresyonlar eklendi; backend test sayısı 73 oldu.
+Yerel API yeniden başlatılıp kullanıcının gerçek soru/yanıt geçmişiyle denendi.
+`rewritten_query` yukarıdaki konuyu aynen korudu; ilk beş kaynak arasında
+Önlisans ve Lisans Eğitim-Öğretim Yönetmeliği Madde 25 bulundu. Kayıt:
+`output/chat-memory-fix-2026-10-01.json` (yerel QA çıktısı).
+
+Bu canlı denemede LLM, 1/3 üst sınırını doğru aktardıktan sonra “Bu oran
+aşılmazsa başvurunuz kabul edilmez” diyerek koşulu ters ifade etti. Bu üretim
+kusuru hafıza düzeltmesiyle giderilmiş sayılmaz; kaynak bağlı generation
+doğruluğu için kalan iş olarak korunur.

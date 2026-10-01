@@ -53,3 +53,23 @@ Orijinal soru artık ilk sırada doğru bağımsız yönetmeliği getiriyor ve �
 25 geliştirme sorgusunda hedef alıntı ilk 5'e hâlâ gelmiyor. Öğrenim düzeyi tanıma iki geniş sınıf ve terim eşleşmesi kullanan bir sezgisel yöntem; tam mevzuat ontolojisi değil. Eski/yeni yönetmelik sürüm önceliği ayrıca çözülmeli. Sonraki kalite işi, madde bazlı parçalama ve kaynak/sürüm/kapsam ilişkileriyle uzman denetimli değerlendirme.
 
 BM25 indeksi bellekte tutuluyor. Aynı süreçteki `add()` ve koleksiyon sayısındaki değişiklikler önbelleği yeniliyor. Başka süreç aynı sayıda kaydı upsert ederse değişiklik otomatik tespit edilmiyor; indeksleme sonrası API servisini yeniden başlatmak gerekiyor.
+
+## 0.2.1 — kaynaklı ön cevap deneyi
+
+Önceki durum `v0.2.0` etiketiyle kaydedildikten sonra açıklama kapısı geliştirildi.
+Düzey belirsiz olduğunda ilgili başlığın altındaki hükmün tam ilk cümlesi kaynak
+başlığı, madde ve öğrenim kapsamıyla alıntılanır; ardından düzey sorulur. Başlık
+sorunun terimleriyle eşleşmiyorsa, cümle tamamlanmamış/uzunsa veya sayısal şart
+içeriyorsa yalnız açıklama sorusu döner. Ön cevap için LLM çağrısı yoktur;
+belirli bir soruya ait hazır cevap eklenmedi.
+
+Canlı API'de orijinal soru ve “Başka üniversiteden aldığım dersleri saydırabilir
+miyim?” varyantı Madde 25'in ilk fıkrasını gösterdi. “Lisans için soruyorum.”
+takibi de doğru Madde 25 kaynağını ilk sırada buldu. Düzey seçimi önceki asistan
+metninden bağımsız olarak son bağımsız kullanıcı sorusuna bağlanır.
+
+75 backend testi geçti; ek 6 değerlendirme aracı testi ve frontend üretim
+derlemesi önceki kayıt aşamasında başarılıydı. Canlı API ve arayüz sürümü
+`0.2.1` olarak doğrulandı. Yeni API çıktıları `docs/course-transfer-preanswer.json`
+içinde; önceki rapor değiştirilmedi. Canlı takip cevabı içerik uygunluğu ve
+kurul kararlarını eksiltti; üretim kalitesi tamamen çözülmüş sayılmaz.

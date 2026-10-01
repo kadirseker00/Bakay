@@ -29,7 +29,7 @@
 
 ## Bekleyen işler (sahipsiz — ToDoTask.md'den)
 
-| 🔄 | Kullanıcının ders saydırma → “lisans için?” hafıza hatasının giderilmesi; kapsam seçiminde konu terimlerinin korunması ve canlı regresyon | codex | 2026-10-01 | `backend/app/rag/pipeline.py`, `backend/tests/test_memory.py`, `docs/chat-memory.md` |
+| ✅ | Ders saydırma → “lisans için?” hafıza hatası düzeltildi; asistan metninden bağımsız konu koruma, 73 test ve canlı Madde 25 erişimi. Canlı yanıttaki 1/3 koşulunun ters ifadesi ayrı üretim kusuru olarak kaydedildi | codex | 2026-10-01 | — |
 
 | ✅ | Üniversite RAG/KG araştırması: DomainRAG, WikiRAG-TR, KG-RAGdataset ve HCMUT; gerçek dosya, şema ve lisans sınırları raporlandı | codex | 2026-10-01 | — |
 
@@ -48,4 +48,4 @@
 - Taranmış PDF'ler (akademik takvimler) için OCR desteği
 - Fakülte alt alanları robots.txt kapalı — kurum içi tarama izni alınırsa eklenecek
 
-| 🔄 | Mevcut uygulama değişikliklerinin commit edilmesi, SemVer ve ad altında sürüm; ardından kaynaklı ön cevap deneyi | codex | 2026-10-01 | `VERSION`, `CHANGELOG.md`, `README.md`, `.gitignore`, `frontend/package.json`, `frontend/package-lock.json`, `frontend/next.config.mjs`, `frontend/app/page.tsx`, `frontend/app/globals.css`, `backend/app/main.py`, `backend/app/rag/pipeline.py`, `backend/tests/test_course_transfer.py`, `docs/course-transfer-retrieval.md`, `docs/course-transfer-retrieval.json` |
+| ✅ | Uygulama ve raporlar v0.2.0 olarak commit edildi; ortak VERSION ve ad altında sürüm. v0.2.1 kaynaklı ön cevap + düzey sorusu denendi; 75 test, canlı iki soru/takip ve API/UI sürümü doğrulandı | codex | 2026-10-01 | — |

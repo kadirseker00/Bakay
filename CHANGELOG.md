@@ -6,6 +6,18 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.2.1 — 2026-10-01
+
+- Öğrenim düzeyi belirsizken önce ilgili hükmün kısa, tam ilk cümlesini
+  kaynak başlığı, madde ve kapsamıyla göster; ardından öğrenim düzeyini sor.
+- Başlık soru terimleriyle eşleşmiyorsa, cümle kesilmiş/uzunsa veya sayısal
+  şart içeriyorsa ön cevap vermeden açıklama iste. Alıntı için LLM çağrısı yapılmaz.
+- Kısa düzey seçimi, ön cevapla birlikte de ilk kullanıcı sorusunu korur.
+
+Doğrulama: 75 backend testi; iki genel ders saydırma sorusunda Madde 25
+ön cevabı ve lisans takip sorusunda doğru kaynak; API/arayüz sürümü 0.2.1.
+Koşulların eksiksiz aktarılması henüz garanti edilmez.
+
 ## 0.2.0 — 2026-10-01
 
 - Aynı sohbet içinde son altı turdan bağlam çözümü, tarayıcı geçmişi ve yeni sohbet.
