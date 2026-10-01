@@ -6,6 +6,17 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.3.1 — 2026-10-01
+
+- Kaynaklı cevabın sonunda "Ayrıntılar için … belgesini okuyabilirsiniz"
+  yönlendirmesi ve tıklanabilir gerçek belge adresi.
+- Adres ilk kaynak dosyasının tarama haritasındaki kaydından alınır; adres veya
+  PDF sayfası üretilmez. Haritası olmayan kaynak ve bilgi bulunamayan yanıt için
+  bağlantı eklenmez.
+
+Doğrulama: 90 backend testi; canlı ders saydırma cevabının sonunda doğru PDF
+bağlantısı, API ve arayüzde 0.3.1 sürümü.
+
 ## 0.3.0 — 2026-10-01
 
 - DomainRAG yönteminin Türkçe KTMÜ uyarlaması: 106 geliştirme senaryosu ve

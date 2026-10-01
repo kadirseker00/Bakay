@@ -20,6 +20,7 @@ from app import telemetry
 from app.config import settings
 from app.rag.llm import get_llm
 from app.rag.retrieval import education_level, needs_education_level, terms, text_key
+from app.rag.source_links import append_source_reading
 from app.rag.vectorstore import get_store
 from app.schemas import ChatMessage, ChatResponse, Source
 
@@ -429,6 +430,8 @@ def answer(question: str, top_k: int | None = None,
         steps.append(f"verify:{'ok' if grounded else 'ungrounded'}")
         if not grounded:
             text += "\n\n_(Not: Bu yanıtın kaynak belgelerle tam örtüştüğü doğrulanamadı.)_"
+
+    text = append_source_reading(text, hits)
 
     total_ms = int((time.perf_counter() - start) * 1000)
     _log(qid, question, k, sources=sources, retrieval_ms=retrieval_ms,

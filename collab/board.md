@@ -53,3 +53,7 @@
 | ✅ | v0.2.2: temel şartlar ayrı maddeler, süre/not/oran değerlerine otomatik kalın vurgu; 78 test, canlı iki ders saydırma sunumu ve API/UI sürümü doğrulandı. Eksik koşul üretimi ayrı kusur olarak raporda | codex | 2026-10-01 | — |
 
 | ✅ | v0.3.0: DomainRAG yöntemi KTMÜ Türkçe kaynaklarına uyarlandı; 106 taslak senaryo/21 kaynak birimi, ölçüm CLI ve 87 test. 94 cevaplanabilir sorguda alıntı erişimi 69/94; altı canlı Qwen deneyi ve kalan üretim kusurları raporlandı | codex | 2026-10-01 | — |
+
+| ✅ | v0.3.0 canlı ders saydırma + lisans takibi: doğru Madde 25, 5 yıl/CC/1/3 aktarımı; AKTS/içerik uygunluğu ve son kurul onayları eksik, ham cevaplar ve kaynak karşılaştırması tmp altında | codex | 2026-10-01 | — |
+
+| ✅ | v0.3.1: cevabın sonunda gerçek kaynak PDF/SSS bağlantısı; tarama haritasından adres, 90 test, canlı ders saydırma cevabı ve API/UI sürümü doğrulandı | codex | 2026-10-01 | — |
