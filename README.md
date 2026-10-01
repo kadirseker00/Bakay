@@ -71,6 +71,12 @@ Tamamı insan onayı bekleyen taslaktır; gold test veya LoRA eğitim verisi de�
 `data/eval/v1/` ile `backend/evaluation/dataset.py` içinde sürümlenir.
 İki güncel insan onayı olmadan gold/LoRA dışa aktarımı engellenir.
 
+[DomainRAG yönteminin Türkçe KTMÜ uyarlaması](docs/evaluation/domainrag-tr-v1/README.md)
+106 geliştirme senaryosu ve 21 kaynak bölümünü mevcut ölçüm araçlarına bağlar.
+Konuşma takibi, yapılandırılmış bilgi, kaynak sadakati, yanıltıcı bağlam,
+güncellik ve çoklu belge senaryoları içerir. Çince kurum verisi bilgi deposuna
+aktarılmaz; bu paket gold veya model eğitimi değildir.
+
 ---
 
 ## Kurulum

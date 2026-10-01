@@ -6,6 +6,21 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.3.0 — 2026-10-01
+
+- DomainRAG yönteminin Türkçe KTMÜ uyarlaması: 106 geliştirme senaryosu ve
+  21 kaynak sayfa/bölümü; soru/cevap/kaynak/geçmiş alanları ve izlenebilir hash'ler.
+- Sohbet, yapılandırılmış bilgi, sadakat, gürültü, güncellik ve çoklu belge pilotları.
+- Paket üretimi, kaynak doğrulama, canlı erişim ölçümü ve mevcut model karşılaştırma
+  aracına sabit bağlam hazırlama komutları.
+- Taslak etiketleri korunur; referans cevaplar prompt'a, train/saklı test kayıtları
+  geliştirme paketine veya soru-cevaplar üretim indeksine taşınmaz.
+
+Doğrulama: 87 backend testi ve ham kaynak hash kontrolü. 94 cevaplanabilir
+geliştirme sorgusunda en az bir alıntı ilk 5'te 69/94, bütün alıntılar 58/94.
+Altı Qwen sabit bağlam deneyi tamamlandı; yanlış şart/istisna aktarımı bulguları
+`docs/evaluation/domainrag-tr-v1/` altında kaydedildi. Bunlar gold doğruluk skoru değildir.
+
 ## 0.2.2 — 2026-10-01
 
 - Yanıtın kısa sonucundan sonra temel şartları ayrı maddelerde sun.

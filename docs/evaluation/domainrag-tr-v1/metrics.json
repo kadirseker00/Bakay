@@ -1,0 +1,21 @@
+{
+  "snapshot_sha256": "42c06b705f6c637956078f1859afa3b9546323725cd29bcfb2d423baa43f2986",
+  "n_questions": 6,
+  "models": {
+    "qwen3.5:9b": {
+      "completed": 6,
+      "errors": 0,
+      "missing": [],
+      "empty_answers": 0,
+      "truncated": 0,
+      "raw_think_blocks": 0,
+      "separate_thinking_answers": 0,
+      "p50_seconds": 6.61,
+      "p95_seconds": 14.24,
+      "mean_seconds": 8.82,
+      "mean_tokens_per_second": 39.48,
+      "mean_output_tokens": 258.3,
+      "answers_under_10_seconds": 4
+    }
+  }
+}

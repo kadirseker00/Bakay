@@ -51,3 +51,5 @@
 | ✅ | Uygulama ve raporlar v0.2.0 olarak commit edildi; ortak VERSION ve ad altında sürüm. v0.2.1 kaynaklı ön cevap + düzey sorusu denendi; 75 test, canlı iki soru/takip ve API/UI sürümü doğrulandı | codex | 2026-10-01 | — |
 
 | ✅ | v0.2.2: temel şartlar ayrı maddeler, süre/not/oran değerlerine otomatik kalın vurgu; 78 test, canlı iki ders saydırma sunumu ve API/UI sürümü doğrulandı. Eksik koşul üretimi ayrı kusur olarak raporda | codex | 2026-10-01 | — |
+
+| ✅ | v0.3.0: DomainRAG yöntemi KTMÜ Türkçe kaynaklarına uyarlandı; 106 taslak senaryo/21 kaynak birimi, ölçüm CLI ve 87 test. 94 cevaplanabilir sorguda alıntı erişimi 69/94; altı canlı Qwen deneyi ve kalan üretim kusurları raporlandı | codex | 2026-10-01 | — |

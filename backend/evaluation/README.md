@@ -1,5 +1,10 @@
 # Yerel LLM karşılaştırması
 
+[Türkçe DomainRAG entegrasyonu](../../docs/evaluation/domainrag-tr-v1/README.md):
+106 geliştirme senaryosu, 21 kaynak bölümü, sohbet/gürültü/güncellik/çoklu belge
+kontrolleri; `python -m scripts.domainrag --help`. Hazırlanan sabit girdiler
+bu belgedeki `scripts.compare_models` aracıyla çalışır.
+
 Bu pilot, Turkish-Gemma ile Qwen'in **aynı geri getirilen metin parçalarından**
 Türkçe yanıt üretmesini karşılaştırır. Üretim `.env` dosyasını değiştirmez;
 LaBSE veya Chroma'yı yeniden indekslemez. Yeni Python bağımlılığı gerekmez.

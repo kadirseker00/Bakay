@@ -39,6 +39,12 @@ DB, LLM, ajansal düğümler) **tekrarlanabilir** bir protokolle karşılaştır
 ### 2.1 Değerlendirme veri seti
 - [x] İlk 50 kaynak bağlı soru-cevap taslağı, 5 belge/SSS kaynağı, JSON Schema, hash/alıntı doğrulaması ve uzman inceleme paketi: `docs/evaluation/gold-v1/`.
 - [x] İki insan onayı, kural ailesi bölümleme ve LoRA train dışa aktarım kapısı. Henüz onaylı gold kayıt yok.
+- [x] DomainRAG yöntemi KTMÜ'ye uyarlandı: 106 Türkçe geliştirme senaryosu,
+  21 kaynak sayfa/bölümü; konuşma, yapı, sadakat, gürültü, güncellik ve çoklu belge
+  pilotları, kaynak doğrulama ve mevcut model ölçüm CLI entegrasyonu:
+  `docs/evaluation/domainrag-tr-v1/`.
+- [ ] Bu altı türü gerçek öğrenci sorularıyla genişlet; taslak referansları
+  uzmanlara doğrulat ve ayrı, saklı test grubuyla ölç.
 - [ ] İlk 50 soruyu iki bağımsız uzmana incelet; güncel kaynak sürümlerini, istisnaları ve kural ailelerini doğrula.
 - [ ] KTMÜ belgelerinden **altın soru-cevap seti** oluştur (hedef 100 dev + 200 saklı test; LoRA train ayrı).
   - Her madde: `soru`, `beklenen_yanıt`, `dayanak_belge`, `dayanak_paragraf`,

@@ -1,0 +1,16 @@
+{
+  "version": "0.3.0",
+  "backend_health": {
+    "status": "ok",
+    "version": "0.3.0",
+    "llm_provider": "ollama",
+    "llm_model": "qwen3.5:9b",
+    "embedding_model": "sentence-transformers/LaBSE",
+    "indexed_chunks": 39659
+  },
+  "frontend_version_markup": "v<!-- -->0.3.0",
+  "backend_tests_passed": 87,
+  "raw_sources_verified": true,
+  "model_cases_completed": 6,
+  "limits": "Test sayısı önceki tam backend çalışmasına aittir; bu kontrol API ve arayüz sürümünü doğrular."
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "language": "tr",
+  "institution": "KTMÜ",
+  "method": {
+    "paper": "https://arxiv.org/abs/2406.05654",
+    "project": "https://github.com/ShootingWong/DomainRAG",
+    "format_example": "https://huggingface.co/datasets/RUC-NLPIR/FlashRAG_datasets/tree/main/domainrag",
+    "format_revision": "bcafb8dd07d453be3cbeeeb3f78be1841bddf92c",
+    "adaptation": "Yöntem ve alan adları örnek alındı; dış kaynak metni/cevabı/kodu aktarılmadı."
+  },
+  "label_status": "pending_review_not_gold",
+  "purpose": "evaluation_draft_only",
+  "truth_scope": "archived_source_snapshot_not_current_policy",
+  "dataset_sha256": "f5f5664a52045c3429dd001ca895968134915ce5f943458a3557dba6c8cef685",
+  "evidence_sha256": "d13b4853cb30dedca980050bd52991312347a539564ddc77f0b92ea29ccc08b3",
+  "rows_sha256": "f879e34564bf0e1930114b747b90eff2abddd8480f1dc38a21f03764563e2071",
+  "corpus_sha256": "300f4acb22cc0eb5125abfe265fc943dd2f9511c685d2e4338895a052c236df4",
+  "tasks": {
+    "single_turn": 100,
+    "conversation": 1,
+    "denoising": 1,
+    "time_sensitive": 1,
+    "structured_information": 1,
+    "faithfulness": 1,
+    "multi_document": 1
+  },
+  "cases": 106,
+  "corpus_units": 21
+}
