@@ -1,0 +1,64 @@
+{
+  "snapshot_sha256": "820c0786559b41969ddab25c559517f7db98905741c45bff3fccff58d5441ca4",
+  "n_questions": 12,
+  "models": {
+    "claude-sonnet-5-5": {
+      "completed": 12,
+      "errors": 0,
+      "missing": [],
+      "empty_answers": 0,
+      "truncated": 0,
+      "raw_think_blocks": 0,
+      "separate_thinking_answers": 0,
+      "p50_seconds": 3.58,
+      "p95_seconds": 5.12,
+      "mean_seconds": 3.7,
+      "mean_tokens_per_second": null,
+      "mean_output_tokens": 403.3,
+      "answers_under_10_seconds": 12,
+      "attempts": 12,
+      "failed_attempts": 0,
+      "billed_input_tokens": 19043,
+      "billed_output_tokens": 4840,
+      "estimated_cost_usd": 0.086486,
+      "quality_review": {
+        "grounded": 12,
+        "complete": 11,
+        "citation_correct": 12,
+        "turkish_clear": 12,
+        "grounded_and_complete": 11,
+        "all_criteria": 11,
+        "reviewer": "Codex; tek yapay zekâ incelemesi, insan onayı yok"
+      }
+    },
+    "claude-haiku-5-5": {
+      "completed": 12,
+      "errors": 0,
+      "missing": [],
+      "empty_answers": 0,
+      "truncated": 0,
+      "raw_think_blocks": 0,
+      "separate_thinking_answers": 0,
+      "p50_seconds": 2.62,
+      "p95_seconds": 3.6,
+      "mean_seconds": 2.49,
+      "mean_tokens_per_second": null,
+      "mean_output_tokens": 369.7,
+      "answers_under_10_seconds": 12,
+      "attempts": 12,
+      "failed_attempts": 0,
+      "billed_input_tokens": 19043,
+      "billed_output_tokens": 4436,
+      "estimated_cost_usd": 0.0041223,
+      "quality_review": {
+        "grounded": 10,
+        "complete": 9,
+        "citation_correct": 12,
+        "turkish_clear": 12,
+        "grounded_and_complete": 8,
+        "all_criteria": 8,
+        "reviewer": "Codex; tek yapay zekâ incelemesi, insan onayı yok"
+      }
+    }
+  }
+}

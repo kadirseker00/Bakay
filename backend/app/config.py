@@ -29,7 +29,8 @@ class Settings(BaseSettings):
     anthropic_model: str = "claude-sonnet-5-5"
     anthropic_max_tokens: int = Field(default=2048, ge=1)
     # Sonnet 5.5'te araçsız istekte between_tools yalnızca yanıt metni üretir.
-    anthropic_thinking: Literal["between_tools", "adaptive"] = "between_tools"
+    # Haiku 5.5 araçsız hız denemesinde disabled kullanılabilir.
+    anthropic_thinking: Literal["between_tools", "adaptive", "disabled"] = "between_tools"
     anthropic_effort: Literal["low", "medium", "high"] = "high"
     anthropic_timeout: float = Field(default=120.0, gt=0)
 

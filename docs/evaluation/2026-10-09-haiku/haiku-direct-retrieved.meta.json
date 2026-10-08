@@ -1,0 +1,23 @@
+{
+  "provider": "anthropic",
+  "model": "claude-haiku-5-5",
+  "snapshot_sha256": "4817c97594a73cb1e9dd1b33ee9dcaec16ca5cf2bc4747ef66ad3e54e5881517",
+  "options": {
+    "max_tokens": 2048,
+    "thinking": {
+      "type": "disabled"
+    },
+    "output_config": {
+      "effort": "high"
+    }
+  },
+  "endpoint": "https://api.anthropic.com/v1/messages",
+  "api_version": "2023-06-01",
+  "postprocessing_sha256": "6937d8b0c0834e94f01780ec725cd9e2760c2628dcabf089ac2ba17c5d972050",
+  "adapter_sha256": "cfa16d90d548cd25f9e11e2830a088fb91a5d756dc33ec847fa3dc3a065c0736",
+  "created_at": "2026-10-08T20:04:53.785431+00:00",
+  "warmup": false,
+  "automatic_retries": false,
+  "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing",
+  "pricing_date": "2026-10-09"
+}

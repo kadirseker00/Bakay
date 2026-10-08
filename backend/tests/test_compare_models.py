@@ -13,7 +13,7 @@ import httpx
 from scripts import compare_models as compare
 
 
-class SonnetComparisonTests(unittest.TestCase):
+class AnthropicComparisonTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
@@ -32,13 +32,29 @@ class SonnetComparisonTests(unittest.TestCase):
         }
 
     def test_exact_usage_price_and_cache_rates(self):
-        self.assertEqual(compare.sonnet_cost(self.result["usage"], "claude-sonnet-5-5"), 0.02)
-        self.assertEqual(compare.sonnet_cost({
+        self.assertEqual(compare.anthropic_cost(self.result["usage"], "claude-sonnet-5-5"), 0.02)
+        self.assertEqual(compare.anthropic_cost({
             "cache_creation_input_tokens": 2000,
             "cache_creation": {"ephemeral_1h_input_tokens": 1000},
             "cache_read_input_tokens": 1000,
         }, "claude-sonnet-5-5"), 0.0066)
-        self.assertIsNone(compare.sonnet_cost(self.result["usage"], "unknown"))
+        self.assertIsNone(compare.anthropic_cost(self.result["usage"], "unknown"))
+
+    def test_haiku_price_threshold_includes_cached_prompt_tokens(self):
+        self.assertEqual(compare.anthropic_cost(self.result["usage"], "claude-haiku-5-5"), 0.001)
+        self.assertEqual(compare.anthropic_cost({
+            "input_tokens": 99_000, "output_tokens": 1000,
+            "cache_read_input_tokens": 1000,
+        }, "claude-haiku-5-5"), 0.01041)
+        self.assertEqual(compare.anthropic_cost({
+            "input_tokens": 99_001, "output_tokens": 1000,
+            "cache_read_input_tokens": 1000,
+        }, "claude-haiku-5-5"), 0.0520505)
+        self.assertEqual(compare.anthropic_cost({
+            "cache_creation_input_tokens": 2000,
+            "cache_creation": {"ephemeral_1h_input_tokens": 1000},
+            "cache_read_input_tokens": 1000,
+        }, "claude-haiku-5-5"), 0.000335)
 
     def test_modified_prompt_is_rejected_before_paid_request(self):
         self.cases[0]["prompt"] = "Değişmiş kaynak"

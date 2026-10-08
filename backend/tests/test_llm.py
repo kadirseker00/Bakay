@@ -64,6 +64,23 @@ class AnthropicLLMTests(unittest.TestCase):
         client = self.make_client(lambda _: httpx.Response(200, json=self.message))
         self.assertEqual(client.generate("Soru"), "Birinci.\nİkinci.")
 
+    def test_haiku_disabled_thinking_setting_reaches_messages_api(self):
+        self.config = Settings(_env_file=None, anthropic_api_key="test-key",
+                               anthropic_model="claude-haiku-5-5", anthropic_thinking="disabled")
+        requests = []
+        self.message["model"] = "claude-haiku-5-5"
+
+        def handler(request):
+            requests.append(request)
+            return httpx.Response(200, json=self.message)
+
+        client = self.make_client(handler)
+        result = client.generate_result("Sabit kaynaklar\nTürkçe soru?")
+        payload = json.loads(requests[0].content)
+        self.assertEqual(payload["model"], "claude-haiku-5-5")
+        self.assertEqual(payload["thinking"], {"type": "disabled"})
+        self.assertEqual(result["model"], "claude-haiku-5-5")
+
     def test_empty_response_keeps_billed_usage_but_generate_fails(self):
         self.message["content"] = []
         self.message["stop_reason"] = "max_tokens"

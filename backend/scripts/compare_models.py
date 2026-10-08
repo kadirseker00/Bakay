@@ -53,18 +53,28 @@ def verified_snapshot(path: Path) -> dict:
     return snapshot
 
 
-def sonnet_cost(usage: dict, model: str) -> float | None:
-    """9 Ekim 2026 standart Sonnet 5.5 tarifesi; fatura değil kullanım tahmini."""
-    if model != "claude-sonnet-5-5":
+def anthropic_cost(usage: dict, model: str) -> float | None:
+    """9 Ekim 2026 Claude tarifeleri; önbellek dahil kullanım tahmini."""
+    prompt_tokens = sum(usage.get(key, 0) for key in (
+        "input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens",
+    ))
+    if model == "claude-sonnet-5-5":
+        input_rate, output_rate, write_5m_rate, write_1h_rate, read_rate = (2, 10, 2.5, 4, 0.1)
+    elif model == "claude-haiku-5-5":
+        input_rate, output_rate, write_5m_rate, write_1h_rate, read_rate = (
+            (0.1, 0.5, 0.125, 0.2, 0.01) if prompt_tokens <= 100_000
+            else (0.5, 2.5, 0.625, 1, 0.05)
+        )
+    else:
         return None
     creation = usage.get("cache_creation", {}) or {}
     one_hour = creation.get("ephemeral_1h_input_tokens", 0)
     five_minutes = usage.get("cache_creation_input_tokens", 0) - one_hour
     return round((
-        usage.get("input_tokens", 0) * 2
-        + usage.get("output_tokens", 0) * 10
-        + five_minutes * 2.5 + one_hour * 4
-        + usage.get("cache_read_input_tokens", 0) * 0.1
+        usage.get("input_tokens", 0) * input_rate
+        + usage.get("output_tokens", 0) * output_rate
+        + five_minutes * write_5m_rate + one_hour * write_1h_rate
+        + usage.get("cache_read_input_tokens", 0) * read_rate
     ) / 1_000_000, 8)
 
 
@@ -257,7 +267,7 @@ def run_anthropic(args) -> None:
                     "done_reason": result["stop_reason"], "metrics": result["usage"],
                     "resolved_model": result["model"], "message_id": result["message_id"],
                     "request_id": result["request_id"],
-                    "estimated_cost_usd": sonnet_cost(result["usage"], args.model),
+                    "estimated_cost_usd": anthropic_cost(result["usage"], args.model),
                 })
                 print(f"{args.label} {case['id']}: {row['wall_ms']/1000:.1f} sn, "
                       f"{len(row['answer'])} karakter, {row['done_reason']}, "
@@ -368,7 +378,7 @@ def main() -> None:
     runner.add_argument("--label", required=True)
     runner.add_argument("--output", type=Path, required=True)
     runner.set_defaults(action=run)
-    api = commands.add_parser("run-anthropic", help="Aynı sabit girdileri Sonnet API ile ölç.")
+    api = commands.add_parser("run-anthropic", help="Aynı sabit girdileri Claude API ile ölç.")
     api.add_argument("--snapshot", type=Path, required=True)
     api.add_argument("--model", default=settings.anthropic_model)
     api.add_argument("--label", default="sonnet")

@@ -1,0 +1,129 @@
+{
+  "created_at": "2026-10-08T20:08:40.868974+00:00",
+  "model": "claude-haiku-5-5",
+  "snapshot_sha256": "820c0786559b41969ddab25c559517f7db98905741c45bff3fccff58d5441ca4",
+  "reviewer": "Codex; tek yapay zekâ incelemesi, insan onayı yok",
+  "limits": "İnsan onaysız, geliştirmede görülen 12 tanısal soru; bağımsız gold veya genel doğruluk ölçümü değildir. Sonnet/Qwen ile aynı kaynak ve ölçütler; inceleme kör değildir.",
+  "cases": [
+    {
+      "id": "BAKAY-001",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Noter vekili, ilan edilen tarihler ve süresinde kayıt yapılmazsa hak kaybı doğru kaynakla aktarılıyor.",
+      "answer_sha256": "909d5573e4cc3a50395390a12c75ab53b5981f720f3420407808bd434d913ded",
+      "prompt_sha256": "90d6537a9a9ea759a59d9d3c883334658159615d283fcdb71be67d74644ed5bd"
+    },
+    {
+      "id": "BAKAY-004",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Teorik %70, uygulama %80 ve karma dersin iki kısmı ayrı korunuyor.",
+      "answer_sha256": "751025238e03c388c8aac7d98b7750b3524cc4f51adce41d95125806aaa62b49",
+      "prompt_sha256": "64b769fe23a46ab64fb354ccabf3a09f10b45cfbb5048d635c62199067190fbe"
+    },
+    {
+      "id": "BAKAY-014",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Bir hafta, form/Bölüm Başkanlığı, sağlıkta Sağlık Merkezi onaylı rapor, diğer mazeret belgeleri ve kurul kabulü birlikte korunuyor.",
+      "answer_sha256": "28df0959e330d613e509cadb9e60d12957a513ef7b49e71fbd739a0f5de60e94",
+      "prompt_sha256": "dd128f29d547b0f5e2b2d916b694174b8b18d56015758f00971b95af782168e5"
+    },
+    {
+      "id": "BAKAY-021",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "2,00/2,50 eşikleri, Senato tablosu ve daha yüksek not belirleme kurulları doğru.",
+      "answer_sha256": "2898cae2801c95610c812eeeb22b09ad9e4b6f9cde092454a76efbba0920434e",
+      "prompt_sha256": "859ff644c2946743ebfa19d86f853d572219a53f9a2c74df94596bfed512bc4c"
+    },
+    {
+      "id": "BAKAY-025",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "55/eşdeğer, başvuruda beyan, yazılı muafiyeti ve zorunlu sözlü sınav doğru. Süre/başvuru birimi alıntıda yok diyerek yeni zorunlu karar şartı eklemiyor.",
+      "answer_sha256": "1b15347baacab9fb2de877157e1ffa4fc05cf33bde95382e122c081c4a1bd5f4",
+      "prompt_sha256": "3e6d1990956f0e2bc05f8cd3bffb39b9d29afcde401f4613e83cd29f2a0154b6"
+    },
+    {
+      "id": "BAKAY-036",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "3 iş günü sınav bitiminden başlıyor; rapor/kurulca kabul edilen mazeret koşulları ve ara sınav/final yerine geçmesi doğru.",
+      "answer_sha256": "5dac7b746c383557d7d82ca5dcae7dd422484bee81062523bf0c164683190392",
+      "prompt_sha256": "ec4d5689c8bd09221f1def813a05be35f3a454d6d5311f332818c2dc5e36cd48"
+    },
+    {
+      "id": "BAKAY-039",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Bişkek ve özel statülü devlet üniversitesi doğru kaynakla aktarılıyor.",
+      "answer_sha256": "61cd0d8eac3b0fa890ca97cc516a0fc465848f3f672913bb91e4ee08e4a7ee3b",
+      "prompt_sha256": "9f27f5fd768d83d5306338cc04e7f572c8b6f775984f8fb94013b77012bef4e9"
+    },
+    {
+      "id": "BAKAY-045",
+      "grounded": true,
+      "complete": false,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Yalnız öğrenim düzeyini soruyor; sorunun ders sınavı mı tez savunması mı olduğunu sormuyor. Sonnet her ikisini sormuştu. Düzey netleşmeden ayrıntı vermeme prompt kuralına ise uyuyor.",
+      "answer_sha256": "cb29a9cbb0d69dd5733c8376755e53ab0e829417ff63c4b0a1d2484e257b1df2",
+      "prompt_sha256": "983b618dc5cb07312bd18d9d7796b0e3ce70d3b537141da05f146b9c63044753"
+    },
+    {
+      "id": "BAKAY-046",
+      "grounded": true,
+      "complete": false,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Vizeyi giriş/oturum olarak varsayıyor; ara sınav mı giriş vizesi mi sorusunu sormuyor. İşlem, ücret veya tarih uydurmuyor.",
+      "answer_sha256": "90e49071ca4d9a07dd72c3b0b04937a98d5a552284e6b1ee0280a202c82ad1e3",
+      "prompt_sha256": "5d1a9c1391485a4aa4dbdbb42209f43dbbd77d4ad8c06985a07879ddeb7db3d8"
+    },
+    {
+      "id": "BAKAY-048",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "2026-2027 kesin tutar yok, Tıp istisnası ve resmi teyit birlikte; tutar/para birimi/ödeme planı uydurulmuyor.",
+      "answer_sha256": "ca790e77b53249e3647fef966c9bb44a48f7399b18e3e414e6ccda77b54e6097",
+      "prompt_sha256": "3ee13664dabc4f70db316eeab0e60d7511c4fbe1cdcbf61089613d37c504f758"
+    },
+    {
+      "id": "BAKAY-049",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "İlk cümle kısa/genel; temel şartlarda önceki devamın sağlanması koşulu, bireysel uygulamalı ders/kurul istisnası ve lisansüstü devam zorunluluğu açıkça korunuyor.",
+      "answer_sha256": "9e73ab971aca8478e1471559189224a815b95c972856441705061512f2d99ddf",
+      "prompt_sha256": "57406871803f196dfed84a80e7d36e5266042a8b31e278f6770df0d955d6509d"
+    },
+    {
+      "id": "BAKAY-050",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Kurum dışı tarifi reddediyor ve üniversiteyle ilgili soruya yönlendiriyor; uydurma kaynak yok.",
+      "answer_sha256": "e9c23c35735690ab47e34c5808007490bf13ae0c7a2c0b79c3d0b32a63069493",
+      "prompt_sha256": "45e1ced71ee96d7c1367443cc51233fd8aa6effc69720f94d42280c86d75995d"
+    }
+  ]
+}
