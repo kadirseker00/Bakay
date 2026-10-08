@@ -67,9 +67,8 @@ def retrieve(rows, manifest):
 
 
 def prepare(rows, manifest, corpus):
-    from app.config import settings
     from app.rag.llm import get_llm
-    from app.rag.pipeline import SYSTEM_PROMPT
+    from app.rag.pipeline import SYSTEM_PROMPT, _model_name
     from scripts.compare_models import digest as prompt_digest
     cases = []
     llm = get_llm()
@@ -80,7 +79,7 @@ def prepare(rows, manifest, corpus):
                       "prompt_sha256": prompt_digest(prompt), "behavior": row["metadata"]["behavior"]})
     return {"mode": "fixed_context_generation", "label_status": manifest["label_status"],
             "bundle_sha256": digest(manifest), "system_prompt_sha256": prompt_digest(SYSTEM_PROMPT),
-            "model_for_history_resolution": settings.ollama_model if settings.llm_provider == "ollama" else settings.gemini_model,
+            "model_for_history_resolution": _model_name(),
             "cases": cases,
             "limits": "Seçilmiş kaynaklarla kontrollü generation deneyi; üretim retrieval ve yeterlilik kapısı ölçülmez. İnsan incelemesi beklenir."}
 

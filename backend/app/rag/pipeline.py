@@ -458,8 +458,9 @@ def _log(qid, question, k, *, sources, retrieval_ms, generation_ms, total_ms,
 
 
 def _model_name() -> str:
-    return (
-        settings.ollama_model
-        if settings.llm_provider == "ollama"
-        else settings.gemini_model
-    )
+    models = {
+        "ollama": settings.ollama_model,
+        "gemini": settings.gemini_model,
+        "anthropic": settings.anthropic_model,
+    }
+    return models[settings.llm_provider.lower()]

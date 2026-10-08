@@ -1,6 +1,6 @@
 """Pluggable LLM sağlayıcı.
 
-LLM_PROVIDER ayarına göre Gemini API (bulut) veya Ollama (yerel GPU) kullanır.
+LLM_PROVIDER ayarına göre Gemini/Claude API veya Ollama (yerel GPU) kullanır.
 İP4'te Mistral/Llama/Qwen2 karşılaştırması için yeni sağlayıcılar buraya eklenir;
 pipeline kodu değişmez.
 """
@@ -9,11 +9,70 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import Protocol
 
+import httpx
+
 from app.config import settings
 
 
 class LLM(Protocol):
     def generate(self, prompt: str) -> str: ...
+
+
+class AnthropicLLM:
+    """Claude Messages API; ücretli denemede metin ve kullanım ayrı saklanır."""
+
+    def __init__(self, model: str | None = None):
+        if not settings.anthropic_api_key:
+            raise RuntimeError(
+                "ANTHROPIC_API_KEY tanımlı değil. Proje kökündeki .env dosyasına ekleyin."
+            )
+        self.model = model or settings.anthropic_model
+        self.max_tokens = settings.anthropic_max_tokens
+        self.thinking = settings.anthropic_thinking
+        self.effort = settings.anthropic_effort
+        self.http = httpx.Client(
+            base_url="https://api.anthropic.com",
+            headers={
+                "x-api-key": settings.anthropic_api_key,
+                "anthropic-version": "2023-06-01",
+            },
+            timeout=settings.anthropic_timeout,
+        )
+
+    def generate_result(self, prompt: str) -> dict:
+        """Aynı prompt'u gönder; düşünme bloklarını kullanıcı yanıtına katma."""
+        response = self.http.post("/v1/messages", json={
+            "model": self.model,
+            "max_tokens": self.max_tokens,
+            "messages": [{"role": "user", "content": prompt}],
+            "thinking": {"type": self.thinking},
+            "output_config": {"effort": self.effort},
+            # Sonnet 5.5 özel sıcaklık/top_p/top_k değerlerini kabul etmez.
+        })
+        response.raise_for_status()
+        message = response.json()
+        if message.get("type") != "message" or not isinstance(message.get("content"), list):
+            raise RuntimeError("Claude API geçerli bir mesaj döndürmedi.")
+        text = "\n".join(
+            block["text"] for block in message["content"]
+            if block.get("type") == "text" and isinstance(block.get("text"), str)
+        ).strip()
+        return {
+            "response": text,
+            "model": message.get("model", self.model),
+            "stop_reason": message.get("stop_reason"),
+            "usage": message.get("usage", {}),
+            "message_id": message.get("id"),
+            "request_id": response.headers.get("request-id"),
+        }
+
+    def generate(self, prompt: str) -> str:
+        result = self.generate_result(prompt)
+        if not result["response"]:
+            raise RuntimeError(
+                f"Claude API yanıt metni boş (bitiş: {result['stop_reason']})."
+            )
+        return result["response"]
 
 
 class GeminiLLM:
@@ -69,8 +128,10 @@ class OllamaLLM:
 @lru_cache
 def get_llm() -> LLM:
     provider = settings.llm_provider.lower()
+    if provider == "anthropic":
+        return AnthropicLLM()
     if provider == "gemini":
         return GeminiLLM()
     if provider == "ollama":
         return OllamaLLM()
-    raise ValueError(f"Bilinmeyen LLM_PROVIDER: {provider!r} (gemini|ollama)")
+    raise ValueError(f"Bilinmeyen LLM_PROVIDER: {provider!r} (gemini|ollama|anthropic)")

@@ -5,7 +5,9 @@ buradan gelir. Sağlayıcı değiştirmek için sadece .env'i düzenlemek yeterl
 """
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Proje kök dizini (backend/ bir üst seviye)
@@ -17,11 +19,19 @@ class Settings(BaseSettings):
         env_file=ROOT / ".env", env_file_encoding="utf-8", extra="ignore"
     )
 
-    # LLM sağlayıcı seçimi: "gemini" | "ollama"
+    # LLM sağlayıcı seçimi: "gemini" | "ollama" | "anthropic"
     llm_provider: str = "ollama"
 
     gemini_api_key: str = ""
     gemini_model: str = "gemini-2.5-flash"
+
+    anthropic_api_key: str = Field(default="", repr=False)
+    anthropic_model: str = "claude-sonnet-5-5"
+    anthropic_max_tokens: int = Field(default=2048, ge=1)
+    # Sonnet 5.5'te araçsız istekte between_tools yalnızca yanıt metni üretir.
+    anthropic_thinking: Literal["between_tools", "adaptive"] = "between_tools"
+    anthropic_effort: Literal["low", "medium", "high"] = "high"
+    anthropic_timeout: float = Field(default=120.0, gt=0)
 
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "qwen3.5:9b"

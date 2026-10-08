@@ -104,6 +104,13 @@ ollama pull qwen3.5:9b
 
 ## Kullanım (uçtan uca demo)
 
+Claude Sonnet API seçeneği için proje kökündeki `.env` dosyasına
+`ANTHROPIC_API_KEY` ekleyin ve `LLM_PROVIDER=anthropic` ayarlayın.
+Model `ANTHROPIC_MODEL=claude-sonnet-5-5` ile seçilir; sağlayıcı değiştikten
+sonra backend yeniden başlatılır. Sabit kaynaklı karşılaştırma, sağlayıcıyı
+değiştirmeden [Sonnet pilot komutlarıyla](docs/evaluation/2026-10-09-sonnet/README.md)
+çalıştırılabilir. API anahtarı backend'de kalır; frontend'e aktarılmaz.
+
 ```bash
 # 1) Belgeleri topla: KTMÜ sitesini tara (HTML + PDF -> data/raw/web/)
 #    veya elindeki dosyaları data/raw/ içine elle koy.
@@ -165,7 +172,7 @@ backend/app/
   rag/
     embeddings.py    # pluggable embedding sağlayıcı
     vectorstore.py   # ChromaDB sarmalayıcı
-    llm.py           # pluggable LLM (Gemini / yerel Ollama)
+    llm.py           # pluggable LLM (Claude / Gemini / yerel Ollama)
     pipeline.py      # RAG orkestrasyonu (retrieve → prompt → generate)
   ingest/
     crawl.py         # KTMÜ web/PDF toplayıcı (nazik, robots'a uyan tarayıcı)

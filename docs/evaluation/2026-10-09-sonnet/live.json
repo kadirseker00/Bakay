@@ -1,0 +1,147 @@
+{
+  "health": {
+    "status": "ok",
+    "version": "0.3.1",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-5-5",
+    "embedding_model": "sentence-transformers/LaBSE",
+    "indexed_chunks": 39659
+  },
+  "rows": [
+    {
+      "question": "başka kurumdan aldığım dersi saydırabilir miyim",
+      "response": {
+        "query_id": "449f9b7b194048d5884fe93c05812d01",
+        "answer": "**Önlisans/lisans için**, **ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)** (Madde 25) şöyle diyor:\n\n> Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha önce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersleri saydırabilir.\n\nBu konuda önlisans/lisans ve lisansüstü için farklı hükümler var. Hangi öğrenim düzeyi için soruyorsunuz: önlisans/lisans, yüksek lisans veya doktora?",
+        "sources": [
+          {
+            "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+            "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+            "snippet": "enci dersten muaf tutulur ve \nmuafiyet notu öğrencinin Not Durum Belgesine işlenir. \n \nDers Saydırma, Ders Muafiyeti ve İntibak \nMadde 25– (1) Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha \nönce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersl",
+            "score": 0.3729
+          },
+          {
+            "document": "upload_global_Lisansustu_20egitim.pdf_ecd8a9f0.pdf",
+            "title": "LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ",
+            "snippet": "rs muafiyetleri öğrencinin, ekinde not durum belgesi ve \nders içerikleri bulunan yazılı başvurusu, danışmanın önerisi, EABD/EASB akademik kurulunun \nkararı ve Enstitü Yönetim Kurulu onayı ile kayıtlı olduğu programın en çok ders AKTS sayısının \nyarısına karşılık gelecek kadarından yapılabilir. \n(2) ",
+            "score": 0.3974
+          },
+          {
+            "document": "upload_global_Lisansustu_20egitim.pdf_ecd8a9f0.pdf",
+            "title": "LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ",
+            "snippet": "m dili ve içeriği uygun, AKTSsi \nyeterli olan derslerden en çok %70' i kadarı, \nolabilir. \n(3) \nYurt dışındaki yükseköğretim ve araştırma kurumlarına öğrenim için giden lisansüstü \nöğrencisinin, başarılı olduğu derslerden ve uygulamalardan aldıkları notların ve AKTSlerin \nsayılması, bu kurumlar ile ",
+            "score": 0.4296
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "özel öğrencilik ve daha önceki lisansüstü programlarda \naldıkları derslerin kabul edilmesi ve öğrencinin alması gereken toplam krediden \ndüşülmesi, danışman görüşü, ilgili EABD/EASD akademik kurulunun önerisi üzerine \nEnstitü Yönetim Kurulu tarafından belirlenir. \n8) Öğrenciler danışmanlarının onayı",
+            "score": 0.5217
+          },
+          {
+            "document": "docs_2012_2013_akademik_faaliyet_raporu.pdf",
+            "title": "2012 2013 Akademik Faaliyet Raporu",
+            "snippet": "oratuvarı gibi fiziksel ve teknik \nimkanlara sahip fakültemiz, seçkin akademik kadrosuyla da sektörlerden, kamudan veya \ndiğer sivil toplum kuruluşlarından gelen teklifleri değerlendirme imkanına sahiptir.",
+            "score": 0.5579
+          }
+        ],
+        "latency_ms": 11762
+      },
+      "wall_ms": 11773
+    },
+    {
+      "question": "Lisans için soruyorum.",
+      "history": [
+        {
+          "role": "user",
+          "content": "başka kurumdan aldığım dersi saydırabilir miyim"
+        },
+        {
+          "role": "assistant",
+          "content": "**Önlisans/lisans için**, **ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)** (Madde 25) şöyle diyor:\n\n> Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha önce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersleri saydırabilir.\n\nBu konuda önlisans/lisans ve lisansüstü için farklı hükümler var. Hangi öğrenim düzeyi için soruyorsunuz: önlisans/lisans, yüksek lisans veya doktora?"
+        }
+      ],
+      "response": {
+        "query_id": "6835fab0d7ae4225b42b2eb21ca9cfbb",
+        "answer": "Evet, daha önce kaydolduğunuz bir yükseköğretim kurumundan almış ve başarmış olduğunuz dersleri, KTMÜ'de ilk kez kayıt yaptırdığınız önlisans veya lisans programında saydırabilirsiniz; ancak bunun için aşağıdaki şartların sağlanması gerekir.\n\n**Temel şartlar:**\n\n- Üniversitenin bir önlisans veya lisans programına **ilk kez kayıt yaptırmış** olmanız gerekir.\n- Saydırmak istediğiniz dersi **son 5 yıl içinde** almış olmanız gerekir.\n- Dersin başarı notu **en az CC** olmalıdır.\n- Dersin **AKTS'si ve içeriği** kayıtlı olduğunuz programdaki derse uygun olmalıdır.\n- Muaf tutulacak derslerin toplam AKTS sayısı, kayıtlı olduğunuz programın AKTS sayısının **1/3'ünden fazla olamaz**.\n- Başvuruya **not durum belgesi** ve **ders içerikleri** eklenmelidir.\n\n**Başvuru ve karar süreci:** Başvuru, Bölüm Başkanlığına yazılı olarak yapılır. Başvuruyu, bölüm öğretim elemanlarından oluşturulan üç kişilik komisyon değerlendirir. İntibak işlemleri, Bölüm Akademik Kurulunun kararı ve Birim Yönetim Kurulunun kabulü ile kesinleşir. Muaf olduğunuz dersin harf notu Not Durum Belgenize işlenir.\n\nBu bilgiler, Önlisans ve Lisans Eğitim-Öğretim Yönetmeliği'nin \"Ders Saydırma, Ders Muafiyeti ve İntibak\" maddesine dayanmaktadır.\n\nAyrıntılar için [ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)](https://oidb.manas.edu.kg/upload/global/Onlisans%20ve%20lisans%20egitim.pdf) belgesini okuyabilirsiniz.",
+        "sources": [
+          {
+            "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+            "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+            "snippet": "enci dersten muaf tutulur ve \nmuafiyet notu öğrencinin Not Durum Belgesine işlenir. \n \nDers Saydırma, Ders Muafiyeti ve İntibak \nMadde 25– (1) Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha \nönce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersl",
+            "score": 0.3567
+          },
+          {
+            "document": "docs_stratejik_plan_2017_2021_KG.pdf",
+            "title": "Stratejik Plan 2017 2021",
+            "snippet": "теп-н орточо баасы, B: институттардын орточо баасы, C: \nкесиптик жогорку мектептердин орточо баасы, D: академиялык түзүмдөрдүн орточо баасы, E: административдик \nтүзүмдөрдүн орточо баасы, F: ректорлук түзүмдөрдүн орточо баасы, G: университеттин 2016-жыл боюнча \nорточо баасы, H: университеттин 2011-ж",
+            "score": 0.5207
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "ni Enstitüye başvurarak \nmezuniyet kredisine saydırabilir. Ancak aktarılacak kredilerin; \na) Kayıtlı olduğu programın gerektirdiği kredi miktarının %70'ini geçmemesi, \nb) Son beş yıl içinde alınmış olması, \nc) Saydırılan dersin başarı notunun yüksek lisans dersleri için en az “CB”, doktora \ndersleri",
+            "score": 0.3541
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "reter: Üniversite Genel Sekreterini, \n Personel Dairesi Başkanlığı: Üniversite Personel Dairesi Başkanlığını, \n Dekan/Müdür: Üniversiteye bağlı fakülte dekanını/enstitü ve yüksek okul müdürünü, \n Akademik Personel: Üniversitede sürekli sözleşmeli öğretim elemanı ve öğretim elemanı \nyardımcılarını",
+            "score": 0.4967
+          },
+          {
+            "document": "docs_mevzuattr.pdf",
+            "title": "KTMÜ Mevzuatı",
+            "snippet": "KTMÜ MEVZUATI \n \n \n \n \n214 \n LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ \nSayfa:214 \n \n(2) \nDoktora/sanatta yeterlik programında bir dersin bir yarıyılda açılması için o derse en az \nkaç öğrencinin kayıtlı olması gerektiği doktora/sanatta yeterlik programı uygulama \nyönergesi ile belirlenir. \n \n",
+            "score": 0.3647
+          }
+        ],
+        "latency_ms": 4997
+      },
+      "wall_ms": 5001
+    },
+    {
+      "question": "Öğrenci e-posta adresimin ilk şifresini nereden alabilirim?",
+      "response": {
+        "query_id": "a8f9203591e046dea0e8977b73694423",
+        "answer": "Bu konuda elimdeki belgelerde bilgi bulamadım.\n\nSağlanan belgelerde öğrenci e-posta adresinin ilk şifresinin nereden alınacağına dair bir bilgi yer almamaktadır. Belgelerde yalnızca kurumsal e-posta adresiyle Libraryturk ve Scopus gibi platformlara üyelik adımları anlatılmakta; Scopus için örnek olarak @manas.edu.kg alan adlı bir e-posta adresi gösterilmektedir. Ancak bu e-posta hesabının ilk şifresinin nasıl veya nereden temin edileceği belirtilmemiştir.\n\nBu bilgi için üniversitenin Bilgi İşlem Daire Başkanlığı veya öğrenci işleri birimiyle doğrudan iletişime geçmenizi öneririm.",
+        "sources": [
+          {
+            "document": "doc_Libraryturk_kilavuz.pdf_c0a8159b.pdf",
+            "title": "LİBRARYTURK HAKKINDA DERGİ",
+            "snippet": "L I B R A R Y T U R K\nE-KİTAP PLATFORMU\nKurumsal abonelik sağlamak için kurumunuzun libraryturk.com’a abonelik\n sağlamış olması gerekmektedir. Abone listemize kurumsal abonelerimiz ad\nadresi üzerinden erişebilirsiniz.\nKurumsal kullanıcı kapsamında bulunan kullanıcılar; üniversite öğrencisi ve\n perso",
+            "score": 0.3396
+          },
+          {
+            "document": "doc_Libraryturk_kilavuz.pdf_c0a8159b.pdf",
+            "title": "LİBRARYTURK HAKKINDA DERGİ",
+            "snippet": "L I B R A R Y T U R K\nE-KİTAP PLATFORMU\nAdım 1:\nÜye İşlemleri Görsel - 3\nÜyelik işleminin ilk adımının tamamlanmasının ardından, üyeliğinizin alındığına dair bir\nbildirim alacak ve e-posta adresinize üyeliğinizin doğrulanması için bir onay \ne-postası gönderilecektir.\nÜye İşlemleri Görsel -2\nE-posta ",
+            "score": 0.4312
+          },
+          {
+            "document": "doc_scopus_tr.pdf_82d1ac19.pdf",
+            "title": "Doc Scopus",
+            "snippet": "Her şeyi adım adım yapmak çok önemli \n1. Web sitemize kampüsümüzdeki bir bilgisayardan erişin www.scopus.com \n2. “Create account”  düğmesine basın \n \n \n \n3. Üniversite adına kayıt yaptırmak için “Sing in your institution” düğmesine basın.\n4. Görünen alana üniversite domen adını içeren bir e‐posta gi",
+            "score": 0.4172
+          },
+          {
+            "document": "docs_TR_RAPOR_FOR_WEB.pdf",
+            "title": "Rapor For Web",
+            "snippet": "gösterilmekte, akademik yılın başından sonuna yaşanan sosyal, kültürel, sanatsal \nve sportif faaliyetlerle başta öğrencilerimiz olmak üzere camiamızın çok kültürlü bir \nortamda hoşgörü içerisinde çeşitli ve zengin bir birikime sahip olması, mesleki ve \nkişisel gelişimlerini desteklemeleri her bir fe",
+            "score": 0.5062
+          },
+          {
+            "document": "tr_faq_7_3bc18714.html",
+            "title": "Hazırlık Dil Eğitimi",
+            "snippet": "Evet, Hazırlık sınıfında Öğrenciler derslerin %85 ine devam etmek zorundadırlar. Bu zorunluluğu yerine getirmeyen Öğrencilerin Üniversite ile ilişikleri kesilir.\n \nEvet, Hazırlık sınıfında Öğrenciler derslerin %85 ine devam etmek zorundadırlar. Bu zorunluluğu yerine getirmeyen Öğrencilerin Üniversit",
+            "score": 0.405
+          }
+        ],
+        "latency_ms": 3455
+      },
+      "wall_ms": 3461
+    }
+  ],
+  "created_at": "2026-10-08T19:34:13.435734+00:00",
+  "limits": "Canlı Sonnet istekleri Qwen karşılaştırma koşusu sürerken çalıştı; süreler kontrollü uçtan uca kapasite ölçümü değildir."
+}

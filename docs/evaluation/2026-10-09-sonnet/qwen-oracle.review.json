@@ -1,0 +1,129 @@
+{
+  "created_at": "2026-10-08T19:40:36.874725+00:00",
+  "model": "qwen3.5:9b",
+  "snapshot_sha256": "820c0786559b41969ddab25c559517f7db98905741c45bff3fccff58d5441ca4",
+  "reviewer": "Codex; tek yapay zekâ incelemesi, insan onayı yok",
+  "limits": "İnsan onaysız, geliştirmede görülen 12 tanısal soru; genel doğruluk yüzdesi veya bağımsız gold başarısı değildir.",
+  "cases": [
+    {
+      "id": "BAKAY-001",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Noter vekili ve ilan edilen sürede kayıt koşulu korundu. Kaynak başlığı açıkça anılmadı; atıf sunumu zayıf.",
+      "answer_sha256": "d367a2c3c3101a873b890393ed21b05db40d8ead8bbda7b9e8a41df45ab200d3",
+      "prompt_sha256": "90d6537a9a9ea759a59d9d3c883334658159615d283fcdb71be67d74644ed5bd"
+    },
+    {
+      "id": "BAKAY-004",
+      "grounded": false,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "%70/%80 ve karma ders oranları korundu; verilen alıntıda olmayan eğitim sürecinin devam edemeyeceği sonucu eklendi.",
+      "answer_sha256": "8bdda8935c81afb09039a546a6a87cf599d8477cb87f7f9081d846d1fcc36c5d",
+      "prompt_sha256": "64b769fe23a46ab64fb354ccabf3a09f10b45cfbb5048d635c62199067190fbe"
+    },
+    {
+      "id": "BAKAY-014",
+      "grounded": true,
+      "complete": false,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Süre, form, bölüm ve onaylı rapor doğru; mazeretin Birim Yönetim Kurulunca kabul edilmesi koşulu eksik.",
+      "answer_sha256": "b0d07e9716831782a8b14d3ec48e7ec7e5e19e30f5066f5acfece2c7a1f8aa38",
+      "prompt_sha256": "dd128f29d547b0f5e2b2d916b694174b8b18d56015758f00971b95af782168e5"
+    },
+    {
+      "id": "BAKAY-021",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "2,00/2,50, Senato çevirim tablosu ve daha yüksek program eşiği olasılığı korundu. Yüksek eşik için Enstitü Yönetim Kurulu onayı ayrıntısı anılmadı.",
+      "answer_sha256": "f75a0386dd616268ce9b1f970cf8625dedc755c375eb9194f8c7caf84252c5c2",
+      "prompt_sha256": "859ff644c2946743ebfa19d86f853d572219a53f9a2c74df94596bfed512bc4c"
+    },
+    {
+      "id": "BAKAY-025",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "55/eşdeğer, başvuruda beyan ve yazılı/sözlü ayrımı aktarılıyor. Muaffiyetsiniz yazımı hatalı; devamında muafiyet açıkça belirtilmiş.",
+      "answer_sha256": "17761cc492b179b13aaedbd348081a4103ec72a392658eb5bd74c90d40bd48ec",
+      "prompt_sha256": "3e6d1990956f0e2bc05f8cd3bffb39b9d29afcde401f4613e83cd29f2a0154b6"
+    },
+    {
+      "id": "BAKAY-036",
+      "grounded": true,
+      "complete": false,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "3 iş günü ve sınavların sona ermesi doğru; geçerli sağlık raporu veya kurulca kabul edilmiş mazeret şartı eksik.",
+      "answer_sha256": "5318aae9c1ab8df4cbdc8848c5843c82f24252f5a2a10c1b3edb53ad6c43ca97",
+      "prompt_sha256": "ec4d5689c8bd09221f1def813a05be35f3a454d6d5311f332818c2dc5e36cd48"
+    },
+    {
+      "id": "BAKAY-039",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Bişkek ve özel statülü devlet üniversitesi doğru.",
+      "answer_sha256": "2ab09df64114731e7eb88718fa87e6dd1efc404f792ae81f3331b221019bf9c5",
+      "prompt_sha256": "9f27f5fd768d83d5306338cc04e7f572c8b6f775984f8fb94013b77012bef4e9"
+    },
+    {
+      "id": "BAKAY-045",
+      "grounded": true,
+      "complete": false,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Üç süre ve düzey ayrımı doğru; öğrenim düzeyi/sınav türünü sorarak belirsizliği çözmüyor.",
+      "answer_sha256": "6b3a114f32ea8417dd234eb1ae8e20123e4b4e01bcd1c513a4d74d551e93fe12",
+      "prompt_sha256": "983b618dc5cb07312bd18d9d7796b0e3ce70d3b537141da05f146b9c63044753"
+    },
+    {
+      "id": "BAKAY-046",
+      "grounded": true,
+      "complete": false,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Verilen kaynakta vize prosedürü olmadığını söylüyor; ara sınav/giriş vizesi anlamını netleştirme sorusu eksik.",
+      "answer_sha256": "848db123e4782f0198050a7d0aef7dbf8619063a7c7e4259799b16f5f8cfed2e",
+      "prompt_sha256": "5d1a9c1391485a4aa4dbdbb42209f43dbbd77d4ad8c06985a07879ddeb7db3d8"
+    },
+    {
+      "id": "BAKAY-048",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Kesin Tıp ücreti uydurmadı; mevcut ücretsiz eğitim istisnasını ve eksik yılı/tutarı korudu.",
+      "answer_sha256": "be897e1ef098eca66e615c5aa706908e8bb61190b2534d3c4f5060aaa1492079",
+      "prompt_sha256": "3ee13664dabc4f70db316eeab0e60d7511c4fbe1cdcbf61089613d37c504f758"
+    },
+    {
+      "id": "BAKAY-049",
+      "grounded": false,
+      "complete": false,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "İlk cümlede lisans devamsızlıktan kalma durumunda muafiyet varmış gibi konuşuyor; devam şartını önce sağlama koşulunu atlıyor ve kaynakta olmayan üniversite yönetmelik komisyonu ekliyor.",
+      "answer_sha256": "700834f1caaeb9ed47d60b2c51cd958db9676646923aafc0f767b4d69d025c8a",
+      "prompt_sha256": "57406871803f196dfed84a80e7d36e5266042a8b31e278f6770df0d955d6509d"
+    },
+    {
+      "id": "BAKAY-050",
+      "grounded": true,
+      "complete": true,
+      "citation_correct": true,
+      "turkish_clear": true,
+      "note": "Tarif vermeden kısa çekimserlik gösteriyor. Kapsam dışı olduğunu ayrıca açıklamıyor.",
+      "answer_sha256": "a35649772b994b13059acac75c2ac674f5397e79c44bb9b52b176b29be5d69e8",
+      "prompt_sha256": "45e1ced71ee96d7c1367443cc51233fd8aa6effc69720f94d42280c86d75995d"
+    }
+  ]
+}
