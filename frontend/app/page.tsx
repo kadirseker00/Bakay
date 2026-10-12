@@ -33,6 +33,7 @@ import {
 import Logo from "./components/Logo";
 import { buildHistory, persistHistory, restoreHistory } from "./lib/chat-memory";
 import type { Message } from "./lib/chat-memory";
+import { PROJECT } from "./lib/project";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 type Health = { indexed_chunks: number; llm_provider: string; embedding_model: string };
@@ -196,7 +197,7 @@ const CANDIDATE_TRACKS: CandidateTrack[] = [
 
 const FAQS = [
   {
-    question: "BAKAY yanıtlarını nereden buluyor?",
+    question: "BAKAI yanıtlarını nereden buluyor?",
     answer:
       "Yanıtlar KTMÜ'nün indekslenen resmî yönetmelik, yönerge, duyuru ve kurumsal belgelerinden hazırlanır. Her yanıtta kullanılan kaynak parçalarını ayrıca görebilirsiniz.",
   },
@@ -208,7 +209,7 @@ const FAQS = [
   {
     question: "Her konuda soru sorabilir miyim?",
     answer:
-      "BAKAY, KTMÜ'nün kurumsal ve akademik süreçleri için tasarlanmıştır. Kaynaklarda bulunmayan veya üniversiteyle ilgisiz konularda tahminde bulunmak yerine kapsamını açıkça belirtir.",
+      "BAKAI, KTMÜ'nün kurumsal ve akademik süreçleri için tasarlanmıştır. Kaynaklarda bulunmayan veya üniversiteyle ilgisiz konularda tahminde bulunmak yerine kapsamını açıkça belirtir.",
   },
   {
     question: "Yanıtın kalitesini bildirebilir miyim?",
@@ -232,7 +233,7 @@ function Brand({ onHome }: { onHome?: () => void }) {
     <a
       className="brand"
       href="#baslangic"
-      aria-label="BAKAY ana sayfa"
+      aria-label="BAKAI ana sayfa"
       onClick={(event) => {
         if (!onHome) return;
         event.preventDefault();
@@ -241,7 +242,7 @@ function Brand({ onHome }: { onHome?: () => void }) {
     >
       <Logo size={42} />
       <span className="brand-copy">
-        <strong>BAKAY</strong>
+        <strong>BAKAI</strong>
         <span className="brand-version">v{process.env.NEXT_PUBLIC_APP_VERSION}</span>
         <small>KTMÜ Bilgi Asistanı</small>
       </span>
@@ -522,11 +523,14 @@ export default function Home() {
               <a href="#sss" onClick={() => setMenuOpen(false)}>
                 SSS
               </a>
+              <a href="/hakkinda" onClick={() => setMenuOpen(false)}>
+                Hakkında
+              </a>
             </nav>
           )}
 
           <div className="header-actions">
-            <div className={`connection ${connection}`} title="BAKAY servis durumu">
+            <div className={`connection ${connection}`} title="BAKAI servis durumu">
               {connection === "online" ? <Wifi size={15} /> : <WifiOff size={15} />}
               <span>
                 {connection === "online"
@@ -559,11 +563,11 @@ export default function Home() {
 
       {isConversation ? (
         <main className="conversation-workspace">
-          <section className="conversation-main" aria-label="BAKAY görüşmesi">
+          <section className="conversation-main" aria-label="BAKAI görüşmesi">
             <div className="conversation-heading">
               <div>
                 <span className="section-kicker">KAYNAKLI SORU-CEVAP</span>
-                <h1 ref={conversationHeadingRef} tabIndex={-1}>BAKAY ile görüşme</h1>
+                <h1 ref={conversationHeadingRef} tabIndex={-1}>BAKAI ile görüşme</h1>
               </div>
               <span className="conversation-count">{messages.filter((m) => m.role === "user").length} soru</span>
             </div>
@@ -583,7 +587,7 @@ export default function Home() {
 
                   <div className={`message ${message.role} ${message.error ? "error" : ""}`}>
                     <div className="message-author">
-                      {message.role === "assistant" ? (message.error ? "Sistem bildirimi" : "BAKAY") : "Siz"}
+                      {message.role === "assistant" ? (message.error ? "Sistem bildirimi" : "BAKAI") : "Siz"}
                     </div>
                     <div
                       className={`message-text ${
@@ -709,7 +713,8 @@ export default function Home() {
                 {historySaved
                   ? "Sohbet bu tarayıcıda saklanır. Yeni sohbet, geçmişi ve konuşma bağlamını temizler."
                   : "Tarayıcı sohbeti kaydedemedi; sayfa yenilenirse geçmiş kaybolabilir."}
-                {" "}BAKAY hata yapabilir; önemli kararlar için gösterilen kaynağı doğrulayın.
+                {" "}BAKAI hata yapabilir; önemli kararlar için gösterilen kaynağı doğrulayın.
+                {" "}<a href="/hakkinda">Proje hakkında</a>
               </p>
             </div>
           </section>
@@ -741,7 +746,7 @@ export default function Home() {
               <ShieldCheck size={20} />
               <p>
                 <strong>Kaynak öncelikli</strong>
-                BAKAY yalnızca erişebildiği kurumsal belgelere göre yanıt verir.
+                BAKAI yalnızca erişebildiği kurumsal belgelere göre yanıt verir.
               </p>
             </div>
           </aside>
@@ -755,7 +760,7 @@ export default function Home() {
                 Resmî KTMÜ belgelerine dayalı
               </div>
               <h1 id="hero-title">
-                <span>BAKAY</span>
+                <span>BAKAI</span>
                 KTMÜ Kurumsal Bilgi Asistanı
               </h1>
               <p className="hero-copy">
@@ -782,7 +787,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="hero-facts" aria-label="BAKAY özellikleri">
+              <div className="hero-facts" aria-label="BAKAI özellikleri">
                 <div>
                   <LibraryBig size={20} />
                   <span>
@@ -814,7 +819,7 @@ export default function Home() {
                 <span className="section-kicker">ADAY ÖĞRENCİ REHBERİ</span>
                 <h2 id="candidate-title">Tercihini resmî bilgilerle şekillendir.</h2>
                 <p>
-                  Eğitim hedefinizi seçin; BAKAY başvuru, kontenjan, burs ve kampüs
+                  Eğitim hedefinizi seçin; BAKAI başvuru, kontenjan, burs ve kampüs
                   yaşamıyla ilgili sorularınızı üniversite belgelerinde arasın.
                 </p>
                 <div className="candidate-note">
@@ -919,7 +924,7 @@ export default function Home() {
                 <span className="section-kicker">GÜVENİLİR BİLGİ</span>
                 <h2>Bir cevap değil, dayanağıyla birlikte bilgi.</h2>
                 <p>
-                  BAKAY sorunuzla ilgili resmî metinleri bulur, yanıtı bu içerikten üretir ve
+                  BAKAI sorunuzla ilgili resmî metinleri bulur, yanıtı bu içerikten üretir ve
                   kullandığı belge parçalarını görünür kılar.
                 </p>
               </div>
@@ -953,7 +958,7 @@ export default function Home() {
             <div className="section-inner faq-grid">
               <div className="faq-intro">
                 <span className="section-kicker">SIK SORULANLAR</span>
-                <h2>BAKAY hakkında merak edilenler</h2>
+                <h2>BAKAI hakkında merak edilenler</h2>
                 <p>Bilginin kapsamı, güncelliği ve yanıtların nasıl değerlendirildiği.</p>
                 <BookOpenText size={64} strokeWidth={1.2} aria-hidden="true" />
               </div>
@@ -974,8 +979,11 @@ export default function Home() {
           <footer className="site-footer">
             <div className="section-inner footer-inner">
               <Brand />
-              <p>Bütünleşik Akıllı Kurumsal Asistan Yazılımı.</p>
-              <span>KTMÜ · BAP</span>
+              <div className="footer-project">
+                <p>KTMÜ Bilimsel Araştırma Projeleri (BAP) kapsamında geliştirilmiştir.</p>
+                <p>Proje yürütücüsü ve geliştirici: <strong>{PROJECT.author}</strong></p>
+              </div>
+              <a className="footer-about" href="/hakkinda">BAKAI hakkında <ArrowUp size={14} /></a>
             </div>
           </footer>
         </main>

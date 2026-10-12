@@ -1,5 +1,5 @@
 [Unit]
-Description=BAKAY dakika başına sağlık ölçümü
+Description=BAKAI dakika başına sağlık ölçümü
 
 [Timer]
 OnBootSec=30

@@ -14,7 +14,7 @@ if [[ "$stage_root" != "$project_root" && -e "$project_root" ]]; then
   exit 1
 fi
 if systemctl is-active --quiet bakay-backend.service || systemctl is-active --quiet bakay-frontend.service; then
-  echo "BAKAY servisleri çalışıyor; hazırlık öncesi yönetici tarafından durdurulmalıdır." >&2
+  echo "BAKAI servisleri çalışıyor; hazırlık öncesi yönetici tarafından durdurulmalıdır." >&2
   exit 1
 fi
 for required_path in data/chroma/chroma.sqlite3 frontend/.next/BUILD_ID runtime/node/bin/node runtime/wheels deploy/requirements-linux.txt; do

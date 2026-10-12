@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="docs/brand/bakay-logo-v3.png" alt="BAKAY logo" width="160" />
+<img src="docs/brand/bakay-logo-v3.png" alt="BAKAI logo" width="160" />
 
-# BAKAY — Bütünleşik Akıllı Kurumsal Asistan Yazılımı
+# BAKAI — KTMÜ Kurumsal Bilgi Asistanı
 
 **Kırgızistan-Türkiye Manas Üniversitesi (KTMÜ) için RAG tabanlı, kaynak gösteren kurumsal bilgi asistanı**
 
@@ -18,7 +18,7 @@
 > Kırgızistan-Türkiye Manas Üniversitesi (KTMÜ) için RAG (Retrieval-Augmented
 > Generation) tabanlı, kaynak gösteren ve doğrulanabilir kurumsal bilgi asistanı.
 
-BAKAY; üniversitenin yönetmelik, yönerge, akademik takvim, burs/kayıt prosedürü
+BAKAI; üniversitenin yönetmelik, yönerge, akademik takvim, burs/kayıt prosedürü
 gibi resmi belgelerini anlamlandırır ve kullanıcının Türkçe sorularına **kaynağıyla
 birlikte** yanıt verir.
 
@@ -30,10 +30,29 @@ için sürüm değişikliğinden sonra servisler yeniden başlatılır veya yeni
 
 ---
 
+## Ürün adı ve BAP projesi
+
+**BAKAI** ürün adı, Manas Destanı’ndaki bilge danışman **Bakay** karakterinden
+esinlenir. BAP başvurusundaki ilk ad **BAKAY**, aynı zamanda
+**Bütünleşik Akıllı Kurumsal Asistan Yazılımı** kısaltmasıdır. Yeni ürün yazımı,
+projenin bu kültürel kökenini ve kurumsal bilgiye rehberlik etme amacını korur.
+
+Uygulama, **Kırgızistan-Türkiye Manas Üniversitesi Bilimsel Araştırma Projeleri
+(BAP)** kapsamında geliştirilmiştir.
+
+- Proje numarası: **KTMU-BAP-2026.FB.05**
+- Resmî proje adı: **BAKAY: RAG Destekli Kurumsal Bilgi Erişim ve Danışma Sistemi**
+- Proje yürütücüsü ve web uygulamasının geliştiricisi: **Yrd. Doç. Dr. Abdulkadir Şeker**
+- Birim: KTMÜ Mühendislik Fakültesi, Bilgisayar Mühendisliği Bölümü
+- Kamuya açık açıklama: [BAKAI hakkında](https://bakai.manas.edu.kg/hakkinda)
+
+İsim ve yürütücü bilgisi BAP başvuru formuna; proje numarası ilk gelişme raporuna
+dayanır. Resmî başvuru/rapor adları tarihsel kayıt olarak korunur.
+
 ## Geliştirme stratejisi: "ince dilim"
 
 İş paketlerini sırayla (önce TÜM veri, sonra TÜM model...) bitirmek yerine, önce
-**uçtan uca çalışan küçük bir BAKAY** kuruyoruz: birkaç gerçek belgeyle soru-cevap
+**uçtan uca çalışan küçük bir BAKAI** kuruyoruz: birkaç gerçek belgeyle soru-cevap
 veren, kaynak gösteren bir demo. Sonra her katmanı tek tek güçlendiriyoruz. Hem
 ürün hem de makale için gereken karşılaştırmalı deneyler aynı koddan çıkacak.
 
@@ -144,7 +163,7 @@ altında dayandığı **kaynak belgeleri** ve benzerlik skorunu gösterir.
 
 ## Ajansal akış (agentic flow)
 
-BAKAY basit `retrieve→generate` yerine modüler ajansal bir akış kullanır
+BAKAI basit `retrieve→generate` yerine modüler ajansal bir akış kullanır
 (`docs/reference/` altındaki referans desenden uyarlandı):
 
 ```
@@ -192,9 +211,9 @@ data/
 
 ## Lisans
 
-BAKAY şu an **ücretsiz** olarak geliştiriliyor ve KTMÜ kapsamındaki akademik/araştırma
+BAKAI şu an **ücretsiz** olarak geliştiriliyor ve KTMÜ kapsamındaki akademik/araştırma
 kullanımına açıktır. İleriki sürümlerde ürünleşme durumunda **ücretli bir lisansa**
 geçilebilir. Kullanım koşulları netleştikçe burası güncellenecektir; ticari kullanım
 için lütfen proje sahibiyle iletişime geçin.
 
-© 2026 BAKAY — Abdulkadir Şeker, KTMÜ Bilgisayar Mühendisliği.
+© 2026 BAKAI — Abdulkadir Şeker, KTMÜ Bilgisayar Mühendisliği.

@@ -24,7 +24,7 @@ from app.rag.source_links import append_source_reading
 from app.rag.vectorstore import get_store
 from app.schemas import ChatMessage, ChatResponse, Source
 
-SYSTEM_PROMPT = """Sen BAKAY'sın: Kırgızistan-Türkiye Manas Üniversitesi'nin (KTMÜ) \
+SYSTEM_PROMPT = """Sen BAKAI adlı, Kırgızistan-Türkiye Manas Üniversitesi'nin (KTMÜ) \
 resmi belgelerine dayanarak yanıt veren kurumsal bilgi asistanısın.
 
 Kurallar:

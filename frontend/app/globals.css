@@ -933,20 +933,22 @@ textarea:focus-visible {
 
 .footer-inner {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 34px;
 }
 
-.footer-inner p,
-.footer-inner > span {
+.footer-project p {
   color: var(--muted);
   font-size: 12px;
+  line-height: 1.8;
 }
 
-.footer-inner > span {
-  font-weight: 750;
-}
+.footer-project strong { color: var(--ink-soft); font-weight: 650; }
+.footer-about { display: inline-flex; align-items: center; gap: 8px; color: var(--teal); font-size: 12px; font-weight: 650; text-decoration: none; white-space: nowrap; }
+.footer-about svg { transform: rotate(45deg); }
+.footer-about:hover { text-decoration: underline; }
+.conversation-composer-wrap > p a { color: var(--teal); }
 
 /* Görüşme çalışma alanı */
 .conversation-mode {
@@ -1778,8 +1780,9 @@ a.source-card:hover {
     grid-template-columns: 1fr auto;
   }
 
-  .footer-inner p {
-    display: none;
+  .footer-project {
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
 
   .conversation-heading {

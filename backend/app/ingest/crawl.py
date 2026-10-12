@@ -41,7 +41,7 @@ from app.config import ROOT
 
 WEB_DIR = ROOT / "data" / "raw" / "web"
 MAP_PATH = ROOT / "data" / "sitemap.json"
-USER_AGENT = "BAKAY-Research-Bot/0.1 (KTMÜ BAP; akademik veri toplama)"
+USER_AGENT = "BAKAI-Research-Bot/0.1 (KTMÜ BAP; akademik veri toplama)"
 HEADERS = {"User-Agent": USER_AGENT}
 
 HTML_TYPES = ("text/html",)

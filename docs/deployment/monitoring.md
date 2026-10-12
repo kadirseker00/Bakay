@@ -1,4 +1,4 @@
-# BAKAY yönetim ve izleme paneli
+# BAKAI yönetim ve izleme paneli
 
 Panel adresi: **https://bakai.manas.edu.kg/monitor**.
 Kullanıcı adı: **adminbakai**. Panel parolası SSH/root parolasından ayrıdır.

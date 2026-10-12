@@ -1,0 +1,36 @@
+.page { min-height: 100vh; background: var(--paper); }
+.header { width: min(1060px, calc(100% - 48px)); margin: auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 25px 0; border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--teal-dark); }
+.brand span { display: flex; flex-direction: column; gap: 3px; }
+.brand strong { font-size: 20px; }
+.brand small { font-size: 11px; color: var(--muted); }
+.back { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-soft); text-decoration: none; font-size: 13px; }
+.back:hover { color: var(--teal); }
+.main { width: min(1060px, calc(100% - 48px)); margin: auto; padding: 64px 0 48px; }
+.intro { max-width: 740px; margin-bottom: 38px; }
+.eyebrow { display: block; color: var(--teal); font-size: 10px; letter-spacing: 1.7px; font-weight: 750; line-height: 1.6; }
+.intro h1 { margin: 14px 0 16px; font-size: clamp(32px, 5vw, 46px); letter-spacing: -1.6px; line-height: 1.1; }
+.intro p { color: var(--muted); line-height: 1.8; font-size: 16px; }
+.grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; }
+.story, .project { padding: 30px; border: 1px solid var(--line); border-radius: 20px; }
+.story { background: var(--surface); }
+.project { background: var(--teal-soft); }
+.story > svg, .project > svg { color: var(--teal); margin-bottom: 22px; }
+.story h2, .project h2 { font-size: 22px; line-height: 1.35; letter-spacing: -.6px; margin: 10px 0 18px; }
+.story p, .project p { font-size: 14px; color: var(--ink-soft); line-height: 1.85; }
+.story p + p { margin-top: 16px; }
+.story strong, .project strong { color: var(--ink); font-weight: 650; }
+.facts { margin-top: 26px; display: grid; gap: 20px; }
+.facts div { padding-top: 18px; border-top: 1px solid var(--line-strong); }
+.facts dt { color: var(--muted); font-size: 11px; margin-bottom: 7px; }
+.facts dd { font-size: 14px; line-height: 1.6; font-weight: 600; }
+.projectNumber { letter-spacing: .5px; overflow-wrap: anywhere; }
+.author { display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; padding: 30px; margin-top: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; align-items: center; }
+.author h2 { font-size: 23px; letter-spacing: -.5px; margin: 10px 0 12px; line-height: 1.4; }
+.author p { color: var(--muted); font-size: 13px; line-height: 1.8; }
+.author .authorNote { padding-left: 28px; border-left: 2px solid var(--line); }
+.cta { margin-top: 28px; display: inline-flex; gap: 22px; align-items: center; padding: 14px 20px; background: var(--teal-dark); color: white; border-radius: 12px; font-size: 13px; font-weight: 650; text-decoration: none; }
+.cta:hover { background: var(--teal); }
+.footer { padding: 24px; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: 11px; line-height: 1.7; }
+@media (max-width: 720px) { .grid, .author { grid-template-columns: 1fr; } .main { padding-top: 40px; } .author { gap: 20px; } .author .authorNote { padding: 18px 0 0; border-left: none; border-top: 1px solid var(--line); } }
+@media (max-width: 420px) { .header, .main { width: calc(100% - 32px); } .story, .project, .author { padding: 23px; border-radius: 16px; } .intro p { font-size: 14px; } .author h2 { font-size: 21px; } }

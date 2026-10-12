@@ -1,4 +1,4 @@
-"""BAKAY FastAPI uygulaması (İP5).
+"""BAKAI FastAPI uygulaması (İP5).
 
 Uçlar:
   GET  /health     — sağlık kontrolü + indeks durumu
@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="BAKAY API",
+    title="BAKAI API",
     description="KTMÜ için RAG tabanlı kurumsal bilgi asistanı",
     version=(ROOT / "VERSION").read_text(encoding="utf-8").strip(),
     lifespan=lifespan,

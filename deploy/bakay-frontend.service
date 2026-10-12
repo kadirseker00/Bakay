@@ -1,5 +1,5 @@
 [Unit]
-Description=BAKAY Next.js
+Description=BAKAI Next.js
 After=network-online.target bakay-backend.service
 Wants=network-online.target
 

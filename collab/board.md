@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| 🔄 | BAKAI ürün adı ve Hakkında sayfası hazır: Manas/Bakay kökeni, BAP KTMU-BAP-2026.FB.05, Yrd. Doç. Dr. Abdulkadir Şeker yürütücü/geliştirici bilgisi. Üretim derlemesi, masaüstü/mobil menü ve taşma kontrolleri geçti; canlı aktarım sürüyor | codex | 2026-10-12 | frontend/app/, frontend/package*.json, backend/app/main.py, backend/app/rag/pipeline.py, backend/app/ingest/crawl.py, deploy/, README.md, docs/deployment/, collab/board.md |
 | ✅ | Monitoring paneli canlı: ayrı adminbakai parolası, korumalı metrik/sorgu ayrıntıları ve dakikalık sağlık timer'ı. Linux 40 test, HTTPS giriş/çıkış/401 ve gerçek Haiku sayaçları geçti: 5.440 giriş + 1.357 çıkış, 0,0012225 USD, 5 kaynak. Son backend/frontend/HTTPS yoklaması sağlıklı; 7 eski sorgu maliyeti bilinmiyor | codex | 2026-10-12 | — |
 | ✅ | Canlı KTMÜ LLM'i Haiku 5.5'e geçirildi (adaptive/medium, 4096 token); özel ortam root 600 ile yedeklendi, backend yeniden başlatıldı. HTTPS health/chat 200, 39.659 parça, 5 kaynak/PDF bağlantısı; telemetri Haiku modelini doğruladı. İlk sorgu 54,8 sn (erişim 44,4, üretim 10,1); yayın ayarları ve rehber güncellendi | codex | 2026-10-12 | — |
 | ✅ | KTMÜ canlı yayın tamamlandı: /opt/bakay, systemd active/enabled, Apache configtest, HTTPS sayfa/API/CSS 200, 39.659 parça ve tarayıcıdan kaynaklı Sonnet yanıtı (5 kaynak, PDF 200). Apache yedeği korundu; kod Git main üzerinden güncellendi | codex | 2026-10-12 | — |

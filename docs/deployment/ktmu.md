@@ -1,6 +1,9 @@
 # KTMÜ canlı kurulum ve işletim
 
 Kod deposu: [kadirseker00/Bakay](https://github.com/kadirseker00/Bakay), dal `main`.
+
+Ürün adı **BAKAI**. [Hakkında sayfası](https://bakai.manas.edu.kg/hakkinda),
+adın kökenini, KTMÜ BAP proje numarasını ve proje yürütücüsü/geliştirici bilgisini açıklar.
 Hedef: `192.168.3.13`, yayın adresi `https://bakai.manas.edu.kg/`.
 Kurulu çalışma ağacı: **`/opt/bakay`**.
 
@@ -56,7 +59,7 @@ eşzamanlı kullanıcı kapasitesi henüz ölçülmedi.
 Root kurulum ve yayın araçları çalıştırıldı. `pip check`, systemd birim doğrulaması
 ve Apache `configtest` geçti; mevcut TLS yolları korundu. Mac üzerinden gerçek
 alan adıyla HTTPS sayfası, `/api/health` ve CSS HTTP 200 döndü; sertifika doğrulaması
-başarılı. İki BAKAY servisi `active` / `enabled`, yeniden başlama sayıları 0.
+başarılı. İki BAKAI servisi `active` / `enabled`, yeniden başlama sayıları 0.
 Canlı HTTP sonuçları `runtime/live-check.json` altında saklanır.
 
 Canlı tarayıcıda aynı ders saydırma sorusu **53,0 sn** içinde yanıtlandı;
@@ -125,7 +128,7 @@ diskte ikinci model/indeks kopyası oluşturmaz. LaBSE cache'ini
 kaldırır. Mutlak yolları değişen venv'i doğrulanmış Linux wheel'lerinden yeniden
 kurar. Servis dosyalarını ve izinleri hazırlar; servisleri başlatmaz.
 Kısmen tamamlanan hazırlık `/opt/bakay/deploy/prepare-root.sh` üzerinden yeniden
-çalıştırılabilir. Aktif BAKAY servisleri varken hazırlık aracı durur.
+çalıştırılabilir. Aktif BAKAI servisleri varken hazırlık aracı durur.
 
 `publish-root.sh`, backend/frontend'i **yalnız 127.0.0.1** adresinde başlatır ve
 indeks/sayfa kontrolünü yapar. Mevcut Apache dosyasını `/var/backups/bakay/`

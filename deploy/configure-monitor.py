@@ -20,7 +20,7 @@ from app.monitor_auth import password_hash
 def main() -> None:
     if os.geteuid() != 0:
         raise SystemExit('Bu aracı root oturumunda çalıştırın.')
-    parser = argparse.ArgumentParser(description='BAKAY panel girişini ayarla')
+    parser = argparse.ArgumentParser(description='BAKAI panel girişini ayarla')
     parser.add_argument('--hash-stdin', action='store_true', help='Güvenli giriş aracının ürettiği hash JSONunu stdin üzerinden oku')
     args = parser.parse_args()
     if args.hash_stdin:

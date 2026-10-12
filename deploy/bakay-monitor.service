@@ -1,5 +1,5 @@
 [Unit]
-Description=BAKAY sağlık ve sunucu kaynakları ölçümü
+Description=BAKAI sağlık ve sunucu kaynakları ölçümü
 After=network-online.target
 
 [Service]
