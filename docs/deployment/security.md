@@ -98,3 +98,29 @@ hatasını, geri bildirim spamini ve özel panel sayaçlarını doğrular.
 Ücretli çağrı yapmadan canlı rate testi: güvenilir localhost üzerinden ayrı
 test IP'siyle boş soru gönderilir; ilk 10 istek 422, 11. istek 429 olmalıdır.
 Bu test üretim sorgu kotasını tüketmez.
+
+### Canlı doğrulama — 12–13 Ekim 2026
+
+- Yerel ortamda ve sunucunun Linux ortamında **136 backend testi** geçti;
+  Next.js 15.5.27 üretim derlemesi tamamlandı. Tarayıcıda bekleme mesajı ve
+  koruma kartları/sayaçları test verisiyle doğrulandı.
+- Git `257901b` sunucuda pull edildi. Sentetik `203.0.113.240` test IP'siyle
+  10 boş soru 422, 11. istek 429 + `Retry-After: 60` döndü. HTTPS üzerinden
+  gönderilen iki farklı sahte IP başlığı silindi; SQLite'ta gerçek bağlantı
+  IP'sinin HMAC kaydı iki kez arttı, sahte IP kimlikleri hiç yazılmadı.
+- HTTPS üzerinden 128 KiB'ı aşan gövde 413 döndü. Bu saldırı kontrolleri
+  **sıfır LLM çağrısı** yaptı. Oturumsuz `/monitor/metrics` ve `/stats` 401;
+  yerel yönetici oturumuyla koruma metriği 200 ve etkin sınırlar doğrulandı.
+- Normal HTTPS kontrol sorusu **200, 5 kaynak**, ilk kaynak erişimi dahil
+  **65,71 saniye**: tek Haiku 5.5 çağrısı, 3.394 giriş + 1.731 çıkış tokenı,
+  tahmini **0,0012049 USD**. Günlük kota 1, tamamlanınca çalışan iş sayacı 0.
+- Ana sayfa, hakkında, panel ve API sağlık ucu 200; panelin 10 statik dosyası
+  200. Backend/frontend/Apache ve sağlık timer'ı etkin; son systemd sağlık
+  yoklamasında backend/frontend/HTTPS başarılı.
+
+Apache yedeği `/var/backups/bakay/bakai.conf.20261012T175539Z`, önceki arayüz
+`/opt/bakay/runtime/frontend-before-security.20261012T175535Z/.next` altında.
+Canlı özel ortam dosyasındaki kimlik bilgileri değiştirilmedi; yeni sınırlar
+doğrulanmış uygulama varsayılanlarıyla etkin. Ayar değişikliği yapılacaksa
+`/etc/bakay/backend.env` içindeki ilgili değişkenler düzenlenip backend yeniden
+başlatılır; gövde limiti için Apache değeri de birlikte güncellenir.
