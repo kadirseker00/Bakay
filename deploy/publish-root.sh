@@ -14,7 +14,8 @@ backup_path="/var/backups/bakay/bakai.conf.$(date -u +%Y%m%dT%H%M%SZ)"
 cp -p -- "$site_path" "$backup_path"
 
 systemctl start bakay-backend.service bakay-frontend.service
-curl --fail --silent --show-error --retry 5 --retry-connrefused --retry-delay 2 --max-time 180 http://127.0.0.1:8000/health > runtime/publish-health.json
+# LaBSE'nin soğuk başlangıcında port, model yüklenene kadar açılmayabilir.
+curl --fail --silent --show-error --retry 30 --retry-connrefused --retry-delay 2 --max-time 180 http://127.0.0.1:8000/health > runtime/publish-health.json
 python3 - <<'PY'
 import json
 from pathlib import Path
