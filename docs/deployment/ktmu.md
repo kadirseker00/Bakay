@@ -1,13 +1,15 @@
-# KTMÜ yayın hazırlığı
+# KTMÜ canlı kurulum ve işletim
 
 Kod deposu: [kadirseker00/Bakay](https://github.com/kadirseker00/Bakay), dal `main`.
 Hedef: `192.168.3.13`, yayın adresi `https://bakai.manas.edu.kg/`.
-Hazırlanan çalışma ağacı: **`/home/adminbakai/bakay`**.
+Kurulu çalışma ağacı: **`/opt/bakay`**.
 
-Kullanıcı kararı gereği **yayına alma yöneticiye bırakıldı**. Codex yalnız
-aktarımı, Linux kurulumunu, localhost kontrollerini ve aşağıdaki yönetici
-araçlarını hazırladı. Apache değiştirilmedi; BAKAY servisleri systemd ile
-kurulup etkinleştirilmedi. Geçici localhost test süreçleri teslim öncesi kapatılır.
+**12 Ekim 2026'da kullanıcının açık isteğiyle canlıya alındı.** Root SSH erişimi
+doğrulandı; hazırlanan ağaç `/home/adminbakai/bakay` konumundan `/opt/bakay`
+altına taşındı. Backend ve frontend systemd servisleri kuruldu, başlatıldı ve
+sunucu açılışında çalışacak şekilde etkinleştirildi. Apache HTTPS proxy hedefleri
+güncellendi; HTTP adresi HTTPS'e yönleniyor. Backend ve frontend yalnız
+`127.0.0.1:8000` / `127.0.0.1:3000` adreslerinde dinliyor.
 
 ## Sunucuda hazır olanlar
 
@@ -25,9 +27,9 @@ kurulup etkinleştirilmedi. Geçici localhost test süreçleri teslim öncesi ka
 - Frontend **Next.js 15.5.27 / PostCSS 8.5.29**. Ayrı yerel derleme ve
   üretim npm denetimi (0 açık) geçti; sunucuda da Node 22 ile derlendi.
   `NEXT_PUBLIC_API_URL=/api` derleme içine yerleşti.
-- Backend ortamı sunucuda `.env` olarak, izin **600** ile hazırlandı.
-  Anahtar Git'e veya frontend'e aktarılmadı. Yönetici hazırlık aracı bu
-  dosyayı `/etc/bakay/backend.env` altına taşır.
+- Backend ortamı `/etc/bakay/backend.env` altında root'a ait **600** izinli
+  dosyada. Anahtar Git'e veya frontend'e aktarılmadı; çalışma ağacındaki `.env`
+  kopyası kaldırıldı. Model cache'i `/var/lib/bakay/huggingface` altında.
 
 ## Yapılan kontroller — 12 Ekim 2026
 
@@ -43,12 +45,42 @@ eşzamanlı kullanıcı kapasitesi henüz ölçülmedi.
 `http://127.0.0.1:3000/` ve CSS HTTP 200. Sonuç dosyası
 `runtime/smoke-test.json` altında, Git dışında tutulur.
 
-Apache araçları için shell sözdizimi kontrolü geçti. Mevcut VirtualHost
-üzerinde hazırlanan proxy dönüşümü; TLS yollarını ve HTTP yönlendirmesini
-koruyor, tekrar uygulandığında aynı sonucu üretiyor. **Root kurulum araçları
-çalıştırılmadı**; gerçek systemd/Apache kontrolleri yönetici çalıştırırken yapılır.
+Root kurulum ve yayın araçları çalıştırıldı. `pip check`, systemd birim doğrulaması
+ve Apache `configtest` geçti; mevcut TLS yolları korundu. Mac üzerinden gerçek
+alan adıyla HTTPS sayfası, `/api/health` ve CSS HTTP 200 döndü; sertifika doğrulaması
+başarılı. İki BAKAY servisi `active` / `enabled`, yeniden başlama sayıları 0.
+Canlı HTTP sonuçları `runtime/live-check.json` altında saklanır.
 
-## Yöneticinin çalıştıracağı komutlar
+Canlı tarayıcıda aynı ders saydırma sorusu **53,0 sn** içinde yanıtlandı;
+5 kaynak parçası ve yönetmelik PDF bağlantısı görüntülendi. PDF HTTP 200 döndü.
+Bu kontrol yeniden başlayan backend'in ilk sohbetini içerir; yük testi değildir.
+
+Yayın öncesi Apache yedeği:
+`/var/backups/bakay/bakai.conf.20261012T110658Z`.
+
+## Güncelleme ve günlükler
+
+Root oturumunda kod güncellemesi:
+
+```bash
+git -C /opt/bakay pull --ff-only origin main
+```
+
+Frontend kodu veya kilit dosyası değişirse Node 22 ile `NEXT_PUBLIC_API_URL=/api`
+verilerek yeniden üretim derlemesi yapılmalıdır. Python bağımlılıkları değişirse
+Linux kilit dosyası ve wheel'ler güncellenmelidir. Yalnız `git pull` çalışan
+servisleri yeniden başlatmaz; hazır güncelleme sonrası ilgili servis yeniden
+başlatılır. Servis günlükleri:
+
+```bash
+journalctl -u bakay-backend -u bakay-frontend
+systemctl status bakay-backend bakay-frontend
+```
+
+## İlk kurulum araçları
+
+Aşağıdaki adımlar bu sunucuda tamamlandı. Yeni kurulum veya kurtarma için
+korunurlar; çalışan kurulumda `prepare-root.sh` tekrar çalıştırılmaz.
 
 Verilen `root` parolası root hesabında oturum açmak içindir.
 `adminbakai` üzerinden `sudo` normalde adminbakai'nin kendi parolasını ister.
@@ -81,8 +113,7 @@ Sertifika yolları korunur. Apache `configtest`, reload ve HTTPS `/api/health`
 kontrolü başarılı olursa servisler açılışta çalışacak şekilde etkinleştirilir.
 Apache yüklemesi veya HTTPS kontrolü başarısızsa eski yapılandırma geri yüklenir.
 
-Yönetici ardından tarayıcıdan sohbeti ve kaynak bağlantılarını kontrol eder.
-Servis günlükleri: `journalctl -u bakay-backend -u bakay-frontend`.
+Yayın sonrasında tarayıcıdan sohbet ve kaynak bağlantıları kontrol edilir.
 
 ## Git ve büyük dosyalar
 
