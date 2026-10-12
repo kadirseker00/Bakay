@@ -15,6 +15,10 @@ Kullanıcı adı: **adminbakai**. Panel parolası SSH/root parolasından ayrıd�
   İki buçuk dakikadan eski ölçümler arayüzde güncel/çalışıyor olarak gösterilmez.
 - Son 20 sorgu, soru/yanıt/kaynak ayrıntısı, model, süre ve sorgu maliyeti.
   Ham prompt, düşünme metni, API anahtarı veya parolalar panele gönderilmez.
+- Kullanım koruması: IP hız sınırları, son 24 saat sorgu kotası, eşzamanlı
+  çalışan sorgular ve seçilen dönemin engelleme sayıları. Reddedilen istekler
+  HTTP hata oranını şişirmek yerine bu bölümde toplu sayılır. Ayarlar ve
+  sınırlar: [güvenlik rehberi](security.md).
 
 Tarihler **Asia/Bishkek** saat diliminde; grafik günleri de aynı gün sınırlarına
 göre gruplanır. Panel açık ve görünürken 15 saniyede bir yenilenir.

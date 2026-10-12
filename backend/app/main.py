@@ -6,7 +6,9 @@ Uçlar:
 """
 from __future__ import annotations
 
+import asyncio
 import time
+from contextlib import suppress
 from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
@@ -14,7 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from starlette.concurrency import run_in_threadpool
 
-from app import monitor_auth, monitoring, telemetry
+from app import abuse, monitor_auth, monitoring, telemetry
 from app.config import ROOT, settings
 from app.rag import pipeline
 from app.schemas import ChatRequest, ChatResponse, FeedbackRequest
@@ -22,7 +24,19 @@ from app.schemas import ChatRequest, ChatResponse, FeedbackRequest
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     monitoring.initialize()
-    yield
+    app.state.abuse = abuse.AbuseGuard(settings)
+    async def flush_blocks():
+        while True:
+            await asyncio.sleep(5)
+            await run_in_threadpool(app.state.abuse.flush)
+    flushing = asyncio.create_task(flush_blocks())
+    try:
+        yield
+    finally:
+        flushing.cancel()
+        with suppress(asyncio.CancelledError):
+            await flushing
+        await run_in_threadpool(app.state.abuse.flush)
 
 
 app = FastAPI(
@@ -33,6 +47,7 @@ app = FastAPI(
 )
 
 # Yönetici çerezi yalnız izin verilen arayüz kaynağından okunabilir.
+app.add_middleware(abuse.AbuseMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[settings.monitor_public_url] if settings.monitor_public_url else
@@ -40,6 +55,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["Retry-After"],
 )
 
 
@@ -56,7 +72,8 @@ async def monitor_requests(request: Request, call_next):
         return response
     finally:
         # Sağlık yoklamaları ve panel yenilemeleri kullanıcı trafiğini şişirmez.
-        if request.url.path in ('/chat', '/feedback'):
+        if (request.url.path in ('/chat', '/feedback') and
+                getattr(request.state, 'rate_admitted', False) and status not in (429, 413, 408, 415)):
             await run_in_threadpool(monitoring.record_event, request.method, request.url.path, status,
                                     int((time.perf_counter() - started) * 1000))
 
@@ -76,8 +93,9 @@ def health() -> dict:
 
 
 @app.post("/chat", response_model=ChatResponse)
-def chat(req: ChatRequest) -> ChatResponse:
-    return pipeline.answer(req.question, top_k=req.top_k, history=req.history)
+def chat(req: ChatRequest, request: Request) -> ChatResponse:
+    with request.app.state.abuse.processing(request.state.rate_client):
+        return pipeline.answer(req.question, top_k=req.top_k, history=req.history)
 
 
 @app.post("/feedback")
@@ -112,10 +130,12 @@ def monitor_logout(request: Request, response: Response) -> dict:
 
 
 @app.get('/monitor/metrics')
-def monitor_metrics(days: int = 7, _user: str = Depends(monitor_auth.require_monitor)) -> dict:
+def monitor_metrics(request: Request, days: int = 7, _user: str = Depends(monitor_auth.require_monitor)) -> dict:
     if days not in (1, 7, 30):
         raise HTTPException(422, 'Dönem 1, 7 veya 30 gün olmalıdır.')
-    return monitoring.metrics(days)
+    result = monitoring.metrics(days)
+    result['protection'] = request.app.state.abuse.snapshot(days)
+    return result
 
 
 @app.get('/monitor/queries/{query_id}')

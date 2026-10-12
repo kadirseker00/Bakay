@@ -25,7 +25,7 @@ assert health['llm_provider'] == 'anthropic', health
 print('Backend ve 39.659 parça doğrulandı.')
 PY
 curl --fail --silent --show-error --retry 5 --retry-connrefused --retry-delay 2 --max-time 20 http://127.0.0.1:3000/ > /dev/null
-a2enmod proxy proxy_http headers
+a2enmod proxy proxy_http headers reqtimeout
 python3 deploy/render-apache.py "$site_path" deploy/apache-proxy.inc
 if ! apache2ctl configtest; then
   cp -p -- "$backup_path" "$site_path"

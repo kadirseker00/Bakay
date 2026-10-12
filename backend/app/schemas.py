@@ -13,7 +13,7 @@ class ChatMessage(BaseModel):
 
 class ChatRequest(BaseModel):
     question: str = Field(..., min_length=1, max_length=2000, description="Kullanıcının Türkçe sorusu")
-    top_k: int | None = Field(None, description="Geri çağrılacak belge sayısı (varsayılan ayarlardan)")
+    top_k: int | None = Field(None, ge=1, le=8, description="Geri çağrılacak belge sayısı (1–8; varsayılan ayarlardan)")
     history: list[ChatMessage] = Field(default_factory=list, max_length=12)
 
     @model_validator(mode="after")
@@ -43,6 +43,6 @@ class ChatResponse(BaseModel):
 
 
 class FeedbackRequest(BaseModel):
-    query_id: str
+    query_id: str = Field(pattern="^[0-9a-f]{32}$")
     rating: str = Field(..., pattern="^(up|down)$", description="'up' | 'down'")
-    comment: str | None = None
+    comment: str | None = Field(None, max_length=2000)

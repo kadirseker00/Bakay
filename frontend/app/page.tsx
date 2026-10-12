@@ -36,6 +36,19 @@ import type { Message } from "./lib/chat-memory";
 import { PROJECT } from "./lib/project";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+class ChatServiceError extends Error {}
+
+async function chatError(response: Response): Promise<ChatServiceError> {
+  if (response.status === 429) {
+    const seconds = Number(response.headers.get("Retry-After")) || 10;
+    const wait = seconds >= 3600 ? `yaklaşık ${Math.ceil(seconds / 3600)} saat` :
+      seconds >= 60 ? `yaklaşık ${Math.ceil(seconds / 60)} dakika` : `${Math.ceil(seconds)} saniye`;
+    return new ChatServiceError(`Kullanım sınırına ulaşıldı veya sistem diğer soruları yanıtlıyor. ${wait} bekleyip yeniden deneyin.`);
+  }
+  if (response.status === 413) return new ChatServiceError("İstek çok büyük. Soruyu kısaltın veya yeni bir sohbet başlatın.");
+  if (response.status === 422) return new ChatServiceError("Soru veya sohbet geçmişi geçersiz. Soruyu kısaltın veya yeni bir sohbet başlatın.");
+  return new ChatServiceError("Şu anda bilgi servisine ulaşamıyorum. Birkaç dakika sonra yeniden deneyebilirsiniz.");
+}
 type Health = { indexed_chunks: number; llm_provider: string; embedding_model: string };
 type ConnectionState = "checking" | "online" | "offline";
 type Topic = { title: string; description: string; question: string; icon: LucideIcon };
@@ -432,7 +445,7 @@ export default function Home() {
         body: JSON.stringify({ question: cleanQuestion, history: buildHistory(messages) }),
         signal: controller.signal,
       });
-      if (!response.ok) throw new Error(`Sunucu hatası: ${response.status}`);
+      if (!response.ok) throw await chatError(response);
       const data = await response.json();
       if (controller.signal.aborted) return;
       setMessages((current) => [
@@ -445,13 +458,13 @@ export default function Home() {
           query_id: data.query_id,
         },
       ]);
-    } catch {
+    } catch (error) {
       if (controller.signal.aborted) return;
       setMessages((current) => [
         ...current,
         {
           role: "assistant",
-          content:
+          content: error instanceof ChatServiceError ? error.message :
             "Şu anda bilgi servisine ulaşamıyorum. Birkaç dakika sonra yeniden deneyebilirsiniz.",
           error: true,
         },

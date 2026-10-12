@@ -128,10 +128,16 @@ def log_feedback(query_id: str, rating: str, comment: str | None = None) -> bool
     """Kullanıcı geri bildirimini kaydeder. Başarılıysa True."""
     try:
         with _connect() as conn:
-            conn.execute(
-                "INSERT INTO feedback (query_id, rating, comment, ts) VALUES (?,?,?,?)",
-                (query_id, rating, comment, _now()),
-            )
+            conn.execute('BEGIN IMMEDIATE')
+            if conn.execute('SELECT 1 FROM queries WHERE id=?', (query_id,)).fetchone() is None:
+                return False
+            previous = conn.execute('SELECT id FROM feedback WHERE query_id=? ORDER BY id DESC LIMIT 1', (query_id,)).fetchone()
+            if previous:
+                conn.execute('UPDATE feedback SET rating=?,comment=?,ts=? WHERE id=?',
+                             (rating, comment, _now(), previous[0]))
+            else:
+                conn.execute("INSERT INTO feedback (query_id, rating, comment, ts) VALUES (?,?,?,?)",
+                             (query_id, rating, comment, _now()))
         return True
     except Exception:
         return False

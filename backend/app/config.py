@@ -72,6 +72,16 @@ class Settings(BaseSettings):
     monitor_public_url: str = ""
     monitor_show_query_details: bool = True
 
+    # Tek worker'lı pilotun kötüye kullanım sınırları; kotalar SQLite'ta kalır.
+    rate_chat_per_minute: int = Field(default=10, ge=1, le=1000)
+    rate_chat_per_hour: int = Field(default=120, ge=1, le=10000)
+    rate_chat_global_per_minute: int = Field(default=30, ge=1, le=1000)
+    rate_chat_global_per_day: int = Field(default=1000, ge=1, le=100000)
+    rate_chat_concurrent: int = Field(default=2, ge=1, le=16)
+    rate_chat_concurrent_per_ip: int = Field(default=2, ge=1, le=16)
+    rate_max_body_bytes: int = Field(default=131072, ge=4096, le=1048576)
+    rate_body_timeout: float = Field(default=10, ge=1, le=30)
+
     @property
     def chroma_path(self) -> Path:
         p = Path(self.chroma_dir)
