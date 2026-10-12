@@ -198,10 +198,32 @@ def upload(config, archive):
 
 def prune(directory):
     # Yalnız bu aracın ürettiği yerel kopyalar; Drive'da silme/sync/purge yapılmaz.
-    for kind,keep in (('daily',7),('index',2)):
-        for path in sorted(directory.glob(f'BAKAI-{kind}-*.tar.gz.age'),reverse=True)[keep:]:
-            path.unlink()
-            path.with_suffix(path.suffix+'.json').unlink(missing_ok=True)
+    indexes=sorted(directory.glob('BAKAI-index-*.tar.gz.age'),reverse=True)
+    def remove(path):
+        path.unlink()
+        path.with_suffix(path.suffix+'.json').unlink(missing_ok=True)
+    for path in indexes[2:]:
+        remove(path)
+    retained=set()
+    complete=True
+    for path in indexes[:2]:
+        try:
+            digest=json.loads(path.with_suffix(path.suffix+'.json').read_text())['index_fingerprint']
+            retained.add(digest)
+        except (OSError,ValueError,KeyError,TypeError):
+            complete=False  # Eski metadata ile eşleşmesi bilinmeyen paket silinmez.
+    daily=[]
+    for path in sorted(directory.glob('BAKAI-daily-*.tar.gz.age'),reverse=True):
+        try:
+            digest=json.loads(path.with_suffix(path.suffix+'.json').read_text())['index_fingerprint']
+        except (OSError,ValueError,KeyError,TypeError):
+            digest=None
+        if complete and digest is not None and digest not in retained:
+            remove(path)  # Tam indeksi kaldırılmış günlük paket tek başına geri yüklenemez.
+        else:
+            daily.append(path)
+    for path in daily[7:]:
+        remove(path)
 
 
 def run(config, force_full=False, local_only=False):
@@ -229,7 +251,8 @@ def run(config, force_full=False, local_only=False):
             os.replace(partial,archive)
             partial=None
             atomic_json(archive.with_suffix(archive.suffix+'.json'),
-                        {'sha256':hashes(archive)['sha256'],'size':archive.stat().st_size,'kind':manifest['kind']})
+                        {'sha256':hashes(archive)['sha256'],'size':archive.stat().st_size,
+                         'kind':manifest['kind'],'index_fingerprint':digest})
             state.update(last_local_at=utc_now(),last_backup_bytes=archive.stat().st_size,
                          last_archive=archive.name,last_error=None,index_fingerprint=digest)
             if full:

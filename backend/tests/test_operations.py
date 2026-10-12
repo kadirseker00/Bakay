@@ -160,6 +160,16 @@ class BackupTests(unittest.TestCase):
         with patch.object(backup,'upload',side_effect=lambda c,p:sent.append(p.name)): backup.run(self.cfg)
         self.assertEqual(len(sent),2); self.assertIn('index',sent[0]); self.assertIn('daily',sent[1])
         self.assertIn('last_remote_at',backup.read_status(self.cfg))
+    def test_retention_removes_daily_only_when_base_is_removed(self):
+        directory=self.root/'backups'; directory.mkdir()
+        for kind,stamp,digest in [('index','1','old'),('index','2','middle'),('index','3','new'),('daily','1','old'),('daily','2','middle'),('daily','3','new')]:
+            path=directory/f'BAKAI-{kind}-{stamp}.tar.gz.age'; path.write_bytes(b'test')
+            path.with_suffix('.age.json').write_text(json.dumps({'index_fingerprint':digest}))
+        backup.prune(directory)
+        self.assertFalse((directory/'BAKAI-index-1.tar.gz.age').exists())
+        self.assertFalse((directory/'BAKAI-daily-1.tar.gz.age').exists())
+        self.assertTrue((directory/'BAKAI-daily-2.tar.gz.age').exists())
+        self.assertTrue((directory/'BAKAI-daily-3.tar.gz.age').exists())
     def test_disk_threshold_and_unsafe_archive(self):
         with patch.object(backup.shutil,'disk_usage',return_value=shutil._ntuple_diskusage(10,9,1)):
             with self.assertRaises(backup.BackupError): backup.run(self.cfg)

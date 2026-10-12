@@ -75,7 +75,8 @@ paket yayınlanmaz. İndeksleme sırasında tekrar denenmelidir. Şifreli arşiv
 age akışında oluşur; düz arşiv diske yazılmaz. SQLite/yapılandırma geçici kopyaları
 0700 dizinde tutulur, sonunda kaldırılır. Son bir GiB boş alan korunur.
 
-Yerelde son 7 günlük paket ve 2 tam indeks saklanır. Drive'da otomatik silme, sync
+Yerelde en fazla 7 günlük paket ve 2 tam indeks saklanır. Tam indeksi kaldırılan
+günlük paketler de kaldırılır; kalan günlük paketlerin eşleşen indeksi korunur. Drive'da otomatik silme, sync
 veya purge yoktur. Drive bağlantısı yapılmadan uzak yedek mevcut sayılmaz.
 
 ```sh
@@ -124,7 +125,16 @@ başarılı gerçek prova sonrası güncellenir.
 
 ## Doğrulama
 
-Yerel backend: **149 test**. Next.js üretim derlemesi başarılı. Yeni testler alarm
+Yerel backend: **150 test**. Next.js üretim derlemesi başarılı. Yeni testler alarm
 geçişi/düzelme, Bişkek gün sınırı, eksik maliyet, TLS/kuyruk/yeniden deneme, CAPTCHA
 alan adı/action/kotalar ve gerçek age şifreleme/geri yükleme/bozulma senaryolarını kapsar.
-Canlı yedek/geri yükleme kanıtı kurulum tamamlandığında bu dosyaya eklenir.
+13 Ekim 2026 canlı kurulum: Cloudflare BAKAI widget'ı oluşturuldu ve özel anahtar
+sunucuda bağlandı. Siteverify, geçersiz test token'ı için `invalid-input-response`
+döndürdü; eksik/geçersiz token HTTP 403 aldı, LLM/daily üretim kotası tüketmedi.
+
+İlk tam şifreli paket **426.628.437 bayt** (yaklaşık 407 MiB), 31 dosya.
+Mac'te ayrı geçici dizinde açıldı: arşivin SHA-256 değeri, age doğrulaması, manifest,
+SQLite bütünlüğü ve **39.659 parça** üzerinden en yakın komşu sorgusu başarılı.
+Özel anahtar sunucuya gönderilmedi. Şifreli test kopyası Mac'te git dışındaki
+`~/.config/bakai-backup/archives/` dizininde saklandı. Sunucu health HTTP 200,
+Haiku 5.5 ve 39.659 parça doğrulandı. SMTP hesabı ve Drive bağlantısı bekleniyor.
