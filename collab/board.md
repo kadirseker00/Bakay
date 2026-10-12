@@ -5,7 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
-| 🔄 | Canlı monitoring paneli: oturum koruması, kullanım/gecikme/geri bildirim, HTTP hataları ve zamanlanmış sağlık/RAM/disk ölçümü; test, derleme ve KTMÜ yayını | codex | 2026-10-12 | backend/app/config.py, backend/app/main.py, backend/app/telemetry.py, backend/app/rag/llm.py, backend/app/rag/pipeline.py, backend/app/monitoring.py, backend/app/monitor_auth.py, backend/app/monitor_probe.py, backend/tests/test_monitoring.py, frontend/app/monitor/, deploy/, docs/deployment/ktmu.md |
+| ⏸ | Monitoring paneli kodu Git main d5fd73e'de hazır: 119 backend testi, üretim derlemesi ve tarayıcı giriş/filtre/ayrıntı/çıkış geçti. Gerçek token/önbellek maliyet sayacı ve dakika başına sağlık timer'ı hazır. Root parola penceresi iptal edildi; sunucu aktarımı ve ayrı panel parolası bekleniyor, canlı sürüm değiştirilmedi | codex | 2026-10-12 | — |
 | ✅ | Canlı KTMÜ LLM'i Haiku 5.5'e geçirildi (adaptive/medium, 4096 token); özel ortam root 600 ile yedeklendi, backend yeniden başlatıldı. HTTPS health/chat 200, 39.659 parça, 5 kaynak/PDF bağlantısı; telemetri Haiku modelini doğruladı. İlk sorgu 54,8 sn (erişim 44,4, üretim 10,1); yayın ayarları ve rehber güncellendi | codex | 2026-10-12 | — |
 | ✅ | KTMÜ canlı yayın tamamlandı: /opt/bakay, systemd active/enabled, Apache configtest, HTTPS sayfa/API/CSS 200, 39.659 parça ve tarayıcıdan kaynaklı Sonnet yanıtı (5 kaynak, PDF 200). Apache yedeği korundu; kod Git main üzerinden güncellendi | codex | 2026-10-12 | — |
 | ✅ | KTMÜ root SSH girişi başarılı; uid=0 doğrulandı, kök birimde 4 GB boş alan var. Yalnız salt okunur kontrol yapıldı; yayın adımı yöneticiye bırakıldı | codex | 2026-10-12 | — |
