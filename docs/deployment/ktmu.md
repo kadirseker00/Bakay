@@ -11,6 +11,11 @@ sunucu açılışında çalışacak şekilde etkinleştirildi. Apache HTTPS prox
 güncellendi; HTTP adresi HTTPS'e yönleniyor. Backend ve frontend yalnız
 `127.0.0.1:8000` / `127.0.0.1:3000` adreslerinde dinliyor.
 
+**Canlı LLM: Claude Haiku 5.5 (`claude-haiku-5-5`)**, Anthropic API üzerinden.
+12 Ekim 2026'da kullanıcının isteğiyle Sonnet'ten Haiku'ya geçildi. Önceki
+Haiku pilotunda denenmiş `adaptive` / `medium` düşünme ayarı ve 4096 çıktı
+tokenı bütçesi kullanılıyor. Belge araması LaBSE ve aynı 39.659 parçalı indekste.
+
 ## Sunucuda hazır olanlar
 
 - Ubuntu 24.04 / Python 3.12 / x86_64; 8 vCPU ve yaklaşık 4 GB RAM.
@@ -31,7 +36,7 @@ güncellendi; HTTP adresi HTTPS'e yönleniyor. Backend ve frontend yalnız
   dosyada. Anahtar Git'e veya frontend'e aktarılmadı; çalışma ağacındaki `.env`
   kopyası kaldırıldı. Model cache'i `/var/lib/bakay/huggingface` altında.
 
-## Yapılan kontroller — 12 Ekim 2026
+## İlk kurulum kontrolleri — 12 Ekim 2026, Sonnet
 
 `GET http://127.0.0.1:8000/health` HTTP 200: sürüm 0.3.1,
 Sonnet 5.5 / LaBSE / 39.659 parça. İlk model yükleme yaklaşık **17,2 sn**.
@@ -57,6 +62,19 @@ Bu kontrol yeniden başlayan backend'in ilk sohbetini içerir; yük testi değil
 
 Yayın öncesi Apache yedeği:
 `/var/backups/bakay/bakai.conf.20261012T110658Z`.
+
+## Haiku geçiş kontrolü — 12 Ekim 2026
+
+HTTPS `/api/health` HTTP 200: `claude-haiku-5-5` / LaBSE / 39.659 parça.
+Kaynaklı ders saydırma denemesi HTTP 200, 5 kaynak ve yönetmelik PDF bağlantısıyla
+tamamlandı. İlk sorgu toplam **54,8 sn**: soğuk kaynak erişimi **44,4 sn**,
+Haiku üretimi **10,1 sn**. Bu tek sorgu yük veya genel kalite testi değildir.
+Kayıtlar `runtime/haiku-health.json`, `runtime/haiku-chat.json` ve
+`runtime/haiku-verification.json` altında, Git dışında.
+
+Geçiş öncesi özel ortam yedeği, root'a ait 600 izinli
+`/var/backups/bakay/backend.env.before-haiku.20261012T111435Z` dosyasında.
+Gerçek API anahtarı örnek ayarlara veya Git'e eklenmedi.
 
 ## Güncelleme ve günlükler
 
