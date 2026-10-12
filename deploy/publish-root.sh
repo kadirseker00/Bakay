@@ -45,5 +45,6 @@ if ! curl --fail --silent --show-error --max-time 180 --resolve bakai.manas.edu.
   exit 1
 fi
 systemctl enable bakay-backend.service bakay-frontend.service
+systemctl enable --now bakay-monitor.timer
 echo "Yayın hazır: https://bakai.manas.edu.kg/"
 echo "Apache yedeği: $backup_path"

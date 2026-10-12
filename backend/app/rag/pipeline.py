@@ -341,8 +341,14 @@ def _resolve_question(question: str, history: list[ChatMessage], llm) -> str | N
 
 def answer(question: str, top_k: int | None = None,
            history: list[ChatMessage] | None = None) -> ChatResponse:
-    start = time.perf_counter()
     qid = telemetry.new_query_id()
+    with telemetry.query_scope(qid):
+        return _answer(question, top_k, history, qid=qid)
+
+
+def _answer(question: str, top_k: int | None = None,
+            history: list[ChatMessage] | None = None, *, qid: str) -> ChatResponse:
+    start = time.perf_counter()
     k = top_k or settings.top_k
     store = get_store()
     llm = get_llm()

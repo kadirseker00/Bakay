@@ -65,6 +65,13 @@ class Settings(BaseSettings):
     log_dir: str = "./data/logs"
     db_path: str = "./data/bakay.db"
 
+    # İzleme panelinin sırları frontend'e veya sağlık yanıtına aktarılmaz.
+    monitor_username: str = "adminbakai"
+    monitor_password_hash: str = Field(default="", repr=False)
+    monitor_session_secret: str = Field(default="", repr=False)
+    monitor_public_url: str = ""
+    monitor_show_query_details: bool = True
+
     @property
     def chroma_path(self) -> Path:
         p = Path(self.chroma_dir)

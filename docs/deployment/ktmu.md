@@ -4,6 +4,9 @@ Kod deposu: [kadirseker00/Bakay](https://github.com/kadirseker00/Bakay), dal `ma
 Hedef: `192.168.3.13`, yayın adresi `https://bakai.manas.edu.kg/`.
 Kurulu çalışma ağacı: **`/opt/bakay`**.
 
+Yönetim paneli: **`/monitor`**. Erişim, metrikler, API maliyet hesabı ve bakım:
+[izleme paneli rehberi](monitoring.md).
+
 **12 Ekim 2026'da kullanıcının açık isteğiyle canlıya alındı.** Root SSH erişimi
 doğrulandı; hazırlanan ağaç `/home/adminbakai/bakay` konumundan `/opt/bakay`
 altına taşındı. Backend ve frontend systemd servisleri kuruldu, başlatıldı ve

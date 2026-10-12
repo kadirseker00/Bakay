@@ -7,11 +7,13 @@ pipeline kodu değişmez.
 from __future__ import annotations
 
 from functools import lru_cache
+import time
 from typing import Protocol
 
 import httpx
 
 from app.config import settings
+from app import monitoring
 
 
 class LLM(Protocol):
@@ -40,6 +42,19 @@ class AnthropicLLM:
         )
 
     def generate_result(self, prompt: str) -> dict:
+        started = time.perf_counter()
+        try:
+            result = self._generate_result(prompt)
+        except Exception as error:
+            code = f"HTTP_{error.response.status_code}" if isinstance(error, httpx.HTTPStatusError) else type(error).__name__
+            monitoring.record_llm_call(self.model, "error", int((time.perf_counter() - started) * 1000),
+                                       error_type=code)
+            raise
+        monitoring.record_llm_call(result['model'], "ok", int((time.perf_counter() - started) * 1000),
+                                   usage=result['usage'])
+        return result
+
+    def _generate_result(self, prompt: str) -> dict:
         """Aynı prompt'u gönder; düşünme bloklarını kullanıcı yanıtına katma."""
         response = self.http.post("/v1/messages", json={
             "model": self.model,

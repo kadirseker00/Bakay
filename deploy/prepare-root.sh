@@ -70,7 +70,9 @@ chmod -R u+rwX,g+rX,o-rwx "$project_root"
 chown -R bakay:bakay data frontend/.next
 chmod 0600 /etc/bakay/backend.env
 install -m 0644 deploy/bakay-backend.service deploy/bakay-frontend.service /etc/systemd/system/
+install -m 0644 deploy/bakay-monitor.service deploy/bakay-monitor.timer /etc/systemd/system/
 systemctl daemon-reload
 systemd-analyze verify /etc/systemd/system/bakay-backend.service /etc/systemd/system/bakay-frontend.service
+systemd-analyze verify /etc/systemd/system/bakay-monitor.service /etc/systemd/system/bakay-monitor.timer
 echo "Kurulum hazır. Servisler ve Apache yayını başlatılmadı."
 echo "Yayına almak için: bash /opt/bakay/deploy/publish-root.sh"

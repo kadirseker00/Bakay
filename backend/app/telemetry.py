@@ -15,11 +15,29 @@ from __future__ import annotations
 import json
 import sqlite3
 import uuid
+from contextlib import contextmanager
+from contextvars import ContextVar
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from app.config import settings
+
+_query_id: ContextVar[str | None] = ContextVar("bakay_query_id", default=None)
+
+
+def current_query_id() -> str | None:
+    return _query_id.get()
+
+
+@contextmanager
+def query_scope(query_id: str):
+    """Eşzamanlı sorguların tüm LLM çağrılarını doğru sorguya bağla."""
+    token = _query_id.set(query_id)
+    try:
+        yield
+    finally:
+        _query_id.reset(token)
 
 _SCHEMA = """
 CREATE TABLE IF NOT EXISTS queries (

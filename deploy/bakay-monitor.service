@@ -1,0 +1,18 @@
+[Unit]
+Description=BAKAY sağlık ve sunucu kaynakları ölçümü
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=bakay
+Group=bakay
+WorkingDirectory=/opt/bakay/backend
+EnvironmentFile=/etc/bakay/backend.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/opt/bakay/backend/.venv/bin/python -m app.monitor_probe
+TimeoutStartSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/bakay/data

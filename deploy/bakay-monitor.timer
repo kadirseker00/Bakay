@@ -1,0 +1,11 @@
+[Unit]
+Description=BAKAY dakika başına sağlık ölçümü
+
+[Timer]
+OnBootSec=30
+OnUnitActiveSec=60
+AccuracySec=1
+Unit=bakay-monitor.service
+
+[Install]
+WantedBy=timers.target
