@@ -7,7 +7,7 @@ import urllib.error
 import urllib.request
 
 from app.config import settings
-from app import monitoring
+from app import alerts, monitoring
 
 
 def check(url: str, health: bool = False) -> dict:
@@ -33,7 +33,10 @@ def run() -> None:
               'frontend': check('http://127.0.0.1:3000/')}
     if settings.monitor_public_url:
         checks['https'] = check(settings.monitor_public_url.rstrip('/') + '/api/health', health=True)
-    monitoring.save_sample({'checks': checks, 'resources': monitoring.resources()})
+    sample = {'checks': checks, 'resources': monitoring.resources()}
+    monitoring.save_sample(sample)
+    alerts.evaluate(settings, sample)
+    alerts.deliver_one(settings)
 
 
 if __name__ == '__main__':

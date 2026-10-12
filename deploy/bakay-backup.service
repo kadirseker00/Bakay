@@ -1,0 +1,19 @@
+[Unit]
+Description=BAKAI şifreli veritabanı/indeks yedeği ve Drive aktarımı
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+Group=bakay
+WorkingDirectory=/opt/bakay
+ExecStart=/opt/bakay/backend/.venv/bin/python /opt/bakay/deploy/backup.py run
+TimeoutStartSec=45min
+UMask=0077
+Nice=10
+IOSchedulingClass=idle
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/backups/bakai /var/lib/bakay /var/lib/bakai-backup

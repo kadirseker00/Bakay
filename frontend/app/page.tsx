@@ -34,6 +34,7 @@ import Logo from "./components/Logo";
 import { buildHistory, persistHistory, restoreHistory } from "./lib/chat-memory";
 import type { Message } from "./lib/chat-memory";
 import { PROJECT } from "./lib/project";
+import SecurityChallenge from "./components/SecurityChallenge";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 class ChatServiceError extends Error {}
@@ -274,6 +275,7 @@ export default function Home() {
   const [health, setHealth] = useState<Health | null>(null);
   const [connection, setConnection] = useState<ConnectionState>("checking");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [challenge, setChallenge] = useState<{ question: string; siteKey: string; history: ReturnType<typeof buildHistory> } | null>(null);
   const [candidateTrack, setCandidateTrack] = useState<CandidateTrackId>("lisans");
   const latestQuestionRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -395,6 +397,7 @@ export default function Home() {
     requestControllerRef.current = null;
     setHistorySaved(persistHistory([]));
     setMessages([]);
+    setChallenge(null);
     setInput("");
     setLoading(false);
     setMenuOpen(false);
@@ -425,7 +428,7 @@ export default function Home() {
     }
   }
 
-  async function ask(question: string) {
+  async function ask(question: string, captchaToken?: string, retryChallenge = false) {
     const cleanQuestion = question.trim();
     if (!cleanQuestion || loading || !historyReady || requestControllerRef.current) return;
 
@@ -433,7 +436,9 @@ export default function Home() {
     requestControllerRef.current = controller;
     shouldFocusConversationRef.current = true;
     setMenuOpen(false);
-    setMessages((current) => [...current, { role: "user", content: cleanQuestion }]);
+    const history = retryChallenge && challenge ? challenge.history : buildHistory(messages);
+    if (!retryChallenge) setMessages((current) => [...current, { role: "user", content: cleanQuestion }]);
+    if (retryChallenge) setChallenge(null);
     setInput("");
     setLoading(true);
     if (textareaRef.current) textareaRef.current.style.height = "auto";
@@ -442,9 +447,16 @@ export default function Home() {
       const response = await fetch(`${API_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: cleanQuestion, history: buildHistory(messages) }),
+        body: JSON.stringify({ question: cleanQuestion, history, captcha_token: captchaToken }),
         signal: controller.signal,
       });
+      if (response.status === 403) {
+        const body = await response.json();
+        if (body.detail?.code === "captcha_required" && typeof body.detail.site_key === "string") {
+          setChallenge({question: cleanQuestion, siteKey: body.detail.site_key, history});
+          return;
+        }
+      }
       if (!response.ok) throw await chatError(response);
       const data = await response.json();
       if (controller.signal.aborted) return;
@@ -514,6 +526,12 @@ export default function Home() {
 
   return (
     <div className={`app-shell ${isConversation ? "conversation-mode" : ""}`}>
+      {challenge && <SecurityChallenge siteKey={challenge.siteKey}
+        onSubmit={token => void ask(challenge.question, token, true)}
+        onCancel={() => {
+          setInput(challenge.question); setChallenge(null);
+          setMessages(current => [...current, {role: "assistant", content: "Güvenlik doğrulaması tamamlanmadı. Sorunuzu daha sonra yeniden gönderebilirsiniz.", error: true}]);
+        }} />}
       <header className="site-header">
         <div className="header-inner">
           <Brand onHome={isConversation ? clearHistory : undefined} />

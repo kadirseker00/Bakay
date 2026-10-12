@@ -1,0 +1,11 @@
+[Unit]
+Description=BAKAI günlük şifreli yedeği
+
+[Timer]
+OnCalendar=*-*-* 03:15:00 Asia/Bishkek
+Persistent=true
+RandomizedDelaySec=5min
+Unit=bakay-backup.service
+
+[Install]
+WantedBy=timers.target

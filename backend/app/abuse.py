@@ -24,6 +24,9 @@ CREATE INDEX IF NOT EXISTS rate_hits_client ON rate_hits(kind,client,ts);
 CREATE TABLE IF NOT EXISTS rate_blocks (
  minute TEXT NOT NULL, kind TEXT NOT NULL, reason TEXT NOT NULL, count INTEGER NOT NULL,
  PRIMARY KEY(minute,kind,reason));
+CREATE TABLE IF NOT EXISTS captcha_clients (
+ client TEXT PRIMARY KEY, blocked INTEGER NOT NULL, updated_at REAL NOT NULL,
+ required_until REAL NOT NULL DEFAULT 0, passed_until REAL NOT NULL DEFAULT 0);
 """
 PATHS = {'/chat': 'chat', '/feedback': 'feedback', '/monitor/login': 'login'}
 
@@ -87,6 +90,7 @@ class AbuseGuard:
             with self.connect() as connection:
                 # Kontrol + yazma aynı işlemde; eşzamanlı istekler kotayı aşamaz.
                 connection.execute('BEGIN IMMEDIATE')
+                connection.execute('DELETE FROM captcha_clients WHERE updated_at<=?', (now-86400,))
                 for stored, age in (('chat', 3600), ('generation', 86400), ('login', 300), ('feedback', 60)):
                     connection.execute('DELETE FROM rate_hits WHERE kind=? AND ts<=?', (stored, now-age))
                 for per_ip, window, limit, reason in self.policies(kind):
@@ -109,7 +113,32 @@ class AbuseGuard:
             denied = Denied('storage', 'Şu anda yeni bir istek kabul edilemiyor. Biraz sonra tekrar deneyin.', status=503)
         if denied:
             self.block('chat' if kind == 'generation' else kind, denied.reason)
+            if kind == 'chat' and denied.reason in ('ip_minute','ip_hour'):
+                self.note_abuse(client)
             raise denied
+
+    def note_abuse(self, client):
+        now = self.clock()
+        try:
+            with self.connect() as connection:
+                connection.execute('BEGIN IMMEDIATE')
+                row = connection.execute('SELECT * FROM captcha_clients WHERE client=?', (client,)).fetchone()
+                count = row[1]+1 if row and row[2] > now-600 else 1
+                required = now+3600 if count >= 3 else row[3] if row else 0
+                connection.execute('INSERT OR REPLACE INTO captcha_clients VALUES (?,?,?,?,?)',
+                                   (client,count,now,required,row[4] if row else 0))
+        except sqlite3.Error:
+            pass  # Reddedilmiş isteğin hız kotası zaten geçerlidir.
+
+    def needs_captcha(self, client):
+        with self.connect() as connection:
+            row = connection.execute('SELECT required_until,passed_until FROM captcha_clients WHERE client=?', (client,)).fetchone()
+        now = self.clock()
+        return bool(row and row[0]>now and row[1]<=now)
+
+    def pass_captcha(self, client):
+        with self.connect() as connection:
+            connection.execute('UPDATE captcha_clients SET passed_until=? WHERE client=?', (self.clock()+1800,client))
 
     def block(self, kind: str, reason: str):
         minute = datetime.fromtimestamp(self.clock(), timezone.utc).replace(second=0, microsecond=0).isoformat()
@@ -163,6 +192,7 @@ class AbuseGuard:
                     del self.clients[client]
 
     def snapshot(self, days=7):
+        from app.captcha import configured
         from zoneinfo import ZoneInfo
         local = datetime.now(ZoneInfo('Asia/Bishkek'))
         cutoff = (local-timedelta(days=days-1)).replace(hour=0, minute=0, second=0, microsecond=0).astimezone(timezone.utc).isoformat()
@@ -174,6 +204,7 @@ class AbuseGuard:
             active = self.active
         c = self.config
         return {'enabled': True, 'chat_per_minute': c.rate_chat_per_minute,
+                'captcha_configured': configured(c),
                 'chat_per_hour': c.rate_chat_per_hour, 'global_per_minute': c.rate_chat_global_per_minute,
                 'global_per_day': c.rate_chat_global_per_day, 'daily_used': daily,
                 'concurrent_limit': c.rate_chat_concurrent, 'active_queries': active,

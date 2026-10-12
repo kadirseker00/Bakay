@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| 🔄 | BAKAI operasyon koruması: sağlık/maliyet bildirimleri, şüpheli trafikte CAPTCHA, tutarlı ve doğrulanmış Drive yedekleme; test ve canlı yayın | codex | 2026-10-13 | backend/app/, backend/tests/, frontend/app/, deploy/, docs/deployment/, collab/board.md |
 | ✅ | BAKAI kötüye kullanım koruması canlı: IP 10/dk + 120/saat, global 30/dk + 1.000/24 sa, 2 eşzamanlı iş; kalıcı atomik kotalar, 128 KiB/yavaş gövde sınırı ve güvenilir proxy IP. Panel sayaçları ve bekleme mesajı hazır. Yerel/Linux 136 test ve üretim derlemesi; canlı 429/sahte IP/413/401, sıfır saldırı LLM çağrısı, normal 200 + 5 kaynak ve son üç sağlık yoklaması geçti | codex | 2026-10-13 | — |
 | ✅ | BAKAI ürün adı ve /hakkinda canlı: Manas/Bakay kökeni, BAP KTMU-BAP-2026.FB.05 ve Yrd. Doç. Dr. Abdulkadir Şeker yürütücü/geliştirici bilgisi. Ana sayfa/sohbet/panel/API kimliği güncellendi; 119 test, üretim derlemesi, masaüstü/mobil menü/taşma, HTTPS sayfa/CSS/API ve özel uçlar 401 geçti. Son sağlık yoklaması başarılı | codex | 2026-10-12 | — |
 | ✅ | Monitoring paneli canlı: ayrı adminbakai parolası, korumalı metrik/sorgu ayrıntıları ve dakikalık sağlık timer'ı. Linux 40 test, HTTPS giriş/çıkış/401 ve gerçek Haiku sayaçları geçti: 5.440 giriş + 1.357 çıkış, 0,0012225 USD, 5 kaynak. Son backend/frontend/HTTPS yoklaması sağlıklı; 7 eski sorgu maliyeti bilinmiyor | codex | 2026-10-12 | — |

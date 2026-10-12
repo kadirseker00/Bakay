@@ -1,0 +1,21 @@
+{
+  "root": "/opt/bakay",
+  "directory": "/var/backups/bakai",
+  "recipient": "age1_PUBLIC_RECIPIENT_ONLY",
+  "private_env": "/etc/bakay/backend.env",
+  "extra_config": [
+    "/etc/apache2/sites-available/bakai.conf",
+    "/etc/systemd/system/bakay-backend.service",
+    "/etc/systemd/system/bakay-frontend.service",
+    "/etc/systemd/system/bakay-monitor.service",
+    "/etc/systemd/system/bakay-monitor.timer",
+    "/etc/systemd/system/bakay-backup.service",
+    "/etc/systemd/system/bakay-backup.timer",
+    "/etc/bakay/backup.json"
+  ],
+  "collection_name": "ktmu_docs",
+  "status": "/var/lib/bakay/backup-status.json",
+  "status_group": "bakay",
+  "rclone_config": "/var/lib/bakai-backup/rclone.conf",
+  "remote": ""
+}

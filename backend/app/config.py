@@ -82,6 +82,26 @@ class Settings(BaseSettings):
     rate_max_body_bytes: int = Field(default=131072, ge=4096, le=1048576)
     rate_body_timeout: float = Field(default=10, ge=1, le=30)
 
+    # Bildirim ayarları; e-posta içeriğine kullanıcı sorguları eklenmez.
+    alert_daily_usd: float = Field(default=1, gt=0)
+    alert_disk_percent: float = Field(default=85, gt=0, le=100)
+    alert_memory_percent: float = Field(default=90, gt=0, le=100)
+    alert_failure_ticks: int = Field(default=3, ge=1, le=30)
+    alert_recovery_ticks: int = Field(default=2, ge=1, le=30)
+    alert_email_to: str = ""
+    alert_email_from: str = ""
+    alert_smtp_host: str = ""
+    alert_smtp_port: int = Field(default=587, ge=1, le=65535)
+    alert_smtp_security: Literal["starttls", "ssl"] = "starttls"
+    alert_smtp_username: str = ""
+    alert_smtp_password: str = Field(default="", repr=False)
+    backup_status_path: str = "/var/lib/bakay/backup-status.json"
+
+    # Yalnız şüpheli IP için Turnstile; site anahtarı açık, doğrulama sırrı özeldir.
+    captcha_site_key: str = ""
+    captcha_secret_key: str = Field(default="", repr=False)
+    captcha_hostname: str = "bakai.manas.edu.kg"
+
     @property
     def chroma_path(self) -> Path:
         p = Path(self.chroma_dir)

@@ -64,3 +64,9 @@
 .copyright { text-align: center; line-height: 1.9; }
 .copyright a, .footer a { color: #56765e; text-decoration: none; }
 .copyright a:hover, .footer a:hover { text-decoration: underline; }
+
+.alertItem { margin: 14px 0; padding: 16px 18px; background: #fff6e7; border: 1px solid #f0d4a6; border-radius: 12px; color: #78531c; }
+.alertItem p { margin: 7px 0; font-size: 14px; line-height: 1.6; }
+.alertItem small { opacity: .8; }
+.backupGrid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; margin: 22px 0; padding-top: 18px; border-top: 1px solid #e8eeec; }
+@media (max-width: 760px) { .backupGrid { grid-template-columns: 1fr; } }

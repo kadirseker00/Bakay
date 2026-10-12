@@ -10,7 +10,7 @@ WorkingDirectory=/opt/bakay/backend
 EnvironmentFile=/etc/bakay/backend.env
 Environment=PYTHONDONTWRITEBYTECODE=1
 ExecStart=/opt/bakay/backend/.venv/bin/python -m app.monitor_probe
-TimeoutStartSec=30
+TimeoutStartSec=90
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict

@@ -16,7 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from starlette.concurrency import run_in_threadpool
 
-from app import abuse, monitor_auth, monitoring, telemetry
+from app import abuse, alerts, captcha, monitor_auth, monitoring, telemetry
 from app.config import ROOT, settings
 from app.rag import pipeline
 from app.schemas import ChatRequest, ChatResponse, FeedbackRequest
@@ -94,6 +94,7 @@ def health() -> dict:
 
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest, request: Request) -> ChatResponse:
+    captcha.require(request.app.state.abuse, request.state.rate_client, req.captcha_token)
     with request.app.state.abuse.processing(request.state.rate_client):
         return pipeline.answer(req.question, top_k=req.top_k, history=req.history)
 
@@ -135,6 +136,7 @@ def monitor_metrics(request: Request, days: int = 7, _user: str = Depends(monito
         raise HTTPException(422, 'Dönem 1, 7 veya 30 gün olmalıdır.')
     result = monitoring.metrics(days)
     result['protection'] = request.app.state.abuse.snapshot(days)
+    result['alerts'] = alerts.snapshot(settings)
     return result
 
 

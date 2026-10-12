@@ -15,6 +15,7 @@ class ChatRequest(BaseModel):
     question: str = Field(..., min_length=1, max_length=2000, description="Kullanıcının Türkçe sorusu")
     top_k: int | None = Field(None, ge=1, le=8, description="Geri çağrılacak belge sayısı (1–8; varsayılan ayarlardan)")
     history: list[ChatMessage] = Field(default_factory=list, max_length=12)
+    captcha_token: str | None = Field(None, max_length=2048, repr=False)
 
     @model_validator(mode="after")
     def validate_history(self) -> "ChatRequest":
