@@ -93,3 +93,22 @@ timer da çalışamaz; harici erişim izleme ve bildirim bu panelden ayrı kurul
 Yeni frontend üretim derlemesi `/api` adresiyle hazırlanır. Canlı backend'e
 yeni Python bağımlılığı eklenmez. Yayın sırasında eski frontend derlemesi
 geri dönüş için saklanır; eski statik dosyalar yeni derlemeye korunarak taşınır.
+
+## Canlı yayın doğrulaması — 12 Ekim 2026
+
+Git üzerinden canlı kod güncellendi; sunucuda 40 backend testi geçti. HTTPS
+giriş, 1/7 günlük metrikler, sorgu ayrıntısı ve çıkış doğrulandı. Oturumsuz
+metrikler, ayrıntılar ve `/stats` HTTP 401 ve `no-store` dönüyor. Backend,
+frontend ve sağlık timer'ı etkin ve açılışta başlatılacak şekilde ayarlı.
+
+Gerçek Haiku 5.5 kontrol sorgusu 5 kaynakla yanıtlandı: 5.440 giriş ve 1.357
+çıkış tokenı, tahmini **0,0012225 USD**. İlk sorgu 43,2 sn sürdü (LLM çağrısı
+7,1 sn); ilk kaynak erişiminin ısınması süreyi artırdı. Önceki 7 sorgunun
+maliyeti bilinmiyor. Başlangıç/ilk sorgu sırasında 5 saniyelik sağlık
+zaman aşımı kaydedildi; sonraki backend/frontend/HTTPS yoklaması başarılı.
+Yoklama zaman aşımı, sunucunun kesin olarak kapandığı anlamına gelmez.
+
+Önceki frontend derlemesi
+`/opt/bakay/runtime/frontend-before-monitor.20261012T170830Z/.next`
+altında geri dönüş için korundu. Panel parolası ayrı gizli girişle belirlendi;
+yalnız hash ve oturum sırrı root 600 ortam dosyasında saklanıyor.
