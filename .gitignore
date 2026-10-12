@@ -21,6 +21,11 @@ data/*.db
 *.bin
 models/
 
+# Sunucudaki model önbelleği, Linux paketleri ve aktarım manifesti
+/.cache/
+/runtime/
+/data/data-manifest.json
+
 # Node / Next.js
 node_modules/
 .next/

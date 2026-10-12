@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | KTMÜ hazırlığı: 18 GB disk, kod/veri/LaBSE/CPU runtime ve çevrimdışı wheel'ler /home/adminbakai/bakay altında hazır. 39.659 parça/hash, canlı Sonnet kaynaklı yanıt, frontend/CSS 200 ve npm audit 0 geçti; geçici test süreçleri kapatıldı. Root hazırlık/yayın araçları ve Git main akışı hazır; yayına almayı yönetici yapacak, Apache değiştirilmedi | codex | 2026-10-12 | — |
 | ✅ | KTMÜ mevzuat + doküman PDF'lerinin indirilip indekslenmesi (103 PDF → 23.666 parça) | claude | 2026-09-01 | — |
 | ✅ | Site geneli haritalama + Türkçe doküman taraması (5.993 sayfa + 514 belge → koleksiyon 59.321 parça) | claude | 2026-09-01 | — |
 | ✅ | Kurumsal bilgi merkezi arayüzünün tasarlanması ve uygulanması | codex | 2026-09-01 | — |

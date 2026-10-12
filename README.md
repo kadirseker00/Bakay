@@ -8,7 +8,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688?logo=fastapi&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-frontend-000000?logo=nextdotjs&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js%2015-frontend-000000?logo=nextdotjs&logoColor=white)
 ![LLM](https://img.shields.io/badge/LLM-Qwen3.5%209B-168A73)
 ![Status](https://img.shields.io/badge/durum-geli%C5%9Ftirme%20a%C5%9Famas%C4%B1-yellow)
 ![License](https://img.shields.io/badge/lisans-%C3%BCcretsiz%20(%C5%9Fimdilik)-brightgreen)
@@ -128,6 +128,10 @@ curl -X POST localhost:8000/chat -H "content-type: application/json" \
 ```
 
 ## Web arayüzü (frontend)
+
+KTMÜ sunucusu için [aktarım ve kurulum rehberi](docs/deployment/ktmu.md)
+ile `deploy/` altında Apache, systemd ve backend ortam örnekleri bulunur.
+Sunucuda frontend `NEXT_PUBLIC_API_URL=/api` ile derlenir.
 
 ```bash
 cd frontend

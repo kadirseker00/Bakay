@@ -1,0 +1,17 @@
+# 2026-10-12 yerel çalışan uygulamadan alınan sürümler.
+# Chroma dosya biçimi ve embedding davranışı aktarımda korunur.
+# Tam transitif kilit değildir; Linux kurulumundan sonra pip check çalıştırılır.
+fastapi==0.137.1
+uvicorn==0.49.0
+pydantic==2.13.4
+pydantic-settings==2.14.1
+python-dotenv==1.2.2
+sentence-transformers==5.6.0
+chromadb==1.5.9
+numpy==2.4.6
+google-genai==2.8.0
+httpx==0.28.1
+PyMuPDF==1.27.2.3
+beautifulsoup4==4.15.0
+requests==2.34.2
+python-docx==1.2.0
