@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | IP başına sorgu sınırı canlıda 30/dakika; özel ortam korundu, panel metriği ve HTTPS health doğrulandı. Yerel 150/Linux 17 test geçti | codex | 2026-10-13 | — |
 | ✅ | BAKAI operasyon koruması: 1 USD alarm/panel, canlı Cloudflare Turnstile, günlük şifreli yedek; 150 test, gerçek 39.659 parçalık indeks geri yükleme doğrulandı. SMTP ve Drive hesap bağlantısı kullanıcı tarafından sonraya bırakıldı | codex | 2026-10-13 | — |
 | ✅ | BAKAI kötüye kullanım koruması canlı: IP 10/dk + 120/saat, global 30/dk + 1.000/24 sa, 2 eşzamanlı iş; kalıcı atomik kotalar, 128 KiB/yavaş gövde sınırı ve güvenilir proxy IP. Panel sayaçları ve bekleme mesajı hazır. Yerel/Linux 136 test ve üretim derlemesi; canlı 429/sahte IP/413/401, sıfır saldırı LLM çağrısı, normal 200 + 5 kaynak ve son üç sağlık yoklaması geçti | codex | 2026-10-13 | — |
 | ✅ | BAKAI ürün adı ve /hakkinda canlı: Manas/Bakay kökeni, BAP KTMU-BAP-2026.FB.05 ve Yrd. Doç. Dr. Abdulkadir Şeker yürütücü/geliştirici bilgisi. Ana sayfa/sohbet/panel/API kimliği güncellendi; 119 test, üretim derlemesi, masaüstü/mobil menü/taşma, HTTPS sayfa/CSS/API ve özel uçlar 401 geçti. Son sağlık yoklaması başarılı | codex | 2026-10-12 | — |

@@ -124,3 +124,12 @@ Canlı özel ortam dosyasındaki kimlik bilgileri değiştirilmedi; yeni sınır
 doğrulanmış uygulama varsayılanlarıyla etkin. Ayar değişikliği yapılacaksa
 `/etc/bakay/backend.env` içindeki ilgili değişkenler düzenlenip backend yeniden
 başlatılır; gövde limiti için Apache değeri de birlikte güncellenir.
+
+### Dakika sınırı güncellemesi — 13 Ekim 2026
+
+Kullanıcının isteğiyle IP başına dakika sınırı 30'a çıkarıldı. Canlı özel ortamda
+`RATE_CHAT_PER_MINUTE=30` kaydedildi ve backend yeniden başlatıldı. Çalışan servisin
+özel panel metriği 30/dakika ve 120/saat; CAPTCHA etkin. HTTPS health 200,
+Haiku 5.5 ve 39.659 parça doğrulandı. Yerelde 150 test, Linux'ta 17 koruma testi
+geçti; bağımsız IP kotası kontrolünde 30 istek kabul edildi, 31. istek reddedildi.
+Tüm IP'lerin toplam dakika kotası 30, günlük toplam 1.000 olarak devam eder.
