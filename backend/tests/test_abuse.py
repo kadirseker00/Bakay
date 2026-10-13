@@ -151,7 +151,7 @@ class AbuseAPITests(unittest.TestCase):
             ChatResponse(query_id='1'*32, answer='Test yanıtı', sources=[], latency_ms=1)))
 
     def test_forged_proxy_headers_cannot_bypass_limit_or_reach_llm(self):
-        for index in range(10):
+        for index in range(30):
             response = self.client.post('/chat', json={'question': 'Kayıt nasıl yapılır?'},
                                         headers={'X-Forwarded-For': f'192.0.2.{index}',
                                                  'Forwarded': f'for=192.0.2.{index}'})
@@ -163,9 +163,9 @@ class AbuseAPITests(unittest.TestCase):
         self.assertEqual(response.headers['cache-control'], 'no-store')
         self.assertEqual(response.headers['access-control-allow-origin'], 'http://localhost:3000')
         self.assertIn('Retry-After', response.headers['access-control-expose-headers'])
-        self.assertEqual(self.answer.call_count, 10)
+        self.assertEqual(self.answer.call_count, 30)
         with monitoring.connect() as connection:
-            self.assertEqual(connection.execute('SELECT COUNT(*) FROM monitor_events').fetchone()[0], 10)
+            self.assertEqual(connection.execute('SELECT COUNT(*) FROM monitor_events').fetchone()[0], 30)
 
     def test_large_and_encoded_bodies_are_stopped_before_validation(self):
         for content, headers, status in [

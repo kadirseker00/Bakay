@@ -73,7 +73,7 @@ class Settings(BaseSettings):
     monitor_show_query_details: bool = True
 
     # Tek worker'lı pilotun kötüye kullanım sınırları; kotalar SQLite'ta kalır.
-    rate_chat_per_minute: int = Field(default=10, ge=1, le=1000)
+    rate_chat_per_minute: int = Field(default=30, ge=1, le=1000)
     rate_chat_per_hour: int = Field(default=120, ge=1, le=10000)
     rate_chat_global_per_minute: int = Field(default=30, ge=1, le=1000)
     rate_chat_global_per_day: int = Field(default=1000, ge=1, le=100000)

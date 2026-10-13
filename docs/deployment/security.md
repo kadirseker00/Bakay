@@ -5,7 +5,7 @@ Kotalar kayan zaman aralığıdır; dakika/saat başında topluca sıfırlanmaz.
 
 | Koruma | Varsayılan sınır | Ortam değişkeni |
 |---|---|---|
-| Sohbet / IP | 10 istek / 60 saniye | `RATE_CHAT_PER_MINUTE` |
+| Sohbet / IP | 30 istek / 60 saniye | `RATE_CHAT_PER_MINUTE` |
 | Sohbet / IP | 120 istek / 1 saat | `RATE_CHAT_PER_HOUR` |
 | Sohbet / tüm IP'ler | 30 istek / 60 saniye | `RATE_CHAT_GLOBAL_PER_MINUTE` |
 | Başlatılan sorgu / tüm IP'ler | 1.000 sorgu / son 24 saat | `RATE_CHAT_GLOBAL_PER_DAY` |
@@ -96,7 +96,7 @@ ağında ayrıca DDoS/WAF koruması gerekir; bu uygulama her botu ayırt etmez.
 eşzamanlılık ve günlük bütçe ayrımını, büyük/parçalı/yavaş gövdeleri, disk
 hatasını, geri bildirim spamini ve özel panel sayaçlarını doğrular.
 Ücretli çağrı yapmadan canlı rate testi: güvenilir localhost üzerinden ayrı
-test IP'siyle boş soru gönderilir; ilk 10 istek 422, 11. istek 429 olmalıdır.
+test IP'siyle boş soru gönderilir; ilk 30 istek 422, 31. istek 429 olmalıdır.
 Bu test üretim sorgu kotasını tüketmez.
 
 ### Canlı doğrulama — 12–13 Ekim 2026
