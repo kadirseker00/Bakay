@@ -17,7 +17,7 @@ from app import monitoring
 
 
 class LLM(Protocol):
-    def generate(self, prompt: str) -> str: ...
+    def generate(self, prompt: str, *, system: str | None = None) -> str: ...
 
 
 class AnthropicLLM:
@@ -41,10 +41,10 @@ class AnthropicLLM:
             timeout=settings.anthropic_timeout,
         )
 
-    def generate_result(self, prompt: str) -> dict:
+    def generate_result(self, prompt: str, *, system: str | None = None) -> dict:
         started = time.perf_counter()
         try:
-            result = self._generate_result(prompt)
+            result = self._generate_result(prompt, system=system)
         except Exception as error:
             code = f"HTTP_{error.response.status_code}" if isinstance(error, httpx.HTTPStatusError) else type(error).__name__
             monitoring.record_llm_call(self.model, "error", int((time.perf_counter() - started) * 1000),
@@ -54,16 +54,19 @@ class AnthropicLLM:
                                    usage=result['usage'])
         return result
 
-    def _generate_result(self, prompt: str) -> dict:
-        """Aynı prompt'u gönder; düşünme bloklarını kullanıcı yanıtına katma."""
-        response = self.http.post("/v1/messages", json={
+    def _generate_result(self, prompt: str, *, system: str | None = None) -> dict:
+        """Güvenilir talimatları kullanıcı verisinden ayrı gönder."""
+        payload = {
             "model": self.model,
             "max_tokens": self.max_tokens,
             "messages": [{"role": "user", "content": prompt}],
             "thinking": {"type": self.thinking},
             "output_config": {"effort": self.effort},
             # Sonnet 5.5 özel sıcaklık/top_p/top_k değerlerini kabul etmez.
-        })
+        }
+        if system is not None:
+            payload["system"] = system
+        response = self.http.post("/v1/messages", json=payload)
         response.raise_for_status()
         message = response.json()
         if message.get("type") != "message" or not isinstance(message.get("content"), list):
@@ -81,8 +84,8 @@ class AnthropicLLM:
             "request_id": response.headers.get("request-id"),
         }
 
-    def generate(self, prompt: str) -> str:
-        result = self.generate_result(prompt)
+    def generate(self, prompt: str, *, system: str | None = None) -> str:
+        result = self.generate_result(prompt, system=system)
         if not result["response"]:
             raise RuntimeError(
                 f"Claude API yanıt metni boş (bitiş: {result['stop_reason']})."
@@ -104,9 +107,10 @@ class GeminiLLM:
         self.client = genai.Client(api_key=settings.gemini_api_key)
         self.model = settings.gemini_model
 
-    def generate(self, prompt: str) -> str:
+    def generate(self, prompt: str, *, system: str | None = None) -> str:
+        options = {"config": {"system_instruction": system}} if system is not None else {}
         resp = self.client.models.generate_content(
-            model=self.model, contents=prompt
+            model=self.model, contents=prompt, **options
         )
         return (resp.text or "").strip()
 
@@ -121,7 +125,7 @@ class OllamaLLM:
         self.model = settings.ollama_model
         self.http = httpx.Client(timeout=120)
 
-    def generate(self, prompt: str) -> str:
+    def generate(self, prompt: str, *, system: str | None = None) -> str:
         payload = {
             "model": self.model,
             "prompt": prompt,
@@ -135,6 +139,8 @@ class OllamaLLM:
                 "num_predict": settings.ollama_num_predict,
             },
         }
+        if system is not None:
+            payload["system"] = system
         resp = self.http.post(f"{self.base_url}/api/generate", json=payload)
         resp.raise_for_status()
         return resp.json().get("response", "").strip()
