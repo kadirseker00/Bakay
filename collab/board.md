@@ -5,7 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
-| 🔄 | RAG belge kaynaklı prompt injection koruması: gerçek sistem rolü, güvenilmeyen veri sınırları ve saldırı/regresyon testleri; canlı doğrulama | codex | 2026-10-15 | backend/app/rag/, backend/tests/, backend/scripts/check_prompt_injection.py, docs/deployment/prompt-injection.md |
+| ✅ | RAG prompt injection koruması canlı: gerçek sistem alanı ve kaçışlı belge/başlık/geçmiş sınırları; yerel/Linux 159 test, gerçek Haiku 6 saldırı + 2 kontrol geçti. HTTPS 5 kaynaklı yanıt, ayrı sistem kaydı, health 200 ve özel metrikler 401 doğrulandı | codex | 2026-10-15 | — |
 | ✅ | IP başına sorgu sınırı canlıda 30/dakika; özel ortam korundu, panel metriği ve HTTPS health doğrulandı. Yerel 150/Linux 17 test geçti | codex | 2026-10-13 | — |
 | ✅ | BAKAI operasyon koruması: 1 USD alarm/panel, canlı Cloudflare Turnstile, günlük şifreli yedek; 150 test, gerçek 39.659 parçalık indeks geri yükleme doğrulandı. SMTP ve Drive hesap bağlantısı kullanıcı tarafından sonraya bırakıldı | codex | 2026-10-13 | — |
 | ✅ | BAKAI kötüye kullanım koruması canlı: IP 10/dk + 120/saat, global 30/dk + 1.000/24 sa, 2 eşzamanlı iş; kalıcı atomik kotalar, 128 KiB/yavaş gövde sınırı ve güvenilir proxy IP. Panel sayaçları ve bekleme mesajı hazır. Yerel/Linux 136 test ve üretim derlemesi; canlı 429/sahte IP/413/401, sıfır saldırı LLM çağrısı, normal 200 + 5 kaynak ve son üç sağlık yoklaması geçti | codex | 2026-10-13 | — |
