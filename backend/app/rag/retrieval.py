@@ -13,6 +13,7 @@ import unicodedata
 import numpy as np
 
 from app.ingest.titles import title_from_filename
+from app.rag.progress import report
 
 
 STOP_WORDS = frozenset(
@@ -98,6 +99,8 @@ class LexicalIndex:
         postings = defaultdict(list)
         lengths = []
         for index, record in enumerate(self.records):
+            if index % 5000 == 0:
+                report("indexing", "Arşivi açıyorum", "Belgeler raflardan iniyor; arama için hazırlanıyorum.")
             frequencies = Counter(terms(record["text"]))
             lengths.append(sum(frequencies.values()))
             for term, frequency in frequencies.items():

@@ -20,6 +20,7 @@ import time
 from app import telemetry
 from app.config import settings
 from app.rag.llm import get_llm
+from app.rag.progress import report
 from app.rag.retrieval import education_level, needs_education_level, terms, text_key
 from app.rag.source_links import append_source_reading
 from app.rag.vectorstore import get_store
@@ -373,6 +374,7 @@ def _answer(question: str, top_k: int | None = None,
             history: list[ChatMessage] | None = None, *, qid: str) -> ChatResponse:
     start = time.perf_counter()
     k = top_k or settings.top_k
+    report("preparing", "Sorunuzu aldım", "Yanıtı bulmak için hazırlık yapıyorum.")
     store = get_store()
     llm = get_llm()
     steps: list[str] = []
@@ -381,6 +383,7 @@ def _answer(question: str, top_k: int | None = None,
     effective_question = question
     rewritten_query = None
     if history:
+        report("context", "Konuşmamızı hatırlıyorum", "Önceki sorularınızla bağlantısına bakıyorum.")
         resolved = _resolve_question(question, history, llm)
         if resolved is None:
             steps.append("memory:needs_context")
@@ -394,6 +397,8 @@ def _answer(question: str, top_k: int | None = None,
         steps.append("memory:resolved")
 
     # --- Düğüm 0: Kapsam yönlendirmesi (opsiyonel, LLM) ---
+    if settings.agent_route:
+        report("routing", "Konuyu netleştiriyorum", "Sorunuzun üniversiteyle ilgili hangi konuya değindiğine bakıyorum.")
     if settings.agent_route and not _route_in_scope(effective_question, llm):
         steps.append("route:out_of_scope")
         total_ms = int((time.perf_counter() - start) * 1000)
@@ -405,15 +410,19 @@ def _answer(question: str, top_k: int | None = None,
     # --- Düğüm 1: Sorgu yeniden yazma (opsiyonel) ---
     search_query = effective_question
     if settings.agent_rewrite:
+        report("rewrite", "Nereye bakacağımı belirliyorum", "Sorunuza en uygun belgeleri aramak için hazırlanıyorum.")
         search_query = _rewrite_query(effective_question, llm)
         rewritten_query = search_query
         steps.append("rewrite")
 
     # --- Düğüm 2: Retrieval ---
     t0 = time.perf_counter()
+    report("searching", "Resmî belgelere bakıyorum", "Arşivde sorunuzun izini sürüyorum.")
     hits = store.query(search_query, top_k=k)
     retrieval_ms = int((time.perf_counter() - t0) * 1000)
     top_score = hits[0]["score"] if hits else 0.0
+    report("evaluating", "Bulduklarımı gözden geçiriyorum",
+           "Sorunuzu yanıtlayacak yeterli bilgi var mı, bakıyorum.")
 
     # --- Düğüm 3: Yönlendirme / yeterlilik kapısı (bedava, ekstra LLM yok) ---
     if not hits or top_score < settings.score_threshold:
@@ -447,6 +456,7 @@ def _answer(question: str, top_k: int | None = None,
     context = _build_context(hits)
     prompt = _generation_prompt(effective_question, context)
     t1 = time.perf_counter()
+    report("generating", "Yanıtınızı hazırlıyorum", "Bulduğum bilgileri açık ve anlaşılır bir yanıta dönüştürüyorum.")
     raw = llm.generate(prompt, system=SYSTEM_INSTRUCTIONS)
     generation_ms = int((time.perf_counter() - t1) * 1000)
     text = _highlight_key_details(_label_source_references(_strip_reasoning(raw), hits))
@@ -455,11 +465,13 @@ def _answer(question: str, top_k: int | None = None,
     # --- Düğüm 5: Dayanak doğrulama (opsiyonel) ---
     grounded = True
     if settings.agent_verify:
+        report("verifying", "Yanıtı belgelerle karşılaştırıyorum", "Yazdıklarımın belgelerle uyuşup uyuşmadığına bakıyorum.")
         grounded = _verify_grounding(text, context, llm)
         steps.append(f"verify:{'ok' if grounded else 'ungrounded'}")
         if not grounded:
             text += "\n\n_(Not: Bu yanıtın kaynak belgelerle tam örtüştüğü doğrulanamadı.)_"
 
+    report("finishing", "Son dokunuşları yapıyorum", "Sizin de okuyabilmeniz için kaynak bağlantılarını ekliyorum.")
     text = append_source_reading(text, hits)
 
     total_ms = int((time.perf_counter() - start) * 1000)

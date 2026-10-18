@@ -33,10 +33,19 @@ import {
 import Logo from "./components/Logo";
 import { buildHistory, persistHistory, restoreHistory } from "./lib/chat-memory";
 import type { Message } from "./lib/chat-memory";
+import { ChatStreamError, readChatResponse } from "./lib/chat-stream";
+import type { ChatProgress } from "./lib/chat-stream";
 import { PROJECT } from "./lib/project";
 import SecurityChallenge from "./components/SecurityChallenge";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const completedStages: Record<string, string> = {
+  preparing: "Sorunuz alındı", context: "Konuşma hatırlandı", routing: "Konu netleşti",
+  rewrite: "Arama hazır", searching: "Belgelere bakıldı", indexing: "Arşiv açıldı",
+  semantic: "İlgili bilgiler bulundu", comparing: "Bilgiler bir araya getirildi",
+  evaluating: "Bilgiler gözden geçirildi", generating: "Yanıt hazırlandı",
+  verifying: "Belgelerle karşılaştırıldı", finishing: "Son dokunuşlar tamam",
+};
 class ChatServiceError extends Error {}
 
 async function chatError(response: Response): Promise<ChatServiceError> {
@@ -63,7 +72,9 @@ type CandidateTrack = {
   questions: Topic[];
 };
 
+const FEATURED_EXAMPLE = "Daha önce aldığım dersleri saydırabilir miyim?";
 const EXAMPLES = [
+  FEATURED_EXAMPLE,
   "Bütünleme sınavına kimler girebilir?",
   "Başarı bursu için not ortalaması kaç olmalı?",
   "Üniversiteye kayıt için hangi belgeler gerekli?",
@@ -272,6 +283,8 @@ export default function Home() {
   const [typedPrompt, setTypedPrompt] = useState("");
   const [promptAnimationStopped, setPromptAnimationStopped] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState<ChatProgress[]>([]);
+  const [elapsed, setElapsed] = useState(0);
   const [health, setHealth] = useState<Health | null>(null);
   const [connection, setConnection] = useState<ConnectionState>("checking");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -281,8 +294,23 @@ export default function Home() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const conversationHeadingRef = useRef<HTMLHeadingElement>(null);
   const requestControllerRef = useRef<AbortController | null>(null);
+  const phaseRef = useRef({ stage: "connecting", started: 0 });
   const shouldFocusConversationRef = useRef(false);
   const isConversation = messages.length > 0;
+  const currentProgress = progress.at(-1);
+  const phaseSeconds = loading ? Math.floor((Date.now() - phaseRef.current.started) / 1000) : 0;
+  const waitingNotes = [
+    currentProgress?.detail || "Hemen resmî belgelere bakıyorum.",
+    "Bu adım biraz zaman alıyor; çalışmaya devam ediyorum.",
+    "Biraz daha sabır… Hazır olduğunda yanıtı burada göstereceğim.",
+  ];
+
+  useEffect(() => {
+    if (!loading) return;
+    const started = Date.now();
+    const timer = window.setInterval(() => setElapsed(Math.floor((Date.now() - started) / 1000)), 1000);
+    return () => window.clearInterval(timer);
+  }, [loading]);
 
   useEffect(() => {
     setMessages(restoreHistory());
@@ -440,13 +468,16 @@ export default function Home() {
     if (!retryChallenge) setMessages((current) => [...current, { role: "user", content: cleanQuestion }]);
     if (retryChallenge) setChallenge(null);
     setInput("");
+    setProgress([{ stage: "connecting", title: "Sorunuzu aldım", detail: "Hemen resmî belgelere bakıyorum." }]);
+    phaseRef.current = { stage: "connecting", started: Date.now() };
+    setElapsed(0);
     setLoading(true);
     if (textareaRef.current) textareaRef.current.style.height = "auto";
 
     try {
       const response = await fetch(`${API_URL}/chat`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
         body: JSON.stringify({ question: cleanQuestion, history, captcha_token: captchaToken }),
         signal: controller.signal,
       });
@@ -458,7 +489,17 @@ export default function Home() {
         }
       }
       if (!response.ok) throw await chatError(response);
-      const data = await response.json();
+      const data = await readChatResponse(response, (next) => {
+        if (controller.signal.aborted) return;
+        if (phaseRef.current.stage !== next.stage) {
+          phaseRef.current = { stage: next.stage, started: Date.now() };
+        }
+        setProgress((current) => {
+          const last = current[current.length - 1];
+          return last?.stage === next.stage || last?.stage === "connecting"
+            ? [...current.slice(0, -1), next] : [...current, next];
+        });
+      });
       if (controller.signal.aborted) return;
       setMessages((current) => [
         ...current,
@@ -476,7 +517,7 @@ export default function Home() {
         ...current,
         {
           role: "assistant",
-          content: error instanceof ChatServiceError ? error.message :
+          content: error instanceof ChatServiceError || error instanceof ChatStreamError ? error.message :
             "Şu anda bilgi servisine ulaşamıyorum. Birkaç dakika sonra yeniden deneyebilirsiniz.",
           error: true,
         },
@@ -720,11 +761,20 @@ export default function Home() {
                   <div className="assistant-mark">
                     <Logo size={32} />
                   </div>
-                  <div className="message assistant loading-message">
-                    <span className="loading-pulse" />
-                    <div>
-                      <strong>Resmî kaynaklar taranıyor</strong>
-                      <span>En ilgili belge parçaları karşılaştırılıyor.</span>
+                  <div className="message assistant loading-message" role="status" aria-live="polite" aria-atomic="true">
+                    <div className="loading-book" aria-hidden="true">
+                      <BookOpenText size={29} strokeWidth={1.5} />
+                      <i /><i /><i />
+                    </div>
+                    <div className="loading-content">
+                      <strong>{currentProgress?.title || "Sorunuzu aldım"}</strong>
+                      <span>{waitingNotes[Math.floor(phaseSeconds / 12) % waitingNotes.length]}</span>
+                      <ol className="loading-steps" aria-label="Tamamlanan adımlar">
+                        {progress.slice(0, -1).filter((step, index, steps) =>
+                          steps.findIndex((item) => item.title === step.title) === index,
+                        ).slice(-3).map((step) => <li key={step.stage}><span aria-hidden="true">✓</span> {completedStages[step.stage] || step.title}</li>)}
+                      </ol>
+                      <small className="loading-elapsed" aria-hidden="true">{elapsed} sn{elapsed >= 20 ? " · Sizin için çalışmaya devam ediyorum." : ""}</small>
                     </div>
                   </div>
                 </div>
@@ -814,7 +864,7 @@ export default function Home() {
                   <span>
                     <Sparkles size={15} /> Örnek:
                   </span>
-                  <button onClick={() => ask(EXAMPLES[1])}>{EXAMPLES[1]}</button>
+                  <button onClick={() => ask(FEATURED_EXAMPLE)}>{FEATURED_EXAMPLE}</button>
                 </div>
               </div>
 
