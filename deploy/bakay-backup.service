@@ -1,6 +1,8 @@
 [Unit]
 Description=BAKAI şifreli veritabanı/indeks yedeği ve Drive aktarımı
 After=network-online.target
+StartLimitIntervalSec=2h
+StartLimitBurst=4
 
 [Service]
 Type=oneshot
@@ -9,6 +11,8 @@ Group=bakay
 WorkingDirectory=/opt/bakay
 ExecStart=/opt/bakay/backend/.venv/bin/python /opt/bakay/deploy/backup.py run
 TimeoutStartSec=45min
+Restart=on-failure
+RestartSec=15min
 UMask=0077
 Nice=10
 IOSchedulingClass=idle

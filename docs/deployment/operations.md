@@ -59,6 +59,8 @@ ve [istemci kurulumu](https://developers.cloudflare.com/turnstile/get-started/cl
 
 `bakay-backup.timer` her gün **02.00 Bişkek** saatinde çalışır; rastgele gecikme
 kapalıdır. Sunucu o sırada kapalıysa ilk açılışta kaçırılan çalışma telafi edilir.
+Başarısız işlem 15 dakika sonra yeniden denenir; iki saatte toplam en çok dört
+servis başlangıcına izin verilir. Yerel yedek aktarım başarısızlığında korunur.
 Yedekler `/var/backups/bakai` root 0700 dizininde 0600 tutulur.
 `/etc/bakay/backup.json` yalnız **açık age alıcı anahtarını** içerir. Geri yükleme
 özel anahtarı sunucuda veya git'te bulunmaz; yöneticinin Mac'inde
