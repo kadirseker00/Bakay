@@ -7,6 +7,10 @@ Uçlar:
 from __future__ import annotations
 
 import asyncio
+import json
+import logging
+from queue import Empty, Queue
+from threading import Event, Thread
 import time
 from contextlib import suppress
 from contextlib import asynccontextmanager
@@ -15,10 +19,12 @@ from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from starlette.concurrency import run_in_threadpool
+from starlette.responses import StreamingResponse
 
 from app import abuse, alerts, captcha, monitor_auth, monitoring, telemetry
 from app.config import ROOT, settings
 from app.rag import pipeline
+from app.rag.progress import progress_scope
 from app.schemas import ChatRequest, ChatResponse, FeedbackRequest
 
 @asynccontextmanager
@@ -73,7 +79,8 @@ async def monitor_requests(request: Request, call_next):
     finally:
         # Sağlık yoklamaları ve panel yenilemeleri kullanıcı trafiğini şişirmez.
         if (request.url.path in ('/chat', '/feedback') and
-                getattr(request.state, 'rate_admitted', False) and status not in (429, 413, 408, 415)):
+                getattr(request.state, 'rate_admitted', False) and
+                not getattr(request.state, 'chat_stream', False) and status not in (429, 413, 408, 415)):
             await run_in_threadpool(monitoring.record_event, request.method, request.url.path, status,
                                     int((time.perf_counter() - started) * 1000))
 
@@ -93,12 +100,70 @@ def health() -> dict:
 
 
 @app.post("/chat", response_model=ChatResponse)
-def chat(req: ChatRequest, request: Request) -> ChatResponse:
+def chat(req: ChatRequest, request: Request) -> ChatResponse | StreamingResponse:
     captcha.require(request.app.state.abuse, request.state.rate_client, req.captcha_token)
     # Uvicorn güvenilir proxy bilgisini uygular; ham istemci başlıklarına güvenme.
     client_ip = request.client.host if request.client else None
+    if 'text/event-stream' in request.headers.get('accept', ''):
+        return stream_chat(req, request, client_ip)
     with request.app.state.abuse.processing(request.state.rate_client), telemetry.client_scope(client_ip):
         return pipeline.answer(req.question, top_k=req.top_k, history=req.history)
+
+
+def stream_chat(req: ChatRequest, request: Request, client_ip: str | None) -> StreamingResponse:
+    started = time.perf_counter()
+    # Kabul hataları başlıklar gönderilmeden normal HTTP 429/503 olarak dönmeli.
+    processing = request.app.state.abuse.processing(request.state.rate_client)
+    processing.__enter__()
+    events: Queue[tuple[str, dict]] = Queue()
+    disconnected = Event()
+    request.state.chat_stream = True
+
+    def send(event: str, data: dict):
+        if not disconnected.is_set():
+            events.put((event, data))
+
+    def work():
+        try:
+            with telemetry.client_scope(client_ip), progress_scope(lambda data: send('status', data)):
+                result = pipeline.answer(req.question, top_k=req.top_k, history=req.history)
+                data = result.model_dump()
+        except Exception:
+            logging.getLogger(__name__).exception('Canlı sohbet yanıtı hazırlanamadı')
+            event, data = 'error', {'detail': 'Yanıt hazırlanırken bir sorun oluştu. Lütfen yeniden deneyin.'}
+        else:
+            event = 'result'
+        finally:
+            # Bağlantı kesilse de çalışan iş bitene kadar eşzamanlı iş kotasını tut.
+            processing.__exit__(None, None, None)
+        # Akış başladıktan sonraki model hataları da panelde görünmeli.
+        monitoring.record_event('POST', '/chat', 500 if event == 'error' else 200,
+                                int((time.perf_counter() - started) * 1000))
+        send(event, data)
+
+    def body():
+        try:
+            while True:
+                try:
+                    event, data = events.get(timeout=5)
+                except Empty:
+                    yield ': keep-alive\n\n'
+                    continue
+                yield f'event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n'
+                if event in ('result', 'error'):
+                    return
+        finally:
+            disconnected.set()
+
+    try:
+        Thread(target=work, name='chat-stream', daemon=True).start()
+    except Exception:
+        request.state.chat_stream = False
+        processing.__exit__(None, None, None)
+        raise
+    return StreamingResponse(body(), media_type='text/event-stream', headers={
+        'Cache-Control': 'no-cache, no-store, no-transform', 'X-Accel-Buffering': 'no',
+    })
 
 
 @app.post("/feedback")

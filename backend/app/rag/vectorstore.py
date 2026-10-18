@@ -12,6 +12,7 @@ import numpy as np
 from app.config import settings
 from app.ingest.titles import title_from_filename
 from app.rag.embeddings import get_embedder
+from app.rag.progress import report
 from app.rag.retrieval import LexicalIndex
 
 
@@ -48,6 +49,7 @@ class VectorStore:
     def _lexical_index(self, count: int) -> LexicalIndex:
         with self._lexical_lock:
             if self._lexical is None or self._lexical_count != count:
+                report("indexing", "Arşivi açıyorum", "İlk aramada belgeleri hazırlamak biraz sürebilir.")
                 records = []
                 for offset in range(0, count, 5000):
                     batch = self.collection.get(
@@ -58,6 +60,7 @@ class VectorStore:
                         records.append({"id": id_, "text": text,
                                         "document": metadata.get("document", "bilinmiyor"),
                                         "title": metadata.get("title")})
+                    report("indexing", "Arşivi açıyorum", "Belgeler raflardan iniyor; arama için hazırlanıyorum.")
                 self._lexical = LexicalIndex(records)
                 self._lexical_count = count
             return self._lexical
@@ -69,11 +72,13 @@ class VectorStore:
         if not count:
             return []
         index = self._lexical_index(count)
+        report("semantic", "İlgili bilgileri arıyorum", "Farklı ifadelerle yazılmış olsa da sorunuzla ilgili bilgileri arıyorum.")
         q_emb = self.embedder.encode_one(question)
         candidates = min(count, max(60, top_k * 4))
         res = self.collection.query(
             query_embeddings=[q_emb], n_results=candidates, include=["distances"]
         )
+        report("comparing", "Bilgileri bir araya getiriyorum", "Bulduğum belgelerden sorunuzla en ilgili olanları seçiyorum.")
         lexical = index.query(question, candidates)
         ids = index.fuse(question, res["ids"][0], lexical, top_k)
         if not ids:
