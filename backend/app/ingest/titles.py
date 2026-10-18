@@ -5,6 +5,8 @@ import re
 from pathlib import Path
 from urllib.parse import unquote
 
+from app.ingest.clean import repair_turkish_encoding
+
 
 _SPECIAL_TITLES = {
     "docs_mevzuattr.pdf": "KTMÜ Mevzuatı",
@@ -34,6 +36,7 @@ _GENERIC_LINES = {
 
 
 def _clean(value: str) -> str:
+    value = repair_turkish_encoding(value)
     value = re.sub(r"^[^\wÇĞİÖŞÜçğıöşü]+", "", value, flags=re.UNICODE)
     return re.sub(r"\s+", " ", value).strip(" -–—_|:;,.\u00a0")
 

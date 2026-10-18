@@ -10,6 +10,7 @@ from threading import RLock
 import numpy as np
 
 from app.config import settings
+from app.ingest.clean import repair_turkish_encoding
 from app.ingest.titles import title_from_filename
 from app.rag.embeddings import get_embedder
 from app.rag.progress import report
@@ -57,9 +58,9 @@ class VectorStore:
                     )
                     for id_, text, meta in zip(batch["ids"], batch["documents"], batch["metadatas"]):
                         metadata = meta or {}
-                        records.append({"id": id_, "text": text,
+                        records.append({"id": id_, "text": repair_turkish_encoding(text),
                                         "document": metadata.get("document", "bilinmiyor"),
-                                        "title": metadata.get("title")})
+                                        "title": repair_turkish_encoding(metadata.get("title") or "")})
                     report("indexing", "Arşivi açıyorum", "Belgeler raflardan iniyor; arama için hazırlanıyorum.")
                 self._lexical = LexicalIndex(records)
                 self._lexical_count = count
@@ -118,9 +119,11 @@ class VectorStore:
             hits.append(
                 {
                     "id": id_,
-                    "text": text,
+                    "text": repair_turkish_encoding(text),
                     "document": document,
-                    "title": metadata.get("title") or title_from_filename(document),
+                    "title": repair_turkish_encoding(
+                        metadata.get("title") or title_from_filename(document)
+                    ),
                     # cosine distance -> benzerlik skoru
                     "score": round(1.0 - float(dist), 4),
                 }
