@@ -10,6 +10,8 @@ import unittest
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
 from unittest.mock import patch
+from email import policy
+from email.parser import BytesParser
 from fastapi import HTTPException
 from app import alerts,captcha,monitoring
 from app.abuse import AbuseGuard,Denied
@@ -83,6 +85,28 @@ class OperationsTests(unittest.TestCase):
             self.assertEqual(server.starttls.call_args.kwargs['context'].verify_mode,2)
             server.login.assert_called_once_with('test','synthetic-password')
             self.assertNotIn('synthetic-password',str(server.send_message.call_args.args[0]))
+    def test_ses_signed_request_preserves_sender_recipient_and_private_credentials(self):
+        import boto3
+        from botocore.stub import Stubber, ANY
+        self.mail_ready(); self.cfg.alert_email_provider='ses'
+        self.assertFalse(alerts.email_ready(self.cfg))
+        self.cfg.alert_ses_access_key_id='synthetic-access-key'
+        self.cfg.alert_ses_secret_access_key='synthetic-private-key'
+        self.assertTrue(alerts.email_ready(self.cfg))
+        client=boto3.client('ses',region_name='us-east-1',aws_access_key_id='synthetic-access-key',aws_secret_access_key='synthetic-private-key')
+        requests=[]
+        client.meta.events.register('before-parameter-build.ses.SendRawEmail',lambda params,**kwargs:requests.append(params.copy()))
+        with Stubber(client) as stub, patch.object(boto3,'client',return_value=client), patch.object(alerts.smtplib,'SMTP') as smtp:
+            stub.add_response('send_raw_email',{'MessageId':'synthetic-id'},
+                              {'Source':'BAKAI <bakai@example.test>','Destinations':['ops@example.test'],'RawMessage':{'Data':ANY}})
+            alerts.send_email(self.cfg,{'id':1,'state':'active','title':'Sistem sağlığı','message':'Erişim başarısız.','ts':'today'})
+            stub.assert_no_pending_responses(); smtp.assert_not_called()
+        message=BytesParser(policy=policy.default).parsebytes(requests[0]['RawMessage']['Data'])
+        self.assertEqual(message['From'].addresses[0].display_name,'BAKAI')
+        self.assertEqual(message['To'].addresses[0].addr_spec,'ops@example.test')
+        self.assertIn('Erişim başarısız.',message.get_content())
+        self.assertNotIn('synthetic-private-key',str(message))
+        self.assertNotIn('synthetic-private-key',repr(self.cfg))
     def test_captcha_repeated_abuse_expiry_and_quota_stays(self):
         self.cfg.captcha_site_key='public-test'; self.cfg.captcha_secret_key='synthetic-secret'; self.cfg.rate_chat_per_minute=1
         guard=AbuseGuard(self.cfg,clock=lambda:self.now.timestamp()); client=guard.client_key('192.0.2.17')

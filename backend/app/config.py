@@ -90,6 +90,10 @@ class Settings(BaseSettings):
     alert_recovery_ticks: int = Field(default=2, ge=1, le=30)
     alert_email_to: str = ""
     alert_email_from: str = ""
+    alert_email_provider: Literal["smtp", "ses"] = "smtp"
+    alert_ses_region: str = "us-east-1"
+    alert_ses_access_key_id: str = Field(default="", repr=False)
+    alert_ses_secret_access_key: str = Field(default="", repr=False)
     alert_smtp_host: str = ""
     alert_smtp_port: int = Field(default=587, ge=1, le=65535)
     alert_smtp_security: Literal["starttls", "ssl"] = "starttls"

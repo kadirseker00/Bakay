@@ -12,8 +12,38 @@ sayaçlarının standart tarifeyle hesaplanan toplamıdır. Fatura/kalan kredi d
 bilinmeyen sayaçlar ayrıca uyarılır. Alarm sorguları durdurmaz. Mevcut günlük sorgu
 kotası ve eşzamanlı çalışma sınırları ayrıca geçerlidir.
 
-SMTP bağlanana kadar panel alarmı çalışır, e-posta gönderilmez. `bakai@manas.edu.kg`
-hesabının SMTP sunucusu, TLS yöntemi/portu ve alıcı adresi doğrulanınca root oturumunda:
+18 Ekim 2026 hedefi: **BAKAI <bakai@manas.edu.kg>** göndericisinden
+**abdulkadir.seker@manas.edu.kg** adresine AWS SES üzerinden bildirim.
+`bakai@manas.edu.kg` kimliği SES `us-east-1` konsolunda **Verified**;
+kullanıcı doğrulama bağlantısını açtı. Üniversitenin Google parolası kullanılmaz.
+
+KTMÜ sunucusunda SES SMTP uçlarının 587, 465, 2587 ve 2465 portlarına TCP bağlantısı
+zaman aşımına uğradı; üç çözümlenmiş IP ayrı ayrı kontrol edildi.
+`https://email.us-east-1.amazonaws.com/` TLS bağlantısı başarılıdır (imzasız kök
+istek HTTP 404). Bu nedenle `ALERT_EMAIL_PROVIDER=ses` ile HTTPS/443 üzerinden
+AWS SDK kullanılır. SDK otomatik gönderim tekrarı kapalıdır; mevcut kalıcı alarm
+kuyruğu aynı yeniden deneme ve düzelme kurallarını uygular.
+
+**Erişim anahtarı bağlanana kadar e-posta etkin değildir.** BAKAI'ye özel IAM
+kullanıcısına yalnız `ses:SendRawEmail`,
+`arn:aws:ses:us-east-1:450653396311:identity/bakai@manas.edu.kg` kaynağı,
+`ses:FromAddress=bakai@manas.edu.kg` ve `ses:Recipients` yalnız
+`abdulkadir.seker@manas.edu.kg` koşulları verilmelidir. Anahtarlar
+`ALERT_SES_ACCESS_KEY_ID` ve `ALERT_SES_SECRET_ACCESS_KEY` alanlarında root 0600
+özel ortamda tutulur, git'e girmez. Erişim hesabı şu an Moledro AWS hesabıdır;
+kuruma devirde SES hesabı/anahtarının da kuruma devri ayrıca planlanmalıdır.
+Kimlik doğrulaması yalnız e-posta adresi düzeyindedir; alan adı DKIM/DMARC ayarları
+üniversite DNS yöneticisine aittir. Gerçek gelen kutusu teslimatı ayrıca doğrulanır.
+
+Kurulum/güncelleme root oturumunda:
+
+```sh
+/opt/bakay/backend/.venv/bin/python /opt/bakay/deploy/configure-operations.py ses
+systemctl restart bakay-backend
+systemctl start bakay-monitor.service
+```
+
+SMTP seçeneği mevcut sağlayıcılar için korunur; SMTP bilgileri varsa:
 
 ```sh
 /opt/bakay/backend/.venv/bin/python /opt/bakay/deploy/configure-operations.py mail
