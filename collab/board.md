@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | Sade geri bildirim ve admin IP v0.3.2 canlıda: codex/feedback-live fc11c50; 171 Linux testi, 15 HTTPS kontrolü, tarayıcıda kayıt ve admin IP/neden/ad doğrulandı. /opt/bakay kilidi bırakıldı; sonraki yayın bu commit üzerine kurulmalı | codex | 2026-10-18 | — |
 | ✅ | Rektörlük sunumu somut ihtiyaçlarla yenilendi: idari personelin tekrar eden soru yükü ve aday öğrencinin hızlı bilgiye erişimi. 6 slayt, PDF ve konuşma/demo notları; paket, yerleşim, font, yeniden içe aktarma ve 6 PDF sayfasının görsel kontrolü tamam | codex | 2026-10-18 | — |
 | ✅ | Rektörlük sunumu 6 slayta sadeleştirildi: Bakay, kurumsal hafıza, kaynaklı örnek ve birim katkısı. 3–4 dakika anlatım + 90 sn demo; teknik ayrıntılar konuşmacı notlarında. PPTX doğrulaması ve 6 PDF sayfasının görsel kontrolü tamam | codex | 2026-10-18 | — |
 | ✅ | Rektörlük için 9 slaytlık BAKAI sunumu, PDF, konuşmacı notları ve 2 dakikalık demo akışı hazır. Personelle kalite değerlendirmesi sonraki adım olarak işlendi; tarihli pilot maliyeti ve alarm eşiği ayrıldı. PPTX doğrulaması ve tüm slayt/PDF görsel kontrolleri tamam | codex | 2026-10-18 | — |
