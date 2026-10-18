@@ -102,13 +102,15 @@ def health() -> dict:
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest, request: Request) -> ChatResponse | StreamingResponse:
     captcha.require(request.app.state.abuse, request.state.rate_client, req.captcha_token)
+    # Uvicorn güvenilir proxy bilgisini uygular; ham istemci başlıklarına güvenme.
+    client_ip = request.client.host if request.client else None
     if 'text/event-stream' in request.headers.get('accept', ''):
-        return stream_chat(req, request)
-    with request.app.state.abuse.processing(request.state.rate_client):
+        return stream_chat(req, request, client_ip)
+    with request.app.state.abuse.processing(request.state.rate_client), telemetry.client_scope(client_ip):
         return pipeline.answer(req.question, top_k=req.top_k, history=req.history)
 
 
-def stream_chat(req: ChatRequest, request: Request) -> StreamingResponse:
+def stream_chat(req: ChatRequest, request: Request, client_ip: str | None) -> StreamingResponse:
     started = time.perf_counter()
     # Kabul hataları başlıklar gönderilmeden normal HTTP 429/503 olarak dönmeli.
     processing = request.app.state.abuse.processing(request.state.rate_client)
@@ -123,7 +125,7 @@ def stream_chat(req: ChatRequest, request: Request) -> StreamingResponse:
 
     def work():
         try:
-            with progress_scope(lambda data: send('status', data)):
+            with telemetry.client_scope(client_ip), progress_scope(lambda data: send('status', data)):
                 result = pipeline.answer(req.question, top_k=req.top_k, history=req.history)
                 data = result.model_dump()
         except Exception:
@@ -166,7 +168,7 @@ def stream_chat(req: ChatRequest, request: Request) -> StreamingResponse:
 
 @app.post("/feedback")
 def feedback(req: FeedbackRequest) -> dict:
-    ok = telemetry.log_feedback(req.query_id, req.rating, req.comment)
+    ok = telemetry.log_feedback(req.query_id, req.rating, req.comment, req.reason, req.respondent_name)
     return {"ok": ok}
 
 

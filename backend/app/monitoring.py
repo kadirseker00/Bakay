@@ -12,7 +12,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from app.config import ROOT, settings
-from app.telemetry import _SCHEMA as QUERY_SCHEMA, current_query_id
+from app.telemetry import current_query_id, initialize_schema
 
 STARTED = time.monotonic()
 PRICING_VERSION = "anthropic-2026-10-12"
@@ -52,7 +52,8 @@ def connect() -> sqlite3.Connection:
 def initialize() -> None:
     settings.db_file.parent.mkdir(parents=True, exist_ok=True)
     with connect() as connection:
-        connection.executescript(QUERY_SCHEMA + SCHEMA)
+        initialize_schema(connection)
+        connection.executescript(SCHEMA)
         connection.execute("INSERT OR IGNORE INTO monitor_meta VALUES ('metering_since', ?)", (utc_now(),))
 
 
@@ -169,12 +170,18 @@ def _query_cost(connection, query_id: str, ts: str, metering_since: str) -> dict
     return {'llm_calls': row['count'], 'cost_usd': round(row['cost'] or 0, 8) if known else None}
 
 
+def _query_feedback(connection, query_id: str) -> dict | None:
+    row = connection.execute('''SELECT rating,reason,respondent_name,comment,ts FROM feedback
+        WHERE query_id=? ORDER BY id DESC LIMIT 1''', (query_id,)).fetchone()
+    return dict(row) if row else None
+
+
 def metrics(days: int) -> dict:
     local_now = datetime.now(ZoneInfo('Asia/Bishkek'))
     beginning = (local_now - timedelta(days=days - 1)).replace(hour=0, minute=0, second=0, microsecond=0)
     cutoff = beginning.astimezone(timezone.utc).isoformat()
     with connect() as connection:
-        queries = connection.execute('''SELECT id,ts,question,model,n_sources,total_ms,retrieval_ms,generation_ms
+        queries = connection.execute('''SELECT id,ts,question,client_ip,model,n_sources,total_ms,retrieval_ms,generation_ms
             FROM queries WHERE ts>=? ORDER BY ts DESC''', (cutoff,)).fetchall()
         events = connection.execute('SELECT status,path,ts FROM monitor_events WHERE ts>=? ORDER BY id', (cutoff,)).fetchall()
         calls = connection.execute('SELECT * FROM llm_calls WHERE ts>=?', (cutoff,)).fetchall()
@@ -189,8 +196,10 @@ def metrics(days: int) -> dict:
             item.update(_query_cost(connection, row['id'], row['ts'], metering_since))
             if not settings.monitor_show_query_details:
                 item.pop('question')
+                item.pop('client_ip')
             else:
                 item['question'] = item['question'][:400]
+                item['feedback'] = _query_feedback(connection, row['id'])
             recent.append(item)
         legacy = connection.execute('''SELECT COUNT(*) FROM queries q WHERE q.ts>=? AND q.ts<?
             AND NOT EXISTS (SELECT 1 FROM llm_calls c WHERE c.query_id=q.id)''', (cutoff, metering_since)).fetchone()[0]
@@ -256,11 +265,12 @@ def query_detail(query_id: str) -> dict | None:
     if not settings.monitor_show_query_details:
         return None
     with connect() as connection:
-        row = connection.execute('''SELECT id,ts,question,answer,model,n_sources,total_ms,
+        row = connection.execute('''SELECT id,ts,question,answer,client_ip,model,n_sources,total_ms,
             retrieval_ms,generation_ms,sources_json FROM queries WHERE id=?''', (query_id,)).fetchone()
         if row is None:
             return None
         result = dict(row)
+        result['feedback'] = _query_feedback(connection, query_id)
         result['sources'] = json.loads(result.pop('sources_json') or '[]')
         metering_since = connection.execute("SELECT value FROM monitor_meta WHERE key='metering_since'").fetchone()['value']
         result.update(_query_cost(connection, row['id'], row['ts'], metering_since))

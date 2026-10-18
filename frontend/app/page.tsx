@@ -8,9 +8,7 @@ import {
   ArrowUp,
   BookOpenText,
   CalendarDays,
-  Check,
   ChevronDown,
-  Clock3,
   Compass,
   ExternalLink,
   FileCheck2,
@@ -24,8 +22,6 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
-  ThumbsDown,
-  ThumbsUp,
   Wifi,
   WifiOff,
   X,
@@ -37,6 +33,8 @@ import { ChatStreamError, readChatResponse } from "./lib/chat-stream";
 import type { ChatProgress } from "./lib/chat-stream";
 import { PROJECT } from "./lib/project";
 import SecurityChallenge from "./components/SecurityChallenge";
+import FeedbackControls from "./components/FeedbackControls";
+import type { FeedbackInput } from "./lib/feedback";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 const completedStages: Record<string, string> = {
@@ -435,25 +433,25 @@ export default function Home() {
     });
   }
 
-  async function sendFeedback(index: number, rating: "up" | "down") {
-    const message = messages[index];
-    if (!message.query_id || message.feedback) return;
-
-    setMessages((current) =>
-      current.map((item, itemIndex) =>
-        itemIndex === index ? { ...item, feedback: rating } : item,
-      ),
-    );
-
+  async function sendFeedback(queryId: string, input: FeedbackInput) {
+    let response: Response;
     try {
-      await fetch(`${API_URL}/feedback`, {
+      response = await fetch(`${API_URL}/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query_id: message.query_id, rating }),
+        body: JSON.stringify({ query_id: queryId, ...input }),
       });
     } catch {
-      // Geri bildirim ana soru-cevap akışını kesintiye uğratmamalı.
+      throw new Error("Geri bildirim kaydedilemedi. Bağlantınızı kontrol edip yeniden deneyin.");
     }
+    if (response.status === 429) throw new Error("Çok fazla geri bildirim gönderildi. Biraz bekleyip yeniden deneyin.");
+    if (!response.ok || (await response.json()).ok !== true) {
+      throw new Error("Geri bildirim kaydedilemedi. Yeniden deneyin.");
+    }
+    // Yalnız sunucu kaydı onayladıktan sonra oyu tarayıcı geçmişine işle.
+    setMessages((current) => current.map((item) =>
+      item.query_id === queryId ? { ...item, feedback: input.rating } : item,
+    ));
   }
 
   async function ask(question: string, captchaToken?: string, retryChallenge = false) {
@@ -719,38 +717,9 @@ export default function Home() {
                     )}
 
                     {message.role === "assistant" && message.query_id && (
-                      <div className="message-actions">
-                        {message.latency_ms != null && (
-                          <span className="latency">
-                            <Clock3 size={14} />
-                            {(message.latency_ms / 1000).toFixed(1)} saniye
-                          </span>
-                        )}
-                        <span className="action-label">Bu yanıt yararlı mı?</span>
-                        <button
-                          className={`feedback-button ${message.feedback === "up" ? "active" : ""}`}
-                          onClick={() => sendFeedback(index, "up")}
-                          disabled={!!message.feedback}
-                          aria-label="Yanıt yararlı"
-                          title="Yararlı"
-                        >
-                          <ThumbsUp size={16} />
-                        </button>
-                        <button
-                          className={`feedback-button ${message.feedback === "down" ? "active" : ""}`}
-                          onClick={() => sendFeedback(index, "down")}
-                          disabled={!!message.feedback}
-                          aria-label="Yanıt yararlı değil"
-                          title="Yararlı değil"
-                        >
-                          <ThumbsDown size={16} />
-                        </button>
-                        {message.feedback && (
-                          <span className="feedback-thanks">
-                            <Check size={14} /> Kaydedildi
-                          </span>
-                        )}
-                      </div>
+                      <FeedbackControls key={message.query_id} queryId={message.query_id}
+                        rating={message.feedback} latencyMs={message.latency_ms}
+                        onSubmit={(input) => sendFeedback(message.query_id!, input)} />
                     )}
                   </div>
                 </div>
