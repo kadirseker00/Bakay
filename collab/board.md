@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | Üniversite adı karakter düzeltmesi v0.3.3 canlıda: 61e1831, v0.3.2 geri bildirim/IP sürümü üzerine. 177 Linux testi; API/arayüz sürümü, 10 JS/CSS, metrikler 401 ve gerçek el kitabı sorgusunda prompt/yanıt/kaynak başlığı doğru; geri dönüş kopyası korundu | codex | 2026-10-18 | — |
 | ✅ | Sade geri bildirim ve admin IP v0.3.2 canlıda: codex/feedback-live fc11c50; 171 Linux testi, 15 HTTPS kontrolü, tarayıcıda kayıt ve admin IP/neden/ad doğrulandı. /opt/bakay kilidi bırakıldı; sonraki yayın bu commit üzerine kurulmalı | codex | 2026-10-18 | — |
 | ✅ | Rektörlük sunumu somut ihtiyaçlarla yenilendi: idari personelin tekrar eden soru yükü ve aday öğrencinin hızlı bilgiye erişimi. 6 slayt, PDF ve konuşma/demo notları; paket, yerleşim, font, yeniden içe aktarma ve 6 PDF sayfasının görsel kontrolü tamam | codex | 2026-10-18 | — |
 | ✅ | Rektörlük sunumu 6 slayta sadeleştirildi: Bakay, kurumsal hafıza, kaynaklı örnek ve birim katkısı. 3–4 dakika anlatım + 90 sn demo; teknik ayrıntılar konuşmacı notlarında. PPTX doğrulaması ve 6 PDF sayfasının görsel kontrolü tamam | codex | 2026-10-18 | — |
