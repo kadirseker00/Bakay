@@ -57,8 +57,9 @@ ve [istemci kurulumu](https://developers.cloudflare.com/turnstile/get-started/cl
 
 ## Şifreli yedekleme
 
-`bakay-backup.timer` her gün **03.15 Bişkek** civarında çalışır (en çok 5 dakika
-rastgele gecikme). Yedekler `/var/backups/bakai` root 0700 dizininde 0600 tutulur.
+`bakay-backup.timer` her gün **02.00 Bişkek** saatinde çalışır; rastgele gecikme
+kapalıdır. Sunucu o sırada kapalıysa ilk açılışta kaçırılan çalışma telafi edilir.
+Yedekler `/var/backups/bakai` root 0700 dizininde 0600 tutulur.
 `/etc/bakay/backup.json` yalnız **açık age alıcı anahtarını** içerir. Geri yükleme
 özel anahtarı sunucuda veya git'te bulunmaz; yöneticinin Mac'inde
 `~/.config/bakai-backup/identity.txt` 0600 saklanır. Anahtarın bağımsız güvenli bir

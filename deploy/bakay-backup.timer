@@ -2,9 +2,10 @@
 Description=BAKAI günlük şifreli yedeği
 
 [Timer]
-OnCalendar=*-*-* 03:15:00 Asia/Bishkek
+OnCalendar=*-*-* 02:00:00 Asia/Bishkek
 Persistent=true
-RandomizedDelaySec=5min
+RandomizedDelaySec=0
+AccuracySec=1s
 Unit=bakay-backup.service
 
 [Install]
