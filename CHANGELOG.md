@@ -6,6 +6,46 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.4.0 — 2026-10-18
+
+- Kaynak, alternatif soru, kontrol/geçerlilik tarihi, sürüm ve onay içeren hazır
+  cevap yönetimi. Yalnız onaylı, geçerli ve tam eşleşen bağımsız sorular LLM
+  çağrısı olmadan cevaplanır; sohbet devamında kaynak araması korunur.
+- Olumsuz geri bildirimde isteğe bağlı düzeltme, açık soru ve resmî kaynak.
+  Öneri ve soru-cevap taslağı atomik kaydedilir; özgün yanıt ve bağlam saklanır.
+- Golden dataset panelinde karşılaştırma, taslak inceleme ve yalnız onaylı
+  kayıtların geliştirme seti olarak JSONL dışa aktarımı.
+- IP/global dakika, saat, 24 saat ve eşzamanlılık sınırlarının panelden kalıcı,
+  anında güncellenmesi. Sayaçlar/çalışan işler korunur; sürüm ve denetim kaydı.
+- Önceki v0.3.3 karakter düzeltmesi, geri bildirim/IP ve canlı aşamalar korunur.
+
+Doğrulama: 205 backend testi, üretim derlemesi; gerçek tarayıcıda düzeltme,
+taslak/onay/JSONL/arşiv ve sınır güncelleme/yenileme akışı. Yayında Linux
+regresyonları, veritabanı geçişi ve API/arayüz sürüm eşleşmesi ayrıca denetlenir.
+
+## 0.3.3 — 2026-10-18
+
+- Öğrenci el kitabı PDF başlığındaki `Tьrkiye` / `Ьniversitesi` yazımı,
+  Türkçe karakterlerle düzeltilir.
+- Yeni belge metinleri ve başlıkları ile mevcut indeksin hibrit/vektör arama
+  sonuçları temizlenir; prompt, kaynak alıntısı ve kaynak kartına doğru ad taşınır.
+- Kırgızca/Rusça içerikteki geçerli Kiril harfleri ve belge adresleri korunur.
+
+Doğrulama: altı karakter bozulması regresyon testi; kaynak PDF metadatasında
+hatanın doğrulanması ve tüm backend testleri. Yeniden indeksleme gerekmez.
+
+## 0.3.2 — 2026-10-18
+
+- Olumsuz geri bildirimde üç temel neden ve Diğer; Diğer seçeneğinde açıklama,
+  isteğe bağlı ad alanı için İsim ekle bağlantısı.
+- Admin sorgu listesi ve ayrıntısında güvenilir istemci IP adresi, geri bildirim
+  nedeni, açıklaması ve isteğe bağlı ad. Eski kayıtlar korunur.
+- JSON ve canlı akışta istemci IP bağlamı; sahte proxy başlıklarına karşı
+  güvenilir vekil kontrolü.
+
+Doğrulama: 171 backend testi, üretim derlemesi, HTTPS kontrolleri ve gerçek
+tarayıcıda geri bildirim kaydı/admin ayrıntıları.
+
 ## 0.3.1 — 2026-10-01
 
 - Kaynaklı cevabın sonunda "Ayrıntılar için … belgesini okuyabilirsiniz"
