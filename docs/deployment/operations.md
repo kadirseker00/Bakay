@@ -12,7 +12,7 @@ sayaçlarının standart tarifeyle hesaplanan toplamıdır. Fatura/kalan kredi d
 bilinmeyen sayaçlar ayrıca uyarılır. Alarm sorguları durdurmaz. Mevcut günlük sorgu
 kotası ve eşzamanlı çalışma sınırları ayrıca geçerlidir.
 
-18 Ekim 2026 hedefi: **BAKAI <bakai@manas.edu.kg>** göndericisinden
+18 Ekim 2026 itibarıyla canlı: **BAKAI <bakai@manas.edu.kg>** göndericisinden
 **abdulkadir.seker@manas.edu.kg** adresine AWS SES üzerinden bildirim.
 `bakai@manas.edu.kg` kimliği SES `us-east-1` konsolunda **Verified**;
 kullanıcı doğrulama bağlantısını açtı. Üniversitenin Google parolası kullanılmaz.
@@ -24,16 +24,30 @@ istek HTTP 404). Bu nedenle `ALERT_EMAIL_PROVIDER=ses` ile HTTPS/443 üzerinden
 AWS SDK kullanılır. SDK otomatik gönderim tekrarı kapalıdır; mevcut kalıcı alarm
 kuyruğu aynı yeniden deneme ve düzelme kurallarını uygular.
 
-**Erişim anahtarı bağlanana kadar e-posta etkin değildir.** BAKAI'ye özel IAM
-kullanıcısına yalnız `ses:SendRawEmail`,
+BAKAI'ye özel, konsol girişi kapalı **bakai-alerts** IAM kullanıcısı ve
+**bakai-alerts-send-only** inline politikası oluşturuldu. Yalnız `ses:SendRawEmail`,
 `arn:aws:ses:us-east-1:450653396311:identity/bakai@manas.edu.kg` kaynağı,
 `ses:FromAddress=bakai@manas.edu.kg` ve `ses:Recipients` yalnız
-`abdulkadir.seker@manas.edu.kg` koşulları verilmelidir. Anahtarlar
+`abdulkadir.seker@manas.edu.kg` koşulları verildi; grup veya ek politika yoktur.
+Tek etkin erişim anahtarı sunucuya bağlandı. Anahtarlar
 `ALERT_SES_ACCESS_KEY_ID` ve `ALERT_SES_SECRET_ACCESS_KEY` alanlarında root 0600
 özel ortamda tutulur, git'e girmez. Erişim hesabı şu an Moledro AWS hesabıdır;
 kuruma devirde SES hesabı/anahtarının da kuruma devri ayrıca planlanmalıdır.
 Kimlik doğrulaması yalnız e-posta adresi düzeyindedir; alan adı DKIM/DMARC ayarları
-üniversite DNS yöneticisine aittir. Gerçek gelen kutusu teslimatı ayrıca doğrulanır.
+üniversite DNS yöneticisine aittir.
+
+18 Ekim **16.59 Bişkek** test iletisi uygulamanın gerçek SES gönderim yoluyla
+AWS tarafından kabul edildi; kullanıcı hedef gelen kutusuna ulaştığını doğruladı.
+Sunucuda 15 operasyon testi geçti. Backend yeniden başlatıldı; backend/frontend
+ve monitor/yedek timer etkin, son yoklama başarılı, HTTPS health 200 ve oturumsuz
+özel metrikler 401. Panel verisi `email_configured=true`, eşik 1 USD ve etkin
+alarm yok olarak doğrulandı; geçmişte düzelmiş yedek alarmları gönderilmedi.
+
+Bu yayın, henüz yayına alınmayan geri bildirim değişikliklerini taşımamak için
+`7da2402` tabanından ayrılan **codex/ses-alerts** dalındadır; uygulama kodu
+`6ffe620` commit’idir. `main` aynı SES kodunu `1127824` ile içerir. Sonraki
+yayında bu dal farkı dikkate alınmalı; `main`e geçiş geri bildirim arayüzünün
+üretim derlemesini de gerektirir.
 
 Kurulum/güncelleme root oturumunda:
 
