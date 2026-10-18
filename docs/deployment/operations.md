@@ -121,6 +121,22 @@ Google OAuth istemcisine geçilmelidir.
 [Rclone Drive kapsamları ve kendi istemcisi](https://rclone.org/drive/),
 [SQLite Online Backup](https://www.sqlite.org/backup.html).
 
+### 18 Ekim canlı doğrulaması
+
+Saat ayarı sunucuda yüklendi ve `systemd-analyze verify` geçti. Bir sonraki
+çalışma **19 Ekim 2026 02.00 Asia/Bishkek**; servis hataları 15 dakika sonra
+sınırlı sayıda yeniden denenir. Son günlük aktarım **18 Ekim 14.28 Bişkek**
+itibarıyla başarılı; paket 605.387 bayt, boyut/MD5 doğrulandı ve hata durumu temizlendi.
+Ortak Google istemcisinin kotası aralıklı hata verdiği için yeniden deneme korunur;
+kota tekrarlarsa kuruma ait OAuth istemcisi gereklidir.
+
+Drive'daki tam indeks paketi doğrudan Drive'dan Mac'e tekrar indirildi:
+426.865.206 bayt, MD5 `d3d98d816ff9481588928097d9bc38c2`;
+SHA-256 sunucunun paket manifestiyle aynı. Ayrı geçici dizine age ile açıldı,
+31 dosyanın manifesti, SQLite bütünlüğü ve **39.659 parça** üzerinde en yakın
+komşu sorgusu geçti. `last_restore_test_at` ancak bu gerçek provadan sonra
+18 Ekim 2026 08.28 UTC olarak güncellendi. Özel anahtar Mac'te kaldı.
+
 ### Geri yükleme provası
 
 Mac'te sunucudaki `.tar.gz.age` dosyasını git dışındaki korumalı bir dizine indirin.
