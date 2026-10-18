@@ -6,6 +6,17 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.3.3 — 2026-10-18
+
+- Öğrenci el kitabı PDF başlığındaki `Tьrkiye` / `Ьniversitesi` yazımı,
+  Türkçe karakterlerle düzeltilir.
+- Yeni belge metinleri ve başlıkları ile mevcut indeksin hibrit/vektör arama
+  sonuçları temizlenir; prompt, kaynak alıntısı ve kaynak kartına doğru ad taşınır.
+- Kırgızca/Rusça içerikteki geçerli Kiril harfleri ve belge adresleri korunur.
+
+Doğrulama: altı karakter bozulması regresyon testi; kaynak PDF metadatasında
+hatanın doğrulanması ve tüm backend testleri. Yeniden indeksleme gerekmez.
+
 ## 0.3.1 — 2026-10-01
 
 - Kaynaklı cevabın sonunda "Ayrıntılar için … belgesini okuyabilirsiniz"
