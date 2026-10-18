@@ -1,8 +1,27 @@
-# Canlı aşamalar — yayın hazırlığı
+# Canlı aşamalar — yayın kaydı
 
-18 Ekim 2026: kullanıcı canlı yayını onayladı. **Yayın henüz uygulanmadı:**
-önceki root SSH kontrol oturumu kapanmış; yeni SSH oturumu bekleniyor.
-HTTPS ana sayfa erişilebilir, doğrudan SSH denemesi kimlik doğrulamada reddedildi.
+18 Ekim 2026: kullanıcı onayıyla **yayın tamamlandı**. Kullanıcının yeniden
+açtığı SSH kontrol bağlantısıyla temiz canlı taban doğrulandı ve
+`fd95c7dbaf0ca8a69f51f2199d8556483eb4fd47` sürümüne geçildi.
+
+- Aday arayüzün ana sayfası ve bağlı JS/CSS dosyaları HTTP 200 verdi.
+- Canlı Linux ortamında 165 test geçti; backend, frontend, Apache ve
+  izleme/yedekleme timer'ları aktif.
+- Gerçek HTTPS isteğinde ilk aşama **0,16 saniyede**, beş kaynaklı sonuç
+  **53,86 saniyede** ulaştı. Arşiv açılışı, arama, karşılaştırma, değerlendirme,
+  yanıt hazırlama ve bitiş bildirimleri sonuçtan önce ayrı ayrı alındı.
+- HTTPS ana sayfa ve sağlık ucu 200, özel metrikler oturumsuz 401 verdi.
+- HTTPS üzerindeki 10 JS/CSS dosyası ve yanıtta gösterilen resmî PDF HTTP 200
+  verdi.
+- Tarayıcıda yeni ana örnek, yanıt beklerken sade aşama metinleri, tamamlanan
+  adımlar ve kaynaklı sonuç doğrulandı.
+- Kanıtlar: yerel `output/live-progress/live-events.json`, `live-verification.json`
+  ve `live-answer.json`.
+
+Geri dönüş kopyası:
+`/opt/bakay/runtime/frontend-before-progress.20261018T121312Z`.
+Önceki `.next`, kod dalı ve commit bilgisi burada saklanır. Önceki kod
+`codex/ses-alerts`, `06ba71a1f9bb372939294b12cf92f9684532cfb6`.
 
 ## Hazırlanan sürüm
 
@@ -22,7 +41,7 @@ SHA256: `0f61b716a4cbfd87e7dbc6afe2f8870c4aaf523ed0927f4542ee717e12482a37`.
 Yayın aracı: `tmp/ktmu-deployment/live-progress/publish.sh`; Bash sözdizimi geçti.
 Derleme ve paket Git dışında, kaynak sürüm GitHub'da tutulur.
 
-## Bağlantı sonrası
+## Uygulanan yayın akışı
 
 1. `/opt/bakay` kod sürümü, değişiklik durumu, disk ve servisler salt okunur
    doğrulanır. Canlı sürüm beklenenden farklıysa yayın aracı değişiklik yapmadan
@@ -38,4 +57,4 @@ Derleme ve paket Git dışında, kaynak sürüm GitHub'da tutulur.
    koruması doğrulanır. Tarayıcıda canlı aşamalar ve animasyon gözlenir.
 
 Özel ortam, API anahtarı, indeks ve model önbelleği bu pakete dahil değildir.
-Apache değişikliği gerekeceği varsayılmadı; gerçek HTTPS akışıyla kontrol edilecek.
+Apache ayarı değiştirilmedi; gerçek HTTPS akışında tamponlama olmadığı doğrulandı.
