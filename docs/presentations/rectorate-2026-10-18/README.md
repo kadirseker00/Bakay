@@ -1,5 +1,17 @@
 # BAKAI rektörlük sunumu
 
+## Güncel, sade anlatım
+
+Tarihçi rektöre yönelik revizyon: 6 slayt, yaklaşık 3–4 dakika anlatım ve
+90 saniye canlı demo. Bakay’ın hikâyesi, kurumsal hafıza, örnek kullanım ve
+birimlerin katkısı öne çıkar. Teknik ayrıntılar yalnız konuşmacı notlarındadır.
+
+- `output/BAKAI-Rektorluk-Sade-Sunum.pptx`
+- `output/BAKAI-Rektorluk-Sade-Sunum.pdf`
+- `output/Sade-demo-ve-konusma-notlari.md`
+
+## Önceki ayrıntılı sürüm
+
 18 Ekim 2026 itibarıyla çalışan sistemin kısa tanıtımı. Dokuz slayt, yaklaşık
 yedi dakika anlatım ve iki dakika canlı gösterim.
 
