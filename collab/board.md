@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | Rektörlük için 9 slaytlık BAKAI sunumu, PDF, konuşmacı notları ve 2 dakikalık demo akışı hazır. Personelle kalite değerlendirmesi sonraki adım olarak işlendi; tarihli pilot maliyeti ve alarm eşiği ayrıldı. PPTX doğrulaması ve tüm slayt/PDF görsel kontrolleri tamam | codex | 2026-10-18 | — |
 | ✅ | SES e-posta canlı: konsol erişimsiz bakai-alerts ve yalnız okul gönderici/alıcıya izinli politika/anahtar bağlandı. 15 Linux testi, gerçek test iletisi ve kullanıcı gelen kutusu teyidi geçti; eşik 1 USD, health 200/özel metrik 401, monitor başarılı. Bekleyen geri bildirimden ayrı codex/ses-alerts dalı | codex | 2026-10-18 | — |
 | ✅ | Geri bildirim formu sadeleştirildi: üç temel seçenek + Diğer; açıklama yalnız Diğer seçilince, isteğe bağlı ad alanı İsim ekle ile açılır. Üretim derlemesi geçti; yerelde hazır | codex | 2026-10-18 | — |
 | ✅ | Olumsuz geri bildirim: altı neden, serbest açıklama ve isteğe bağlı ad; admin listesi/ayrıntısında güvenilir istemci IP ve geri bildirim. Eski veritabanı geçişi, 165 test, Next.js 15 üretim derlemesi ve tarayıcı kayıt/yeniden deneme kontrolleri geçti; yerelde hazır | codex | 2026-10-18 | — |
