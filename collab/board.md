@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ⏸ | SES bakai@manas.edu.kg kimliği Verified; alıcı abdulkadir.seker@manas.edu.kg. KTMÜ SMTP portları zaman aşımı, SES HTTPS/443 çalışıyor. API desteği Git main 1127824; yerel/Linux 15 test geçti. Sınırlı bakai-alerts IAM kullanıcısı/anahtarı için tarayıcı güvenlik onayı bekleniyor; e-posta canlıda etkin değil | codex | 2026-10-18 | — |
 | ✅ | Geri bildirim formu sadeleştirildi: üç temel seçenek + Diğer; açıklama yalnız Diğer seçilince, isteğe bağlı ad alanı İsim ekle ile açılır. Üretim derlemesi geçti; yerelde hazır | codex | 2026-10-18 | — |
 | ✅ | Olumsuz geri bildirim: altı neden, serbest açıklama ve isteğe bağlı ad; admin listesi/ayrıntısında güvenilir istemci IP ve geri bildirim. Eski veritabanı geçişi, 165 test, Next.js 15 üretim derlemesi ve tarayıcı kayıt/yeniden deneme kontrolleri geçti; yerelde hazır | codex | 2026-10-18 | — |
 | ✅ | Mevcut bakai_backup Drive klasörü bağlandı; şifreli tam indeks/günlük aktarımı boyut/MD5 doğrulandı. Drive kopyasıyla 39.659 parçalık gerçek geri yükleme geçti. Günlük 02.00 Bişkek timer ve 15 dakika hata tekrarı canlı; ortak Google API kotası aralıklı, son aktarım başarılı | codex | 2026-10-18 | — |
