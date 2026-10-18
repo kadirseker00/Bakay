@@ -11,9 +11,27 @@ import re
 import unicodedata
 
 
+_BROKEN_TURKISH_WORD = re.compile(
+    r"\b(?:t[ьЬ]rkiye|[ьЬ]niversite)[a-zçğıöşü]*\b", re.IGNORECASE
+)
+_SOFT_SIGN_REPAIR = str.maketrans({"ь": "ü", "Ь": "Ü"})
+
+
+def repair_turkish_encoding(text: str) -> str:
+    """Bilinen Türkçe kelimelerdeki Kiril ь/Ь bozulmasını giderir.
+
+    Genel harf dönüşümü yapılmaz: Rusça/Kırgızca kaynaklarda bu harfler geçerlidir.
+    Yalnız bozuk Türkiye/üniversite kökleri ve Türkçe ekleri düzeltilir.
+    """
+    return _BROKEN_TURKISH_WORD.sub(
+        lambda match: match.group().translate(_SOFT_SIGN_REPAIR), text
+    )
+
+
 def normalize(text: str) -> str:
     """Unicode NFC normalize + boşluk düzeltme."""
     text = unicodedata.normalize("NFC", text)
+    text = repair_turkish_encoding(text)
     # Windows satır sonlarını sadeleştir
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     # 3+ ardışık boş satırı tek boş satıra indir
