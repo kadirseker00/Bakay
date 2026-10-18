@@ -6,9 +6,10 @@ import smtplib
 import sqlite3
 import ssl
 import time
-from contextlib import contextmanager
+from contextlib import contextmanager, closing
 from datetime import datetime, timedelta, timezone
 from email.message import EmailMessage
+from email.utils import formataddr
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -59,7 +60,11 @@ def backup_status(config):
 
 
 def email_ready(config):
-    return bool(config.alert_email_to and config.alert_email_from and config.alert_smtp_host)
+    if not (config.alert_email_to and config.alert_email_from):
+        return False
+    if config.alert_email_provider == 'ses':
+        return bool(config.alert_ses_region and config.alert_ses_access_key_id and config.alert_ses_secret_access_key)
+    return bool(config.alert_smtp_host)
 
 
 def evaluate(config, sample, now=None):
@@ -125,11 +130,24 @@ def evaluate(config, sample, now=None):
 
 def send_email(config, event):
     message = EmailMessage()
-    message['From'], message['To'] = config.alert_email_from, config.alert_email_to
+    message['From'], message['To'] = formataddr(('BAKAI', config.alert_email_from)), config.alert_email_to
     state = 'UYARI' if event['state'] == 'active' else 'DÜZELDİ'
     message['Subject'] = f"BAKAI · {state} · {event['title']}"
     message['Message-ID'] = f"<bakai-alert-{event['id']}@bakai.manas.edu.kg>"
     message.set_content(f"{event['title']}\nDurum: {state}\n{event['message']}\n\nYönetim paneli: {config.monitor_public_url.rstrip('/')}/monitor\nZaman: {event['ts']}\n")
+    if config.alert_email_provider == 'ses':
+        import boto3
+        from botocore.config import Config
+        # Gönderim tekrarını kuyruk yönetir; belirsiz SDK hatasında çift mail üretmeyelim.
+        with closing(boto3.client('ses', region_name=config.alert_ses_region,
+                          aws_access_key_id=config.alert_ses_access_key_id,
+                          aws_secret_access_key=config.alert_ses_secret_access_key,
+                          config=Config(connect_timeout=5, read_timeout=5,
+                                        retries={'total_max_attempts': 1}))) as client:
+            client.send_raw_email(Source=str(message['From']),
+                                  Destinations=[config.alert_email_to],
+                                  RawMessage={'Data': message.as_bytes()})
+        return
     context = ssl.create_default_context()
     if config.alert_smtp_security == 'ssl':
         server = smtplib.SMTP_SSL(config.alert_smtp_host, config.alert_smtp_port, timeout=5, context=context)

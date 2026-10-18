@@ -12,9 +12,10 @@ import tempfile
 
 CAPTCHA={'CAPTCHA_SITE_KEY','CAPTCHA_SECRET_KEY','CAPTCHA_HOSTNAME'}
 MAIL={'ALERT_EMAIL_FROM','ALERT_EMAIL_TO','ALERT_SMTP_HOST','ALERT_SMTP_PORT','ALERT_SMTP_SECURITY','ALERT_SMTP_USERNAME','ALERT_SMTP_PASSWORD'}
+SES={'ALERT_EMAIL_PROVIDER','ALERT_EMAIL_FROM','ALERT_EMAIL_TO','ALERT_SES_REGION','ALERT_SES_ACCESS_KEY_ID','ALERT_SES_SECRET_ACCESS_KEY'}
 
 def update(path,values):
-    if not values or not set(values)<=CAPTCHA|MAIL|{'ALERT_DAILY_USD'}:
+    if not values or not set(values)<=CAPTCHA|MAIL|SES|{'ALERT_DAILY_USD'}:
         raise ValueError('unsupported_settings')
     if any(not isinstance(v,str) or '\n' in v or '\r' in v or '\0' in v for v in values.values()):
         raise ValueError('invalid_value')
@@ -24,11 +25,17 @@ def update(path,values):
                 raise ValueError('invalid_turnstile_key')
         if values.get('CAPTCHA_HOSTNAME')!='bakai.manas.edu.kg':
             raise ValueError('invalid_hostname')
-    if set(values)&MAIL:
+    if values.get('ALERT_EMAIL_PROVIDER') == 'ses':
+        if not SES<=set(values) or any(not values[k] for k in SES):
+            raise ValueError('ses_settings_incomplete')
+        if not re.fullmatch(r'[a-z]{2}(?:-[a-z]+)+-\d',values['ALERT_SES_REGION']):
+            raise ValueError('invalid_region')
+    elif set(values)&MAIL:
         if not MAIL<=set(values) or values['ALERT_SMTP_SECURITY'] not in ('ssl','starttls'):
             raise ValueError('mail_settings_incomplete')
         if not 1<=int(values['ALERT_SMTP_PORT'])<=65535:
             raise ValueError('invalid_port')
+    if set(values)&(MAIL|SES):
         for key in ('ALERT_EMAIL_FROM','ALERT_EMAIL_TO'):
             if not re.fullmatch(r'[^\s<>@]+@[^\s<>@]+',values[key]):
                 raise ValueError('invalid_address')
@@ -51,13 +58,18 @@ def update(path,values):
 def main():
     if os.geteuid()!=0: raise SystemExit('Root oturumu gerekli.')
     parser=argparse.ArgumentParser()
-    parser.add_argument('mode',choices=['captcha','mail','stdin']);args=parser.parse_args()
+    parser.add_argument('mode',choices=['captcha','mail','ses','stdin']);args=parser.parse_args()
     if args.mode=='stdin': values=json.load(sys.stdin)
     elif args.mode=='captcha':
         values={'CAPTCHA_SITE_KEY':input('Turnstile site key: ').strip(),'CAPTCHA_SECRET_KEY':getpass.getpass('Turnstile secret key (gizli): ').strip(),'CAPTCHA_HOSTNAME':'bakai.manas.edu.kg'}
+    elif args.mode=='ses':
+        values={'ALERT_EMAIL_PROVIDER':'ses','ALERT_EMAIL_FROM':input('Gönderen e-posta: ').strip(),
+                'ALERT_EMAIL_TO':input('Alıcı e-posta: ').strip(),'ALERT_SES_REGION':input('AWS bölgesi: ').strip(),
+                'ALERT_SES_ACCESS_KEY_ID':getpass.getpass('SES access key ID (gizli): ').strip(),
+                'ALERT_SES_SECRET_ACCESS_KEY':getpass.getpass('SES secret access key (gizli): ').strip(),'ALERT_DAILY_USD':'1'}
     else:
         security=input('SMTP TLS yöntemi (starttls/ssl): ').strip()
-        values={'ALERT_EMAIL_FROM':input('Gönderen e-posta: ').strip(),'ALERT_EMAIL_TO':input('Alıcı e-posta: ').strip(),
+        values={'ALERT_EMAIL_PROVIDER':'smtp','ALERT_EMAIL_FROM':input('Gönderen e-posta: ').strip(),'ALERT_EMAIL_TO':input('Alıcı e-posta: ').strip(),
                 'ALERT_SMTP_HOST':input('SMTP sunucusu: ').strip(),'ALERT_SMTP_SECURITY':security,
                 'ALERT_SMTP_PORT':input('SMTP portu: ').strip(),'ALERT_SMTP_USERNAME':input('SMTP kullanıcı adı: ').strip(),
                 'ALERT_SMTP_PASSWORD':getpass.getpass('SMTP parolası (gizli): '),'ALERT_DAILY_USD':'1'}
