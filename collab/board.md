@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | Rektörlük sunumu somut ihtiyaçlarla yenilendi: idari personelin tekrar eden soru yükü ve aday öğrencinin hızlı bilgiye erişimi. 6 slayt, PDF ve konuşma/demo notları; paket, yerleşim, font, yeniden içe aktarma ve 6 PDF sayfasının görsel kontrolü tamam | codex | 2026-10-18 | — |
 | ✅ | Rektörlük sunumu 6 slayta sadeleştirildi: Bakay, kurumsal hafıza, kaynaklı örnek ve birim katkısı. 3–4 dakika anlatım + 90 sn demo; teknik ayrıntılar konuşmacı notlarında. PPTX doğrulaması ve 6 PDF sayfasının görsel kontrolü tamam | codex | 2026-10-18 | — |
 | ✅ | Rektörlük için 9 slaytlık BAKAI sunumu, PDF, konuşmacı notları ve 2 dakikalık demo akışı hazır. Personelle kalite değerlendirmesi sonraki adım olarak işlendi; tarihli pilot maliyeti ve alarm eşiği ayrıldı. PPTX doğrulaması ve tüm slayt/PDF görsel kontrolleri tamam | codex | 2026-10-18 | — |
 | ✅ | SES e-posta canlı: konsol erişimsiz bakai-alerts ve yalnız okul gönderici/alıcıya izinli politika/anahtar bağlandı. 15 Linux testi, gerçek test iletisi ve kullanıcı gelen kutusu teyidi geçti; eşik 1 USD, health 200/özel metrik 401, monitor başarılı. Bekleyen geri bildirimden ayrı codex/ses-alerts dalı | codex | 2026-10-18 | — |
