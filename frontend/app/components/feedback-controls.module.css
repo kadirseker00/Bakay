@@ -1,19 +1,20 @@
-.form { margin-top: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-muted); }
+.form { margin-top: 12px; padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-muted); }
 .form fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
 .form legend { padding: 0; font-size: 13px; font-weight: 750; color: var(--teal-dark); }
-.reasons { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; }
-.reasons label { display: flex; align-items: center; gap: 7px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font-size: 12px; cursor: pointer; }
+.reasons { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.reasons label { display: flex; align-items: center; gap: 7px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font-size: 12px; cursor: pointer; }
 .reasons label.selected { border-color: var(--teal); background: var(--teal-soft); }
 .reasons input { accent-color: var(--teal); }
 .nameLabel { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 700; }
 .nameLabel span { font-weight: 400; color: var(--muted); }
 .name,.comment { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: inherit; font: inherit; font-size: 14px; }
-.comment { display: block; min-height: 86px; resize: vertical; margin-bottom: 16px; line-height: 1.5; }
-.hint { margin: 8px 0 16px; font-size: 11px; line-height: 1.6; color: var(--muted); }
-.actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
-.actions button { padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--teal-dark); font: inherit; font-size: 12px; cursor: pointer; }
+.comment { display: block; min-height: 64px; resize: vertical; margin-bottom: 12px; line-height: 1.5; }
+.actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.actions button { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--teal-dark); font: inherit; font-size: 12px; cursor: pointer; }
+.actions .nameToggle { margin-right: auto; padding: 6px 0; border: 0; background: transparent; }
+.nameToggle span { color: var(--muted); font-size: 10px; }
 .actions button[type="submit"] { border-color: var(--teal); background: var(--teal); color: #fff; }
 .actions button:disabled { opacity: .5; cursor: default; }
 .form :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
 .error { margin-top: 10px; color: #a33329; font-size: 12px; line-height: 1.6; }
-@media (max-width: 600px) { .form { padding: 14px; }.reasons { flex-direction: column; }.actions button { min-height: 42px; } }
+@media (max-width: 600px) { .actions button { min-height: 42px; } }
