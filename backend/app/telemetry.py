@@ -22,19 +22,23 @@ from pathlib import Path
 from typing import Any
 
 from app.config import settings
+from app import golden, knowledge
 
 _query_id: ContextVar[str | None] = ContextVar("bakay_query_id", default=None)
 _client_ip: ContextVar[str | None] = ContextVar("bakay_client_ip", default=None)
+_history: ContextVar[list | None] = ContextVar("bakay_history", default=None)
 
 
 @contextmanager
-def client_scope(client_ip: str | None):
+def client_scope(client_ip: str | None, history=None):
     """Bağlantı IP'sini yalnız bu isteğin kayıtlarına taşır."""
     token = _client_ip.set(client_ip)
+    history_token = _history.set([message.model_dump() for message in history] if history else [])
     try:
         yield
     finally:
         _client_ip.reset(token)
+        _history.reset(history_token)
 
 
 def current_query_id() -> str | None:
@@ -67,7 +71,8 @@ CREATE TABLE IF NOT EXISTS queries (
     raw_answer      TEXT,
     answer          TEXT,
     sources_json    TEXT,
-    client_ip       TEXT
+    client_ip       TEXT,
+    history_json    TEXT
 );
 CREATE TABLE IF NOT EXISTS feedback (
     id        INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -95,11 +100,11 @@ def _connect() -> sqlite3.Connection:
 
 def initialize_schema(conn: sqlite3.Connection) -> None:
     """Eski kayıtları koruyarak yeni sütunları ekler; yeniden çalıştırılabilir."""
-    conn.executescript(_SCHEMA)
+    conn.executescript(_SCHEMA + knowledge.SCHEMA + golden.SCHEMA)
     with conn:
         # Eşzamanlı başlangıçlarda aynı sütunun iki kez eklenmesini önle.
         conn.execute('BEGIN IMMEDIATE')
-        for table, additions in (('queries', ('client_ip',)),
+        for table, additions in (('queries', ('client_ip', 'history_json')),
                                  ('feedback', ('reason', 'respondent_name'))):
             columns = {row[1] for row in conn.execute(f'PRAGMA table_info({table})')}
             for column in additions:
@@ -115,6 +120,7 @@ def log_query(record: dict[str, Any]) -> None:
     """Bir sorgu kaydını SQLite + JSONL'e yazar (best-effort)."""
     record.setdefault("ts", _now())
     record.setdefault("client_ip", _client_ip.get())
+    record.setdefault("history", _history.get() or [])
     # 1) JSONL (ham)
     try:
         settings.log_path.mkdir(parents=True, exist_ok=True)
@@ -129,8 +135,8 @@ def log_query(record: dict[str, Any]) -> None:
                 """INSERT OR REPLACE INTO queries
                    (id, ts, question, provider, model, embedding_model, top_k,
                     n_sources, retrieval_ms, generation_ms, total_ms,
-                    prompt, raw_answer, answer, sources_json, client_ip)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    prompt, raw_answer, answer, sources_json, client_ip, history_json)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (
                     record["id"],
                     record["ts"],
@@ -148,6 +154,7 @@ def log_query(record: dict[str, Any]) -> None:
                     record.get("answer"),
                     json.dumps(record.get("sources", []), ensure_ascii=False),
                     record.get("client_ip"),
+                    json.dumps(record.get('history', []), ensure_ascii=False),
                 ),
             )
     except Exception:
@@ -155,13 +162,19 @@ def log_query(record: dict[str, Any]) -> None:
 
 
 def log_feedback(query_id: str, rating: str, comment: str | None = None,
-                 reason: str | None = None, respondent_name: str | None = None) -> bool:
+                 reason: str | None = None, respondent_name: str | None = None,
+                 correction_question: str | None = None, correction_answer: str | None = None,
+                 correction_source: str | None = None) -> bool:
     """Kullanıcı geri bildirimini kaydeder. Başarılıysa True."""
     try:
         with _connect() as conn:
             conn.execute('BEGIN IMMEDIATE')
             if conn.execute('SELECT 1 FROM queries WHERE id=?', (query_id,)).fetchone() is None:
                 return False
+            if correction_answer:
+                if rating != 'down' or not correction_question:
+                    return False
+                golden.record(conn, query_id, correction_question, correction_answer, correction_source)
             previous = conn.execute('SELECT id FROM feedback WHERE query_id=? ORDER BY id DESC LIMIT 1', (query_id,)).fetchone()
             if previous:
                 conn.execute('UPDATE feedback SET rating=?,comment=?,reason=?,respondent_name=?,ts=? WHERE id=?',

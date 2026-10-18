@@ -49,8 +49,11 @@ class FeedbackRequest(BaseModel):
     comment: str | None = Field(None, max_length=2000)
     reason: Literal["outdated", "irrelevant", "incorrect", "incomplete", "sources", "other"] | None = None
     respondent_name: str | None = Field(None, max_length=120)
+    correction_question: str | None = Field(None, min_length=3, max_length=2000)
+    correction_answer: str | None = Field(None, min_length=1, max_length=12000)
+    correction_source: str | None = Field(None, max_length=2000)
 
-    @field_validator("respondent_name", "comment")
+    @field_validator("respondent_name", "comment", "correction_question", "correction_answer", "correction_source", mode="before")
     @classmethod
     def trim_text(cls, value: str | None) -> str | None:
         return (value.strip() or None) if value is not None else None
@@ -62,4 +65,10 @@ class FeedbackRequest(BaseModel):
             raise ValueError("Neden yalnız olumsuz geri bildirimde belirtilebilir.")
         if self.reason == "other" and not self.comment:
             raise ValueError("Diğer seçeneğinde sorunu kısaca açıklayın.")
+        if self.correction_answer or self.correction_question or self.correction_source:
+            if self.rating != 'down' or not self.correction_answer or not self.correction_question:
+                raise ValueError('Düzeltme yalnız olumsuz geri bildirimde, açık soru ve cevapla gönderilebilir.')
+            if self.correction_source:
+                from app.knowledge import KnowledgeSource
+                KnowledgeSource(title='Önerilen kaynak', url=self.correction_source, snippet='Öneri')
         return self

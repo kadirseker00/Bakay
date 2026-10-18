@@ -1,0 +1,30 @@
+.root { min-width: 0; }
+.heading,.toolbar,.summary,.itemHeading { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.heading { justify-content: space-between; }
+.heading h2 { margin: 0; font-size: 20px; color: #153e35; }
+.heading p,.info { color: #627870; font-size: 13px; line-height: 1.7; }
+.root button,.toolbar input,.toolbar select { border: 1px solid #d9e6df; border-radius: 8px; padding: 10px 12px; background: #fff; color: #245448; font: inherit; font-size: 12px; }
+.root button { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; }
+.root button:disabled { opacity: .5; cursor: default; }
+.summary { margin: 18px 0; font-size: 12px; color: #637a70; }
+.summary strong { font-size: 20px; color: #155d4b; margin-right: 5px; }
+.toolbar { margin: 18px 0; }
+.toolbar input { flex: 1; min-width: 180px; }
+.list { display: grid; gap: 16px; }
+.item { border: 1px solid #dfebe4; padding: 18px; border-radius: 12px; min-width: 0; overflow-wrap: anywhere; }
+.itemHeading { justify-content: space-between; color: #697d74; font-size: 11px; }
+.badge { border-radius: 5px; background: #eef5ed; color: #3d644b; padding: 5px 8px; }
+.item h3 { font-size: 15px; color: #234e3d; margin: 14px 0; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.comparison > div { min-width: 0; padding: 14px; background: #f7f9f5; border-radius: 8px; }
+.item h4 { margin: 0 0 8px; font-size: 12px; color: #677c70; }
+.item p { white-space: pre-wrap; font-size: 13px; line-height: 1.7; margin: 0; max-height: 250px; overflow: auto; }
+.item a { display: inline-block; margin-top: 10px; font-size: 12px; color: #087b72; }
+.item details { margin: 14px 0; color: #526e60; font-size: 12px; }
+.item summary { cursor: pointer; margin-bottom: 8px; }
+.item details p + p { margin-top: 10px; }
+.root .review { margin-top: 14px; background: #12654f; color: #fff; border-color: #12654f; }
+.empty { color: #728078; font-size: 13px; line-height: 1.7; }
+.error { color: #a33329; font-size: 13px; }
+.root :focus-visible { outline: 2px solid #087b72; outline-offset: 3px; }
+@media (max-width: 760px) { .comparison { grid-template-columns: 1fr; } .toolbar input { flex-basis: 100%; min-width: 0; } .heading button { width: 100%; justify-content: center; } .item { padding: 12px; } }

@@ -718,6 +718,7 @@ export default function Home() {
 
                     {message.role === "assistant" && message.query_id && (
                       <FeedbackControls key={message.query_id} queryId={message.query_id}
+                        question={messages[index - 1]?.role === "user" ? messages[index - 1].content : ""}
                         rating={message.feedback} latencyMs={message.latency_ms}
                         onSubmit={(input) => sendFeedback(message.query_id!, input)} />
                     )}

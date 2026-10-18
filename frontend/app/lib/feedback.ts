@@ -13,4 +13,7 @@ export type FeedbackInput = {
   reason?: FeedbackReason;
   respondent_name?: string;
   comment?: string;
+  correction_question?: string;
+  correction_answer?: string;
+  correction_source?: string;
 };

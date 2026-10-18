@@ -1,0 +1,17 @@
+.root { margin-top:24px; padding-top:22px; border-top:1px solid #e3ece6; color:#294b3c; }
+.heading { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:20px; }
+.heading h3 { font-size:15px; font-weight:600; margin-bottom:7px; }
+.heading p,.note,.meta { font-size:11px; line-height:1.8; color:#627d6c; }
+.root button { display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:9px 12px; border:1px solid #d6e3da; border-radius:7px; background:#fff; color:#345c48; font:inherit; font-size:11px; cursor:pointer; }
+.root button:hover { background:#f0f7f2; }.root button:disabled { opacity:.5; cursor:default; }
+.root fieldset { border:0; padding:0; min-width:0; }.fields { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px 16px; }
+.fields label { display:block; font-size:12px; margin-bottom:8px; font-weight:500; }
+.fields input { display:block; width:100%; min-width:0; border:1px solid #d4e1d8; border-radius:7px; background:#fcfdfc; color:#294b3c; padding:11px; font:inherit; font-size:15px; }
+.fields small { display:block; margin-top:7px; color:#6e8376; font-size:10px; line-height:1.7; }
+.fields input:focus,.root button:focus-visible { outline:2px solid #087b72; outline-offset:2px; }
+.note { margin:18px 0; }.actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:9px; }
+.actions .primary { background:#087b72; color:#fff; border-color:#087b72; }.actions .primary:hover { background:#06635c; }
+.meta { margin-top:14px; font-size:10px; }.error,.success { border-radius:7px; margin:15px 0; padding:12px; font-size:12px; line-height:1.8; }
+.error { background:#fff4ed; color:#8d4c36; border:1px solid #f0d7c9; }.success { display:flex; align-items:center; gap:8px; background:#eef8f2; color:#306f4c; border:1px solid #cbe5d4; }
+@media(max-width:1100px) { .fields { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:760px) { .heading { flex-direction:column; }.fields { grid-template-columns:1fr; gap:16px; }.actions { justify-content:flex-start; } }

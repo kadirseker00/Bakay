@@ -17,4 +17,6 @@
 .actions button:disabled { opacity: .5; cursor: default; }
 .form :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
 .error { margin-top: 10px; color: #a33329; font-size: 12px; line-height: 1.6; }
+.correction { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 14px; }
+.hint { color: var(--muted); font-size: 12px; line-height: 1.6; margin: 8px 0 12px; }
 @media (max-width: 600px) { .actions button { min-height: 42px; } }

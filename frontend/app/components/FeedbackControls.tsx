@@ -8,17 +8,21 @@ import styles from "./feedback-controls.module.css";
 
 type Props = {
   queryId: string;
+  question: string;
   rating?: "up" | "down";
   latencyMs?: number;
   onSubmit: (input: FeedbackInput) => Promise<void>;
 };
 
-export default function FeedbackControls({ queryId, rating, latencyMs, onSubmit }: Props) {
+export default function FeedbackControls({ queryId, question, rating, latencyMs, onSubmit }: Props) {
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState<FeedbackReason | "">("");
   const [name, setName] = useState("");
   const [showName, setShowName] = useState(false);
   const [comment, setComment] = useState("");
+  const [correction, setCorrection] = useState("");
+  const [correctedQuestion, setCorrectedQuestion] = useState(question);
+  const [source, setSource] = useState("");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const sending = useRef(false);
@@ -35,6 +39,7 @@ export default function FeedbackControls({ queryId, rating, latencyMs, onSubmit 
       setOpen(false);
       setName("");
       setComment("");
+      setCorrection(""); setSource("");
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : "Geri bildirim kaydedilemedi. Yeniden deneyin.");
     } finally {
@@ -68,6 +73,8 @@ export default function FeedbackControls({ queryId, rating, latencyMs, onSubmit 
         event.preventDefault();
         if (reason && (reason !== "other" || comment.trim())) {
           void submit({ rating: "down", reason, respondent_name: name.trim() || undefined,
+            ...(correction.trim() ? { correction_question: correctedQuestion.trim(),
+              correction_answer: correction.trim(), correction_source: source.trim() || undefined } : {}),
             comment: reason === "other" ? comment.trim() : undefined });
         }
       }} onKeyDown={(event) => {
@@ -87,6 +94,22 @@ export default function FeedbackControls({ queryId, rating, latencyMs, onSubmit 
           <textarea className={styles.comment} id={`${formId}-comment`} rows={2} maxLength={2000}
             required value={comment} onChange={(event) => setComment(event.target.value)} />
         </>}
+        <div className={styles.correction}>
+          <label className={styles.nameLabel} htmlFor={`${formId}-correction`}>Doğru yanıt nasıl olmalı? <span>(isteğe bağlı)</span></label>
+          <textarea className={styles.comment} id={`${formId}-correction`} rows={4} maxLength={12000}
+            placeholder="Doğru bilgiyi biliyorsanız düzeltilmiş cevabı yazın." value={correction}
+            onChange={event => setCorrection(event.target.value)} />
+          {correction.trim() && <>
+            <label className={styles.nameLabel} htmlFor={`${formId}-question`}>Cevaplanacak tam soru</label>
+            <input className={styles.name} id={`${formId}-question`} value={correctedQuestion} required minLength={3} maxLength={2000}
+              onChange={event => setCorrectedQuestion(event.target.value)} />
+            <p className={styles.hint}>“Lisans için?” gibi bir takip sorusuysa konusunu da ekleyin.</p>
+            <label className={styles.nameLabel} htmlFor={`${formId}-source`}>Resmî kaynak bağlantısı <span>(isteğe bağlı)</span></label>
+            <input className={styles.name} id={`${formId}-source`} type="url" maxLength={2000} value={source}
+              placeholder="https://…manas.edu.kg/…" onChange={event => setSource(event.target.value)} />
+          </>}
+          <p className={styles.hint}>Düzeltmeniz soru-cevap listesine inceleme bekleyen taslak olarak eklenir. Kontrol edilip onaylandıktan sonra kullanılır.</p>
+        </div>
         {showName && <>
           <label className={styles.nameLabel} htmlFor={`${formId}-name`}>Adınız soyadınız <span>(isteğe bağlı)</span></label>
           <input className={styles.name} id={`${formId}-name`} type="text" autoComplete="name" maxLength={120}

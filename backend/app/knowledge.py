@@ -116,39 +116,45 @@ class Conflict(ValueError):
 
 
 def save(db_file: Path, body: KnowledgeInput, actor: str, answer_id: str | None = None) -> dict:
+    with connect(db_file) as connection:
+        connection.execute('BEGIN IMMEDIATE')
+        return save_in_connection(connection, body, actor, answer_id)
+
+
+def save_in_connection(connection: sqlite3.Connection, body: KnowledgeInput, actor: str,
+                       answer_id: str | None = None) -> dict:
+    """Çağıranın işlemini kullan; geri bildirim ve taslak tek seferde kaydedilir."""
     creating = answer_id is None
     answer_id = answer_id or uuid4().hex
     now = datetime.now(timezone.utc).isoformat()
     payload = body.model_dump(mode='json', exclude={'revision', 'status'})
-    with connect(db_file) as connection:
-        connection.execute('BEGIN IMMEDIATE')
-        previous = connection.execute('SELECT * FROM knowledge_answers WHERE id=?', (answer_id,)).fetchone()
-        if not creating and previous is None:
-            raise KeyError(answer_id)
-        if previous and body.revision != previous['revision']:
-            raise Conflict('Bu cevap başka bir oturumda değişti. Listeyi yenileyip tekrar açın.')
-        revision = previous['revision'] + 1 if previous else 1
-        connection.execute('DELETE FROM knowledge_keys WHERE answer_id=?', (answer_id,))
-        # Taslak ve arşiv kayıtları aynı sorunun yeniden kullanımını engellemez.
-        if body.status == 'published':
-            for question in [body.question, *body.variants]:
-                key = question_key(question)
-                existing = connection.execute('SELECT answer_id FROM knowledge_keys WHERE question_key=?', (key,)).fetchone()
-                if existing:
-                    raise Conflict('Bu soru veya varyant başka bir yayımlanmış cevaba bağlı. Önce o cevabı yayından kaldırın.')
-                connection.execute('INSERT INTO knowledge_keys VALUES (?,?)', (key, answer_id))
-        connection.execute('''INSERT INTO knowledge_answers
-            (id,payload,status,revision,created_at,updated_at,updated_by,approved_by,approved_at)
-            VALUES (?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET
-            payload=excluded.payload,status=excluded.status,revision=excluded.revision,
-            updated_at=excluded.updated_at,updated_by=excluded.updated_by,
-            approved_by=excluded.approved_by,approved_at=excluded.approved_at''',
-            (answer_id, json.dumps(payload, ensure_ascii=False), body.status, revision,
-             now, now, actor, actor if body.status == 'published' else None,
-             now if body.status == 'published' else None))
-        result = unpack(connection.execute('SELECT * FROM knowledge_answers WHERE id=?', (answer_id,)).fetchone())
-        connection.execute('INSERT INTO knowledge_revisions (answer_id,revision,ts,actor,snapshot) VALUES (?,?,?,?,?)',
-                           (answer_id, revision, now, actor, json.dumps(result, ensure_ascii=False)))
+    previous = connection.execute('SELECT * FROM knowledge_answers WHERE id=?', (answer_id,)).fetchone()
+    if not creating and previous is None:
+        raise KeyError(answer_id)
+    if previous and body.revision != previous['revision']:
+        raise Conflict('Bu cevap başka bir oturumda değişti. Listeyi yenileyip tekrar açın.')
+    revision = previous['revision'] + 1 if previous else 1
+    connection.execute('DELETE FROM knowledge_keys WHERE answer_id=?', (answer_id,))
+    # Taslak ve arşiv kayıtları aynı sorunun yeniden kullanımını engellemez.
+    if body.status == 'published':
+        for question in [body.question, *body.variants]:
+            key = question_key(question)
+            existing = connection.execute('SELECT answer_id FROM knowledge_keys WHERE question_key=?', (key,)).fetchone()
+            if existing:
+                raise Conflict('Bu soru veya varyant başka bir yayımlanmış cevaba bağlı. Önce o cevabı yayından kaldırın.')
+            connection.execute('INSERT INTO knowledge_keys VALUES (?,?)', (key, answer_id))
+    connection.execute('''INSERT INTO knowledge_answers
+        (id,payload,status,revision,created_at,updated_at,updated_by,approved_by,approved_at)
+        VALUES (?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET
+        payload=excluded.payload,status=excluded.status,revision=excluded.revision,
+        updated_at=excluded.updated_at,updated_by=excluded.updated_by,
+        approved_by=excluded.approved_by,approved_at=excluded.approved_at''',
+        (answer_id, json.dumps(payload, ensure_ascii=False), body.status, revision,
+         now, now, actor, actor if body.status == 'published' else None,
+         now if body.status == 'published' else None))
+    result = unpack(connection.execute('SELECT * FROM knowledge_answers WHERE id=?', (answer_id,)).fetchone())
+    connection.execute('INSERT INTO knowledge_revisions (answer_id,revision,ts,actor,snapshot) VALUES (?,?,?,?,?)',
+                       (answer_id, revision, now, actor, json.dumps(result, ensure_ascii=False)))
     return result
 
 

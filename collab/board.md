@@ -5,6 +5,8 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | Olumsuz geri bildirim düzeltme formu ve atomik hazır cevap taslağı; özgün soru/yanıt/bağlam, yönetici incelemesi ve onaylı JSONL golden geliştirme seti. 205 test, üretim derlemesi, gerçek tarayıcı kayıt/onay/indirme/arşiv geçti; yalnız ayrı QA verisi, canlıya yayın yapılmadı | codex | 2026-10-18 | — |
+| ✅ | Panelden kalıcı ve anında IP/global dakika/saat/24 saat/eşzamanlı sınır ayarları; sayaçlar/çalışan işler korunur, sürüm çakışması ve denetim geçmişi. 7 yeni sınır testi dahil 205 test ve üretim derlemesi; tarayıcı kaydet/yenile/geri al geçti, canlıya yayın yapılmadı | codex | 2026-10-18 | — |
 | ✅ | Üniversite adı karakter düzeltmesi v0.3.3 canlıda: 61e1831, v0.3.2 geri bildirim/IP sürümü üzerine. 177 Linux testi; API/arayüz sürümü, 10 JS/CSS, metrikler 401 ve gerçek el kitabı sorgusunda prompt/yanıt/kaynak başlığı doğru; geri dönüş kopyası korundu | codex | 2026-10-18 | — |
 | ✅ | Sade geri bildirim ve admin IP v0.3.2 canlıda: codex/feedback-live fc11c50; 171 Linux testi, 15 HTTPS kontrolü, tarayıcıda kayıt ve admin IP/neden/ad doğrulandı. /opt/bakay kilidi bırakıldı; sonraki yayın bu commit üzerine kurulmalı | codex | 2026-10-18 | — |
 | ✅ | Rektörlük sunumu somut ihtiyaçlarla yenilendi: idari personelin tekrar eden soru yükü ve aday öğrencinin hızlı bilgiye erişimi. 6 slayt, PDF ve konuşma/demo notları; paket, yerleşim, font, yeniden içe aktarma ve 6 PDF sayfasının görsel kontrolü tamam | codex | 2026-10-18 | — |

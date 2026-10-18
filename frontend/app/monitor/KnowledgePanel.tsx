@@ -7,7 +7,7 @@ import styles from "./knowledge.module.css";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 type Source = { title: string; url: string; snippet: string };
-export type AnswerCandidate = { question: string; answer: string; sources: Source[] };
+export type AnswerCandidate = { question: string; answer: string; sources: Source[]; entryId?: string };
 type Status = "draft" | "published" | "archived";
 type Entry = AnswerCandidate & { id: string; variants: string[]; status: Status; reviewed_on: string | null; valid_until: string | null; revision: number; expired: boolean; approved_by: string | null; approved_at: string | null; updated_by: string; hits: number };
 type Editor = AnswerCandidate & { id?: string; variants: string; reviewed_on: string; valid_until: string; revision?: number; status: Status };
@@ -25,7 +25,7 @@ async function request(path: string, init?: RequestInit) {
   return body;
 }
 
-export default function KnowledgePanel({ candidate }: { candidate: AnswerCandidate | null }) {
+export default function KnowledgePanel({ candidate, onSaved }: { candidate: AnswerCandidate | null; onSaved?: () => void }) {
   const [items, setItems] = useState<Entry[]>([]);
   const [editor, setEditor] = useState<Editor | null>(null);
   const [search, setSearch] = useState("");
@@ -44,7 +44,17 @@ export default function KnowledgePanel({ candidate }: { candidate: AnswerCandida
   }, []);
   useEffect(() => { void load(); }, [load]);
   useEffect(() => {
-    if (candidate) { setEditor({ ...blank(), ...candidate, sources: candidate.sources.length ? candidate.sources : [blankSource()] }); setPreview(false); setNotice("Sorgu taslağa alındı. Cevabı ve kaynaklarını kontrol ederek kaydedin."); }
+    let cancelled = false;
+    if (candidate?.entryId) {
+      void request("").then(data => {
+        if (cancelled) return;
+        const entry = (data.items as Entry[]).find(item => item.id === candidate.entryId);
+        if (!entry) throw new Error("Düzeltme taslağı bulunamadı.");
+        setItems(data.items); open(entry);
+        setNotice("Kullanıcının düzeltme taslağı açıldı. Soruyu, cevabı ve kaynaklarını kontrol edin.");
+      }).catch(caught => { if (!cancelled) setError(caught instanceof Error ? caught.message : "Taslak açılamadı."); });
+    } else if (candidate) { setEditor({ ...blank(), ...candidate, sources: candidate.sources.length ? candidate.sources : [blankSource()] }); setPreview(false); setNotice("Sorgu taslağa alındı. Cevabı ve kaynaklarını kontrol ederek kaydedin."); }
+    return () => { cancelled = true; };
   }, [candidate]);
 
   const update = (change: Partial<Editor>) => setEditor(current => current ? { ...current, ...change } : current);
@@ -66,6 +76,7 @@ export default function KnowledgePanel({ candidate }: { candidate: AnswerCandida
       const result: Entry = await request(editor.id ? `/${editor.id}` : "", { method: editor.id ? "PUT" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       setItems(current => [result, ...current.filter(item => item.id !== result.id)]);
       open(result);
+      onSaved?.();
       setNotice(status === "published" ? "Cevap onaylandı ve yayımlandı. Eşleşen yeni sorular doğrudan cevaplanacak." : status === "archived" ? "Cevap arşivlendi; doğrudan cevaplarda kullanılmayacak." : "Taslak kaydedildi; doğrudan cevaplarda kullanılmayacak.");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Cevap kaydedilemedi."); }
     finally { setSaving(false); }

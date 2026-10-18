@@ -16,6 +16,9 @@ from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException
 from starlette.concurrency import run_in_threadpool
 from starlette.responses import JSONResponse
+from pydantic import ValidationError
+
+from app import rate_limits
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS rate_hits (kind TEXT NOT NULL, client TEXT NOT NULL, ts REAL NOT NULL);
@@ -51,6 +54,7 @@ class AbuseGuard:
         config.db_file.parent.mkdir(parents=True, exist_ok=True)
         with self.connect() as connection:
             connection.executescript(SCHEMA)
+            connection.executescript(rate_limits.SCHEMA)
 
     @contextmanager
     def connect(self):
@@ -72,13 +76,23 @@ class AbuseGuard:
             pass
         return hmac.new(self.salt, address.encode(), hashlib.sha256).hexdigest()
 
-    def policies(self, kind):
-        c = self.config
+    def limit_settings(self):
+        with self.connect() as connection:
+            return {**rate_limits.read(connection, self.config), 'defaults': rate_limits.defaults(self.config)}
+
+    def update_limits(self, body: rate_limits.Update, actor: str):
+        # Aynı worker'da ayar geçişi ile yeni işin slot kontrolünü sırala.
+        with self.lock, self.connect() as connection:
+            return {**rate_limits.save(connection, self.config, body, actor),
+                    'defaults': rate_limits.defaults(self.config)}
+
+    def policies(self, kind, limits):
+        c = limits
         return {
-            'chat': [(True, 60, c.rate_chat_per_minute, 'ip_minute'),
-                     (True, 3600, c.rate_chat_per_hour, 'ip_hour'),
-                     (False, 60, c.rate_chat_global_per_minute, 'global_minute')],
-            'generation': [(False, 86400, c.rate_chat_global_per_day, 'global_day')],
+            'chat': [(True, 60, c['rate_chat_per_minute'], 'ip_minute'),
+                     (True, 3600, c['rate_chat_per_hour'], 'ip_hour'),
+                     (False, 60, c['rate_chat_global_per_minute'], 'global_minute')],
+            'generation': [(False, 86400, c['rate_chat_global_per_day'], 'global_day')],
             'feedback': [(True, 60, 30, 'ip_minute'), (False, 60, 120, 'global_minute')],
             'login': [(True, 300, 5, 'login_attempts'), (False, 60, 30, 'global_minute')],
         }[kind]
@@ -93,7 +107,8 @@ class AbuseGuard:
                 connection.execute('DELETE FROM captcha_clients WHERE updated_at<=?', (now-86400,))
                 for stored, age in (('chat', 3600), ('generation', 86400), ('login', 300), ('feedback', 60)):
                     connection.execute('DELETE FROM rate_hits WHERE kind=? AND ts<=?', (stored, now-age))
-                for per_ip, window, limit, reason in self.policies(kind):
+                limits = rate_limits.read(connection, self.config)['limits']
+                for per_ip, window, limit, reason in self.policies(kind, limits):
                     sql = 'SELECT COUNT(*),MIN(ts) FROM rate_hits WHERE kind=? AND ts>?'
                     args = [kind, now-window]
                     if per_ip:
@@ -109,7 +124,7 @@ class AbuseGuard:
                         break
                 if not denied:
                     connection.execute('INSERT INTO rate_hits VALUES (?,?,?)', (kind, client, now))
-        except sqlite3.Error:
+        except (sqlite3.Error, ValidationError):
             denied = Denied('storage', 'Şu anda yeni bir istek kabul edilemiyor. Biraz sonra tekrar deneyin.', status=503)
         if denied:
             self.block('chat' if kind == 'generation' else kind, denied.reason)
@@ -167,8 +182,12 @@ class AbuseGuard:
     @contextmanager
     def processing(self, client: str):
         with self.lock:
-            busy = (self.active >= self.config.rate_chat_concurrent or
-                    self.clients.get(client, 0) >= self.config.rate_chat_concurrent_per_ip)
+            try:
+                limits = self.limit_settings()['limits']
+            except (sqlite3.Error, ValidationError):
+                raise HTTPException(503, 'Kullanım sınırları okunamadı. Biraz sonra tekrar deneyin.') from None
+            busy = (self.active >= limits['rate_chat_concurrent'] or
+                    self.clients.get(client, 0) >= limits['rate_chat_concurrent_per_ip'])
             if not busy:
                 self.active += 1
                 self.clients[client] = self.clients.get(client, 0) + 1
@@ -198,16 +217,18 @@ class AbuseGuard:
         cutoff = (local-timedelta(days=days-1)).replace(hour=0, minute=0, second=0, microsecond=0).astimezone(timezone.utc).isoformat()
         self.flush()
         with self.connect() as connection:
+            limits = rate_limits.read(connection, self.config)['limits']
             rows = connection.execute('SELECT reason,SUM(count) FROM rate_blocks WHERE minute>=? GROUP BY reason', (cutoff,)).fetchall()
             daily = connection.execute("SELECT COUNT(*) FROM rate_hits WHERE kind='generation' AND ts>?", (self.clock()-86400,)).fetchone()[0]
         with self.lock:
             active = self.active
         c = self.config
-        return {'enabled': True, 'chat_per_minute': c.rate_chat_per_minute,
+        return {'enabled': True, 'chat_per_minute': limits['rate_chat_per_minute'],
                 'captcha_configured': configured(c),
-                'chat_per_hour': c.rate_chat_per_hour, 'global_per_minute': c.rate_chat_global_per_minute,
-                'global_per_day': c.rate_chat_global_per_day, 'daily_used': daily,
-                'concurrent_limit': c.rate_chat_concurrent, 'active_queries': active,
+                'chat_per_hour': limits['rate_chat_per_hour'], 'global_per_minute': limits['rate_chat_global_per_minute'],
+                'global_per_day': limits['rate_chat_global_per_day'], 'daily_used': daily,
+                'concurrent_limit': limits['rate_chat_concurrent'],
+                'concurrent_per_ip': limits['rate_chat_concurrent_per_ip'], 'active_queries': active,
                 'max_body_bytes': c.rate_max_body_bytes, 'blocked_requests': sum(row[1] for row in rows),
                 'blocked_by_reason': dict(rows)}
 

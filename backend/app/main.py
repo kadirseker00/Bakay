@@ -21,7 +21,7 @@ from pydantic import BaseModel, Field
 from starlette.concurrency import run_in_threadpool
 from starlette.responses import StreamingResponse
 
-from app import abuse, alerts, captcha, knowledge, monitor_auth, monitoring, telemetry
+from app import abuse, alerts, captcha, golden, knowledge, monitor_auth, monitoring, rate_limits, telemetry
 from app.config import ROOT, settings
 from app.rag import pipeline
 from app.rag.progress import progress_scope
@@ -108,7 +108,7 @@ def chat(req: ChatRequest, request: Request) -> ChatResponse | StreamingResponse
     client_ip = request.client.host if request.client else None
     if 'text/event-stream' in request.headers.get('accept', ''):
         return stream_chat(req, request, client_ip)
-    with request.app.state.abuse.processing(request.state.rate_client), telemetry.client_scope(client_ip):
+    with request.app.state.abuse.processing(request.state.rate_client), telemetry.client_scope(client_ip, req.history):
         return pipeline.answer(req.question, top_k=req.top_k, history=req.history)
 
 
@@ -127,7 +127,7 @@ def stream_chat(req: ChatRequest, request: Request, client_ip: str | None) -> St
 
     def work():
         try:
-            with telemetry.client_scope(client_ip), progress_scope(lambda data: send('status', data)):
+            with telemetry.client_scope(client_ip, req.history), progress_scope(lambda data: send('status', data)):
                 result = pipeline.answer(req.question, top_k=req.top_k, history=req.history)
                 data = result.model_dump()
         except Exception:
@@ -170,7 +170,7 @@ def stream_chat(req: ChatRequest, request: Request, client_ip: str | None) -> St
 
 @app.post("/feedback")
 def feedback(req: FeedbackRequest) -> dict:
-    ok = telemetry.log_feedback(req.query_id, req.rating, req.comment, req.reason, req.respondent_name)
+    ok = telemetry.log_feedback(**req.model_dump())
     return {"ok": ok}
 
 
@@ -229,6 +229,31 @@ def knowledge_list(_user: str = Depends(monitor_auth.require_monitor)) -> dict:
 def knowledge_writer(request: Request, user: str = Depends(monitor_auth.require_monitor)) -> str:
     monitor_auth.check_origin(request)
     return user
+
+
+@app.get('/monitor/golden')
+def golden_candidates(_user: str = Depends(monitor_auth.require_monitor)) -> dict:
+    return {'items': golden.list_candidates(settings.db_file)}
+
+
+@app.get('/monitor/golden/export')
+def golden_export(_user: str = Depends(monitor_auth.require_monitor)) -> Response:
+    return Response(golden.export_dataset(settings.db_file), media_type='application/x-ndjson',
+                    headers={'Content-Disposition': 'attachment; filename="bakai-golden-development.jsonl"'})
+
+
+@app.get('/monitor/rate-limits')
+def rate_limit_settings(request: Request, _user: str = Depends(monitor_auth.require_monitor)) -> dict:
+    return request.app.state.abuse.limit_settings()
+
+
+@app.put('/monitor/rate-limits')
+def rate_limit_update(body: rate_limits.Update, request: Request,
+                      user: str = Depends(knowledge_writer)) -> dict:
+    try:
+        return request.app.state.abuse.update_limits(body, user)
+    except rate_limits.Conflict as exc:
+        raise HTTPException(409, str(exc)) from None
 
 
 @app.post('/monitor/knowledge/examples')
