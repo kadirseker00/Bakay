@@ -180,6 +180,8 @@ def encrypt_archive(config, output, full, index_digest, files):
 def upload(config, archive):
     target=config['remote'].rstrip('/')+'/'+archive.name
     common=['rclone','--config',config['rclone_config'],'--retries','2','--low-level-retries','2',
+            # Ortak Google istemcisinin dakika kotası yenilenmeden tekrar yüklenmeyelim.
+            '--retries-sleep','60s',
             '--contimeout','10s','--timeout','60s','--log-level','ERROR']
     result=subprocess.run([*common,'copyto',str(archive),target],capture_output=True,timeout=1800)
     if result.returncode:

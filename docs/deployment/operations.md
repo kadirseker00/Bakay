@@ -85,21 +85,37 @@ systemctl status bakay-backup.service
 systemctl list-timers bakay-backup.timer
 ```
 
-### Drive bağlantısı (hesap seçildiğinde)
+### Drive bağlantısı — 18 Ekim 2026
 
-Hesap/klasör henüz seçilmedi; `remote` boş. Sunucuda rclone kuruludur. Tercihen
-kuruma ait Google OAuth istemcisi ve yalnız uygulamanın oluşturduğu dosyalara
-`drive.file` yetkisi kullanılır. Bu kapsam mevcut keyfî klasörleri okuyamaz; ilgili
-hesapta BAKAI-Yedek klasörünü rclone ile oluşturun. OAuth giriş/yetki adımını hesap
-sahibi tamamlar. Kullanıcı parolası koda veya sohbet geçmişine yazılmaz.
+Hesap: **bakai@manas.edu.kg**. Kullanıcının mevcut
+[bakai_backup klasörü](https://drive.google.com/drive/folders/1z0-L4EhRdJC-RJ2AiN5Ihus40zmIbWxj)
+hedef olarak seçildi. OAuth hesabı Google Drive API üzerinden doğrulandı.
 
 Rclone yapılandırması `/var/lib/bakai-backup/rclone.conf`, root 0600; üst dizin
-root 0700. `/etc/bakay/backup.json` içindeki `remote` örneğin `bakai-drive:BAKAI-Yedek`
-olarak ayarlanır. Birinci aktarım tam indeks paketini de yükler. `copyto` sonrasında
-uzak dosya boyutu ve MD5 doğrulanmadan başarılı kabul edilmez. Aktarım başarısızsa
-yerel yedek korunur; sonraki çalışmada eksik tam indeks önce yüklenir.
+root 0700. `bakai-drive` uzak hedefinde `root_folder_id` paylaşılan klasörün
+kimliğine sabitlendi, `/etc/bakay/backup.json` içindeki `remote` değeri
+`bakai-drive:`. Böylece aynı adlı başka klasörler aktarım hedefini değiştirmez.
 
-[Rclone Drive kapsamları](https://rclone.org/drive/),
+İlk denenen `drive.file` kapsamı uygulamanın oluşturduğu dosyalara izin verir;
+kullanıcının önceden oluşturduğu bu klasöre erişemedi. Daha geniş `drive` kapsamı
+kullanıcı tarafından Google ekranında onaylandı. **Bu Google izni klasörle
+sınırlı değildir**; klasör sınırı rclone yapılandırmasındadır. Uygulama Google
+parolasını almaz, erişim/yenileme tokenlarını özel yapılandırmada saklar.
+
+OAuth bağlantı yapılandırması da şifreli günlük yedeğe dahildir. Geri yükleme
+özel anahtarı sunucuya veya Drive'a gönderilmez.
+
+Birinci aktarım eşleşen tam indeks paketini de yükler. `copyto` sonrasında uzak
+dosya boyutu ve MD5 doğrulanmadan başarılı kabul edilmez. Aktarım başarısızsa
+yerel yedek korunur; sonraki çalışmada eksik tam indeks önce yüklenir. Drive'da
+silme/sync/purge yapılmaz. İlk denemede ortak rclone Google istemcisinin API
+istek kotası 403 verdi; veri kaybı olmadı, aktarım yeniden denendi ve tam indeks/günlük paketi
+18 Ekim 2026 14.10 Bişkek itibarıyla boyut/MD5 kontrolünden geçti. Yeniden
+denemeler arasına 60 saniye bekleme eklendi. Bu kota
+Drive depolama kotasından ayrıdır. Tekrarlayan hata halinde kurumun kendi
+Google OAuth istemcisine geçilmelidir.
+
+[Rclone Drive kapsamları ve kendi istemcisi](https://rclone.org/drive/),
 [SQLite Online Backup](https://www.sqlite.org/backup.html).
 
 ### Geri yükleme provası
@@ -137,4 +153,4 @@ Mac'te ayrı geçici dizinde açıldı: arşivin SHA-256 değeri, age doğrulama
 SQLite bütünlüğü ve **39.659 parça** üzerinden en yakın komşu sorgusu başarılı.
 Özel anahtar sunucuya gönderilmedi. Şifreli test kopyası Mac'te git dışındaki
 `~/.config/bakai-backup/archives/` dizininde saklandı. Sunucu health HTTP 200,
-Haiku 5.5 ve 39.659 parça doğrulandı. SMTP hesabı ve Drive bağlantısı bekleniyor.
+Haiku 5.5 ve 39.659 parça doğrulandı. Bu ilk kurulum tarihinde SMTP hesabı ve Drive bağlantısı bekleniyordu; Drive için 18 Ekim güncellemesi yukarıdadır.

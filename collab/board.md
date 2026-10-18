@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| 🔄 | Şifreli yedeklerin Google Drive hesabına OAuth ile bağlanması; ilk tam indeks/günlük aktarımı ve bütünlük doğrulaması | codex | 2026-10-18 | deploy/backup.py, docs/deployment/operations.md |
 | ✅ | RAG prompt injection koruması canlı: gerçek sistem alanı ve kaçışlı belge/başlık/geçmiş sınırları; yerel/Linux 159 test, gerçek Haiku 6 saldırı + 2 kontrol geçti. HTTPS 5 kaynaklı yanıt, ayrı sistem kaydı, health 200 ve özel metrikler 401 doğrulandı | codex | 2026-10-15 | — |
 | ✅ | IP başına sorgu sınırı canlıda 30/dakika; özel ortam korundu, panel metriği ve HTTPS health doğrulandı. Yerel 150/Linux 17 test geçti | codex | 2026-10-13 | — |
 | ✅ | BAKAI operasyon koruması: 1 USD alarm/panel, canlı Cloudflare Turnstile, günlük şifreli yedek; 150 test, gerçek 39.659 parçalık indeks geri yükleme doğrulandı. SMTP ve Drive hesap bağlantısı kullanıcı tarafından sonraya bırakıldı | codex | 2026-10-13 | — |
