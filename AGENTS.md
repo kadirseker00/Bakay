@@ -15,6 +15,17 @@ Bu repoda Claude Code ajanı da çalışıyor. **Her oturumun başında**:
 
 Commit mesajlarına `[codex]` öneki koy.
 
+## Canlı yayın ve sürümleme
+
+- Kullanıcı kuralı: canlıya çıkan her yeni committe sürüm numarasını artır.
+  Varsayılan artış PATCH'tir (ör. `0.3.1` → `0.3.2`); kapsam gerektiriyorsa
+  MINOR/MAJOR artır. Aynı commitin yeniden yayımlanması yeni sürüm gerektirmez.
+- Yayın commitinde kökteki `VERSION`, `frontend/package.json` ve
+  `frontend/package-lock.json` sürümlerini eşitle; `CHANGELOG.md` kaydını ekle.
+- Canlıdaki sürümden daha yüksek bir numara kullan. Arayüzü yeni sürümle
+  yeniden derle; yayın sonunda API ve arayüzün aynı yeni sürümü gösterdiğini
+  doğrula. Sürüm artırılmadan yeni commitin canlı yayınını tamamlanmış sayma.
+
 ## Notlar
 
 - İndeksleme: `backend/` içinden `.venv/bin/python -m app.ingest.run`

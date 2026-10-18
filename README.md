@@ -27,6 +27,9 @@ API ve arayüz bu dosyadan okur. Sürüm artırılırken `frontend/package.json`
 `frontend/package-lock.json` da eşitlenir; değişiklikler [CHANGELOG.md](CHANGELOG.md)
 dosyasına eklenir. Arayüz yapılandırması sürümü başlangıç/derleme anında okuduğu
 için sürüm değişikliğinden sonra servisler yeniden başlatılır veya yeniden derlenir.
+Canlıya çıkan her yeni committe sürüm artırılır; varsayılan artış PATCH'tir.
+Yeni numara mevcut canlı sürümden büyük olmalı; yayın sonunda API ve arayüzde
+aynı sürümün göründüğü doğrulanmalıdır. Aynı commitin tekrar yayını sürüm artırmaz.
 
 ---
 
