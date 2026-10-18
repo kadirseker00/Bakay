@@ -17,6 +17,18 @@ Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 Doğrulama: altı karakter bozulması regresyon testi; kaynak PDF metadatasında
 hatanın doğrulanması ve tüm backend testleri. Yeniden indeksleme gerekmez.
 
+## 0.3.2 — 2026-10-18
+
+- Olumsuz geri bildirimde üç temel neden ve Diğer; Diğer seçeneğinde açıklama,
+  isteğe bağlı ad alanı için İsim ekle bağlantısı.
+- Admin sorgu listesi ve ayrıntısında güvenilir istemci IP adresi, geri bildirim
+  nedeni, açıklaması ve isteğe bağlı ad. Eski kayıtlar korunur.
+- JSON ve canlı akışta istemci IP bağlamı; sahte proxy başlıklarına karşı
+  güvenilir vekil kontrolü.
+
+Doğrulama: 171 backend testi, üretim derlemesi, HTTPS kontrolleri ve gerçek
+tarayıcıda geri bildirim kaydı/admin ayrıntıları.
+
 ## 0.3.1 — 2026-10-01
 
 - Kaynaklı cevabın sonunda "Ayrıntılar için … belgesini okuyabilirsiniz"
