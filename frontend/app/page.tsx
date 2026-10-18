@@ -73,11 +73,11 @@ type CandidateTrack = {
 const FEATURED_EXAMPLE = "Daha önce aldığım dersleri saydırabilir miyim?";
 const EXAMPLES = [
   FEATURED_EXAMPLE,
-  "Bütünleme sınavına kimler girebilir?",
-  "Başarı bursu için not ortalaması kaç olmalı?",
-  "Üniversiteye kayıt için hangi belgeler gerekli?",
-  "Kayıt yenilemeyen öğrencinin durumu ne olur?",
-  "Yatay geçiş başvuru şartları nelerdir?",
+  "Manas Üniversitesine nasıl başvurabilirim?",
+  "Kayıt için hangi belgeleri hazırlamalıyım?",
+  "Hazırlık sınıfından muaf olabilir miyim?",
+  "Hangi burslardan yararlanabilirim?",
+  "Başka bir üniversiteden yatay geçiş yapabilir miyim?",
 ];
 
 const TOPICS: Topic[] = [
