@@ -101,14 +101,19 @@ class FeedbackTests(unittest.TestCase):
                  ('127.0.0.1', '2001:db8::42', '2001:db8::42')]
         with patch.object(main.pipeline, 'answer', side_effect=answer):
             for peer, forwarded, expected in cases:
-                with TestClient(proxy_app, client=(peer, 50000)) as client:
-                    response = client.post('/chat', json={'question': 'Test sorusu'},
-                                           headers={'X-Forwarded-For': forwarded, 'X-Real-IP': '192.0.2.99'})
-                self.assertEqual(response.status_code, 200)
-                self.assertNotIn('client_ip', response.json())
-                self.assertEqual(monitoring.query_detail(self.query_id)['client_ip'], expected)
-                saved = json.loads((self.config.log_path / 'queries.jsonl').read_text().splitlines()[-1])
-                self.assertEqual(saved['client_ip'], expected)
+                for accept in ('application/json', 'text/event-stream'):
+                    with self.subTest(peer=peer, accept=accept):
+                        with TestClient(proxy_app, client=(peer, 50000)) as client:
+                            response = client.post('/chat', json={'question': 'Test sorusu'},
+                                                   headers={'X-Forwarded-For': forwarded,
+                                                            'X-Real-IP': '192.0.2.99', 'Accept': accept})
+                        self.assertEqual(response.status_code, 200)
+                        self.assertNotIn('client_ip', response.text)
+                        if accept == 'text/event-stream':
+                            self.assertIn('event: result', response.text)
+                        self.assertEqual(monitoring.query_detail(self.query_id)['client_ip'], expected)
+                        saved = json.loads((self.config.log_path / 'queries.jsonl').read_text().splitlines()[-1])
+                        self.assertEqual(saved['client_ip'], expected)
 
     def test_parallel_requests_do_not_mix_ips_and_context_is_reset(self):
         barrier = Barrier(2)

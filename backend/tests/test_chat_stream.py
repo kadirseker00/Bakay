@@ -88,7 +88,7 @@ class ChatStreamTests(unittest.TestCase):
             return self.result
 
         async def check():
-            response = main.stream_chat(ChatRequest(question='Soru'), request)
+            response = main.stream_chat(ChatRequest(question='Soru'), request, '192.0.2.1')
             try:
                 first = await asyncio.wait_for(anext(response.body_iterator), 1)
                 self.assertIn('event: status', first)
