@@ -31,12 +31,8 @@ def _source_urls(signature: tuple) -> dict[str, str]:
     return urls
 
 
-def append_source_reading(text: str, hits: list[dict]) -> str:
-    """İlk kaynak biliniyorsa ayrıntı bağlantısı ekler; URL veya sayfa uydurmaz."""
-    if not hits or "bilgi bulamadım" in text.lower():
-        return text
-    hit = hits[0]
-    document = hit["document"]
+def resolve_source_url(document: str) -> str | None:
+    """Arşiv dosyasının bilinen resmî adresini çöz; yönetici taslakları da kullanır."""
     if _official_url(document):
         url = document
     else:
@@ -44,8 +40,17 @@ def append_source_reading(text: str, hits: list[dict]) -> str:
         try:
             signature = tuple((path.name, path.stat().st_mtime_ns) for path in maps)
         except OSError:
-            return text
+            return None
         url = _source_urls(signature).get(document)
+    return url
+
+
+def append_source_reading(text: str, hits: list[dict]) -> str:
+    """İlk kaynak biliniyorsa ayrıntı bağlantısı ekler; URL veya sayfa uydurmaz."""
+    if not hits or "bilgi bulamadım" in text.lower():
+        return text
+    hit = hits[0]
+    url = resolve_source_url(hit['document'])
     if not url:
         return text
     title = hit.get("title") or "Kaynak belge"

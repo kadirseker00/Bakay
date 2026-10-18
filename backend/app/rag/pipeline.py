@@ -17,7 +17,7 @@ from html import escape
 import re
 import time
 
-from app import telemetry
+from app import knowledge, telemetry
 from app.config import settings
 from app.rag.llm import get_llm
 from app.rag.progress import report
@@ -375,6 +375,25 @@ def _answer(question: str, top_k: int | None = None,
     start = time.perf_counter()
     k = top_k or settings.top_k
     report("preparing", "Sorunuzu aldım", "Yanıtı bulmak için hazırlık yapıyorum.")
+    # Geçmişteki düzey/ülke/olumsuzluk koşullarını sabit cevapla ezme.
+    prepared = knowledge.lookup(settings.db_file, question) if not history else None
+    if prepared:
+        report('finishing', 'Onaylı cevabı buldum', 'Güncelliği kontrol edilmiş cevabı kaynaklarıyla getiriyorum.')
+        sources = [Source(document=source['url'], title=source['title'],
+                          snippet=source['snippet'], score=1.0) for source in prepared['sources']]
+        text = prepared['answer']
+        for source in prepared['sources']:
+            text = append_source_reading(text, [{'document': source['url'], 'title': source['title']}])
+        text += f"\n\n_Onaylı hazır cevap · Kaynak kontrolü: {prepared['reviewed_on']}_"
+        total_ms = int((time.perf_counter() - start) * 1000)
+        telemetry.log_query({
+            'id': qid, 'question': question, 'provider': 'knowledge', 'model': 'approved-answer',
+            'top_k': 0, 'n_sources': len(sources), 'retrieval_ms': 0, 'generation_ms': 0,
+            'total_ms': total_ms, 'answer': text, 'sources': [source.model_dump() for source in sources],
+            'route': 'prepared_answer', 'knowledge_id': prepared['id'],
+            'knowledge_revision': prepared['revision'], 'steps': ['knowledge:exact_match'],
+        })
+        return ChatResponse(query_id=qid, answer=text, sources=sources, latency_ms=total_ms)
     store = get_store()
     llm = get_llm()
     steps: list[str] = []

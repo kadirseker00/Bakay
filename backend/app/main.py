@@ -21,15 +21,17 @@ from pydantic import BaseModel, Field
 from starlette.concurrency import run_in_threadpool
 from starlette.responses import StreamingResponse
 
-from app import abuse, alerts, captcha, monitor_auth, monitoring, telemetry
+from app import abuse, alerts, captcha, knowledge, monitor_auth, monitoring, telemetry
 from app.config import ROOT, settings
 from app.rag import pipeline
 from app.rag.progress import progress_scope
+from app.rag.source_links import resolve_source_url
 from app.schemas import ChatRequest, ChatResponse, FeedbackRequest
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     monitoring.initialize()
+    knowledge.initialize(settings.db_file)
     app.state.abuse = abuse.AbuseGuard(settings)
     async def flush_blocks():
         while True:
@@ -214,4 +216,40 @@ def monitor_query(query_id: str, _user: str = Depends(monitor_auth.require_monit
     detail = monitoring.query_detail(query_id)
     if detail is None:
         raise HTTPException(404, 'Sorgu bulunamadı.')
+    for source in detail['sources']:
+        source['url'] = resolve_source_url(source['document'])
     return detail
+
+
+@app.get('/monitor/knowledge')
+def knowledge_list(_user: str = Depends(monitor_auth.require_monitor)) -> dict:
+    return {'items': knowledge.list_answers(settings.db_file)}
+
+
+def knowledge_writer(request: Request, user: str = Depends(monitor_auth.require_monitor)) -> str:
+    monitor_auth.check_origin(request)
+    return user
+
+
+@app.post('/monitor/knowledge/examples')
+def knowledge_examples(_user: str = Depends(knowledge_writer)) -> dict:
+    return {'items': knowledge.seed_examples(settings.db_file, _user)}
+
+
+@app.post('/monitor/knowledge', status_code=201)
+def knowledge_create(body: knowledge.KnowledgeInput, _user: str = Depends(knowledge_writer)) -> dict:
+    try:
+        return knowledge.save(settings.db_file, body, _user)
+    except knowledge.Conflict as exc:
+        raise HTTPException(409, str(exc)) from None
+
+
+@app.put('/monitor/knowledge/{answer_id}')
+def knowledge_update(answer_id: str, body: knowledge.KnowledgeInput,
+                     _user: str = Depends(knowledge_writer)) -> dict:
+    try:
+        return knowledge.save(settings.db_file, body, _user, answer_id)
+    except KeyError:
+        raise HTTPException(404, 'Hazır cevap bulunamadı.') from None
+    except knowledge.Conflict as exc:
+        raise HTTPException(409, str(exc)) from None

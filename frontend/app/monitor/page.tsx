@@ -7,12 +7,14 @@ import styles from "./monitor.module.css";
 import { PROJECT } from "../lib/project";
 import { FEEDBACK_REASONS } from "../lib/feedback";
 import type { FeedbackReason } from "../lib/feedback";
+import KnowledgePanel from "./KnowledgePanel";
+import type { AnswerCandidate } from "./KnowledgePanel";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 type Check = { ok: boolean; status: number | null; latency_ms: number; indexed_chunks?: number };
 type Feedback = { rating: "up" | "down"; reason: FeedbackReason | null; respondent_name: string | null; comment: string | null; ts: string };
 type Query = { client_ip?: string | null; feedback?: Feedback | null; id: string; ts: string; question?: string; model: string; n_sources: number; total_ms: number; retrieval_ms: number; generation_ms: number; cost_usd: number | null; llm_calls: number };
-type Detail = Query & { answer: string; sources: { title?: string; document: string; snippet: string; score: number }[]; calls: { model: string; status: string; input_tokens: number | null; output_tokens: number | null; cost_usd: number | null; latency_ms: number; error_type: string | null }[] };
+type Detail = Query & { answer: string; sources: { title?: string; document: string; url?: string | null; snippet: string; score: number }[]; calls: { model: string; status: string; input_tokens: number | null; output_tokens: number | null; cost_usd: number | null; latency_ms: number; error_type: string | null }[] };
 type Metrics = {
   generated_at: string; days: number; version: string; active_model: string; embedding_model: string; backend_uptime_seconds: number; details_enabled: boolean;
   summary: { queries: number; requests: number; errors: number; server_errors: number; median_ms: number | null; p95_ms: number | null; avg_retrieval_ms: number | null; avg_generation_ms: number | null; sourced_queries: number; feedback: { up?: number; down?: number }; probe_availability_percent: number | null; probe_count: number };
@@ -28,7 +30,7 @@ const number = (value: number) => new Intl.NumberFormat("tr-TR").format(value);
 const money = (value: number | null) => value == null ? "Bilinmiyor" : new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: value < 1 ? 6 : 2, maximumFractionDigits: value < 1 ? 6 : 2 }).format(value);
 const duration = (value: number | null) => value == null ? "—" : `${(value / 1000).toLocaleString("tr-TR", { maximumFractionDigits: 1 })} sn`;
 const dateTime = (value: string) => new Intl.DateTimeFormat("tr-TR", { timeZone: "Asia/Bishkek", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" }).format(new Date(value));
-const modelName = (value: string) => value.replace("claude-haiku-5-5", "Haiku 5.5").replace("claude-sonnet-5-5", "Sonnet 5.5");
+const modelName = (value: string) => value.replace("approved-answer", "Onaylı hazır cevap").replace("claude-haiku-5-5", "Haiku 5.5").replace("claude-sonnet-5-5", "Sonnet 5.5");
 const feedbackLabel = (feedback: Feedback | null | undefined) => !feedback ? "—" : feedback.reason ? FEEDBACK_REASONS[feedback.reason] || "Olumsuz" : feedback.rating === "up" ? "Olumlu" : "Olumsuz";
 const gb = (value: number | null) => value == null ? "—" : `${(value / 1024 ** 3).toFixed(1)} GB`;
 
@@ -55,6 +57,7 @@ export default function MonitorPage() {
   const [loading, setLoading] = useState(false);
   const [detail, setDetail] = useState<Detail | null>(null);
   const [detailLoading, setDetailLoading] = useState("");
+  const [answerCandidate, setAnswerCandidate] = useState<AnswerCandidate | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
 
   const refresh = useCallback(async (signal?: AbortSignal) => {
@@ -95,7 +98,7 @@ export default function MonitorPage() {
     try {
       const response = await fetch(`${API}/monitor/logout`, { method: "POST", credentials: "include" });
       if (!response.ok) throw new Error();
-      setData(null); setAuth(false); setDetail(null); setError("");
+      setData(null); setAuth(false); setDetail(null); setAnswerCandidate(null); setError("");
     } catch { setError("Çıkış yapılamadı. Yeniden deneyin."); }
   };
   const showDetail = async (id: string) => {
@@ -124,7 +127,7 @@ export default function MonitorPage() {
   const diskPercent = resource.disk_used_bytes * 100 / resource.disk_total_bytes;
 
   return <div className={styles.shell}>
-    <aside className={styles.sidebar}><a href="/" className={styles.brand}><img src="/logo.png" alt="" /><span>BAKAI<small>Yönetim paneli</small></span></a><div className={styles.sideLabel}>İZLEME</div><nav aria-label="İzleme bölümleri"><a href="#overview"><LayoutDashboard size={18} /> Genel bakış</a><a href="#cost"><Coins size={18} /> API maliyetleri</a><a href="#queries"><MessageSquare size={18} /> Sorgular</a><a href="#protection"><ShieldCheck size={18} /> Kullanım koruması</a><a href="#alerts"><Activity size={18} /> Uyarılar ve yedekler</a><a href="#system"><Server size={18} /> Sistem sağlığı</a></nav><div className={styles.sideBottom}><span className={styles.environment}>CANLI ORTAM</span><p>KTMÜ · BAKAI v{data.version}</p><a href="/" target="_blank" rel="noopener noreferrer">Uygulamayı aç <ExternalLink size={14} /></a></div></aside>
+    <aside className={styles.sidebar}><a href="/" className={styles.brand}><img src="/logo.png" alt="" /><span>BAKAI<small>Yönetim paneli</small></span></a><div className={styles.sideLabel}>İZLEME</div><nav aria-label="İzleme bölümleri"><a href="#overview"><LayoutDashboard size={18} /> Genel bakış</a><a href="#cost"><Coins size={18} /> API maliyetleri</a><a href="#queries"><MessageSquare size={18} /> Sorgular</a><a href="#knowledge"><Database size={18} /> Hazır cevaplar</a><a href="#protection"><ShieldCheck size={18} /> Kullanım koruması</a><a href="#alerts"><Activity size={18} /> Uyarılar ve yedekler</a><a href="#system"><Server size={18} /> Sistem sağlığı</a></nav><div className={styles.sideBottom}><span className={styles.environment}>CANLI ORTAM</span><p>KTMÜ · BAKAI v{data.version}</p><a href="/" target="_blank" rel="noopener noreferrer">Uygulamayı aç <ExternalLink size={14} /></a></div></aside>
     <div className={styles.main}><header className={styles.header}><div className={styles.breadcrumb}>Yönetim <ChevronRight size={13} /> İzleme</div><div className={styles.headerActions}><span className={`${styles.liveStatus} ${healthy ? styles.good : styles.warn}`}><i />{healthy ? "Sistem çalışıyor" : fresh ? "Kontrol gerekli" : "Ölçüm bekleniyor"}</span><button onClick={logout} className={styles.iconButton} aria-label="Çıkış yap"><LogOut size={18} /></button></div></header>
       <main className={styles.content}><section id="overview" className={styles.heading}><div><span className={styles.eyebrow}>OPERASYON GÖRÜNÜMÜ</span><h1>Genel bakış</h1><p>BAKAI’ın kullanımını, yanıtlarını ve çalışma durumunu takip edin.</p></div><div className={styles.controls}><label className={styles.srOnly} htmlFor="monitor-period">İzleme dönemi</label><select id="monitor-period" value={days} onChange={event => setDays(Number(event.target.value))}><option value="1">Bugün</option><option value="7">Son 7 gün</option><option value="30">Son 30 gün</option></select><button onClick={() => void refresh()} disabled={loading} className={styles.refresh}><RefreshCw size={16} className={loading ? styles.spin : ""} /> Yenile</button></div></section>
       {error && <div role="alert" className={styles.error}>{error} Son başarılı ölçüm gösteriliyor.</div>}
@@ -151,11 +154,17 @@ export default function MonitorPage() {
         {!!data.alerts.recent.length && <div className={styles.tableWrap}><table><thead><tr><th>UYARI</th><th>ZAMAN</th><th>DURUM</th><th>E-POSTA</th></tr></thead><tbody>{data.alerts.recent.map((event,index) => <tr key={`${event.ts}-${index}`}><td>{event.title}</td><td>{dateTime(event.ts)}</td><td>{event.state === "active" ? "Uyarı açıldı" : "Düzeldi"}</td><td>{event.delivered_at === "skipped" ? "Geçerliliğini yitirdi" : event.delivered_at ? "Gönderildi" : !data.alerts?.email_configured ? "Hesap bekleniyor" : event.error_type ? "Yeniden denenecek" : "Kuyrukta"}</td></tr>)}</tbody></table></div>}
         <p className={styles.notice}>Son alarm kontrolü: {data.alerts.evaluated_at ? dateTime(data.alerts.evaluated_at) : "Bekleniyor"}. Tekrarlanan sağlık sorunları 3 ölçümde, düzelme 2 ölçümde bildirilir. E-posta ile soru veya yanıt içeriği gönderilmez.</p>
       </section>}
+      <section id="knowledge" className={styles.panel}><KnowledgePanel candidate={answerCandidate} /></section>
       <section id="system" className={styles.panel}><div className={styles.panelTitle}><div><h2>Sistem sağlığı</h2><p>Dakika başına bağımsız ölçüm · son 31 günlük sağlık geçmişi</p></div><span className={styles.tag}>{data.sample ? dateTime(data.sample.checked_at) : "Henüz ölçülmedi"}</span></div><div className={styles.healthGrid}>{[["backend", "Bilgi servisi"], ["frontend", "Web arayüzü"], ["https", "HTTPS erişimi"]].map(([key, label]) => <div className={styles.healthItem} key={key}><span>{label}</span><strong className={fresh && checks[key]?.ok ? styles.successText : styles.warningText}>{fresh ? checks[key]?.ok ? <><CheckCircle2 size={16} /> Çalışıyor</> : "Kontrol gerekli" : "Ölçüm bekleniyor"}</strong><small>{checks[key] ? `${checks[key].status ?? "Bağlantı yok"} · ${checks[key].latency_ms} ms` : "—"}</small></div>)}</div><div className={styles.resources}><div><label><Server size={16} /> RAM <strong>{gb(resource.memory_used_bytes)} / {gb(resource.memory_total_bytes)}</strong></label><div className={styles.gauge}><span className={memoryPercent != null && memoryPercent > 90 ? styles.gaugeWarning : ""} style={{ width: `${memoryPercent ?? 0}%` }} /></div></div><div><label><HardDrive size={16} /> Disk <strong>{gb(resource.disk_free_bytes)} boş</strong></label><div className={styles.gauge}><span className={diskPercent > 85 ? styles.gaugeWarning : ""} style={{ width: `${diskPercent}%` }} /></div></div></div><div className={styles.systemFoot}><span>1 dk sistem yükü: <strong>{resource.load_1m}</strong> / {resource.cpu_count} çekirdek</span><span>Ölçümlerde erişim: <strong>{summary.probe_availability_percent == null ? "—" : `%${summary.probe_availability_percent}`}</strong> · {summary.probe_count} yoklama</span></div>{summary.errors > 0 && <div className={styles.errorList}><h3>Son HTTP hataları</h3>{data.recent_errors.map((row, index) => <p key={`${row.ts}-${index}`}><span>{dateTime(row.ts)}</span><code>{row.path}</code><strong>HTTP {row.status}</strong></p>)}</div>}</section>
       <footer className={styles.footer}><a href="/hakkinda">BAKAI · BAP projesi · {PROJECT.author}</a><span>15 sn otomatik yenileme · Yalnız yönetici erişimi</span></footer>
       </main></div>
     <dialog ref={dialog} className={styles.dialog} aria-label="Sorgu ayrıntısı" onCancel={() => setDetail(null)} onClose={() => setDetail(null)}>{detail && <><div className={styles.dialogHeader}><span className={styles.eyebrow}>SORGU AYRINTISI</span><button onClick={closeDetail} className={styles.iconButton} aria-label="Ayrıntıyı kapat"><X size={20} /></button></div><h2>{detail.question}</h2><div className={styles.detailMeta}><span>{dateTime(detail.ts)}</span><span>{modelName(detail.model)}</span><span>{duration(detail.total_ms)}</span><span>{money(detail.cost_usd)}</span><span className={styles.clientIp}>IP adresi: <code>{detail.client_ip || "Kaydedilmemiş"}</code></span></div>
       <section className={styles.feedbackDetail} aria-label="Kullanıcı geri bildirimi"><h3>Geri bildirim</h3>{detail.feedback ? <><p><strong>{feedbackLabel(detail.feedback)}</strong> · {dateTime(detail.feedback.ts)}</p><p>Adı soyadı: {detail.feedback.respondent_name || "Belirtilmedi"}</p>{detail.feedback.comment && <p className={styles.feedbackComment}>Açıklama: {detail.feedback.comment}</p>}</> : <p>Henüz geri bildirim yok.</p>}</section>
+      <button className={styles.refresh} onClick={() => {
+        setAnswerCandidate({ question: detail.question || "", answer: detail.answer,
+          sources: detail.sources.filter(source => /^https?:\/\//.test(source.url || source.document)).map(source => ({ title: source.title || "Kaynak belge", url: source.url || source.document, snippet: source.snippet })) });
+        closeDetail(); document.getElementById("knowledge")?.scrollIntoView({ behavior: "smooth" });
+      }}><Database size={15} /> Hazır cevap taslağı oluştur</button>
       <article className={styles.answer}><ReactMarkdown components={{ a: props => <a {...props} target="_blank" rel="noopener noreferrer" /> }}>{detail.answer}</ReactMarkdown></article><h3>Kaynaklar</h3><div className={styles.detailSources}>{detail.sources.map((source, index) => <article key={index}><strong>{index + 1}. {source.title || source.document}</strong><p>{source.snippet}</p><small>Eşleşme: %{Math.round(source.score * 100)}</small></article>)}</div><h3>API çağrıları</h3>{detail.calls.length ? detail.calls.map((call, index) => <div className={styles.call} key={index}><strong>{modelName(call.model)} · {call.status === "ok" ? "Tamamlandı" : call.error_type || "Hata"}</strong><span>{call.input_tokens == null ? "—" : number(call.input_tokens)} giriş / {call.output_tokens == null ? "—" : number(call.output_tokens)} çıkış · {duration(call.latency_ms)} · {money(call.cost_usd)}</span></div>) : <p className={styles.notice}>{detail.cost_usd == null ? "Bu eski sorguda API token sayacı kaydedilmemiş." : "Bu sorguda API çağrısı yapılmamış."}</p>}</>}</dialog>
   </div>;
 }

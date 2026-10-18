@@ -1,0 +1,234 @@
+{
+  "environment": "local Sonnet 5.5, v0.3.1, 39659 chunks",
+  "date": "2026-10-18",
+  "answers": [
+    {
+      "query_id": "b9c055497e3c40129feb629816576017",
+      "answer": "**Önlisans/lisans için**, **ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)** (Madde 25) şöyle diyor:\n\n> Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha önce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersleri saydırabilir.\n\nBu konuda önlisans/lisans ve lisansüstü için farklı hükümler var. Hangi öğrenim düzeyi için soruyorsunuz: önlisans/lisans, yüksek lisans veya doktora?",
+      "sources": [
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": " değiştirilebilir. \nc) Yaz Okuluna kayıt yaptıran her öğrenci en fazla 2 (iki) ders alabilir. \nd) Birinci sınıf öğrencisi, üçüncü ve dördüncü sınıftan; ikinci sınıf öğrencisi ise dördüncü \nsınıftan ders alamaz. \ne) Öğrenci, aynı zamanda hem staj yapıp hem de yaz okulundan ders alamaz. \nf) Yaz Okulun",
+          "score": 0.5248
+        },
+        {
+          "document": "upload_global_Lisansustu_20egitim.pdf_ecd8a9f0.pdf",
+          "title": "LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ",
+          "snippet": "rs muafiyetleri öğrencinin, ekinde not durum belgesi ve \nders içerikleri bulunan yazılı başvurusu, danışmanın önerisi, EABD/EASB akademik kurulunun \nkararı ve Enstitü Yönetim Kurulu onayı ile kayıtlı olduğu programın en çok ders AKTS sayısının \nyarısına karşılık gelecek kadarından yapılabilir. \n(2) ",
+          "score": 0.42
+        },
+        {
+          "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+          "title": "Kırgızistan-Tьrkiye Manas Ьniversitesi",
+          "snippet": ") ders alabilir. \ne) Birinci sınıf öğrencisi, üçüncü ve dördüncü sınıftan; ikinci sınıf öğrencisi ise \ndördüncü sınıftan ders alamaz. \nf) Öğrenci, aynı zamanda hem staj yapıp hem de yaz okulundan ders alamaz. \ng) Yaz Okulunda, kesin kayıttan sonra, ders ekleme, değiĢtirme veya çıkarma \nyapılamaz. \nh",
+          "score": 0.4925
+        },
+        {
+          "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+          "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+          "snippet": "enci dersten muaf tutulur ve \nmuafiyet notu öğrencinin Not Durum Belgesine işlenir. \n \nDers Saydırma, Ders Muafiyeti ve İntibak \nMadde 25– (1) Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha \nönce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersl",
+          "score": 0.4085
+        },
+        {
+          "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+          "title": "Kırgızistan-Tьrkiye Manas Ьniversitesi",
+          "snippet": "51/130 \nb) Güz ve bahar yarıyıllarında açıldığı halde almadığı veya alamadığı dersleri, \nc) Güz veya bahar yarıyıllarında almakla yükümlü olduğu derslerin tümünü alıp \nbaĢarmıĢ olması halinde, bir üst yarıyıldan açılan dersleri, \nd) Genel Not Ortalamasına bakmaksızın, öncelikli olarak (DD) ve (DC) o",
+          "score": 0.497
+        }
+      ],
+      "latency_ms": 11210,
+      "question": "Daha önce aldığım dersleri saydırabilir miyim?"
+    },
+    {
+      "query_id": "2274cf9d383342d08fc133e480552f95",
+      "answer": "Soru, Manas Üniversitesi'ne genel bir başvuruyu mu (örneğin uluslararası öğrenci olarak) yoksa değişim programıyla başvuruyu mu kastettiğini belirtmiyor. Elimdeki belgelerde ağırlıklı olarak **değişim programı** başvurusuna dair bilgi var; bu nedenle onu açıklıyorum.\n\n**Temel şartlar:**\n- Kendi üniversitenizin Manas Üniversitesi ile **resmi bir değişim anlaşmasının** olması gerekir (Erasmus, Mevlana, Orhun, fakülte/bölüm düzeyinde veya üniversite çapında bir anlaşma olabilir).\n- Önce **kendi üniversitenizde** değişim başvurusu yapmalı ve değişime katılmak üzere **aday gösterilmelisiniz**.\n- Anlaşmanın kapsamına, kursun değişim öğrencilerine **açık olmasına** ve kursun **özel kabul koşullarını** karşılamanıza bağlı olarak kurslara kabul edilirsiniz.\n\n**Başvuru süreci:** Başvuruyu kendi üniversitenizin merkezi dış ilişkiler ofisi veya bölüm/fakültenizdeki uluslararası koordinatör aracılığıyla yaparsınız; her üniversitenin kendi prosedürü vardır. Aday gösterildikten sonra, resmi başvuru için özel bir çevrimiçi başvuru bağlantısı alırsınız. Bu bağlantı, kendi üniversitenizdeki koordinatör veya doğrudan Manas Üniversitesi'ndeki koordinatör tarafından size iletilir. Başvuru zamanı ve süreç ayrıntıları için kendi üniversitenizin Dış İlişkiler Ofisine danışmalısınız. Bir dönem (yarım yıl) ya da iki dönem (**bir yıl**) için gelebilirsiniz. Manas Üniversitesi'nde eğitim dili Kırgızca, Türkçe ve İngilizce'dir.\n\nÜniversitenizin Manas Üniversitesi ile anlaşması yoksa değişim öğrencisi olarak başvuramazsınız; bu durumda size uygun diğer eğitim fırsatlarını değerlendirmeniz önerilir.\n\n**Not:** Uluslararası öğrenci olarak başvuruya ilişkin KTMÜ Mevzuatı'nda, başvuran adayların yazılı ve sözlü sınava tabi tutulduğu belirtilmektedir; ancak elimdeki belgelerde bu sürecin ayrıntıları yer almıyor. Değişim dışında (örneğin lisans/lisansüstü kayıt) başvuruyu kastediyorsanız bu konuda daha fazla bilgi veremiyorum; başvurmak istediğiniz programı belirtirseniz yardımcı olmaya çalışırım.\n\nAyrıntılar için [Değişim Programları](https://www.manas.edu.kg/tr/students/students-exchange) belgesini okuyabilirsiniz.",
+      "sources": [
+        {
+          "document": "tr_students_students-exchange_46d508a2.html",
+          "title": "Değişim Programları",
+          "snippet": "Manas Üniversitesi'ne değişim programına nasıl başvurulur?\nManas Üniversitesi'ne değişim programına nasıl başvurulur?\nKendi üniversitenizde, ya merkezi dış ilişkiler ofisi aracılığıyla ya da bölüm veya fakültenizdeki uluslararası bir koordinatör aracılığıyla bir değişim başvurusunda bulunursunuz. Ün",
+          "score": 0.6065
+        },
+        {
+          "document": "tr_students_students-exchange_46d508a2.html",
+          "title": "Değişim Programları",
+          "snippet": "Kendi üniversiteniz tarafından bir değişime katılmak üzere seçilip aday gösterildikten sonra, aday değişim öğrencilerinin değişim çalışmalarına resmi olarak başvurmaları için özel çevrimiçi başvuruya bir bağlantı alacaksınız. Bu başvuru bağlantısı, ya kendi üniversitenizdeki koordinatör tarafından y",
+          "score": 0.5827
+        },
+        {
+          "document": "tr_news_8111_c6d4ecdc.html",
+          "title": "Haberler",
+          "snippet": "2026-2027 Eğitim-Öğretim Yılı Bahar Dönemi için Nazarbayev Üniversitesine (Kazakistan) Başvurular Açılmıştır\n2026-2027 Eğitim-Öğretim Yılı Bahar Dönemi için Nazarbayev Üniversitesine (Kazakistan) Başvurular Açılmıştır\n2026-2027 Eğitim-Öğretim Yılı Bahar Dönemi için Nazarbayev Üniversitesine (Kazakis",
+          "score": 0.4052
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": "tasdikli sureti istenir. \n \nSınavlar \nMadde 9– (1) Üniversiteye başvuran uluslararası öğrenci yazılı ve sözlü sınava tabi tutulur. \n(2) \nYazılı sınav Manas-ÖSYM tarafından yapılır. Ülkesinde veya eğitim gördüğü ülkede \nyükeköğretime geçiş sınavı olmayan adayın yazılı sınava girmesi zorunludur. Ülkes",
+          "score": 0.4326
+        },
+        {
+          "document": "tr_students_students-exchange_46d508a2.html",
+          "title": "Değişim Programları",
+          "snippet": "Kırgızistan-Türkiye Manas Üniversitesi'ne değişim öğrencisi olarak kimler gelebilir?\nManas Üniversitesi'ne değişim öğrencisi olarak gelebilmek için, kendi üniversitenizin Manas Üniversitesi ile resmi bir anlaşması olması gerekir. Erasmus, Mevlana veya Orhun Değişim programları anlaşması gibi değişim",
+          "score": 0.6079
+        }
+      ],
+      "latency_ms": 8090,
+      "question": "Manas Üniversitesine nasıl başvurabilirim?"
+    },
+    {
+      "query_id": "7f34beb60838484f9beab52e088c9157",
+      "answer": "Kayıt için gerekli belgelerin tam listesi, elimdeki belgelerde yer almıyor; bu liste **oidb.manas.edu.kg** adresinde ilan ediliyor.\n\n**Bilmeniz gerekenler:**\n- Kayıt için istenen belgelerin güncel listesine yukarıdaki adresten ulaşabilirsiniz.\n- Kayıtlar, Bişkek'te Cengiz Aytmatov yerleşkesindeki Öğrenci İşleri Dairesi Başkanlığında yapılır; kayıt tarihleri Akademik Takvimde belirlenir ve takvime **www.manas.edu.kg** adresinden ulaşılabilir.\n- Belgelerde eksiklik olursa **kayıt işlemi yapılmaz**; bu nedenle tüm belgeleri eksiksiz tamamlamanız gerekir.\n- Kayıt işlemini sizin adınıza noter vasıtasıyla vekil tayin ettiğiniz bir kişi de yaptırabilir.\n\n**Önceden yapmanız önerilen işlemler:** Kayıt Kılavuzuna göre, zaman alan işlemlerden başlamalısınız: Sağlık Kurulu (Heyet) Raporu almak, pasaportunuz yoksa pasaport çıkartmak, uçak rezervasyonu yaptırmak ve vize başvurusunda bulunmak. Kayıt tarihlerinde uçaklarda yer bulmak zor olabildiği için erken rezervasyon yaptırmanız yararlı olur. Diğer belgelerinizi de bu süreçte tamamlamalısınız.\n\nAyrıntılar için [Kayıt İşlemleri](https://oidb.manas.edu.kg/tr/faq/3) belgesini okuyabilirsiniz.",
+      "sources": [
+        {
+          "document": "tr_faq_3_ef017b75.html",
+          "title": "Kayıt İşlemleri",
+          "snippet": "Üniversiteye yerleşen adayların kayıtları hangi tarihlerde yapılmaktadır?\nKayıtlar, Akademik Takvimde belirlenen tarihlerde yapılmaktadır. Akademik Takvime Üniversitenin web sitesinden \nwww.manas.edu.kg\n ulaşabilirsiniz.\nKayıtlar, Bişkek'te Üniversitenin Cengiz Aytmatov yerleşkesindeki Öğrenci İşler",
+          "score": 0.5015
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": "loma Programının azami ve asgari süresi ve uzatma koşulları, \ng) Her üniversiteden bir tane olmak üzere iki ayrı diploma veya her iki üniversitenin ortak \nhazırladığı tek bir diploma verilip verilmeyeceği, \nh) Diplomalarda yer alacak ibarelerin neler olacağı, \ni) Eğitim-öğretim dili ve Dil Hazırlık ",
+          "score": 0.4805
+        },
+        {
+          "document": "docs_mevzuattr.pdf",
+          "title": "KTMÜ Mevzuatı",
+          "snippet": "ayım sonuçlarına göre düzenlenen giriş \nve çıkış belgeleri, taşınır kayıt ve kontrol yetkilisinin yılsonu hesabını oluşturur. \n \nDevir İşlemleri \nMadde 31. \na) Taşınır kayıt ve kontrol yetkilileri, sorumlulukları altındaki ambarlarda bulunan taşınırları ve \nbunlara ilişkin kayıt ve belgeleri, yerler",
+          "score": 0.4165
+        },
+        {
+          "document": "tr_news_8098_5072afd1.html",
+          "title": "Haberler",
+          "snippet": "Bu deneyim, Kara-Koy Vadisi'nde yaşayan insanların sahip olduğu geleneksel tıbbi bilginin sistematik biçimde araştırılması fikrini doğurdu. Pandemi nedeniyle birkaç yıl ertelenen proje, 2021-2022 yıllarında yeniden başlatılarak kapsamlı bir etnobotanik araştırmaya dönüştü.\n160 bitki türü, 117 farklı",
+          "score": 0.3321
+        },
+        {
+          "document": "tr_faq_3_ef017b75.html",
+          "title": "Kayıt İşlemleri",
+          "snippet": "Üniversiteye yerleştirildiğimi öğrendikten sonra öncelikli olarak yapmam gereken işlemler nelerdir?\nÖncelikli olarak zaman alan işlemleri yapmalısınız. Bu anlamda, öncelikli işlemler, Sağlık Kurulu (Heyet) Raporu almak, eğer yoksa pasaport çıkartmak, uçak rezervasyonunu yaptırmak(biletini almak) ve ",
+          "score": 0.5752
+        }
+      ],
+      "latency_ms": 4562,
+      "question": "Kayıt için hangi belgeleri hazırlamalıyım?"
+    },
+    {
+      "query_id": "02e681b411d04d8480f80adec34c5e57",
+      "answer": "Evet, belirli koşullarda hazırlık sınıfından muaf olabilirsiniz; muafiyet, mezun olduğunuz okulun eğitim diline ve muafiyet sınavındaki başarınıza bağlıdır.\n\n**Temel şartlar:**\n\n- **Üniversitenin eğitim-öğretim dillerinden biriyle eğitim veren bir orta dereceli okuldan mezun olmanız** gerekir; bu durumda o dilden **doğrudan muaf** olursunuz.\n- Diğer eğitim dilinin **muafiyet sınavında başarılı olmanız** halinde hazırlık eğitiminden muaf olarak **doğrudan 1. sınıfa** başlayabilirsiniz.\n- **Rusça veya İngilizce ön şartı olan programlara** kayıtlıysanız, hazırlık sınıfından muaf olabilmek için o dilin **muafiyet sınavında da başarılı olmanız** gerekir.\n- Sorumlu olduğunuz dil hazırlık programının muafiyet sınavında başarılı olan öğrenciler doğrudan birinci sınıfa başlayabilir.\n\nMuafiyet sınavları, Akademik Takvimde belirlenen tarihlerde yapılmaktadır. Hazırlık sınıfında başarısız olan öğrencilere ise takip eden eğitim-öğretim yılı başında yapılan muafiyet sınavına katılma hakkı verilir. Bu sınavda da başarılı olamayanlara **bir yıl** daha hazırlık sınıfında öğrenim görme hakkı tanınır.\n\nNot: Hazırlık eğitimi ve muafiyet esasları, \"Dil Hazırlık Eğitim-Öğretim ve Sınav Yönetmeliği\"nde düzenlenmiştir. Mezun olduğunuz okul, kayıtlı olduğunuz program ve hangi dilden muaf olmak istediğiniz gibi bilgileri belirtirseniz durumunuzu daha net değerlendirebilirim.\n\nAyrıntılar için [Hazırlık Dil Eğitimi](https://oidb.manas.edu.kg/tr/faq/7) belgesini okuyabilirsiniz.",
+      "sources": [
+        {
+          "document": "tr_faq_7_3bc18714.html",
+          "title": "Hazırlık Dil Eğitimi",
+          "snippet": "Evet, Hazırlık sınıfında Öğrenciler derslerin %85 ine devam etmek zorundadırlar. Bu zorunluluğu yerine getirmeyen Öğrencilerin Üniversite ile ilişikleri kesilir.\n \nEvet, Hazırlık sınıfında Öğrenciler derslerin %85 ine devam etmek zorundadırlar. Bu zorunluluğu yerine getirmeyen Öğrencilerin Üniversit",
+          "score": 0.536
+        },
+        {
+          "document": "tr_faq_7_3bc18714.html",
+          "title": "Hazırlık Dil Eğitimi",
+          "snippet": "Üniversitenin eğitim-öğretim dillerinden biriyle eğitim veren orta dereceli okullardan mezun olan öğrenciler o dilden doğrudan muaf olurlar. Bu durumdaki Öğrenciler, diğer eğitim dilinin muafiyet sınavında başarılı olmaları durumunda, Hazırlık eğitiminden muaf olarak doğrudan 1. sınıfa başlayabilirl",
+          "score": 0.5315
+        },
+        {
+          "document": "tr_faq_7_3bc18714.html",
+          "title": "Hazırlık Dil Eğitimi",
+          "snippet": "Hazırlık sınıfı eğitim-öğretim süresinden sayılıyor mu?\nHazırlık sınıfı öğrencileri burs alabiliyorlar mı?\nHazırlık sınıfı öğrencilerinin askerlik tecil işlemleri Üniversite tarafından mı yapiliyor?\nEvet, askerliğini yapmamış olan erkek öğrencilerin askerlik tecil işlemleri Hazırlık sınıfından itiba",
+          "score": 0.5942
+        },
+        {
+          "document": "tr_faq_7_3bc18714.html",
+          "title": "Hazırlık Dil Eğitimi",
+          "snippet": "Hazırlık Dil Ögretimi ile ilgili konular, hangi yönetmelikte düzenlenmiştir?\nHazırlık Dil Ögretimı ile ilgili konular, \nDil Hazırlık Eğitim - Öğretim ve Sınav Yönetmeliği\n'nde düzenlenmiştir.\nÜniversitede Hazırlık Dil Eğitimi zorunlu mudur?\nHazırlık sınıfında hangi diller öğretilmektedir?\nHazırlık s",
+          "score": 0.4644
+        },
+        {
+          "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+          "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+          "snippet": "in kaydını, ilan edilen tarihlerde bizzat kendisi \nyapar veya noter vasıtasıyla tayin ettiği vekili aracılığıyla yaptırır. Belirlenen süre içinde kayıt \nyaptırmayan aday, öğrenci olma hakkını kaybeder. \n(3) \nKayıt için sahte veya tahrif edilmiş belge kullanan veya yapılan sınavlarda sahtecilik yaptı",
+          "score": 0.3686
+        }
+      ],
+      "latency_ms": 5566,
+      "question": "Hazırlık sınıfından muaf olabilir miyim?"
+    },
+    {
+      "query_id": "e98d3a5753544efb80c508c074303c5c",
+      "answer": "Elimdeki belgelere göre aşağıdaki burs imkânlarından yararlanılabilmektedir.\n\n**Üniversite bütçesinden burs:** \"Öğrenci Bursları\" başlıklı belgeye göre öğrencilere üniversite bütçesinden **3 kademeli** burs verilmektedir. Ayrıntılar için Burs Yönetmeliği'ne bakılması gerektiği belirtilmiştir.\n\n**Türkiye'deki devlet burs ve kredisi:** Aynı belgeye göre Türkiyeli öğrenciler, T.C. Yüksek Öğrenim Kredi ve Yurtlar Kurumu tarafından verilen **öğrenim kredisi/bursu** imkânından yararlanabilmektedir.\n\n**Türkiye Bursları (lisansüstü):** \"Akademik Faaliyet Raporu\" başlıklı belgeye göre mezun öğrenciler **Türkiye Bursları lisansüstü eğitim programlarından** yararlanabilmektedir.\n\nBu belgelerde üniversite bursunun kademelerine, şartlarına, miktarlarına veya başvuru sürecine dair ayrıntı yer almamaktadır. Bu bilgiler için Burs Yönetmeliği'ne başvurmanız gerekir. Hangi burs türünün size uygun olduğunu belirlemek için öğrenim düzeyinizi (lisans/lisansüstü) ve Türkiyeli öğrenci olup olmadığınızı da belirtirseniz daha net bir yanıt verebilirim.\n\nAyrıntılar için [Öğrenci Bursları](https://oidb.manas.edu.kg/tr/faq/6) belgesini okuyabilirsiniz.",
+      "sources": [
+        {
+          "document": "tr_faq_6_45028bc6.html",
+          "title": "Öğrenci Bursları",
+          "snippet": "Evet, Öğrencilere Üniversite bütçesinden 3 kademeli olarak burs vermektedir. Öğrenci Bursları ile ilgili olarak daha detaylı bilgileri '\n \nBurs Yönetmeliği\n \n'nden edinebilirsiniz.\nÜniversitede öğrenim gören Türkiyeli Öğrenciler, Türkiye'deki Devlet Burslarından yararlanabiliyor mu?\nEvet, T.C. Yükse",
+          "score": 0.4884
+        },
+        {
+          "document": "docs_2017_2018_Akademik_faaliyet_raporu.pdf",
+          "title": "AKADEMİK FAALİYET RAPORU",
+          "snippet": "nde farklı disiplinler içierisinde lisans \nüstü eğitim programlarına katılabilmekte, Türkiye, Kırgızistan , Rusya ve Orta Asya ülkelerinde de lisans \nüstü eğitim programlarına baş vurabilmektedirler. Türkiye Bursları lisans üstü eğitim programlarından \nyararlanmaktadır.",
+          "score": 0.4838
+        },
+        {
+          "document": "docs_AFR_2023_2024_TURKCE_v2.pdf",
+          "title": "AKADEMİK FAALİYET RAPORU",
+          "snippet": "maya hak kazanmaktadırlar.\nFakültemiz lisans programlarından mezun olan öğrencilerimiz üniversitemizdeki farklı disiplinle­\nrde lisansüstü eğitim programlarına katılabilmelerinin yanı sıra Türkiye ve Kırgızistan başta olmak üzere \ndünyadaki tüm ülkelerdeki lisansüstü programlarına baş vurabilmektedi",
+          "score": 0.461
+        },
+        {
+          "document": "docs_AFR_2024_2025_TURKCE_16.09.2025.pdf",
+          "title": "AKADEMİK FAALİYET RAPORU",
+          "snippet": "e lisansüstü eğitim programlarına baş vurabilmektedirler. Ayrıca Türkiye bursları lisans üstü eğitim \nprogramlarından da yararlanmaktadır. Bunun yanı sıra lisans öğrencilerimiz staj programlarından ve \nMevlana, Orhun değişim programlarından da yararlanma imkanına sahip bulunmaktadırlar.",
+          "score": 0.4332
+        },
+        {
+          "document": "docs_2018_2019_egitim_ogretim_yili_faaliyet_raporu.pdf",
+          "title": "AKADEMİK FAALİYET RAPORU",
+          "snippet": "lmektedirler. Türkiye Bursları lisans üstü eğitim programlarından yararlanmaktadır. \nBunun yanısıra lisans öğrencilerimiz staj programlarından ve Mevlana değişim programlarından da yararlanma \nimkanına sahip bulunmaktadırlar.",
+          "score": 0.4106
+        }
+      ],
+      "latency_ms": 4411,
+      "question": "Hangi burslardan yararlanabilirim?"
+    },
+    {
+      "query_id": "f9d9a6e0c7e14c6a8e1b1227baba180b",
+      "answer": "Bu konuda önlisans/lisans ve lisansüstü için farklı hükümler var. Hangi öğrenim düzeyi için soruyorsunuz: önlisans/lisans, yüksek lisans veya doktora?",
+      "sources": [
+        {
+          "document": "tr_site_single_cabaa0c4.html",
+          "title": "Duyurular",
+          "snippet": "Anasayfa\n -Yan Dal ve Çift Ana Dal Kontenjanlarının İlanı\nYan Dal ve Çift Ana Dal Kontenjanlarının İlanı\nMadde 27\n– Lisans programlarında bir bölümün öğrencisine, kendi lisans programına ek olarak bir\nbaşka bölümde yandal veya çift anadal programına aynı zamanda kayıt olma izni verilebilir. Yandal\nv",
+          "score": 0.4549
+        },
+        {
+          "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+          "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+          "snippet": "e Dikey Geçişler \nMadde 26- (1) Başka yükseköğretim kurumlarından Üniversiteye yatay ve dikey geçiş yoluyla \nöğrenci kabul edilmez. Gerekli şartları sağlayan Üniversitenin öğrencisi ilgili bölüme/programa \nyatay ve dikey geçiş yapabilir. Yatay ve dikey geçiş işlemleri Kırgızistan Türkiye Manas Ünive",
+          "score": 0.5131
+        },
+        {
+          "document": "upload_global_Lisansustu_20egitim.pdf_ecd8a9f0.pdf",
+          "title": "LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ",
+          "snippet": "elirlenen bir yarıyılda alınabilecek maksimum kredi sınırını \naşamaz. Ayrıca devam, sınav ve başarı değerlendirmesi ilgili Üniversitenin eğitim-öğretim \nyönetmeliğine göre gerçekleştirilir. \n(6) \nMisafir giden öğrenci için verilen izin öğrenim süresinden sayılır. \n(7) \nMisafir giden öğrenci izin sür",
+          "score": 0.4784
+        },
+        {
+          "document": "ru_trainers_masters_99011dd0.html",
+          "title": "Факультет спортивных наук - Отделение тренерского обучения",
+          "snippet": "Выпускники могут осуществлять профессиональную деятельность в других областях и (или) сферах профессиональной деятельности при условии соответствия уровня их образования и полученных компетенций требованиям к квалификации работника (в образовательных учреждениях разного уровня и типа: общеобразовате",
+          "score": 0.5951
+        },
+        {
+          "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+          "title": "Kırgızistan-Tьrkiye Manas Ьniversitesi",
+          "snippet": "11/130 \nDikey ve Yatay GeçiĢler ile Bölüm DeğiĢtirme \nMadde: 10 Üniversitenin ön lisans programlarından ilk yüzde onluk dilime \ngirerek mezun olan en az iki öğrenci, dikey geçiĢ yapabilir. Dikey geçiĢle öğrenci \nkabul edecek olan akademik birimler, her yıl Haziran ayının ikinci haftasında \nSenato ta",
+          "score": 0.4951
+        }
+      ],
+      "latency_ms": 126,
+      "question": "Başka bir üniversiteden yatay geçiş yapabilir miyim?"
+    }
+  ]
+}
