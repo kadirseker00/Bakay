@@ -95,13 +95,15 @@ def health() -> dict:
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest, request: Request) -> ChatResponse:
     captcha.require(request.app.state.abuse, request.state.rate_client, req.captcha_token)
-    with request.app.state.abuse.processing(request.state.rate_client):
+    # Uvicorn güvenilir proxy bilgisini uygular; ham istemci başlıklarına güvenme.
+    client_ip = request.client.host if request.client else None
+    with request.app.state.abuse.processing(request.state.rate_client), telemetry.client_scope(client_ip):
         return pipeline.answer(req.question, top_k=req.top_k, history=req.history)
 
 
 @app.post("/feedback")
 def feedback(req: FeedbackRequest) -> dict:
-    ok = telemetry.log_feedback(req.query_id, req.rating, req.comment)
+    ok = telemetry.log_feedback(req.query_id, req.rating, req.comment, req.reason, req.respondent_name)
     return {"ok": ok}
 
 

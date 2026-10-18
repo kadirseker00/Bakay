@@ -1253,6 +1253,7 @@ a.source-card:hover {
 .message-actions {
   min-height: 38px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   margin-top: 17px;

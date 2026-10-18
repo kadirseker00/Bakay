@@ -1,7 +1,7 @@
 """API istek/yanıt veri modelleri."""
 from typing import Literal
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class ChatMessage(BaseModel):
@@ -47,3 +47,19 @@ class FeedbackRequest(BaseModel):
     query_id: str = Field(pattern="^[0-9a-f]{32}$")
     rating: str = Field(..., pattern="^(up|down)$", description="'up' | 'down'")
     comment: str | None = Field(None, max_length=2000)
+    reason: Literal["outdated", "irrelevant", "incorrect", "incomplete", "sources", "other"] | None = None
+    respondent_name: str | None = Field(None, max_length=120)
+
+    @field_validator("respondent_name", "comment")
+    @classmethod
+    def trim_text(cls, value: str | None) -> str | None:
+        return (value.strip() or None) if value is not None else None
+
+    @model_validator(mode="after")
+    def validate_reason(self) -> "FeedbackRequest":
+        # Eski arayüzün nedensiz oylarını kabul etmeye devam et.
+        if self.rating != "down" and self.reason is not None:
+            raise ValueError("Neden yalnız olumsuz geri bildirimde belirtilebilir.")
+        if self.reason == "other" and not self.comment:
+            raise ValueError("Diğer seçeneğinde sorunu kısaca açıklayın.")
+        return self

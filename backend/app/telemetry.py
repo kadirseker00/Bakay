@@ -24,6 +24,17 @@ from typing import Any
 from app.config import settings
 
 _query_id: ContextVar[str | None] = ContextVar("bakay_query_id", default=None)
+_client_ip: ContextVar[str | None] = ContextVar("bakay_client_ip", default=None)
+
+
+@contextmanager
+def client_scope(client_ip: str | None):
+    """Bağlantı IP'sini yalnız bu isteğin kayıtlarına taşır."""
+    token = _client_ip.set(client_ip)
+    try:
+        yield
+    finally:
+        _client_ip.reset(token)
 
 
 def current_query_id() -> str | None:
@@ -55,13 +66,16 @@ CREATE TABLE IF NOT EXISTS queries (
     prompt          TEXT,
     raw_answer      TEXT,
     answer          TEXT,
-    sources_json    TEXT
+    sources_json    TEXT,
+    client_ip       TEXT
 );
 CREATE TABLE IF NOT EXISTS feedback (
     id        INTEGER PRIMARY KEY AUTOINCREMENT,
     query_id  TEXT NOT NULL,
     rating    TEXT NOT NULL,           -- 'up' | 'down'
     comment   TEXT,
+    reason    TEXT,
+    respondent_name TEXT,
     ts        TEXT NOT NULL,
     FOREIGN KEY (query_id) REFERENCES queries(id)
 );
@@ -74,9 +88,23 @@ def _now() -> str:
 
 def _connect() -> sqlite3.Connection:
     settings.db_file.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(settings.db_file)
-    conn.executescript(_SCHEMA)
+    conn = sqlite3.connect(settings.db_file, timeout=10)
+    initialize_schema(conn)
     return conn
+
+
+def initialize_schema(conn: sqlite3.Connection) -> None:
+    """Eski kayıtları koruyarak yeni sütunları ekler; yeniden çalıştırılabilir."""
+    conn.executescript(_SCHEMA)
+    with conn:
+        # Eşzamanlı başlangıçlarda aynı sütunun iki kez eklenmesini önle.
+        conn.execute('BEGIN IMMEDIATE')
+        for table, additions in (('queries', ('client_ip',)),
+                                 ('feedback', ('reason', 'respondent_name'))):
+            columns = {row[1] for row in conn.execute(f'PRAGMA table_info({table})')}
+            for column in additions:
+                if column not in columns:
+                    conn.execute(f'ALTER TABLE {table} ADD COLUMN {column} TEXT')
 
 
 def new_query_id() -> str:
@@ -86,6 +114,7 @@ def new_query_id() -> str:
 def log_query(record: dict[str, Any]) -> None:
     """Bir sorgu kaydını SQLite + JSONL'e yazar (best-effort)."""
     record.setdefault("ts", _now())
+    record.setdefault("client_ip", _client_ip.get())
     # 1) JSONL (ham)
     try:
         settings.log_path.mkdir(parents=True, exist_ok=True)
@@ -100,8 +129,8 @@ def log_query(record: dict[str, Any]) -> None:
                 """INSERT OR REPLACE INTO queries
                    (id, ts, question, provider, model, embedding_model, top_k,
                     n_sources, retrieval_ms, generation_ms, total_ms,
-                    prompt, raw_answer, answer, sources_json)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    prompt, raw_answer, answer, sources_json, client_ip)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (
                     record["id"],
                     record["ts"],
@@ -118,13 +147,15 @@ def log_query(record: dict[str, Any]) -> None:
                     record.get("raw_answer"),
                     record.get("answer"),
                     json.dumps(record.get("sources", []), ensure_ascii=False),
+                    record.get("client_ip"),
                 ),
             )
     except Exception:
         pass
 
 
-def log_feedback(query_id: str, rating: str, comment: str | None = None) -> bool:
+def log_feedback(query_id: str, rating: str, comment: str | None = None,
+                 reason: str | None = None, respondent_name: str | None = None) -> bool:
     """Kullanıcı geri bildirimini kaydeder. Başarılıysa True."""
     try:
         with _connect() as conn:
@@ -133,11 +164,12 @@ def log_feedback(query_id: str, rating: str, comment: str | None = None) -> bool
                 return False
             previous = conn.execute('SELECT id FROM feedback WHERE query_id=? ORDER BY id DESC LIMIT 1', (query_id,)).fetchone()
             if previous:
-                conn.execute('UPDATE feedback SET rating=?,comment=?,ts=? WHERE id=?',
-                             (rating, comment, _now(), previous[0]))
+                conn.execute('UPDATE feedback SET rating=?,comment=?,reason=?,respondent_name=?,ts=? WHERE id=?',
+                             (rating, comment, reason, respondent_name, _now(), previous[0]))
             else:
-                conn.execute("INSERT INTO feedback (query_id, rating, comment, ts) VALUES (?,?,?,?)",
-                             (query_id, rating, comment, _now()))
+                conn.execute('''INSERT INTO feedback (query_id, rating, comment, reason, respondent_name, ts)
+                                VALUES (?,?,?,?,?,?)''',
+                             (query_id, rating, comment, reason, respondent_name, _now()))
         return True
     except Exception:
         return False

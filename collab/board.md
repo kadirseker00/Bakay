@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | Olumsuz geri bildirim: altı neden, serbest açıklama ve isteğe bağlı ad; admin listesi/ayrıntısında güvenilir istemci IP ve geri bildirim. Eski veritabanı geçişi, 165 test, Next.js 15 üretim derlemesi ve tarayıcı kayıt/yeniden deneme kontrolleri geçti; yerelde hazır | codex | 2026-10-18 | — |
 | ✅ | Mevcut bakai_backup Drive klasörü bağlandı; şifreli tam indeks/günlük aktarımı boyut/MD5 doğrulandı. Drive kopyasıyla 39.659 parçalık gerçek geri yükleme geçti. Günlük 02.00 Bişkek timer ve 15 dakika hata tekrarı canlı; ortak Google API kotası aralıklı, son aktarım başarılı | codex | 2026-10-18 | — |
 | ✅ | RAG prompt injection koruması canlı: gerçek sistem alanı ve kaçışlı belge/başlık/geçmiş sınırları; yerel/Linux 159 test, gerçek Haiku 6 saldırı + 2 kontrol geçti. HTTPS 5 kaynaklı yanıt, ayrı sistem kaydı, health 200 ve özel metrikler 401 doğrulandı | codex | 2026-10-15 | — |
 | ✅ | IP başına sorgu sınırı canlıda 30/dakika; özel ortam korundu, panel metriği ve HTTPS health doğrulandı. Yerel 150/Linux 17 test geçti | codex | 2026-10-13 | — |
