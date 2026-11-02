@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ⏸ | AXSİS toplu aktarımı robots.txt (genel ve ChatGPT-User Disallow /) nedeniyle başlatılmadı. Kurumsal JSON dışa aktarımı için doğrulama/tekilleştirme/kaynaklı upsert CLI hazır, 12 test geçti. Yerel rehber 1.034 / toplam 40.693 parça; AXSİS 0. Kullanıcı kütüphaneden toplu dosya isteyecek; canlı değişmedi, kilitler bırakıldı | codex | 2026-11-02 | — |
 | ✅ | AXSİS incelendi: 643 araştırmacı/3.295 yayın göstergesi; Abdulkadir Şeker profili, rehberle e-posta/bölüm eşleşmesi ve dört yayın kaydı doğrulandı. Kapsam ve otomatik toplama önkoşulları personnel.md içinde; henüz indekslenmedi, kilit bırakıldı | codex | 2026-11-02 | — |
 | ⏸ | Personel rehberi yerelde hazır: 25 birim / 1.034 kişi-görev, indeks 40.693 parça, 8 test. Canlıdaki “abdulkadir şeker kimdir?” kaynak yetersiz yanıtı görüldü; aynı soruda yerel doğru kişi/rehber erişimi geçti. Canlı aktarım için yeni SSH bağlantısı gerekli, kilitler bırakıldı | codex | 2026-11-02 | — |
 | ✅ | Anthropic bakai-2026 (Default / 31.12.2026) canlıya bağlandı: gerçek Haiku API yanıtı, backend restart ve HTTPS health 200 doğrulandı. Ortam root 600 ve eski ayar yedeği korundu; sırlar yerelde kaydedilmedi. Yalnız ortam yenilendi, uygulama commiti yayımlanmadı | codex | 2026-11-02 | — |

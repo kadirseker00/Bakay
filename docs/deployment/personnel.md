@@ -74,13 +74,74 @@ ve bölüm bilgisi personel rehberindeki kayıtla eşleşiyor. Yayınlar sekmesi
 dört makale kaydı (üçü 2026, biri 2025), başlık, özet, dergi ve kaynak sayfası
 bağlantıları görüldü. Bu, kişinin toplam yayın sayısının dört olduğunu göstermez.
 
-Bu kaynak henüz otomatik toplayıcıya veya Chroma indeksine eklenmedi. Otomatik
-toplamadan önce robots kuralları ve kurumun sunduğu dışa aktarma/API imkânı
-kontrol edilmeli. CAPTCHA tekrar çıkarsa toplama durmalı; doğrulama sayfası
-belge olarak indekslenmemeli. Tarayıcıdaki doğrulanmış oturumdan erişim,
-sunucudaki zamanlanmış toplayıcının da erişebileceği anlamına gelmez.
+Bu kaynak henüz Chroma indeksine eklenmedi. 2 Kasım 2026 tarihinde
+`https://publications.manas.edu.kg/robots.txt` HTTP 200 döndü; `User-agent: *`
+için `Disallow: /` kuralı var. ChatGPT-User ve diğer bazı botlar ayrıca kapalı.
+Googlebot/Bingbot gibi arama motorlarının istisnası Bakai için kullanılmaz.
+Bu nedenle toplu web taraması başlatılmadı. Kurumdan alınan dışa aktarım için
+`app.ingest.academic` hazırlandı; CAPTCHA çözmez ve siteye istek göndermez.
+Tarayıcıdaki doğrulanmış oturumdan erişim, sunucudaki zamanlanmış toplayıcının
+da erişebileceği anlamına gelmez.
 
 Eşleştirmede yalnız ad benzerliğine dayanılmamalı; kurumsal e-posta veya ORCID
 gibi doğrulanan alanlarla birim bilgisi birlikte kullanılmalı. Yayın künyeleri
 ve profil bilgileri ayrı kaynak adresleri ve kontrol tarihleriyle korunmalı;
 yayın konusundan doğrulanmamış özgeçmiş ya da uzmanlık unvanı üretilmemeli.
+
+### Toplu dışa aktarımı yükleme
+
+Kütüphaneden CSV/Excel/JSON dosyası alındığında aşağıdaki ara JSON şemasına
+dönüştürülür. CSV/Excel'in gerçek sütunları görülmeden dönüşüm varsayılmamalı.
+`expected_researchers` kurumun dışa aktarımda bildirdiği toplam olmalı;
+elle eksik bir kümeye eşitlenerek tamlık beyanı üretilmemeli.
+
+```json
+{
+  "schema_version": 1,
+  "fetched_at": "2026-11-02",
+  "complete": true,
+  "expected_researchers": 1,
+  "researchers": [{
+    "url": "https://publications.manas.edu.kg/arastirmaci/ornek",
+    "name": "Örnek Araştırmacı",
+    "title": "Dr.",
+    "faculty": "Örnek Fakülte",
+    "department": "Örnek Bölüm",
+    "email": "ornek@manas.edu.kg",
+    "orcid": "",
+    "publications": [{
+      "url": "https://publications.manas.edu.kg/yayin/123",
+      "title": "Örnek yayın başlığı",
+      "year": "2026",
+      "journal": "Örnek dergi",
+      "doi": ""
+    }]
+  }]
+}
+```
+
+Bu şema örneği kurgu veridir; üretim indeksine yüklenmez. `publications` boş
+olabilir; yokluğu hata sayılır. Yıl metin olarak verilmelidir. Kaynak adresleri
+kanonik `/arastirmaci/KIMLIK` ve `/yayin/SAYI` biçiminde olmalı; liste sayfasının
+arama ekleri veya oturum belirteçleri taşınmamalı.
+
+Backend dizininden:
+
+```bash
+# Önce doğrula ve Git dışına belge/kaynak haritası yaz:
+.venv/bin/python -m app.ingest.academic /guvenli/yol/axsis.json
+# Aynı doğrulamayla Chroma'ya upsert et:
+.venv/bin/python -m app.ingest.academic /guvenli/yol/axsis.json --index
+```
+
+Eksik/boş küme, tekrarlanan profil, resmî olmayan adres, kurumsal olmayan e-posta
+ve çelişen yayın künyesi yazmadan önce reddedilir. Ortak yayın adresleri tek
+belgede birleştirilir; eşleşen araştırmacı adları birlikte tutulur. Profil ve
+yayın kimlikleri kaynak URL'sinden gelir; güncelleme kopya üretmez. Önceki indeks
+kayıtları otomatik silinmez; kaynakta kaldırılan profillerin arşiv/temizleme
+kararı ayrıca verilmelidir. Yazma hatasından sonra aynı dosya tekrar yüklenebilir.
+
+Çıktılar `data/processed/academic/`, `data/processed/academic-records.json` ve
+`data/sitemap-academic.json` içindedir. Tam metin makale/PDF, kişisel fotoğraf ve
+oturum bilgisi aktarılmaz. Testler yalnız geçici dizinlerde kurgu veri kullandı;
+üretim indeksi değiştirilmedi. 12 personel/akademik/kaynak testi geçti.
