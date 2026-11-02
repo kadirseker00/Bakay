@@ -53,5 +53,8 @@ ve kurum genelinde kapsam değerlendirmesi değildir. Farklı birim kartlarında
 unvan/oda farklılığı bulunabilir; kaynakta görünmeyen tek bir güncel değer
 varsayılmamalıdır.
 
-Canlı aktarım, yeni Anthropic anahtarı ve sunucu erişimi bekliyor. Kullanıcının
-son personel sorusunun metni henüz alınmadı; canlı sorgu kaydı incelenmedi.
+Yeni Anthropic anahtarı canlıya bağlandı ve gerçek Haiku yanıtıyla doğrulandı.
+Canlıdaki “abdulkadir şeker kimdir?” sorusu kaynak yetersiz yanıtı almıştı; yeni
+yerel indekste aynı sorunun ilk iki sonucu ilgili resmî kişi kartlarıdır.
+Personel verisinin canlıya aktarımı için yeniden SSH bağlantısı kurulması gerekiyor;
+yerel hazırlık canlıya yayın olarak sunulmamalıdır.
