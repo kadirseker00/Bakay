@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | AXSİS incelendi: 643 araştırmacı/3.295 yayın göstergesi; Abdulkadir Şeker profili, rehberle e-posta/bölüm eşleşmesi ve dört yayın kaydı doğrulandı. Kapsam ve otomatik toplama önkoşulları personnel.md içinde; henüz indekslenmedi, kilit bırakıldı | codex | 2026-11-02 | — |
 | ⏸ | Personel rehberi yerelde hazır: 25 birim / 1.034 kişi-görev, indeks 40.693 parça, 8 test. Canlıdaki “abdulkadir şeker kimdir?” kaynak yetersiz yanıtı görüldü; aynı soruda yerel doğru kişi/rehber erişimi geçti. Canlı aktarım için yeni SSH bağlantısı gerekli, kilitler bırakıldı | codex | 2026-11-02 | — |
 | ✅ | Anthropic bakai-2026 (Default / 31.12.2026) canlıya bağlandı: gerçek Haiku API yanıtı, backend restart ve HTTPS health 200 doğrulandı. Ortam root 600 ve eski ayar yedeği korundu; sırlar yerelde kaydedilmedi. Yalnız ortam yenilendi, uygulama commiti yayımlanmadı | codex | 2026-11-02 | — |
 | ✅ | Olumsuz geri bildirim düzeltme formu ve atomik hazır cevap taslağı; özgün soru/yanıt/bağlam, yönetici incelemesi ve onaylı JSONL golden geliştirme seti. 205 test, üretim derlemesi, gerçek tarayıcı kayıt/onay/indirme/arşiv geçti; yalnız ayrı QA verisi, canlıya yayın yapılmadı | codex | 2026-10-18 | — |

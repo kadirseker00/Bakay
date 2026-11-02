@@ -58,3 +58,29 @@ Canlıdaki “abdulkadir şeker kimdir?” sorusu kaynak yetersiz yanıtı almı
 yerel indekste aynı sorunun ilk iki sonucu ilgili resmî kişi kartlarıdır.
 Personel verisinin canlıya aktarımı için yeniden SSH bağlantısı kurulması gerekiyor;
 yerel hazırlık canlıya yayın olarak sunulmamalıdır.
+
+## Ek kaynak: AXSİS akademik profilleri
+
+Kaynak: https://publications.manas.edu.kg/ . 2 Kasım 2026 tarihinde normal
+tarayıcıda güvenlik doğrulamasından sonra araştırmacı listesi ve profil sayfası
+incelendi. Ana sayfa 643 araştırmacı ve 3.295 yayın gösteriyordu; bunlar sistemin
+o tarihte görünen kayıt sayılarıdır, üniversitenin tüm personelini veya bütün
+bilimsel üretimini kapsadığı varsayılmamalıdır.
+
+Doğrulanan örnek: https://publications.manas.edu.kg/arastirmaci/abdulkadirseker .
+Profilde ad, unvan, kurumsal e-posta, fakülte/bölüm, ad varyantları, çalışma
+durumu, ORCID ve diğer akademik profil bağlantıları bulunuyor. Kurumsal e-posta
+ve bölüm bilgisi personel rehberindeki kayıtla eşleşiyor. Yayınlar sekmesinde
+dört makale kaydı (üçü 2026, biri 2025), başlık, özet, dergi ve kaynak sayfası
+bağlantıları görüldü. Bu, kişinin toplam yayın sayısının dört olduğunu göstermez.
+
+Bu kaynak henüz otomatik toplayıcıya veya Chroma indeksine eklenmedi. Otomatik
+toplamadan önce robots kuralları ve kurumun sunduğu dışa aktarma/API imkânı
+kontrol edilmeli. CAPTCHA tekrar çıkarsa toplama durmalı; doğrulama sayfası
+belge olarak indekslenmemeli. Tarayıcıdaki doğrulanmış oturumdan erişim,
+sunucudaki zamanlanmış toplayıcının da erişebileceği anlamına gelmez.
+
+Eşleştirmede yalnız ad benzerliğine dayanılmamalı; kurumsal e-posta veya ORCID
+gibi doğrulanan alanlarla birim bilgisi birlikte kullanılmalı. Yayın künyeleri
+ve profil bilgileri ayrı kaynak adresleri ve kontrol tarihleriyle korunmalı;
+yayın konusundan doğrulanmamış özgeçmiş ya da uzmanlık unvanı üretilmemeli.
