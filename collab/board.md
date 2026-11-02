@@ -5,6 +5,8 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ⏸ | Personel rehberi yerelde hazır: 25 birim / 1.034 kişi-görev, indeks 40.693 parça, 8 test ve iki kaynaklı erişim kontrolü geçti. Son canlı soru metni ve sunucu girişi bekleniyor; canlıya aktarılmadı, kilitler bırakıldı | codex | 2026-11-02 | — |
+| ⏸ | Anthropic yenileme: bakai-2026 Default / 31.12.2026 oluşturuldu, eski anahtar kullanıcı tarafından silindi. İlk aktarım zaman aşımı sonrası SSH hazır sinyali eklendi; root ve yeni anahtarın tekrar gizli girişi bekleniyor. Canlı health 200; yeni anahtarın etkinliği doğrulanmadı | codex | 2026-11-02 | — |
 | ✅ | Olumsuz geri bildirim düzeltme formu ve atomik hazır cevap taslağı; özgün soru/yanıt/bağlam, yönetici incelemesi ve onaylı JSONL golden geliştirme seti. 205 test, üretim derlemesi, gerçek tarayıcı kayıt/onay/indirme/arşiv geçti; yalnız ayrı QA verisi, canlıya yayın yapılmadı | codex | 2026-10-18 | — |
 | ✅ | Panelden kalıcı ve anında IP/global dakika/saat/24 saat/eşzamanlı sınır ayarları; sayaçlar/çalışan işler korunur, sürüm çakışması ve denetim geçmişi. 7 yeni sınır testi dahil 205 test ve üretim derlemesi; tarayıcı kaydet/yenile/geri al geçti, canlıya yayın yapılmadı | codex | 2026-10-18 | — |
 | ✅ | Üniversite adı karakter düzeltmesi v0.3.3 canlıda: 61e1831, v0.3.2 geri bildirim/IP sürümü üzerine. 177 Linux testi; API/arayüz sürümü, 10 JS/CSS, metrikler 401 ve gerçek el kitabı sorgusunda prompt/yanıt/kaynak başlığı doğru; geri dönüş kopyası korundu | codex | 2026-10-18 | — |
