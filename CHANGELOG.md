@@ -6,6 +6,19 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.4.3 — 2026-11-04
+
+- Kullanıcının yayına eklediği `2de47ac` kaynak düzeltmesi, bak.ai markasıyla
+  birleştirildi: yanıt bulunamadığında kaynak kartı ve bağlantı gösterilmez.
+- Yeterli yanıtta aynı belgenin parçaları tekilleştirilir; en fazla üç ayrı
+  belge sunulur. Hazır cevap, JSON, SSE ve telemetri aynı listeyi kullanır.
+- Kaynakla örtüşmeyen doğrulama sonucu kısa yanıtsızlık ifadesine çevrilir.
+- Bağlantı paylaşımı için bak.ai ve açık üniversite adıyla Open Graph/Twitter
+  başlıkları; yalnız özgün simge ve ürün adını içeren 1200×630 paylaşım görseli.
+
+Doğrulama: yanıtsızlık, üç belge, hazır cevap, JSON/SSE ve kayıt regresyonları;
+0.4.3 arayüz derlemesi. Yayın sonunda API/arayüz sürümü ve gerçek sorular kontrol edilir.
+
 ## 0.4.2 — 2026-11-04
 
 - Ürün yazımı **bak.ai** olarak güncellendi; mevcut renkli logo ve favicon korundu.

@@ -1,6 +1,11 @@
 # KTMÜ canlı kurulum ve işletim
 
-Kod deposu: [kadirseker00/Bakay](https://github.com/kadirseker00/Bakay), dal `main`.
+Kod deposu: [kadirseker00/Bakay](https://github.com/kadirseker00/Bakay).
+4 Kasım 2026 yayın dalı `codex/bak-ai-brand-live`; v0.4.2 özgün simgeyle
+bak.ai yazımını yayımladı. v0.4.3 dalı `codex/bak-ai-sources-live`, `2de47ac`
+kaynak düzeltmesini ve bağlantı paylaşım önizlemesini aynı yayın üzerine ekler.
+Ana sayfa kurumun açık adını gösterir; logo yalnız simge ve
+ürün adıdır. Her yeni yayın commitinde sürüm artırılır ve arayüz yeniden derlenir.
 
 Ürün yazımı **bak.ai**. [Hakkında sayfası](https://bakai.manas.edu.kg/hakkinda),
 adın kökenini, KTMÜ BAP proje numarasını ve proje yürütücüsü/geliştirici bilgisini açıklar.

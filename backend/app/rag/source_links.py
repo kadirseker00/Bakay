@@ -4,6 +4,7 @@ import json
 from urllib.parse import quote, urlsplit
 
 from app.config import ROOT
+from app.rag.answer_sources import lacks_answer
 
 
 def _official_url(url: str) -> bool:
@@ -47,7 +48,7 @@ def resolve_source_url(document: str) -> str | None:
 
 def append_source_reading(text: str, hits: list[dict]) -> str:
     """İlk kaynak biliniyorsa ayrıntı bağlantısı ekler; URL veya sayfa uydurmaz."""
-    if not hits or "bilgi bulamadım" in text.lower():
+    if not hits or lacks_answer(text):
         return text
     hit = hits[0]
     url = resolve_source_url(hit['document'])
