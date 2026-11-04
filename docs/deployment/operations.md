@@ -4,7 +4,7 @@
 
 Yönetici panelindeki **Uyarılar ve yedekler** bölümü sağlık, kaynak kullanımı,
 yedekleme ve maliyet alarmını gösterir. `bakay-monitor.timer` dakikada bir ölçer.
-Sağlık, RAM (%90), disk (%85), son 15 dakikadaki sunucu hataları ve 30 saatten
+Sağlık, RAM (%90), disk (%85), son 15 dakikadaki sunucu hataları ve 192 saatten
 eski yedekler üç kötü ölçümde açılır; iki iyi ölçümde kapanır.
 
 Günlük maliyet alarmı **1 USD**: Bişkek 00.00’dan itibaren kaydedilmiş API token
@@ -101,30 +101,35 @@ ve [istemci kurulumu](https://developers.cloudflare.com/turnstile/get-started/cl
 
 ## Şifreli yedekleme
 
-`bakay-backup.timer` her gün **02.00 Bişkek** saatinde çalışır; rastgele gecikme
-kapalıdır. Sunucu o sırada kapalıysa ilk açılışta kaçırılan çalışma telafi edilir.
-Başarısız işlem 15 dakika sonra yeniden denenir; iki saatte toplam en çok dört
-servis başlangıcına izin verilir. Yerel yedek aktarım başarısızlığında korunur.
-Yedekler `/var/backups/bakai` root 0700 dizininde 0600 tutulur.
-`/etc/bakay/backup.json` yalnız **açık age alıcı anahtarını** içerir. Geri yükleme
-özel anahtarı sunucuda veya git'te bulunmaz; yöneticinin Mac'inde
-`~/.config/bakai-backup/identity.txt` 0600 saklanır. Anahtarın bağımsız güvenli bir
-kopyası gerekir; anahtar kaybolursa şifreli yedek açılamaz.
+4 Kasım 2026 kullanıcı isteği: **haftada bir, yalnız Drive’da son tam yedek**.
+`bakay-backup.timer` her **pazar 02.00 Bişkek** saatinde çalışır. Sunucu kapalıysa
+ilk açılışta kaçırılan çalışma telafi edilir. Başarısız işlem 15 dakika sonra
+tekrarlanır; iki saatte en çok dört başlangıç. Gecikme eşiği `BACKUP_MAX_AGE_HOURS=192`
+(8 gün); haftalık aralık içinde günlük gecikme alarmı oluşmaz.
 
-İlk yedek veya indeks değişikliği tam indeks paketi üretir. İndeks değişmezse günlük
-paket yalnız tutarlı uygulama SQLite yedeği, veri JSON dosyaları, sürüm ve özel
-sunucu yapılandırmasını içerir. Günlük paket manifestteki indeks parmak iziyle aynı
-tam indeks paketine bağlıdır. Yalnız günlük paket Chroma indeksini içermez.
+`/etc/bakay/backup.json` içinde `remote_only=true`: her çalışmada bağımsız bir tam
+indeks + uygulama SQLite + yapılandırma paketi oluşturulur. age ile şifreli arşiv
+hazırlanırken sunucuda geçici alan kullanılır; düz arşiv oluşturulmaz. Yeni tam
+yerel paket tamamlanınca daha eski yerel BAKAI arşivleri ve yan manifestleri
+kaldırılır. Aktarım başarısızsa en fazla bu tek tam paket kalır; tekrar denemeler
+arşiv biriktirmez.
 
-SQLite Online Backup API ve `integrity_check` kullanılır. HNSW dosyaları paket
-akışı içinde hash'lenir; indeks dosyalarının yedek öncesi/sonrası parmak izi değişirse
-paket yayınlanmaz. İndeksleme sırasında tekrar denenmelidir. Şifreli arşiv doğrudan
-age akışında oluşur; düz arşiv diske yazılmaz. SQLite/yapılandırma geçici kopyaları
-0700 dizinde tutulur, sonunda kaldırılır. Son bir GiB boş alan korunur.
+Drive kopyasının **boyutu ve MD5 değeri doğrulandıktan sonra** yalnız hedef
+klasördeki daha eski `BAKAI-index-TARIH.tar.gz.age` / `BAKAI-daily-TARIH.tar.gz.age`
+paketleri Drive çöp kutusuna taşınır. Başka dosyalar, alt klasörler, yeni paket
+ve daha yeni tarihli dosyalar korunur. Liste/aktarım/hash kontrolü başarısızsa
+eski Drive yedekleri silinmez. Temizlik bittiğinde sunucudaki son geçici arşiv de
+silinir; başarılı işlem sonunda kalıcı yerel arşiv yoktur. Temizlik başarısızsa
+son doğrulanmış aktarım tarihi saklanır, `drive_cleanup` hatası ve yerel tam paket
+korunur. Çöp kutusunu kalıcı boşaltma veya tüm klasörü eşitleme yapılmaz.
 
-Yerelde en fazla 7 günlük paket ve 2 tam indeks saklanır. Tam indeksi kaldırılan
-günlük paketler de kaldırılır; kalan günlük paketlerin eşleşen indeksi korunur. Drive'da otomatik silme, sync
-veya purge yoktur. Drive bağlantısı yapılmadan uzak yedek mevcut sayılmaz.
+Yedek dizini `/var/backups/bakai` root 0700, dosyalar 0600. SQLite Online Backup
+API ve `integrity_check` kullanılır; indeks dosyalarının önce/sonra parmak izi
+değişirse paket yayınlanmaz. Son bir GiB boş alan korunur. İndeksleme sırasında
+tekrar denenmelidir. Şifreleme özel anahtarı sunucuda/Drive’da yoktur;
+Mac’te `~/.config/bakai-backup/identity.txt` 0600 saklanır. Anahtarın bağımsız güvenli
+bir kopyası gerekir. `remote_only` kapalı eski kurulumların günlük/artımlı ve
+7 günlük + 2 indeks saklama davranışı geriye uyumluluk için korunur.
 
 ```sh
 systemctl start bakay-backup.service

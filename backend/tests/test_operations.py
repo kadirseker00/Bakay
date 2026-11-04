@@ -54,6 +54,16 @@ class OperationsTests(unittest.TestCase):
         self.tick(3); self.assertEqual({x['key'] for x in self.snap()['active']},{'backup_local','backup_remote'})
         self.assertNotIn('DO-NOT-LEAK',json.dumps(self.snap()))
         (self.root/'status.json').write_text('[]'); self.tick()
+    def test_weekly_remote_only_alert_boundary_and_local_recovery(self):
+        status=self.root/'status.json'
+        status.write_text(json.dumps({'local_enabled':True,'last_local_at':None}))
+        self.tick(3); self.assertEqual({x['key'] for x in self.snap()['active']},{'backup_local'})
+        status.write_text(json.dumps({'local_enabled':False,'remote_only':True,'remote_configured':True,
+                                     'last_remote_at':(self.now-timedelta(days=7)).isoformat()}))
+        self.tick(2); self.assertEqual(self.snap()['active'],[])
+        self.now+=timedelta(days=1)
+        self.tick(3); self.assertEqual({x['key'] for x in self.snap()['active']},{'backup_remote'})
+        self.assertIn('192 saat',self.snap()['active'][0]['message'])
     def test_retry_claim_once_and_recovery_delivery(self):
         self.mail_ready(); self.sample['checks']['backend']['ok']=False; self.tick(3); sent=[]
         def fail(c,e): raise OSError('private-password')
@@ -148,6 +158,78 @@ class BackupTests(unittest.TestCase):
         self.env=self.root/'private.env'; self.env.write_text('SYNTHETIC_SECRET=never-in-git\n')
         self.cfg={'root':str(app),'directory':str(self.root/'backups'),'recipient':recipient,'private_env':str(self.env),'extra_config':[],'status':str(self.root/'status.json'),'status_group':'','remote':''}
     def archive(self): return self.root/'backups'/backup.read_status(self.cfg)['last_archive']
+    def fake_drive(self, bad_hash=False, fail_copy=False, fail_delete=False):
+        """Gerçek şifreli paketler; Drive kopya/liste/hash/silme sözleşmesinin taklidi."""
+        original=subprocess.run
+        files={'BAKAI-index-20261001T020000000000Z.tar.gz.age':b'old-index',
+               'BAKAI-daily-20261002T020000000000Z.tar.gz.age':b'old-daily',
+               'kullanici-notu.txt':b'koru'}
+        def run(args,**kwargs):
+            if args[0]!='rclone': return original(args,**kwargs)
+            if 'copyto' in args:
+                if fail_copy: return subprocess.CompletedProcess(args,1,b'',b'quota')
+                source=Path(args[args.index('copyto')+1]); files[source.name]=source.read_bytes()
+                return subprocess.CompletedProcess(args,0,b'',b'')
+            if 'lsjson' in args:
+                if '--stat' in args:
+                    name=args[args.index('lsjson')+1].rsplit('/',1)[-1]
+                    import hashlib
+                    value={'Size':len(files[name]),'Hashes':{'md5':'bad' if bad_hash else hashlib.md5(files[name]).hexdigest()}}
+                else:
+                    value=[{'Name':name,'Path':name,'IsDir':False,'Size':len(data)} for name,data in files.items()]
+                    value.append({'Name':'BAKAI-index-20260101T020000000000Z.tar.gz.age',
+                                  'Path':'../disarida','IsDir':False,'Size':1})
+                return subprocess.CompletedProcess(args,0,json.dumps(value).encode(),b'')
+            if 'deletefile' in args:
+                if fail_delete: return subprocess.CompletedProcess(args,1,b'',b'quota')
+                self.assertIn('--drive-use-trash=true',args)
+                name=args[args.index('deletefile')+1].rsplit('/',1)[-1]
+                del files[name]
+                return subprocess.CompletedProcess(args,0,b'',b'')
+            raise AssertionError(args)
+        self.cfg.update(remote='drive:',rclone_config='unused',remote_only=True)
+        self.enterContext(patch.object(backup.subprocess,'run',side_effect=run))
+        return files
+    def test_remote_only_keeps_one_independent_full_and_no_local_archives(self):
+        files=self.fake_drive()
+        directory=Path(self.cfg['directory']); directory.mkdir()
+        unrelated=directory/'yonetici-notu.txt'; unrelated.write_text('koru')
+        first=backup.run(self.cfg)
+        self.assertEqual(first['kind'],'index'); self.assertTrue(first['remote_verified'])
+        self.assertEqual(list(directory.glob('*.age')),[])
+        self.assertTrue(unrelated.exists()); self.assertIn('kullanici-notu.txt',files)
+        self.assertEqual(len(files),2)
+        second=backup.run(self.cfg)
+        self.assertEqual(second['kind'],'index'); self.assertEqual(len(files),2)
+        self.assertEqual(list(directory.glob('*.age')),[])
+        state=backup.read_status(self.cfg)
+        self.assertFalse(state['local_enabled']); self.assertTrue(state['remote_only'])
+        self.assertIn(state['last_archive'],files)
+    def test_remote_checksum_failure_never_deletes_old_drive_backups(self):
+        files=self.fake_drive(bad_hash=True)
+        previous=set(files)
+        with self.assertRaisesRegex(backup.BackupError,'drive_checksum'): backup.run(self.cfg)
+        self.assertTrue(previous.issubset(files)); self.assertTrue(self.archive().exists())
+        self.assertNotIn('last_remote_at',backup.read_status(self.cfg))
+    def test_remote_cleanup_protects_newer_packages(self):
+        files=self.fake_drive()
+        future='BAKAI-index-20990101T020000000000Z.tar.gz.age'
+        files[future]=b'dokunma'
+        backup.run(self.cfg)
+        self.assertEqual(files[future],b'dokunma'); self.assertEqual(len(files),3)
+    def test_failed_retries_keep_only_one_complete_local_package(self):
+        files=self.fake_drive(fail_copy=True); previous=dict(files)
+        for _ in range(2):
+            with self.assertRaisesRegex(backup.BackupError,'drive_upload'): backup.run(self.cfg)
+        self.assertEqual(files,previous)
+        self.assertEqual(list(Path(self.cfg['directory']).glob('*.age')),[self.archive()])
+        self.assertEqual(backup.verify(self.archive(),self.identity)['kind'],'index')
+    def test_cleanup_failure_preserves_local_and_records_verified_upload(self):
+        files=self.fake_drive(fail_delete=True)
+        with self.assertRaisesRegex(backup.BackupError,'drive_cleanup'): backup.run(self.cfg)
+        self.assertTrue(self.archive().exists()); self.assertEqual(len(files),4)
+        state=backup.read_status(self.cfg)
+        self.assertIn('last_remote_at',state); self.assertEqual(state['last_error'],'drive_cleanup')
     def test_full_daily_restore_refuses_existing_target(self):
         self.assertEqual(backup.run(self.cfg)['kind'],'index'); full=self.archive()
         self.assertEqual(full.stat().st_mode&0o777,0o600)

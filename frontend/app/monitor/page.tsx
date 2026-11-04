@@ -25,7 +25,7 @@ type Metrics = {
   sample: { checked_at: string; checks: Record<string, Check> } | null;
   daily: { date: string; queries: number; errors: number; cost_usd: number }[];
   protection?: { enabled: boolean; chat_per_minute: number; chat_per_hour: number; global_per_day: number; daily_used: number; concurrent_limit: number; active_queries: number; blocked_requests: number; captcha_configured?: boolean; blocked_by_reason: Record<string, number> };
-  alerts?: { active: { key: string; title: string; message: string; severity: string; changed_at: string }[]; recent: { ts: string; title: string; state: string; delivered_at: string | null; error_type: string | null }[]; email_configured: boolean; daily_usd_limit: number; evaluated_at: string | null; backup: { local_enabled?: boolean; remote_configured?: boolean; last_local_at?: string | null; last_remote_at?: string | null; last_restore_test_at?: string | null; last_error?: string | null; last_backup_bytes?: number | null } };
+  alerts?: { active: { key: string; title: string; message: string; severity: string; changed_at: string }[]; recent: { ts: string; title: string; state: string; delivered_at: string | null; error_type: string | null }[]; email_configured: boolean; daily_usd_limit: number; evaluated_at: string | null; backup: { local_enabled?: boolean; remote_configured?: boolean; remote_only?: boolean; last_local_at?: string | null; last_remote_at?: string | null; last_restore_test_at?: string | null; last_error?: string | null; last_backup_bytes?: number | null } };
   recent_queries: Query[]; recent_errors: { ts: string; path: string; status: number }[];
 };
 const number = (value: number) => new Intl.NumberFormat("tr-TR").format(value);
@@ -149,8 +149,8 @@ export default function MonitorPage() {
         </div>
         {data.alerts.active.map(alert => <div className={styles.alertItem} key={alert.key} role="status"><strong>{alert.title}</strong><p>{alert.message}</p><small>{dateTime(alert.changed_at)}</small></div>)}
         <div className={styles.backupGrid}>
-          <div className={styles.healthItem}><span>Şifreli yerel yedek</span><strong>{data.alerts.backup.last_local_at ? dateTime(data.alerts.backup.last_local_at) : "Henüz alınmadı"}</strong><small>{data.alerts.backup.last_backup_bytes ? `${(data.alerts.backup.last_backup_bytes / 1024 ** 2).toFixed(1)} MB · günlük 03.15` : "Günlük 03.15 · Bişkek"}</small></div>
-          <div className={styles.healthItem}><span>Google Drive aktarımı</span><strong>{data.alerts.backup.remote_configured ? data.alerts.backup.last_remote_at ? dateTime(data.alerts.backup.last_remote_at) : "İlk aktarım bekleniyor" : "Hesap bağlantısı bekleniyor"}</strong><small>Sunucu dışına yalnız şifreli dosyalar</small></div>
+          <div className={styles.healthItem}><span>Sunucuda yedek saklama</span><strong>{data.alerts.backup.remote_only ? "Kalıcı kopya tutulmaz" : "Yerel kopya etkin"}</strong><small>{data.alerts.backup.remote_only ? "Drive doğrulamasından sonra geçici arşiv silinir" : "Son hazırlama: " + (data.alerts.backup.last_local_at ? dateTime(data.alerts.backup.last_local_at) : "Henüz alınmadı")}</small></div>
+          <div className={styles.healthItem}><span>Google Drive yedeği</span><strong>{data.alerts.backup.remote_configured ? data.alerts.backup.last_remote_at ? dateTime(data.alerts.backup.last_remote_at) : "İlk aktarım bekleniyor" : "Hesap bağlantısı bekleniyor"}</strong><small>Pazar 02.00 · Bişkek · son tam yedek saklanır</small></div>
           <div className={styles.healthItem}><span>Geri yükleme testi</span><strong>{data.alerts.backup.last_restore_test_at ? dateTime(data.alerts.backup.last_restore_test_at) : "Henüz doğrulanmadı"}</strong><small>Dosya bütünlüğü, veritabanı ve indeks sorgusu</small></div>
         </div>
         {data.alerts.backup.last_error && <p className={styles.error}>Son yedek işlemi başarısız: {data.alerts.backup.last_error}</p>}

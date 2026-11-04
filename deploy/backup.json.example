@@ -17,5 +17,6 @@
   "status": "/var/lib/bakay/backup-status.json",
   "status_group": "bakay",
   "rclone_config": "/var/lib/bakai-backup/rclone.conf",
-  "remote": ""
+  "remote": "",
+  "remote_only": true
 }
