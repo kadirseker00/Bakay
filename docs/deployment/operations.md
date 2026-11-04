@@ -148,18 +148,38 @@ Geri dönüş dizini `/var/backups/bakay/weekly-drive.20261104T064221Z`.
 
 Arızanın kesin nedeni rclone ortak istemcisinde Google API **403
 RATE_LIMIT_EXCEEDED / defaultPerMinutePerProject**; Drive depolama kotası veya
-OAuth token süresi değil. Son doğrulanmış aktarım **2 Kasım 02.17 Bişkek**;
-son yerel paket **4 Kasım 02.53 Bişkek**. Mevcut yerel arşivler yaklaşık 1,3 GB.
-Yeni gerçek aktarım henüz tamamlanmadığından mevcut arşivler bu aşamada silinmedi.
+OAuth token süresi değil. Önceki son doğrulanmış aktarım **2 Kasım 02.17 Bişkek**,
+son yerel paket **4 Kasım 02.53 Bişkek** idi. Başarısız aktarımlar nedeniyle
+sunucuda yaklaşık 1,3 GB eski arşiv birikmişti.
 
 Kurumsal Google hesabıyla **BAKAI Drive Backup** projesi
 (`eminent-quasar-513706-b2`) oluşturuldu ve Drive API etkinleştirildi. OAuth
 uygulaması kurum içi olarak, destek/iletişim adresi
-`abdulkadir.seker@manas.edu.kg` ile hazırlandı. Google veri politikası kabulü,
-özel OAuth istemcisi ve `bakai@manas.edu.kg` Drive izni için kullanıcı onayı
-bekleniyor; henüz yeni istemci/token oluşturulmadı. Onaydan sonra bağlantı,
-gerçek tam aktarım/hash ve eski uzak/yerel arşiv temizliği doğrulanmalı.
-Haftalık alarm eşiği çalışıyor; bu durum bağlantı arızasının giderildiği anlamına gelmez.
+`abdulkadir.seker@manas.edu.kg` ile hazırlandı. Kullanıcının açık onayıyla
+Google veri politikası kabul edildi ve **BAKAI weekly encrypted backup** adlı
+masaüstü OAuth istemcisi oluşturuldu. Kullanıcı Google girişini tamamladı;
+Drive API hesabın **bakai@manas.edu.kg** olduğunu doğruladı. Yenileme tokenı
+alındı; yeni bağlantı sunucunun rclone sürümüyle aynı hedef klasörde gerçek
+listeleme kontrolünden geçti. İstemci sırrı ve tokenlar git dışında 0600
+yapılandırmalarda, önceki sunucu bağlantısı geri dönüş dizininde korunur.
+Uygulama sürümü bağlantı ayarıyla değiştirilmedi.
+
+İlk haftalık tam paket **4 Kasım 2026 14.18 Bişkek** itibarıyla Drive'da
+boyut/MD5 kontrolünden geçti: `BAKAI-index-20261104T081403630288Z.tar.gz.age`,
+**428.062.485 bayt**, MD5 `993d25f14246270536d6385a19f67492`.
+Servis başarılı tamamlandı ve `last_error=null`. Hedef klasörün son listesinde
+yalnız bu tek tam paket var; önceki 19 paket çöp kutusuna taşındı.
+Sunucuda arşiv, yarım arşiv ve yan manifest sayısı **0**; yaklaşık **1,3 GB**
+alan açıldı, boş alan **3,25 GB**. Sonraki haftalık işlem aynı temizliği uygular.
+
+Aynı dosya Drive'dan Mac'teki korumalı geçici dizine yeniden indirildi.
+Boyut ve MD5'e ek olarak SHA-256
+`f5f35572af03c34bc5b77c0ba2851c9379c74b8002497da455764713fe464480`
+sunucudaki paket manifestiyle eşleşti. age/manifest **32 dosya**, SQLite
+bütünlüğü ve **39.659 parçalık** Chroma koleksiyonunda en yakın komşu sorgusu
+başarılı. `last_restore_test_at` bu gerçek provadan sonra
+**4 Kasım 2026 08.20 UTC / 14.20 Bişkek** olarak güncellendi. İndirilen arşiv
+ve açılan test dosyaları kaldırıldı; özel anahtar Mac'te kaldı.
 
 ### Drive bağlantısı — 18 Ekim 2026
 
@@ -212,7 +232,7 @@ komşu sorgusu geçti. `last_restore_test_at` ancak bu gerçek provadan sonra
 
 ### Geri yükleme provası
 
-Mac'te sunucudaki `.tar.gz.age` dosyasını git dışındaki korumalı bir dizine indirin.
+Mac'te Drive'daki `.tar.gz.age` dosyasını git dışındaki korumalı bir dizine indirin.
 Sunucu özel anahtar gerektirmez. Dosya bütünlüğü, manifest ve SQLite doğrulaması:
 
 ```sh
@@ -225,7 +245,8 @@ Varsayılan olarak geçici, üretimden ayrı bir dizine açar ve sonunda kaldır
 vektörün en yakın komşusunu doğrular; LLM veya embedding indirmesi yapmaz. Var olan
 hedef dizine yazmayı, arşivde yol kaçışını/symlink'i ve bozulmuş şifreli dosyayı reddeder.
 
-Gerçek kurtarmada önce tam paket yeni bir hedefe açılır. Günlük paket **başka yeni**
+Haftalık düzende gerçek kurtarma için son tam paket yeterlidir. Eski günlük
+düzendeki bir kurtarmada önce tam paket yeni bir hedefe açılır. Günlük paket **başka yeni**
 bir hedefe açılıp manifest parmak izleri karşılaştırılır; doğrulanmış günlük SQLite
 ve yapılandırmalar durdurulmuş uygulamanın kurtarma dizinine yönetici tarafından
 aktarılır. Aktif üretim Chroma dizinine arşiv açmayın. `last_restore_test_at` yalnız

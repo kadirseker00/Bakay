@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | Haftalık tek tam Drive yedeği v0.4.1 / 9999e3b canlı; özel kurum içi OAuth ile gerçek 428 MB aktarım ve boyut/MD5 doğrulandı. Drive’da son tek tam paket, 19 eski paket çöp kutusunda; sunucuda 0 arşiv ve 1,3 GB alan açıldı. Drive’dan yeniden indirme/SHA-256, 32 dosya/SQLite ve 39.659 parçalık geri yükleme geçti. Pazar 02.00 Bişkek timer; 211 Linux testi/API-UI kontrolü, kilitler bırakıldı | codex | 2026-11-04 | — |
 | ⏸ | AXSİS toplu aktarımı robots.txt (genel ve ChatGPT-User Disallow /) nedeniyle başlatılmadı. Kurumsal JSON dışa aktarımı için doğrulama/tekilleştirme/kaynaklı upsert CLI hazır, 12 test geçti. Yerel rehber 1.034 / toplam 40.693 parça; AXSİS 0. Kullanıcı kütüphaneden toplu dosya isteyecek; canlı değişmedi, kilitler bırakıldı | codex | 2026-11-02 | — |
 | ✅ | AXSİS incelendi: 643 araştırmacı/3.295 yayın göstergesi; Abdulkadir Şeker profili, rehberle e-posta/bölüm eşleşmesi ve dört yayın kaydı doğrulandı. Kapsam ve otomatik toplama önkoşulları personnel.md içinde; henüz indekslenmedi, kilit bırakıldı | codex | 2026-11-02 | — |
 | ⏸ | Personel rehberi yerelde hazır: 25 birim / 1.034 kişi-görev, indeks 40.693 parça, 8 test. Canlıdaki “abdulkadir şeker kimdir?” kaynak yetersiz yanıtı görüldü; aynı soruda yerel doğru kişi/rehber erişimi geçti. Canlı aktarım için yeni SSH bağlantısı gerekli, kilitler bırakıldı | codex | 2026-11-02 | — |
