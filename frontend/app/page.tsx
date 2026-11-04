@@ -27,6 +27,7 @@ import {
   X,
 } from "lucide-react";
 import Logo from "./components/Logo";
+import Wordmark from "./components/Wordmark";
 import { buildHistory, persistHistory, restoreHistory } from "./lib/chat-memory";
 import type { Message } from "./lib/chat-memory";
 import { ChatStreamError, readChatResponse } from "./lib/chat-stream";
@@ -119,20 +120,20 @@ const CANDIDATE_TRACKS: CandidateTrack[] = [
       {
         title: "Eğitim süresi ve hazırlık",
         description: "Program sürelerini ve hazırlık eğitimini öğrenin",
-        question: "KTMÜ'de ön lisans ve lisans eğitimi kaç yıl sürer, hazırlık eğitimi var mıdır?",
+        question: "Kırgızistan-Türkiye Manas Üniversitesinde ön lisans ve lisans eğitimi kaç yıl sürer, hazırlık eğitimi var mıdır?",
         icon: LibraryBig,
       },
       {
         title: "Kabul yolları",
         description: "YKS ve MANAS-ÖSS ile kabul süreçlerini inceleyin",
         question:
-          "Türkiye ve Kırgızistan uyruklu adaylar KTMÜ lisans programlarına YKS veya MANAS-ÖSS ile nasıl kabul edilir?",
+          "Türkiye ve Kırgızistan uyruklu adaylar Kırgızistan-Türkiye Manas Üniversitesi lisans programlarına YKS veya MANAS-ÖSS ile nasıl kabul edilir?",
         icon: FileCheck2,
       },
       {
         title: "Ücret ve burslar",
         description: "Eğitim ücretini ve sunulan burs türlerini inceleyin",
-        question: "KTMÜ'de eğitim ücretli midir ve öğrencilere hangi burs türleri verilir?",
+        question: "Kırgızistan-Türkiye Manas Üniversitesinde eğitim ücretli midir ve öğrencilere hangi burs türleri verilir?",
         icon: Sparkles,
       },
       {
@@ -154,28 +155,28 @@ const CANDIDATE_TRACKS: CandidateTrack[] = [
       {
         title: "Eğitim süreleri",
         description: "Yüksek lisans ve doktora eğitim sürelerini öğrenin",
-        question: "KTMÜ'de yüksek lisans ve doktora eğitimi kaç yıl sürer?",
+        question: "Kırgızistan-Türkiye Manas Üniversitesinde yüksek lisans ve doktora eğitimi kaç yıl sürer?",
         icon: LibraryBig,
       },
       {
         title: "Yüksek lisans koşulları",
         description: "Not ortalaması ve sınav koşullarını inceleyin",
         question:
-          "KTMÜ'de yüksek lisans için gereken lisans not ortalaması ile ALES, GRE veya GMAT koşulları nelerdir?",
+          "Kırgızistan-Türkiye Manas Üniversitesinde yüksek lisans için gereken lisans not ortalaması ile ALES, GRE veya GMAT koşulları nelerdir?",
         icon: FileCheck2,
       },
       {
         title: "Doktora koşulları",
         description: "Not ortalaması ve yabancı dil şartlarını öğrenin",
         question:
-          "KTMÜ doktora programına başvurmak için gereken not ortalaması ve yabancı dil koşulları nelerdir?",
+          "Kırgızistan-Türkiye Manas Üniversitesi doktora programına başvurmak için gereken not ortalaması ve yabancı dil koşulları nelerdir?",
         icon: Sparkles,
       },
       {
         title: "Öğrenci alım ilanı",
         description: "Kontenjan ve gerekli belgelerin nasıl duyurulduğunu öğrenin",
         question:
-          "KTMÜ lisansüstü öğrenci alım ilanında kontenjan, başvuru koşulları ve gerekli belgeler nasıl duyurulur?",
+          "Kırgızistan-Türkiye Manas Üniversitesi lisansüstü öğrenci alım ilanında kontenjan, başvuru koşulları ve gerekli belgeler nasıl duyurulur?",
         icon: CalendarDays,
       },
     ],
@@ -183,7 +184,7 @@ const CANDIDATE_TRACKS: CandidateTrack[] = [
   {
     id: "uluslararasi",
     label: "Uluslararası",
-    title: "KTMÜ'ye gelişini hazırla",
+    title: "Kırgızistan-Türkiye Manas Üniversitesine gelişini hazırla",
     description:
       "Uluslararası adayların kabulden kampüs yaşamına kadar merak ettiği süreçleri tek yerde inceleyin.",
     icon: Globe2,
@@ -191,14 +192,14 @@ const CANDIDATE_TRACKS: CandidateTrack[] = [
       {
         title: "TR-YÖS ile kabul",
         description: "TR-YÖS ile uluslararası kabul koşullarını öğrenin",
-        question: "KTMÜ'ye TR-YÖS ile uluslararası öğrenci kabul şartları nelerdir?",
+        question: "Kırgızistan-Türkiye Manas Üniversitesine TR-YÖS ile uluslararası öğrenci kabul şartları nelerdir?",
         icon: Globe2,
       },
       {
         title: "Diğer ülkelerden başvuru",
         description: "Türkiye ve Kırgızistan dışından kabul yollarını inceleyin",
         question:
-          "Türkiye ve Kırgızistan dışındaki ülkelerden adaylar KTMÜ'ye hangi yollarla kabul edilir?",
+          "Türkiye ve Kırgızistan dışındaki ülkelerden adaylar Kırgızistan-Türkiye Manas Üniversitesine hangi yollarla kabul edilir?",
         icon: FileCheck2,
       },
       {
@@ -220,9 +221,9 @@ const CANDIDATE_TRACKS: CandidateTrack[] = [
 
 const FAQS = [
   {
-    question: "BAKAI yanıtlarını nereden buluyor?",
+    question: "bak.ai yanıtlarını nereden buluyor?",
     answer:
-      "Yanıtlar KTMÜ'nün indekslenen resmî yönetmelik, yönerge, duyuru ve kurumsal belgelerinden hazırlanır. Her yanıtta kullanılan kaynak parçalarını ayrıca görebilirsiniz.",
+      "Yanıtlar Kırgızistan-Türkiye Manas Üniversitesinin indekslenen resmî yönetmelik, yönerge, duyuru ve kurumsal belgelerinden hazırlanır. Her yanıtta kullanılan kaynak parçalarını ayrıca görebilirsiniz.",
   },
   {
     question: "Verilen bilgi güncel değilse ne yapmalıyım?",
@@ -232,7 +233,7 @@ const FAQS = [
   {
     question: "Her konuda soru sorabilir miyim?",
     answer:
-      "BAKAI, KTMÜ'nün kurumsal ve akademik süreçleri için tasarlanmıştır. Kaynaklarda bulunmayan veya üniversiteyle ilgisiz konularda tahminde bulunmak yerine kapsamını açıkça belirtir.",
+      "bak.ai, Kırgızistan-Türkiye Manas Üniversitesinin kurumsal ve akademik süreçleri için tasarlanmıştır. Kaynaklarda bulunmayan veya üniversiteyle ilgisiz konularda tahminde bulunmak yerine kapsamını açıkça belirtir.",
   },
   {
     question: "Yanıtın kalitesini bildirebilir miyim?",
@@ -256,7 +257,7 @@ function Brand({ onHome }: { onHome?: () => void }) {
     <a
       className="brand"
       href="#baslangic"
-      aria-label="BAKAI ana sayfa"
+      aria-label={`${PROJECT.name} ana sayfa`}
       onClick={(event) => {
         if (!onHome) return;
         event.preventDefault();
@@ -265,9 +266,8 @@ function Brand({ onHome }: { onHome?: () => void }) {
     >
       <Logo size={42} />
       <span className="brand-copy">
-        <strong>BAKAI</strong>
+        <strong><Wordmark /></strong>
         <span className="brand-version">v{process.env.NEXT_PUBLIC_APP_VERSION}</span>
-        <small>KTMÜ Bilgi Asistanı</small>
       </span>
     </a>
   );
@@ -600,7 +600,7 @@ export default function Home() {
           )}
 
           <div className="header-actions">
-            <div className={`connection ${connection}`} title="BAKAI servis durumu">
+            <div className={`connection ${connection}`} title="bak.ai servis durumu">
               {connection === "online" ? <Wifi size={15} /> : <WifiOff size={15} />}
               <span>
                 {connection === "online"
@@ -633,11 +633,11 @@ export default function Home() {
 
       {isConversation ? (
         <main className="conversation-workspace">
-          <section className="conversation-main" aria-label="BAKAI görüşmesi">
+          <section className="conversation-main" aria-label="bak.ai görüşmesi">
             <div className="conversation-heading">
               <div>
                 <span className="section-kicker">KAYNAKLI SORU-CEVAP</span>
-                <h1 ref={conversationHeadingRef} tabIndex={-1}>BAKAI ile görüşme</h1>
+                <h1 ref={conversationHeadingRef} tabIndex={-1}>bak.ai ile görüşme</h1>
               </div>
               <span className="conversation-count">{messages.filter((m) => m.role === "user").length} soru</span>
             </div>
@@ -657,7 +657,7 @@ export default function Home() {
 
                   <div className={`message ${message.role} ${message.error ? "error" : ""}`}>
                     <div className="message-author">
-                      {message.role === "assistant" ? (message.error ? "Sistem bildirimi" : "BAKAI") : "Siz"}
+                      {message.role === "assistant" ? (message.error ? "Sistem bildirimi" : "bak.ai") : "Siz"}
                     </div>
                     <div
                       className={`message-text ${
@@ -764,7 +764,7 @@ export default function Home() {
                 {historySaved
                   ? "Sohbet bu tarayıcıda saklanır. Yeni sohbet, geçmişi ve konuşma bağlamını temizler."
                   : "Tarayıcı sohbeti kaydedemedi; sayfa yenilenirse geçmiş kaybolabilir."}
-                {" "}BAKAI hata yapabilir; önemli kararlar için gösterilen kaynağı doğrulayın.
+                {" "}bak.ai hata yapabilir; önemli kararlar için gösterilen kaynağı doğrulayın.
                 {" "}<a href="/hakkinda">Proje hakkında</a>
               </p>
             </div>
@@ -797,7 +797,7 @@ export default function Home() {
               <ShieldCheck size={20} />
               <p>
                 <strong>Kaynak öncelikli</strong>
-                BAKAI yalnızca erişebildiği kurumsal belgelere göre yanıt verir.
+                bak.ai yalnızca erişebildiği kurumsal belgelere göre yanıt verir.
               </p>
             </div>
           </aside>
@@ -808,11 +808,12 @@ export default function Home() {
             <div className="hero-inner">
               <div className="hero-kicker">
                 <ShieldCheck size={17} />
-                Resmî KTMÜ belgelerine dayalı
+                Resmî üniversite belgelerine dayalı
               </div>
               <h1 id="hero-title">
-                <span>BAKAI</span>
-                KTMÜ Kurumsal Bilgi Asistanı
+                <span className="hero-product"><Wordmark /></span>
+                <span className="hero-institution">{PROJECT.institution}</span>
+                Kurumsal Bilgi Asistanı
               </h1>
               <p className="hero-copy">
                 Yönetmelikler, burslar, kayıt ve akademik süreçler hakkında sorun.
@@ -838,7 +839,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="hero-facts" aria-label="BAKAI özellikleri">
+              <div className="hero-facts" aria-label="bak.ai özellikleri">
                 <div>
                   <LibraryBig size={20} />
                   <span>
@@ -870,7 +871,7 @@ export default function Home() {
                 <span className="section-kicker">ADAY ÖĞRENCİ REHBERİ</span>
                 <h2 id="candidate-title">Tercihini resmî bilgilerle şekillendir.</h2>
                 <p>
-                  Eğitim hedefinizi seçin; BAKAI başvuru, kontenjan, burs ve kampüs
+                  Eğitim hedefinizi seçin; bak.ai başvuru, kontenjan, burs ve kampüs
                   yaşamıyla ilgili sorularınızı üniversite belgelerinde arasın.
                 </p>
                 <div className="candidate-note">
@@ -975,7 +976,7 @@ export default function Home() {
                 <span className="section-kicker">GÜVENİLİR BİLGİ</span>
                 <h2>Bir cevap değil, dayanağıyla birlikte bilgi.</h2>
                 <p>
-                  BAKAI sorunuzla ilgili resmî metinleri bulur, yanıtı bu içerikten üretir ve
+                  bak.ai sorunuzla ilgili resmî metinleri bulur, yanıtı bu içerikten üretir ve
                   kullandığı belge parçalarını görünür kılar.
                 </p>
               </div>
@@ -1009,7 +1010,7 @@ export default function Home() {
             <div className="section-inner faq-grid">
               <div className="faq-intro">
                 <span className="section-kicker">SIK SORULANLAR</span>
-                <h2>BAKAI hakkında merak edilenler</h2>
+                <h2>bak.ai hakkında merak edilenler</h2>
                 <p>Bilginin kapsamı, güncelliği ve yanıtların nasıl değerlendirildiği.</p>
                 <BookOpenText size={64} strokeWidth={1.2} aria-hidden="true" />
               </div>
@@ -1031,10 +1032,10 @@ export default function Home() {
             <div className="section-inner footer-inner">
               <Brand />
               <div className="footer-project">
-                <p>KTMÜ Bilimsel Araştırma Projeleri (BAP) kapsamında geliştirilmiştir.</p>
+                <p>{PROJECT.institution} Bilimsel Araştırma Projeleri (BAP) kapsamında geliştirilmiştir.</p>
                 <p>Proje yürütücüsü ve geliştirici: <strong>{PROJECT.author}</strong></p>
               </div>
-              <a className="footer-about" href="/hakkinda">BAKAI hakkında <ArrowUp size={14} /></a>
+              <a className="footer-about" href="/hakkinda">bak.ai hakkında <ArrowUp size={14} /></a>
             </div>
           </footer>
         </main>
@@ -1079,8 +1080,8 @@ function QuestionComposer({
           rows={1}
           maxLength={2000}
           value={input}
-          aria-label="KTMÜ hakkında sorunuzu yazın"
-          placeholder={animatedPrompt ? "" : "KTMÜ hakkında sorunuzu yazın..."}
+          aria-label="Kırgızistan-Türkiye Manas Üniversitesi hakkında sorunuzu yazın"
+          placeholder={animatedPrompt ? "" : "Sorunuzu yazın..."}
           onFocus={onFocus}
           onChange={(event) => {
             onInput(event.target.value);

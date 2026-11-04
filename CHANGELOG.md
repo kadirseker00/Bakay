@@ -6,6 +6,17 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.4.2 — 2026-11-04
+
+- Ürün yazımı **bak.ai** olarak güncellendi; mevcut renkli logo ve favicon korundu.
+  Logo yalnız simge ve ürün adından oluşur.
+- Ana sayfada **Kırgızistan-Türkiye Manas Üniversitesi** açık adı; sayfa
+  metadatası, hakkında, sohbet ve yönetim panelinde tutarlı ürün yazımı.
+- Küçük ekranda marka yazısı ve açık üniversite adı için okunabilir yerleşim.
+
+Doğrulama: üretim derlemesi ve tür kontrolü; masaüstü/mobil marka ve menü;
+canlı API/arayüz sürüm eşleşmesi ve statik varlıklar yayın sırasında denetlenir.
+
 ## 0.4.1 — 2026-11-04
 
 - Pazar 02.00 Bişkek saatinde haftalık, bağımsız ve şifreli tam Drive yedeği.

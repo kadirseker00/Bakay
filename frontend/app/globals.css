@@ -104,10 +104,11 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 1px;
+  max-width: 260px;
 }
 
 .brand-copy strong {
-  font-size: 19px;
+  font-size: 25px;
   line-height: 1;
   color: var(--teal-dark);
 }
@@ -281,13 +282,22 @@ textarea:focus-visible {
   letter-spacing: 0;
 }
 
-.hero h1 span {
+.hero h1 > .hero-product {
   display: block;
   margin-bottom: 8px;
   color: var(--coral);
-  font-size: 17px;
+  font-size: 46px;
   line-height: 1;
   font-weight: 850;
+}
+
+.hero h1 > .hero-institution {
+  display: block;
+  margin: 18px 0 12px;
+  color: var(--ink-soft);
+  font-size: 22px;
+  line-height: 1.4;
+  font-weight: 500;
 }
 
 .hero-copy {
@@ -1544,6 +1554,13 @@ a.source-card:hover {
   }
 }
 
+@media (min-width: 801px) and (max-width: 960px) {
+  .header-inner { gap: 16px; }
+  .site-nav { gap: 24px; }
+  .connection span { display: none; }
+  .connection { width: 34px; min-height: 34px; justify-content: center; padding: 0; }
+}
+
 @media (max-width: 800px) {
   .site-header {
     height: 64px;
@@ -1659,11 +1676,14 @@ a.source-card:hover {
     height: 36px;
   }
 
-  .brand-copy small,
   .connection span,
+  .brand-version,
   .new-question span {
     display: none;
   }
+
+  .brand-copy { max-width: 150px; }
+  .header-inner { gap: 12px; }
 
   .connection {
     width: 34px;
@@ -1694,8 +1714,12 @@ a.source-card:hover {
     line-height: 1.13;
   }
 
-  .hero h1 span {
-    font-size: 14px;
+  .hero h1 > .hero-product {
+    font-size: 38px;
+  }
+
+  .hero h1 > .hero-institution {
+    font-size: 17px;
   }
 
   .hero-copy {

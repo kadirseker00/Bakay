@@ -1,0 +1,10 @@
+.wordmark {
+  display: inline;
+  color: var(--ink);
+  font-weight: 750;
+  letter-spacing: -0.055em;
+  white-space: nowrap;
+}
+
+.dot { color: var(--coral); }
+.ai { color: var(--teal); font-weight: 450; }

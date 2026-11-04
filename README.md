@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="docs/brand/bakay-logo-v3.png" alt="BAKAI logo" width="160" />
+<img src="docs/brand/bak-ai-logo-preview.png" alt="bak.ai logo" width="340" />
 
-# BAKAI — KTMÜ Kurumsal Bilgi Asistanı
+# bak.ai — Kırgızistan-Türkiye Manas Üniversitesi Kurumsal Bilgi Asistanı
 
 **Kırgızistan-Türkiye Manas Üniversitesi (KTMÜ) için RAG tabanlı, kaynak gösteren kurumsal bilgi asistanı**
 
@@ -35,10 +35,12 @@ aynı sürümün göründüğü doğrulanmalıdır. Aynı commitin tekrar yayın
 
 ## Ürün adı ve BAP projesi
 
-**BAKAI** ürün adı, Manas Destanı’ndaki bilge danışman **Bakay** karakterinden
+**bak.ai** ürün adı, Manas Destanı’ndaki bilge danışman **Bakay** karakterinden
 esinlenir. BAP başvurusundaki ilk ad **BAKAY**, aynı zamanda
 **Bütünleşik Akıllı Kurumsal Asistan Yazılımı** kısaltmasıdır. Yeni ürün yazımı,
 projenin bu kültürel kökenini ve kurumsal bilgiye rehberlik etme amacını korur.
+Mevcut renkli simge ve favicon korunur; logo yalnız simge ile `bak.ai` yazısından
+oluşur. Üniversitenin açık adı ana sayfanın açıklayıcı başlığında yer alır.
 
 Uygulama, **Kırgızistan-Türkiye Manas Üniversitesi Bilimsel Araştırma Projeleri
 (BAP)** kapsamında geliştirilmiştir.

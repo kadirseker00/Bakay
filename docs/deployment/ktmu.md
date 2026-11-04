@@ -2,7 +2,7 @@
 
 Kod deposu: [kadirseker00/Bakay](https://github.com/kadirseker00/Bakay), dal `main`.
 
-Ürün adı **BAKAI**. [Hakkında sayfası](https://bakai.manas.edu.kg/hakkinda),
+Ürün yazımı **bak.ai**. [Hakkında sayfası](https://bakai.manas.edu.kg/hakkinda),
 adın kökenini, KTMÜ BAP proje numarasını ve proje yürütücüsü/geliştirici bilgisini açıklar.
 12 Ekim 2026 canlı kontrolünde `/`, `/hakkinda`, `/monitor` ve CSS dosyaları HTTP 200;
 API başlığı `BAKAI API`, Haiku 5.5 ve 39.659 parça doğrulandı. Önceki frontend

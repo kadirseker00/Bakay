@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
 import { ArrowLeft, ArrowUpRight, BookOpenText, GraduationCap } from "lucide-react";
 import Logo from "../components/Logo";
+import Wordmark from "../components/Wordmark";
 import { PROJECT } from "../lib/project";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
-  title: "BAKAI hakkında | İsim, BAP projesi ve geliştirici",
-  description: "BAKAI adının Manas Destanı’ndaki kökeni, KTMÜ BAP projesi ve proje yürütücüsü ve geliştirici Abdulkadir Şeker hakkında.",
+  title: "bak.ai hakkında | İsim, BAP projesi ve geliştirici",
+  description: "bak.ai adının Manas Destanı’ndaki kökeni, KTMÜ BAP projesi ve proje yürütücüsü ve geliştirici Abdulkadir Şeker hakkında.",
 };
 
 export default function AboutPage() {
   return <div className={styles.page}>
     <header className={styles.header}>
-      <a href="/" className={styles.brand} aria-label="BAKAI ana sayfa">
-        <Logo size={42} /><span><strong>{PROJECT.name}</strong><small>KTMÜ Bilgi Asistanı</small></span>
+      <a href="/" className={styles.brand} aria-label="bak.ai ana sayfa">
+        <Logo size={42} /><span><strong><Wordmark /></strong></span>
       </a>
       <a href="/" className={styles.back}><ArrowLeft size={16} /> Ana sayfa</a>
     </header>
     <main className={styles.main}>
       <div className={styles.intro}>
         <span className={styles.eyebrow}>İSİM · PROJE · GELİŞTİRİCİ</span>
-        <h1>BAKAI hakkında</h1>
+        <h1>bak.ai hakkında</h1>
         <p>Kırgızistan-Türkiye Manas Üniversitesi’nin kurumsal belgelerinden
           yararlanarak sorulara kaynaklarıyla yanıt veren yapay zekâ destekli bilgi asistanı.</p>
       </div>
@@ -35,14 +36,14 @@ export default function AboutPage() {
           <p>Projenin ilk adı <strong>BAKAY</strong>, aynı zamanda
             <strong> Bütünleşik Akıllı Kurumsal Asistan Yazılımı</strong> sözlerinin
             kısaltmasıdır. BAP başvurusunda adın bu iki kökeni birlikte açıklanır.</p>
-          <p>Uygulamanın ürün adı bugün <strong>BAKAI</strong> olarak kullanılır;
+          <p>Uygulamanın ürün adı bugün <strong>{PROJECT.name}</strong> olarak yazılır;
             adın kültürel kökeni ve projenin amacı korunur.</p>
         </section>
         <section className={styles.project} aria-labelledby="project-heading">
           <GraduationCap size={28} aria-hidden="true" />
           <span className={styles.eyebrow}>BİLİMSEL ARAŞTIRMA PROJESİ</span>
           <h2 id="project-heading">KTMÜ BAP kapsamında</h2>
-          <p>BAKAI, Kırgızistan-Türkiye Manas Üniversitesi’nin
+          <p>bak.ai, Kırgızistan-Türkiye Manas Üniversitesi’nin
             <strong> Bilimsel Araştırma Projeleri (BAP)</strong> kapsamında yürütülen
             araştırma projesinin web uygulamasıdır.</p>
           <dl className={styles.facts}>
@@ -56,11 +57,11 @@ export default function AboutPage() {
           <h2 id="author-heading">{PROJECT.author}</h2>
           <p>{PROJECT.institution}<br />{PROJECT.department}</p>
         </div>
-        <p className={styles.authorNote}>BAKAI web uygulaması, bu BAP projesi kapsamında
+        <p className={styles.authorNote}>bak.ai web uygulaması, bu BAP projesi kapsamında
           Abdulkadir Şeker tarafından geliştirilmiştir.</p>
       </section>
-      <a href="/" className={styles.cta}>BAKAI’ye soru sor <ArrowUpRight size={18} /></a>
+      <a href="/" className={styles.cta}>bak.ai’ye soru sor <ArrowUpRight size={18} /></a>
     </main>
-    <footer className={styles.footer}>BAKAI · KTMÜ Bilimsel Araştırma Projesi · {PROJECT.number}</footer>
+    <footer className={styles.footer}>bak.ai · KTMÜ Bilimsel Araştırma Projesi · {PROJECT.number}</footer>
   </div>;
 }

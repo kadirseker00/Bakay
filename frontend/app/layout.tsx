@@ -3,8 +3,8 @@ import "./globals.css";
 import { PROJECT } from "./lib/project";
 
 export const metadata: Metadata = {
-  title: "BAKAI | KTMÜ Kurumsal Bilgi Asistanı",
-  description: "KTMÜ resmî belgelerine dayalı, kaynak gösteren kurumsal bilgi asistanı",
+  title: `${PROJECT.name} | ${PROJECT.institution} Kurumsal Bilgi Asistanı`,
+  description: `${PROJECT.institution} resmî belgelerine dayalı, kaynak gösteren kurumsal bilgi asistanı`,
   authors: [{ name: PROJECT.author }],
 };
 
