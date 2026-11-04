@@ -44,7 +44,7 @@ def backup_status(config):
             raise ValueError('invalid_backup_status')
         # Dosya yolları, Drive hesabı, OAuth veya şifreleme anahtarları dışarı çıkmaz.
         keys = ('local_enabled', 'remote_configured', 'last_local_at', 'last_remote_at',
-                'last_restore_test_at', 'last_error', 'last_backup_bytes', 'index_fingerprint')
+                'last_restore_test_at', 'last_error', 'last_backup_bytes', 'index_fingerprint', 'remote_only')
         result = {key: data.get(key) for key in keys}
         for key in ('last_local_at', 'last_remote_at', 'last_restore_test_at'):
             value = result[key]
@@ -87,16 +87,17 @@ def evaluate(config, sample, now=None):
             rules.append((kind, label+' kullanım sınırı', f'{label} kullanımı %{percent:.1f}; uyarı eşiği %{limit:g}.',
                           'warning', percent >= limit, config.alert_failure_ticks))
     backup = backup_status(config)
-    if backup.get('local_enabled'):
+    max_age=config.backup_max_age_hours
+    if backup.get('local_enabled') or backup.get('remote_only'):
         last = backup.get('last_local_at')
-        stale = not last or not 0 <= (now-datetime.fromisoformat(last)).total_seconds() <= 30*3600
-        rules.append(('backup_local', 'Yerel yedek gecikti', 'Son doğrulanmış yerel yedek 30 saatten eski veya henüz alınamadı.',
+        stale = bool(backup.get('local_enabled')) and (not last or not 0 <= (now-datetime.fromisoformat(last)).total_seconds() <= max_age*3600)
+        rules.append(('backup_local', 'Yerel yedek gecikti', f'Son doğrulanmış yerel yedek {max_age} saatten eski veya henüz alınamadı.',
                       'critical', stale, config.alert_failure_ticks))
-        if backup.get('remote_configured'):
-            last = backup.get('last_remote_at')
-            stale = not last or not 0 <= (now-datetime.fromisoformat(last)).total_seconds() <= 30*3600
-            rules.append(('backup_remote', 'Drive yedeği gecikti', 'Son doğrulanmış Drive aktarımı 30 saatten eski veya henüz yapılmadı.',
-                          'critical', stale, config.alert_failure_ticks))
+    if backup.get('remote_configured') or backup.get('remote_only'):
+        last = backup.get('last_remote_at')
+        stale = not last or not 0 <= (now-datetime.fromisoformat(last)).total_seconds() <= max_age*3600
+        rules.append(('backup_remote', 'Drive yedeği gecikti', f'Son doğrulanmış Drive aktarımı {max_age} saatten eski veya henüz yapılmadı.',
+                      'critical', stale, config.alert_failure_ticks))
     with connect(config) as connection:
         connection.execute('BEGIN IMMEDIATE')
         daily = connection.execute('SELECT COALESCE(SUM(cost_usd),0), SUM(CASE WHEN cost_usd IS NULL THEN 1 ELSE 0 END) FROM llm_calls WHERE ts>=?', (cutoff,)).fetchone()

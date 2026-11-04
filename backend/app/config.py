@@ -100,6 +100,7 @@ class Settings(BaseSettings):
     alert_smtp_username: str = ""
     alert_smtp_password: str = Field(default="", repr=False)
     backup_status_path: str = "/var/lib/bakay/backup-status.json"
+    backup_max_age_hours: int = Field(default=192, ge=1, le=8760)
 
     # Yalnız şüpheli IP için Turnstile; site anahtarı açık, doğrulama sırrı özeldir.
     captcha_site_key: str = ""

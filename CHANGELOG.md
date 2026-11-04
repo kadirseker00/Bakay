@@ -6,6 +6,19 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.4.1 — 2026-11-04
+
+- Pazar 02.00 Bişkek saatinde haftalık, bağımsız ve şifreli tam Drive yedeği.
+- Yeni paketin boyutu/MD5 değeri doğrulanınca eski BAKAI Drive paketleri çöp
+  kutusuna taşınır; sunucudaki geçici arşivler kaldırılır. Başarısız aktarımlar
+  en fazla tek tam yerel paket bırakır; son geçerli Drive yedeği korunur.
+- Gecikme alarmı haftalık takvime göre 192 saat; yönetim panelinde saklama
+  politikası ve doğru çalışma saati gösterilir.
+
+Doğrulama: boyut/hash hatasında eski Drive yedeğinin korunması, başarısız
+tekrarlarda tek yerel tam paket, doğrulama sonrası temizlik ve haftalık alarm
+sınırı regresyonları; backend testleri ve arayüz üretim derlemesi.
+
 ## 0.4.0 — 2026-10-18
 
 - Kaynak, alternatif soru, kontrol/geçerlilik tarihi, sürüm ve onay içeren hazır

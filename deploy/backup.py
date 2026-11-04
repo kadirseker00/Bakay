@@ -9,6 +9,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import shutil
 import sqlite3
 import subprocess
@@ -177,12 +178,20 @@ def encrypt_archive(config, output, full, index_digest, files):
     return manifest
 
 
-def upload(config, archive):
-    target=config['remote'].rstrip('/')+'/'+archive.name
-    common=['rclone','--config',config['rclone_config'],'--retries','2','--low-level-retries','2',
+def rclone_args(config):
+    return ['rclone','--config',config['rclone_config'],'--retries','2','--low-level-retries','2',
             # Ortak Google istemcisinin dakika kotası yenilenmeden tekrar yüklenmeyelim.
             '--retries-sleep','60s',
-            '--contimeout','10s','--timeout','60s','--log-level','ERROR']
+            '--contimeout','10s','--timeout','60s','--tpslimit','2','--log-level','ERROR']
+
+
+def remote_path(config, name):
+    return config['remote'].rstrip('/')+'/'+name
+
+
+def upload(config, archive):
+    target=remote_path(config,archive.name)
+    common=rclone_args(config)
     result=subprocess.run([*common,'copyto',str(archive),target],capture_output=True,timeout=1800)
     if result.returncode:
         raise BackupError('drive_upload')
@@ -196,6 +205,46 @@ def upload(config, archive):
             raise BackupError('drive_checksum')
     except (ValueError,KeyError,TypeError):
         raise BackupError('drive_verify') from None
+
+
+def managed_archive(name):
+    return isinstance(name,str) and re.fullmatch(r'BAKAI-(?:index|daily)-\d{8}T\d{12}Z\.tar\.gz\.age',name) is not None
+
+
+def prune_remote(config, archive):
+    """Yeni tam paket doğrulandıktan sonra yalnız bu aracın eski paketlerini kaldırır."""
+    common=rclone_args(config)
+    result=subprocess.run([*common,'lsjson',config['remote'],'--max-depth','1','--files-only'],
+                          capture_output=True,timeout=180)
+    if result.returncode:
+        raise BackupError('drive_cleanup')
+    try:
+        entries=json.loads(result.stdout)
+        if not isinstance(entries,list) or any(not isinstance(item,dict) for item in entries):
+            raise ValueError()
+        # Liste eksik/yanlışsa son yedeği korumadan silmeye başlamayız.
+        current=[item for item in entries if item.get('Name')==archive.name]
+        if len(current)!=1 or current[0].get('Size')!=archive.stat().st_size:
+            raise ValueError()
+    except (ValueError,TypeError):
+        raise BackupError('drive_cleanup') from None
+    for item in entries:
+        name=item.get('Name')
+        if (name!=archive.name and managed_archive(name) and name.split('-',2)[2]<archive.name.split('-',2)[2]
+                and item.get('Path')==name
+                and item.get('IsDir') is False):
+            result=subprocess.run([*common,'deletefile',remote_path(config,name),'--drive-use-trash=true'],
+                                  capture_output=True,timeout=180)
+            if result.returncode:
+                raise BackupError('drive_cleanup')
+
+
+def prune_local_archives(directory, keep=None):
+    """Sadece tamamlanmış BAKAI paketleri ve yan manifestleri; en fazla tek bekleyen paket."""
+    for path in directory.iterdir():
+        if managed_archive(path.name) and path!=keep and path.is_file() and not path.is_symlink():
+            path.unlink()
+            path.with_suffix(path.suffix+'.json').unlink(missing_ok=True)
 
 
 def prune(directory):
@@ -235,14 +284,18 @@ def run(config, force_full=False, local_only=False):
     with (directory/'.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX | fcntl.LOCK_NB)
         state=read_status(config)
-        state.update(local_enabled=True,remote_configured=bool(config.get('remote')))
+        remote_only=bool(config.get('remote_only'))
+        state.update(local_enabled=not remote_only,remote_configured=bool(config.get('remote')),
+                     remote_only=remote_only)
         partial=None
         try:
+            if remote_only and (not config.get('remote') or local_only):
+                raise BackupError('remote_required')
             root=Path(config['root']).resolve()
             files=index_files(root)
             digest=fingerprint(root,files)
             base_name=state.get('last_index_archive', '')
-            full=force_full or digest!=state.get('index_fingerprint') or not base_name or not (directory/base_name).is_file()
+            full=remote_only or force_full or digest!=state.get('index_fingerprint') or not base_name or not (directory/base_name).is_file()
             size=sum(path.stat().st_size for path in files) if full else 0
             if shutil.disk_usage(directory).free < size+1024**3:
                 raise BackupError('disk_space')
@@ -261,9 +314,12 @@ def run(config, force_full=False, local_only=False):
                 state['last_index_archive']=archive.name
             # Aktarım arızası, alınmış yerel yedeği ve referans indeksini silmez.
             atomic_json(config['status'],state,config.get('status_group',''))
+            if remote_only:
+                # Yeni tam yerel paket hazır; arızalarda da eski denemeler birikmez.
+                prune_local_archives(directory,keep=archive)
             if config.get('remote') and not local_only:
                 base=directory/state['last_index_archive']
-                if state.get('remote_index_fingerprint')!=digest:
+                if remote_only or state.get('remote_index_fingerprint')!=digest:
                     if not base.is_file():
                         raise BackupError('index_base_missing')
                     upload(config,base)
@@ -272,8 +328,13 @@ def run(config, force_full=False, local_only=False):
                     upload(config,archive)
                 state['last_remote_at']=utc_now()
             atomic_json(config['status'],state,config.get('status_group',''))
-            prune(directory)
-            return {'kind':manifest['kind'],'bytes':archive.stat().st_size,
+            backup_bytes=archive.stat().st_size
+            if remote_only:
+                prune_remote(config,archive)
+                prune_local_archives(directory)
+            else:
+                prune(directory)
+            return {'kind':manifest['kind'],'bytes':backup_bytes,
                     'remote_verified':bool(config.get('remote') and not local_only)}
         except Exception as exception:
             if partial:
