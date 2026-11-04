@@ -137,6 +137,30 @@ systemctl status bakay-backup.service
 systemctl list-timers bakay-backup.timer
 ```
 
+### 4 Kasım 2026 yayın ve bağlantı durumu
+
+Haftalık politika **v0.4.1 / `9999e3b`** ile canlıya alındı. Canlı taban
+`c8e05b0` üzerine `codex/weekly-drive-backup` dalı kullanıldı; personel/AXSİS
+çalışmaları bu yayına taşınmadı. Linux'ta 211 test, iki ortamda üretim derlemesi,
+HTTPS API/arayüz sürüm eşleşmesi, 13 JS/CSS ve özel metriklerin 401 yanıtı geçti.
+Sonraki planlı çalışma **8 Kasım 2026 pazar 02.00 Asia/Bishkek**.
+Geri dönüş dizini `/var/backups/bakay/weekly-drive.20261104T064221Z`.
+
+Arızanın kesin nedeni rclone ortak istemcisinde Google API **403
+RATE_LIMIT_EXCEEDED / defaultPerMinutePerProject**; Drive depolama kotası veya
+OAuth token süresi değil. Son doğrulanmış aktarım **2 Kasım 02.17 Bişkek**;
+son yerel paket **4 Kasım 02.53 Bişkek**. Mevcut yerel arşivler yaklaşık 1,3 GB.
+Yeni gerçek aktarım henüz tamamlanmadığından mevcut arşivler bu aşamada silinmedi.
+
+Kurumsal Google hesabıyla **BAKAI Drive Backup** projesi
+(`eminent-quasar-513706-b2`) oluşturuldu ve Drive API etkinleştirildi. OAuth
+uygulaması kurum içi olarak, destek/iletişim adresi
+`abdulkadir.seker@manas.edu.kg` ile hazırlandı. Google veri politikası kabulü,
+özel OAuth istemcisi ve `bakai@manas.edu.kg` Drive izni için kullanıcı onayı
+bekleniyor; henüz yeni istemci/token oluşturulmadı. Onaydan sonra bağlantı,
+gerçek tam aktarım/hash ve eski uzak/yerel arşiv temizliği doğrulanmalı.
+Haftalık alarm eşiği çalışıyor; bu durum bağlantı arızasının giderildiği anlamına gelmez.
+
 ### Drive bağlantısı — 18 Ekim 2026
 
 Hesap: **bakai@manas.edu.kg**. Kullanıcının mevcut
