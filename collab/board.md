@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ✅ | Dış erişim güvenlik raporu hazır: 80 test, tokensız/yabancı Origin ile sahte modele erişim doğrulandı; anahtar deseni sızıntısı yok, 1 USD yalnız alarm. npm kritik uyarısında Sharp 0.35.5 geçici çözümü kilitte mevcut; canlı kurulum doğrulanamadı. Zorunlu ilk doğrulama/bütçe/panel ağ sınırı/yamalar önerildi; canlı değişmedi, kilit bırakıldı | codex | 2026-11-13 | — |
 | ✅ | Haftalık tek tam Drive yedeği v0.4.1 / 9999e3b canlı; özel kurum içi OAuth ile gerçek 428 MB aktarım ve boyut/MD5 doğrulandı. Drive’da son tek tam paket, 19 eski paket çöp kutusunda; sunucuda 0 arşiv ve 1,3 GB alan açıldı. Drive’dan yeniden indirme/SHA-256, 32 dosya/SQLite ve 39.659 parçalık geri yükleme geçti. Pazar 02.00 Bişkek timer; 211 Linux testi/API-UI kontrolü, kilitler bırakıldı | codex | 2026-11-04 | — |
 | ⏸ | AXSİS toplu aktarımı robots.txt (genel ve ChatGPT-User Disallow /) nedeniyle başlatılmadı. Kurumsal JSON dışa aktarımı için doğrulama/tekilleştirme/kaynaklı upsert CLI hazır, 12 test geçti. Yerel rehber 1.034 / toplam 40.693 parça; AXSİS 0. Kullanıcı kütüphaneden toplu dosya isteyecek; canlı değişmedi, kilitler bırakıldı | codex | 2026-11-02 | — |
 | ✅ | AXSİS incelendi: 643 araştırmacı/3.295 yayın göstergesi; Abdulkadir Şeker profili, rehberle e-posta/bölüm eşleşmesi ve dört yayın kaydı doğrulandı. Kapsam ve otomatik toplama önkoşulları personnel.md içinde; henüz indekslenmedi, kilit bırakıldı | codex | 2026-11-02 | — |
