@@ -25,7 +25,20 @@ istek kabul etmez; hazırlık hatasında sağlıklı hizmet sunulmuş sayılmaz.
 Dağıtım hazır olma bekleme süresi bu aşamayı kapsayacak şekilde artırıldı.
 Mobil: opak başlık, en az 44 px öneri/oy/altbilgi alanı, kısa kaynak doğrulama
 uyarısı ve kaynak kartlarından benzerlik yüzdesinin kaldırılması.
-Bu takip sürümünün canlı restart/ilk soru ölçümü dağıtım sonunda eklenecek.
+`0.4.5` / `1bd6092` canlıya uygulandı; API ve arayüz aynı sürümde.
+Restart sonrasındaki ilk kullanıcı sorusu aynı ön yanıtla toplam 1.566 ms,
+arama 120 ms (önce 51.101 / 49.921 ms). Ayrıntılı “Lisans için” yanıtı toplam
+7.203 ms; arama 184 ms, üretim 5.834 ms. Bunlar iki örnek ölçümdür, SLA değildir.
+Açılış hazırlığı bu sunucuda yaklaşık 76 saniye sürdü; bu sırada istek kabul
+edilmedi. 249 mevcut + 3 yeni yerel test, 6 hedef Linux testi ve Linux üretim
+derlemesi geçti. Yeniden anonim JSON/SSE 403 ve sıfır ücretli çağrı; izin dışı
+panel/docs 403, Apache syntax OK, iki servis active doğrulandı.
+375x812 canlı sohbet: yatay taşma yok, oylar 44x44 px, alt bağlantı 44 px;
+kaynak benzerlik yüzdesi yok. Ekran: `security-2026-11-14/mobile-live-0.4.5.jpg`.
+
+Önceki `.next` ve özel ortam `/var/backups/bakay/pre-0.4.5` altında;
+yayın betiği kopyası `/var/backups/bakay/security-20261113T201646Z` altında.
+Özel ortam dosyaları depoya eklenmedi.
 
 ### Kurum dışı erişim
 
@@ -155,7 +168,7 @@ Kesin konum tarayıcı izni gerektirir; güvenlik amacıyla istenmiyor.
 5. `systemctl` ve Apache configtest; dışarıdan tokensız JSON/SSE 403 ve sıfır
    LLM çağrısı, gerçek Turnstile + normal soru, yabancı Origin, sahte XFF,
    izin dışından panel/docs 403, izinli ağdan panel girişi doğrulanır.
-   API ve arayüzün ikisi de `0.4.4` göstermelidir. Kurumsal örnek soru ve kısa
+   API ve arayüzün ikisi de yayımlanan sürümü (`0.4.5`) göstermelidir. Kurumsal örnek soru ve kısa
    devam sorusu kabulü, anlamsız/genel kod isteğinin reddi ve 1200 token altında
    tamamlanan kaynaklı yanıt ayrıca doğrulanır. Kapsam sınıflandırması da bütçeye
    dahil olduğundan bu testler yalnız kontrollü sayıda yapılmalıdır.
