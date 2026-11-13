@@ -11,6 +11,7 @@ import time
 from typing import Protocol
 
 import httpx
+from fastapi import HTTPException
 
 from app.config import settings
 from app import budget, monitoring
@@ -29,7 +30,7 @@ class AnthropicLLM:
                 "ANTHROPIC_API_KEY tanımlı değil. Proje kökündeki .env dosyasına ekleyin."
             )
         self.model = model or settings.anthropic_model
-        self.max_tokens = settings.anthropic_max_tokens
+        self.max_tokens = min(settings.anthropic_max_tokens, 1200) if settings.public_security_enabled else settings.anthropic_max_tokens
         self.thinking = settings.anthropic_thinking
         self.effort = settings.anthropic_effort
         self.http = httpx.Client(
@@ -41,12 +42,15 @@ class AnthropicLLM:
             timeout=settings.anthropic_timeout,
         )
 
-    def generate_result(self, prompt: str, *, system: str | None = None) -> dict:
+    def generate_result(self, prompt: str, *, system: str | None = None,
+                        classification: bool = False) -> dict:
         started = time.perf_counter()
         meter = budget.Budget(settings)
-        reservation = meter.reserve(self.model, prompt, system, self.max_tokens)
+        max_tokens = min(self.max_tokens, 32) if classification else self.max_tokens
+        reservation = meter.reserve(self.model, prompt, system, max_tokens)
         try:
-            result = self._generate_result(prompt, system=system)
+            options = {'classification': True} if classification else {}
+            result = self._generate_result(prompt, system=system, **options)
             meter.settle(reservation, result['model'], result['usage'])
         except Exception as error:
             code = f"HTTP_{error.response.status_code}" if isinstance(error, httpx.HTTPStatusError) else type(error).__name__
@@ -57,14 +61,15 @@ class AnthropicLLM:
                                    usage=result['usage'])
         return result
 
-    def _generate_result(self, prompt: str, *, system: str | None = None) -> dict:
+    def _generate_result(self, prompt: str, *, system: str | None = None,
+                         classification: bool = False) -> dict:
         """Güvenilir talimatları kullanıcı verisinden ayrı gönder."""
         payload = {
             "model": self.model,
-            "max_tokens": self.max_tokens,
+            "max_tokens": min(self.max_tokens, 32) if classification else self.max_tokens,
             "messages": [{"role": "user", "content": prompt}],
-            "thinking": {"type": self.thinking},
-            "output_config": {"effort": self.effort},
+            "thinking": {"type": 'disabled' if classification else self.thinking},
+            "output_config": {"effort": 'low' if classification else self.effort},
             # Sonnet 5.5 özel sıcaklık/top_p/top_k değerlerini kabul etmez.
         }
         if system is not None:
@@ -89,11 +94,19 @@ class AnthropicLLM:
 
     def generate(self, prompt: str, *, system: str | None = None) -> str:
         result = self.generate_result(prompt, system=system)
+        if settings.public_security_enabled and result['stop_reason'] == 'max_tokens':
+            raise HTTPException(503, {'code': 'answer_truncated',
+                'message': 'Yanıt uzunluk sınırına ulaştı. Eksik bilgi vermemek için bu yanıtı göstermiyorum; lütfen sorunuzu daha dar bir konuyla yeniden sorun.'})
         if not result["response"]:
             raise RuntimeError(
                 f"Claude API yanıt metni boş (bitiş: {result['stop_reason']})."
             )
         return result["response"]
+
+    def classify(self, prompt: str, *, system: str) -> str:
+        """Kapsam kararı: kısa çıktı, düşünme kapalı; aynı bütçe kontrolünden geçer."""
+        result = self.generate_result(prompt, system=system, classification=True)
+        return '' if result['stop_reason'] == 'max_tokens' else result['response']
 
 
 class GeminiLLM:

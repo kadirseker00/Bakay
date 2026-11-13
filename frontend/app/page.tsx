@@ -49,7 +49,7 @@ class ChatServiceError extends Error {}
 
 async function chatError(response: Response): Promise<ChatServiceError> {
   const body = await response.clone().json().catch(() => null);
-  if (body?.detail?.code === "budget_exhausted") return new ChatServiceError(body.detail.message);
+  if (["budget_exhausted", "answer_truncated"].includes(body?.detail?.code)) return new ChatServiceError(body.detail.message);
   if (response.status === 429) {
     const seconds = Number(response.headers.get("Retry-After")) || 10;
     const wait = seconds >= 3600 ? `yaklaşık ${Math.ceil(seconds / 3600)} saat` :
@@ -60,7 +60,7 @@ async function chatError(response: Response): Promise<ChatServiceError> {
   if (response.status === 422) return new ChatServiceError("Soru veya sohbet geçmişi geçersiz. Soruyu kısaltın veya yeni bir sohbet başlatın.");
   return new ChatServiceError("Şu anda bilgi servisine ulaşamıyorum. Birkaç dakika sonra yeniden deneyebilirsiniz.");
 }
-type Health = { indexed_chunks: number; llm_provider: string; embedding_model: string };
+type Health = { indexed_chunks: number };
 type ConnectionState = "checking" | "online" | "offline";
 type Topic = { title: string; description: string; question: string; icon: LucideIcon };
 type CandidateTrackId = "lisans" | "lisansustu" | "uluslararasi";

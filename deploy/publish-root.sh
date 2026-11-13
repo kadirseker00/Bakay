@@ -21,7 +21,9 @@ import json
 from pathlib import Path
 health = json.loads(Path('runtime/publish-health.json').read_text())
 assert health['status'] == 'ok' and health['indexed_chunks'] == 39659, health
-assert health['llm_provider'] == 'anthropic', health
+from dotenv import dotenv_values
+assert dotenv_values('/etc/bakay/backend.env').get('LLM_PROVIDER') == 'anthropic'
+assert health['version'] == Path('VERSION').read_text().strip(), health
 print('Backend ve 39.659 parça doğrulandı.')
 PY
 curl --fail --silent --show-error --retry 5 --retry-connrefused --retry-delay 2 --max-time 20 http://127.0.0.1:3000/ > /dev/null

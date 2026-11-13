@@ -97,13 +97,18 @@ async def monitor_requests(request: Request, call_next):
 def health() -> dict:
     from app.rag.vectorstore import get_store
 
-    return {
+    public = {
         "status": "ok",
         "version": app.version,
+        "indexed_chunks": get_store().count(),
+    }
+    if settings.public_security_enabled:
+        return public
+    return {
+        **public,
         "llm_provider": settings.llm_provider,
         "llm_model": pipeline._model_name(),
         "embedding_model": settings.embedding_model,
-        "indexed_chunks": get_store().count(),
     }
 
 

@@ -17,8 +17,11 @@ Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 - Panel, özel metrikler ve API dokümantasyonu için kurum/VPN CIDR denetimi;
   frontend'in bakay-web hesabına ve özel dosya/proseslerden ayrılması.
 - Tek sorgudan açılabilen düzeltme taslağı en çok üç; Next.js 15.5.29 yaması.
+- Canlı modda ana üretimden önce 32 tokenlık kapsam kontrolü, 1200 token yanıt
+  sınırı ve kesilmiş yanıtı eksik bilgi gibi sunmayan açıklama. Sağlık yanıtında
+  model/sağlayıcı gizlenir; ayrı workspace/sağlayıcı bütçesi kullanıcı kontrolünde.
 
-Doğrulama: 242 test, Next.js üretim derlemesi, production audit 0 açık;
+Doğrulama: 249 test, Next.js üretim derlemesi, production audit 0 açık;
 tarayıcıda mobil doğrulama, kısa oturum, bütçe mesajı ve panel göstergesi geçti.
 Durum: yerel hazırlık; canlı yayın ve kurum/VPN ağ listesi henüz doğrulanmadı.
 

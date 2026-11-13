@@ -8,7 +8,10 @@ bu sürüme taşınmadı. **Henüz canlıya uygulanmadı.**
 
 14 Kasım kontrolünde `192.168.3.13` TCP 22 ve 443 erişilebilir. Kayıtlı SSH
 anahtarıyla root girişi `Permission denied (publickey,password)` döndü;
-parola denenmedi. Panelin izinli kurum/VPN CIDR listesi de henüz bildirilmedi.
+parola denenmedi. Kullanıcı kurum/VPN CIDR aralığını bilmiyor. Girişten sonra doğrulanmış yönetici
+istemci IP’si /32 veya /128 olarak başlangıç listesine alınabilir; geniş ağ
+aralığı tahmin edilmez. IP değişirse panel erişimi için SSH tüneli veya BT
+tarafından güncellenmiş izin gerekir.
 
 ## Tehdit ve sınırlar
 
@@ -43,6 +46,31 @@ kontrolü gerekiyorsa kurum SSO'su ve doğrulanmış hesap kotaları gerekir.
 - Next.js `15.5.29`; frontend `bakay-web`, backend `bakay` hesabında çalışır.
   Frontend özel backend/veri/ortam dizinlerine erişemez; `ProtectProc=invisible`
   başka hesaptaki backend proses ortamının okunmasını sınırlar.
+
+## Kapsam ve çıktı sınırı
+
+Canlı güvenlik modunda hafıza çözümü, embedding/arama ve ana yanıt üretiminden
+önce ayrı bir kapsam sınıflandırması çalışır. Anthropic çağrısı en çok 32 çıktı
+tokenı, düşünme kapalı/low kullanır ve normal bütçe rezervasyonundan geçer.
+Yalnız tam `EVET` çıktısı üretime açar; `HAYIR`, serbest metin, eksik sonuç veya
+hata ana üretimi açmaz. Önceki kullanıcı soruları yalnız devam sorularının
+konusunu anlamak içindir; asistan geçmişi sınıflandırıcıya gönderilmez.
+Üniversite sözcüğü eklenmiş genel kod/şiir/çeviri talebi de reddedilmesi istenen
+örneklerdendir. Onaylı tam eşleşen hazır cevap bu ek çağrıyı gerektirmez.
+
+Bu LLM tabanlı kapsam filtresi de yanıltılabilir; kimlik doğrulama veya kesin
+saldırı tespiti yerine geçmez. Benzerlik eşiği ölçümsüz yükseltilmedi. Birim
+testleri akışın ve kotaların uygulandığını kanıtlar; gerçek sınıflandırma
+kalitesinin/yanlış ret oranının canlı örneklerle değerlendirilmesi gerekir.
+
+Canlı Anthropic yanıtının üst sınırı 1200 token; hem ortam ayarında hem runtime
+korumasında uygulanır. Uzun/adaptive-thinking yanıtlar bu sınıra ulaşabilir.
+Sağlayıcının `max_tokens` ile kestiği yanıt, eksik mevzuat cevabı gibi sunulmaz;
+kullanıcıya daha dar bir soruyla devam etmesi söylenir. Gerçek Haiku testi
+henüz yapılmadı; yanıt kalitesi/uzunluğu yayın doğrulamasının parçasıdır.
+
+Açık `/health` yalnız durum, sürüm ve parça sayısını verir. Model/sağlayıcı ve
+embedding bilgisi özel yönetim metriklerinde kalır.
 
 ## 5 USD günlük yerel harcama kesicisi
 
@@ -103,7 +131,13 @@ Kesin konum tarayıcı izni gerektirir; güvenlik amacıyla istenmiyor.
 5. `systemctl` ve Apache configtest; dışarıdan tokensız JSON/SSE 403 ve sıfır
    LLM çağrısı, gerçek Turnstile + normal soru, yabancı Origin, sahte XFF,
    izin dışından panel/docs 403, izinli ağdan panel girişi doğrulanır.
-   API ve arayüzün ikisi de `0.4.4` göstermelidir.
+   API ve arayüzün ikisi de `0.4.4` göstermelidir. Kurumsal örnek soru ve kısa
+   devam sorusu kabulü, anlamsız/genel kod isteğinin reddi ve 1200 token altında
+   tamamlanan kaynaklı yanıt ayrıca doğrulanır. Kapsam sınıflandırması da bütçeye
+   dahil olduğundan bu testler yalnız kontrollü sayıda yapılmalıdır.
+6. **Dış erişim öncesi kullanıcı kontrolü:** Anthropic Console'da BAKAI için
+   ayrı workspace ve sağlayıcı harcama sınırı kullanıcı tarafından ayarlanır.
+   Yerel 5 USD sayacı, çalınmış anahtarın başka yerden kullanımını durduramaz.
 
 Yeni kurulumda `prepare-root.sh` ayrı frontend hesabını oluşturur; yayın öncesi
 `configure-public-security.py --monitor-networks ...` ayrıca çalıştırılmalıdır.
@@ -118,7 +152,7 @@ ortam/servis/Apache geri dönüşünü dener; HTTPS son testi ayrıca zorunludur
 
 ## Doğrulama ve kaynaklar
 
-- 239 uygulama testi + üç dağıtım testi geçti. Yeni testlerde ilk istek,
+- 246 uygulama testi + üç dağıtım testi geçti. Yeni testlerde ilk istek,
   sahte/tekrar kanıt, cookie imzası, süre/IP/tarayıcı bağı, JSON/SSE, oturum ve
   IP kotası, feedback sahipliği, eşzamanlı taslak sınırı, panel ağı, eşzamanlı
   bütçe, restart/gün değişimi, bilinmeyen maliyet/fiyat ve sıfır ücretli çağrı

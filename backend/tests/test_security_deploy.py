@@ -34,6 +34,7 @@ class DeploymentTests(unittest.TestCase):
         self.assertIn('ANTHROPIC_API_KEY=PRIVATE-TEST-KEEP',self.env.read_text())
         self.assertIn('ALERT_DAILY_USD=1',self.env.read_text())
         self.assertIn('BUDGET_DAILY_USD=5',self.env.read_text())
+        self.assertIn('ANTHROPIC_MAX_TOKENS=1200',self.env.read_text())
         self.assertIn('PUBLIC_SECURITY_ENABLED=true',self.env.read_text())
         self.assertEqual(self.env.stat().st_mode & 0o777,0o600)
         self.assertIn('Require ip 127.0.0.1/32 ::1/128 192.0.2.0/24',self.apache.read_text())
