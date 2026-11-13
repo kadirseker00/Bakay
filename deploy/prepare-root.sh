@@ -29,6 +29,9 @@ fi
 if ! id -u bakay >/dev/null 2>&1; then
   useradd --system --user-group --home-dir /var/lib/bakay --create-home --shell /usr/sbin/nologin bakay
 fi
+if ! id -u bakay-web >/dev/null 2>&1; then
+  useradd --system --user-group --home-dir /nonexistent --no-create-home --shell /usr/sbin/nologin bakay-web
+fi
 install -d -m 0750 -o bakay -g bakay /var/lib/bakay
 install -d -m 0750 -o root -g bakay /etc/bakay
 if [[ "$stage_root" != "$project_root" ]]; then
@@ -67,7 +70,12 @@ backend/.venv/bin/python -m pip install --no-index --find-links runtime/wheels -
 backend/.venv/bin/python -m pip check
 chown -R root:bakay "$project_root"
 chmod -R u+rwX,g+rX,o-rwx "$project_root"
-chown -R bakay:bakay data frontend/.next
+chown -R bakay:bakay data
+chmod 0700 data /var/lib/bakay
+chmod 0711 "$project_root" runtime
+chown -R root:bakay-web frontend runtime/node
+chown -R bakay-web:bakay-web frontend/.next
+# Panel ağı ayrıca configure-public-security.py ile doğrulanmadan Apache yayını açılmaz.
 chmod 0600 /etc/bakay/backend.env
 install -m 0644 deploy/bakay-backend.service deploy/bakay-frontend.service /etc/systemd/system/
 install -m 0644 deploy/bakay-monitor.service deploy/bakay-monitor.timer /etc/systemd/system/

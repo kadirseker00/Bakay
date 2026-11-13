@@ -22,7 +22,8 @@ export default function SecurityChallenge({ siteKey, onSubmit, onCancel }: {
   useEffect(() => {
     if (!ready || !target.current || !window.turnstile) return;
     const id = window.turnstile.render(target.current, {
-      sitekey: siteKey, action: "bakai_chat", language: "tr", size: "flexible",
+      sitekey: siteKey, action: "bakai_chat", language: "tr",
+      size: target.current.clientWidth < 300 ? "compact" : "flexible",
       callback: (value: string) => { setToken(value); setError(""); },
       "expired-callback": () => { setToken(""); setError("Doğrulamanın süresi doldu. Yeniden doğrulayın."); },
       "error-callback": () => { setToken(""); setError("Doğrulama yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin."); },
@@ -31,7 +32,7 @@ export default function SecurityChallenge({ siteKey, onSubmit, onCancel }: {
   }, [ready, siteKey]);
   return <dialog ref={dialog} className={styles.dialog} aria-labelledby="challenge-title" onCancel={event => { event.preventDefault(); onCancel(); }}>
     <h2 id="challenge-title">Kısa bir güvenlik kontrolü</h2>
-    <p>Bu bağlantıdan kısa sürede çok sayıda istek geldi. Sorunuzu yanıtlamadan önce doğrulamayı tamamlayın.</p>
+    <p>Hizmeti otomatik ve kötüye kullanımdan korumak için kısa doğrulamayı tamamlayın. Doğrulama bu bağlantıda 30 dakika geçerlidir.</p>
     <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onReady={() => setReady(true)} onError={() => setError("Doğrulama yüklenemedi. Biraz sonra yeniden deneyin.")} />
     <div ref={target} className={styles.widget} />
     {error && <p role="alert">{error}</p>}

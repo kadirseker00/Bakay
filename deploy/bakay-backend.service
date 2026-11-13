@@ -20,6 +20,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
+ProtectProc=invisible
 ReadWritePaths=/opt/bakay/data /var/lib/bakay
 
 [Install]

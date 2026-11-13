@@ -72,6 +72,13 @@ class Settings(BaseSettings):
     monitor_public_url: str = ""
     monitor_show_query_details: bool = True
 
+    # Canlıda zorunlu; geliştirme/testte dış doğrulama bağımlılığı yoktur.
+    public_security_enabled: bool = False
+    visitor_session_seconds: int = Field(default=1800, ge=60, le=3600)
+    monitor_allowed_networks: str = "127.0.0.1/32,::1/128"
+    budget_enabled: bool = False
+    budget_daily_usd: float = Field(default=5, gt=0, le=1000)
+
     # Tek worker'lı pilotun kötüye kullanım sınırları; kotalar SQLite'ta kalır.
     rate_chat_per_minute: int = Field(default=30, ge=1, le=1000)
     rate_chat_per_hour: int = Field(default=120, ge=1, le=10000)
@@ -102,7 +109,7 @@ class Settings(BaseSettings):
     backup_status_path: str = "/var/lib/bakay/backup-status.json"
     backup_max_age_hours: int = Field(default=192, ge=1, le=8760)
 
-    # Yalnız şüpheli IP için Turnstile; site anahtarı açık, doğrulama sırrı özeldir.
+    # Canlı güvenlik modunda ilk istekten itibaren zorunlu Turnstile.
     captcha_site_key: str = ""
     captcha_secret_key: str = Field(default="", repr=False)
     captcha_hostname: str = "bakai.manas.edu.kg"

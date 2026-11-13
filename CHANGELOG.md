@@ -6,6 +6,22 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.4.4 — 2026-11-14
+
+- Canlı güvenlik modunda ilk sorgudan önce sunucuda doğrulanan Turnstile;
+  kalıcı tek kullanımlık kanıt, IP/tarayıcı bağlı 30 dakikalık imzalı HttpOnly
+  oturum, oturum kotası ve yalnız kendi sorgusuna geri bildirim.
+- Her Anthropic çağrısından önce SQLite'ta atomik maliyet rezervasyonu;
+  günlük 5 USD yerel harcama kesicisi, belirsiz maliyetleri gün sonuna kadar
+  tutma, Bişkek gece yarısı yenileme ve anlaşılır bütçe mesajı/paneli.
+- Panel, özel metrikler ve API dokümantasyonu için kurum/VPN CIDR denetimi;
+  frontend'in bakay-web hesabına ve özel dosya/proseslerden ayrılması.
+- Tek sorgudan açılabilen düzeltme taslağı en çok üç; Next.js 15.5.29 yaması.
+
+Doğrulama: 242 test, Next.js üretim derlemesi, production audit 0 açık;
+tarayıcıda mobil doğrulama, kısa oturum, bütçe mesajı ve panel göstergesi geçti.
+Durum: yerel hazırlık; canlı yayın ve kurum/VPN ağ listesi henüz doğrulanmadı.
+
 ## 0.4.3 — 2026-11-04
 
 - Kullanıcının yayına eklediği `2de47ac` kaynak düzeltmesi, bak.ai markasıyla

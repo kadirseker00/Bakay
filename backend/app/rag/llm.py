@@ -13,7 +13,7 @@ from typing import Protocol
 import httpx
 
 from app.config import settings
-from app import monitoring
+from app import budget, monitoring
 
 
 class LLM(Protocol):
@@ -43,8 +43,11 @@ class AnthropicLLM:
 
     def generate_result(self, prompt: str, *, system: str | None = None) -> dict:
         started = time.perf_counter()
+        meter = budget.Budget(settings)
+        reservation = meter.reserve(self.model, prompt, system, self.max_tokens)
         try:
             result = self._generate_result(prompt, system=system)
+            meter.settle(reservation, result['model'], result['usage'])
         except Exception as error:
             code = f"HTTP_{error.response.status_code}" if isinstance(error, httpx.HTTPStatusError) else type(error).__name__
             monitoring.record_llm_call(self.model, "error", int((time.perf_counter() - started) * 1000),
@@ -152,6 +155,8 @@ def get_llm() -> LLM:
     if provider == "anthropic":
         return AnthropicLLM()
     if provider == "gemini":
+        if settings.budget_enabled:
+            raise RuntimeError('Günlük harcama kontrolü bu sağlayıcı için henüz tanımlı değil.')
         return GeminiLLM()
     if provider == "ollama":
         return OllamaLLM()

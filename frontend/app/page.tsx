@@ -48,6 +48,8 @@ const completedStages: Record<string, string> = {
 class ChatServiceError extends Error {}
 
 async function chatError(response: Response): Promise<ChatServiceError> {
+  const body = await response.clone().json().catch(() => null);
+  if (body?.detail?.code === "budget_exhausted") return new ChatServiceError(body.detail.message);
   if (response.status === 429) {
     const seconds = Number(response.headers.get("Retry-After")) || 10;
     const wait = seconds >= 3600 ? `yaklaşık ${Math.ceil(seconds / 3600)} saat` :
@@ -438,6 +440,7 @@ export default function Home() {
     try {
       response = await fetch(`${API_URL}/feedback`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query_id: queryId, ...input }),
       });
@@ -445,6 +448,7 @@ export default function Home() {
       throw new Error("Geri bildirim kaydedilemedi. Bağlantınızı kontrol edip yeniden deneyin.");
     }
     if (response.status === 429) throw new Error("Çok fazla geri bildirim gönderildi. Biraz bekleyip yeniden deneyin.");
+    if (response.status === 403) throw new Error("Bu sorgunun güvenlik oturumu sona erdi. Yeni bir soru sorup tekrar deneyin.");
     if (!response.ok || (await response.json()).ok !== true) {
       throw new Error("Geri bildirim kaydedilemedi. Yeniden deneyin.");
     }
@@ -473,8 +477,27 @@ export default function Home() {
     if (textareaRef.current) textareaRef.current.style.height = "auto";
 
     try {
+      if (captchaToken) {
+        const proof = await fetch(`${API_URL}/session`, {
+          method: "POST", credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: captchaToken }), signal: controller.signal,
+        });
+        // Eski, isteğe bağlı doğrulama modu yalnız geliştirme uyumu içindir.
+        if (!proof.ok && proof.status !== 404) {
+          if (proof.status === 403) {
+            const body = await proof.json();
+            if (body.detail?.code === "captcha_required" && typeof body.detail.site_key === "string") {
+              setChallenge({ question: cleanQuestion, siteKey: body.detail.site_key, history });
+              return;
+            }
+          }
+          throw await chatError(proof);
+        }
+      }
       const response = await fetch(`${API_URL}/chat`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
         body: JSON.stringify({ question: cleanQuestion, history, captcha_token: captchaToken }),
         signal: controller.signal,

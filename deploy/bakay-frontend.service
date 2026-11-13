@@ -5,8 +5,8 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=bakay
-Group=bakay
+User=bakay-web
+Group=bakay-web
 WorkingDirectory=/opt/bakay/frontend
 Environment=NODE_ENV=production
 Environment=NEXT_TELEMETRY_DISABLED=1
@@ -18,6 +18,8 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
+ProtectProc=invisible
+InaccessiblePaths=/opt/bakay/backend /opt/bakay/data /var/lib/bakay /etc/bakay
 ReadWritePaths=/opt/bakay/frontend/.next
 
 [Install]

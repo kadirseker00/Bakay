@@ -32,7 +32,9 @@ export async function readChatResponse(
         const data = JSON.parse(payload);
         if (event === "status") onProgress(data);
         if (event === "result") return data;
-        if (event === "error") throw new ChatStreamError(data.detail || "Yanıt hazırlanamadı.");
+        if (event === "error") throw new ChatStreamError(
+          typeof data.detail === "string" ? data.detail : data.detail?.message || "Yanıt hazırlanamadı.",
+        );
       }
       if (done) throw new ChatStreamError("Bağlantı yanıt tamamlanmadan kesildi. Lütfen yeniden deneyin.");
     }

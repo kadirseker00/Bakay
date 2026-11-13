@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS captcha_clients (
  client TEXT PRIMARY KEY, blocked INTEGER NOT NULL, updated_at REAL NOT NULL,
  required_until REAL NOT NULL DEFAULT 0, passed_until REAL NOT NULL DEFAULT 0);
 """
-PATHS = {'/chat': 'chat', '/feedback': 'feedback', '/monitor/login': 'login'}
+PATHS = {'/chat': 'chat', '/feedback': 'feedback', '/monitor/login': 'login', '/session': 'proof'}
 
 
 class Denied(Exception):
@@ -55,6 +55,8 @@ class AbuseGuard:
         with self.connect() as connection:
             connection.executescript(SCHEMA)
             connection.executescript(rate_limits.SCHEMA)
+            from app.visitor import SCHEMA as visitor_schema
+            connection.executescript(visitor_schema)
 
     @contextmanager
     def connect(self):
@@ -95,6 +97,7 @@ class AbuseGuard:
             'generation': [(False, 86400, c['rate_chat_global_per_day'], 'global_day')],
             'feedback': [(True, 60, 30, 'ip_minute'), (False, 60, 120, 'global_minute')],
             'login': [(True, 300, 5, 'login_attempts'), (False, 60, 30, 'global_minute')],
+            'proof': [(True, 60, 5, 'proof_attempts'), (False, 60, 30, 'global_minute')],
         }[kind]
 
     def admit(self, kind: str, client: str):
@@ -105,7 +108,7 @@ class AbuseGuard:
                 # Kontrol + yazma aynı işlemde; eşzamanlı istekler kotayı aşamaz.
                 connection.execute('BEGIN IMMEDIATE')
                 connection.execute('DELETE FROM captcha_clients WHERE updated_at<=?', (now-86400,))
-                for stored, age in (('chat', 3600), ('generation', 86400), ('login', 300), ('feedback', 60)):
+                for stored, age in (('chat', 3600), ('generation', 86400), ('login', 300), ('feedback', 60), ('proof', 60)):
                     connection.execute('DELETE FROM rate_hits WHERE kind=? AND ts<=?', (stored, now-age))
                 limits = rate_limits.read(connection, self.config)['limits']
                 for per_ip, window, limit, reason in self.policies(kind, limits):
@@ -225,6 +228,7 @@ class AbuseGuard:
         c = self.config
         return {'enabled': True, 'chat_per_minute': limits['rate_chat_per_minute'],
                 'captcha_configured': configured(c),
+                'visitor_required': c.public_security_enabled,
                 'chat_per_hour': limits['rate_chat_per_hour'], 'global_per_minute': limits['rate_chat_global_per_minute'],
                 'global_per_day': limits['rate_chat_global_per_day'], 'daily_used': daily,
                 'concurrent_limit': limits['rate_chat_concurrent'],

@@ -14,6 +14,7 @@ SCHEMA = '''
 CREATE TABLE IF NOT EXISTS feedback_corrections (
  id TEXT PRIMARY KEY, query_id TEXT NOT NULL, fingerprint TEXT NOT NULL UNIQUE,
  knowledge_id TEXT NOT NULL UNIQUE, snapshot TEXT NOT NULL, created_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS feedback_corrections_query ON feedback_corrections(query_id);
 '''
 
 
@@ -22,6 +23,8 @@ def record(connection, query_id: str, question: str, answer: str, source: str | 
     fingerprint = hashlib.sha256(json.dumps([query_id, question, answer, source], ensure_ascii=False).encode()).hexdigest()
     if connection.execute('SELECT 1 FROM feedback_corrections WHERE fingerprint=?', (fingerprint,)).fetchone():
         return
+    if connection.execute('SELECT COUNT(*) FROM feedback_corrections WHERE query_id=?', (query_id,)).fetchone()[0] >= 3:
+        raise ValueError('Bu sorgu için düzeltme önerisi sınırına ulaşıldı.')
     original = connection.execute('''SELECT question,answer,sources_json,history_json,model,ts
         FROM queries WHERE id=?''', (query_id,)).fetchone()
     if original is None:

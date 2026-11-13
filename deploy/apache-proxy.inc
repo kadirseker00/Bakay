@@ -16,6 +16,13 @@ RequestReadTimeout header=20-40,MinRate=500 body=10-20,MinRate=500
     LimitRequestBody 131072
 </Location>
 
+# Kurum/VPN ağlarını /etc/bakay/monitor-networks.apache içine Require ip ile yazın.
+# Aynı CIDR listesi backend.env MONITOR_ALLOWED_NETWORKS ile eşleşmelidir.
+# Dosya eksikse configtest başarısız olur; panel sessizce herkese açılmaz.
+<LocationMatch "^/(?:monitor(?:/|$)|api/(?:monitor(?:/|$)|stats/?$|docs(?:/|$)|redoc(?:/|$)|openapi\.json$))">
+    Include /etc/bakay/monitor-networks.apache
+</LocationMatch>
+
 # Daha özel /api/ kuralı, genel / kuralından önce gelmelidir.
 ProxyPass        /api/ http://127.0.0.1:8000/ connectiontimeout=5 timeout=300
 ProxyPassReverse /api/ http://127.0.0.1:8000/

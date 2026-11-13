@@ -21,7 +21,7 @@ from pydantic import BaseModel, Field
 from starlette.concurrency import run_in_threadpool
 from starlette.responses import StreamingResponse
 
-from app import abuse, alerts, captcha, golden, knowledge, monitor_auth, monitoring, rate_limits, telemetry
+from app import abuse, alerts, budget, captcha, golden, knowledge, monitor_auth, monitoring, rate_limits, telemetry, visitor
 from app.config import ROOT, settings
 from app.rag import pipeline
 from app.rag.progress import progress_scope
@@ -72,6 +72,12 @@ async def monitor_requests(request: Request, call_next):
     started = time.perf_counter()
     status = 500
     try:
+        private_path = (request.url.path.startswith(('/monitor', '/docs', '/redoc')) or
+                        request.url.path.rstrip('/') in ('/stats', '/openapi.json'))
+        if private_path and not visitor.panel_allowed(request, settings):
+            from starlette.responses import JSONResponse
+            return JSONResponse({'detail': 'Bu sayfaya yalnız izin verilen kurum/VPN ağından erişilebilir.'},
+                                status_code=403, headers={'Cache-Control': 'no-store'})
         response = await call_next(request)
         status = response.status_code
         if request.url.path.startswith('/monitor') or request.url.path == '/stats':
@@ -103,13 +109,26 @@ def health() -> dict:
 
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest, request: Request) -> ChatResponse | StreamingResponse:
-    captcha.require(request.app.state.abuse, request.state.rate_client, req.captcha_token)
+    visitor.require(request, consume=True)
+    if not settings.public_security_enabled:
+        captcha.require(request.app.state.abuse, request.state.rate_client, req.captcha_token)
     # Uvicorn güvenilir proxy bilgisini uygular; ham istemci başlıklarına güvenme.
     client_ip = request.client.host if request.client else None
     if 'text/event-stream' in request.headers.get('accept', ''):
         return stream_chat(req, request, client_ip)
     with request.app.state.abuse.processing(request.state.rate_client), telemetry.client_scope(client_ip, req.history):
-        return pipeline.answer(req.question, top_k=req.top_k, history=req.history)
+        result = pipeline.answer(req.question, top_k=req.top_k, history=req.history)
+        visitor.own_query(request, result.query_id)
+        return result
+
+
+class VisitorProof(BaseModel):
+    token: str = Field(min_length=1, max_length=2048, repr=False)
+
+
+@app.post('/session')
+def visitor_session(body: VisitorProof, request: Request, response: Response):
+    return visitor.create(request, response, body.token)
 
 
 def stream_chat(req: ChatRequest, request: Request, client_ip: str | None) -> StreamingResponse:
@@ -129,7 +148,10 @@ def stream_chat(req: ChatRequest, request: Request, client_ip: str | None) -> St
         try:
             with telemetry.client_scope(client_ip, req.history), progress_scope(lambda data: send('status', data)):
                 result = pipeline.answer(req.question, top_k=req.top_k, history=req.history)
+                visitor.own_query(request, result.query_id)
                 data = result.model_dump()
+        except HTTPException as error:
+            event, data = 'error', {'detail': error.detail, 'status': error.status_code}
         except Exception:
             logging.getLogger(__name__).exception('Canlı sohbet yanıtı hazırlanamadı')
             event, data = 'error', {'detail': 'Yanıt hazırlanırken bir sorun oluştu. Lütfen yeniden deneyin.'}
@@ -169,7 +191,8 @@ def stream_chat(req: ChatRequest, request: Request, client_ip: str | None) -> St
 
 
 @app.post("/feedback")
-def feedback(req: FeedbackRequest) -> dict:
+def feedback(req: FeedbackRequest, request: Request) -> dict:
+    visitor.require_query(request, req.query_id)
     ok = telemetry.log_feedback(**req.model_dump())
     return {"ok": ok}
 
@@ -205,6 +228,7 @@ def monitor_metrics(request: Request, days: int = 7, _user: str = Depends(monito
         raise HTTPException(422, 'Dönem 1, 7 veya 30 gün olmalıdır.')
     result = monitoring.metrics(days)
     result['protection'] = request.app.state.abuse.snapshot(days)
+    result['budget'] = budget.Budget(settings).snapshot()
     result['alerts'] = alerts.snapshot(settings)
     return result
 
