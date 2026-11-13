@@ -73,7 +73,7 @@ chmod -R u+rwX,g+rX,o-rwx "$project_root"
 chown -R bakay:bakay data
 chmod 0700 data /var/lib/bakay
 chmod 0711 "$project_root" runtime
-chown -R root:bakay-web frontend runtime/node
+chown -R root:bakay-web frontend "$(readlink -f runtime/node)"
 chown -R bakay-web:bakay-web frontend/.next
 # Panel ağı ayrıca configure-public-security.py ile doğrulanmadan Apache yayını açılmaz.
 chmod 0600 /etc/bakay/backend.env

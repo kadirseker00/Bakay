@@ -7,6 +7,8 @@ if [[ "$EUID" -ne 0 || "$#" -ne 1 ]]; then
   exit 1
 fi
 cd /opt/bakay
+runtime_node="$(readlink -f /opt/bakay/runtime/node)"
+case "$runtime_node" in /opt/bakay/runtime/*) ;; *) echo "Beklenmeyen Node yolu" >&2; exit 1 ;; esac
 test -f frontend/.next/BUILD_ID
 test -f /etc/bakay/backend.env
 backend/.venv/bin/python deploy/configure-public-security.py --monitor-networks "$1" --check
@@ -52,7 +54,7 @@ rollback() {
       cp -p "$backup_path/monitor-networks.apache" /etc/bakay/monitor-networks.apache
     fi
     # Eski frontend hesabının dosya erişimini koru; yeni kullanıcıya backend grubunu verme.
-    chown -R "root:$previous_web_group" /opt/bakay/frontend /opt/bakay/runtime/node
+    chown -R "root:$previous_web_group" /opt/bakay/frontend "$runtime_node"
     chown -R "$previous_web_user:$previous_web_group" /opt/bakay/frontend/.next
     systemctl daemon-reload
     if [[ "$services_stopped" == true ]]; then
@@ -90,8 +92,8 @@ with sqlite3.connect(path) as source, sqlite3.connect(Path(sys.argv[1])/'bakay.d
     source.backup(destination)
 PY
 chmod 0711 /opt/bakay /opt/bakay/runtime
-chown -R root:bakay-web frontend runtime/node
-chmod -R u+rwX,g+rX,g-w,o-rwx frontend runtime/node
+chown -R root:bakay-web frontend "$runtime_node"
+chmod -R u+rwX,g+rX,g-w,o-rwx frontend "$runtime_node"
 chown -R bakay-web:bakay-web frontend/.next
 chmod 0700 data /var/lib/bakay
 install -m 0644 deploy/bakay-backend.service deploy/bakay-frontend.service /etc/systemd/system/
