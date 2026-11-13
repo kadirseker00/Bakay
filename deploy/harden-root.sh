@@ -100,7 +100,7 @@ install -m 0644 deploy/bakay-backend.service deploy/bakay-frontend.service /etc/
 systemctl daemon-reload
 systemd-analyze verify /etc/systemd/system/bakay-backend.service /etc/systemd/system/bakay-frontend.service
 systemctl start bakay-backend.service bakay-frontend.service
-if ! curl --fail --silent --show-error --retry 20 --retry-connrefused --retry-delay 2 --max-time 180 http://127.0.0.1:8000/health >/dev/null; then
+if ! curl --fail --silent --show-error --retry 90 --retry-connrefused --retry-delay 2 --max-time 180 http://127.0.0.1:8000/health >/dev/null; then
   echo "Backend doğrulanamadı. Servis günlüklerini ve geri dönüş rehberini inceleyin. Yedek: $backup_path" >&2
   false # ERR tuzağı geri dönüşü tamamlar.
 fi

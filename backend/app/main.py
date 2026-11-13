@@ -33,6 +33,11 @@ async def lifespan(app: FastAPI):
     monitoring.initialize()
     knowledge.initialize(settings.db_file)
     app.state.abuse = abuse.AbuseGuard(settings)
+    if settings.retrieval_warmup:
+        from app.rag.vectorstore import warm_retrieval
+        # Lifespan tamamlanmadan Uvicorn istek kabul etmez. Hata olursa
+        # hazırlıksız hizmeti sağlıklı göstermek yerine açılış başarısız olur.
+        await run_in_threadpool(warm_retrieval)
     async def flush_blocks():
         while True:
             await asyncio.sleep(5)

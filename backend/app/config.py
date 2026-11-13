@@ -51,6 +51,8 @@ class Settings(BaseSettings):
 
     # Retrieval
     top_k: int = 5
+    # Canlıda ilk kullanıcı arşiv/embedding hazırlığını beklemez.
+    retrieval_warmup: bool = False
 
     # --- Ajansal akış düğümleri ---
     # Skor-tabanlı yönlendirme/yeterlilik kapısı: en yüksek skor bunun altındaysa

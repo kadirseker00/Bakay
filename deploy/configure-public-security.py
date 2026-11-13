@@ -32,6 +32,7 @@ if args.check:
     print('Ön kontrol tamam: sırlar mevcut, HTTPS/hostname ve ağ listesi geçerli.')
     raise SystemExit(0)
 updates = {'PUBLIC_SECURITY_ENABLED': 'true', 'VISITOR_SESSION_SECONDS': '1800',
+           'RETRIEVAL_WARMUP': 'true',
            'ANTHROPIC_MAX_TOKENS': '1200',
            'BUDGET_ENABLED': 'true', 'BUDGET_DAILY_USD': '5',
            'MONITOR_ALLOWED_NETWORKS': ','.join(map(str, networks))}

@@ -5,6 +5,8 @@ add/query arayüzü korunur; query_dense önceki erişim tabanını ölçmek iç
 from __future__ import annotations
 
 from functools import lru_cache
+import logging
+import time
 from threading import RLock
 
 import numpy as np
@@ -137,3 +139,12 @@ class VectorStore:
 @lru_cache
 def get_store() -> VectorStore:
     return VectorStore()
+
+
+def warm_retrieval() -> None:
+    """İndeks ve ilk model çıkarımını ücretli LLM/telemetri olmadan hazırla."""
+    started = time.perf_counter()
+    store = get_store()
+    store.query("Kırgızistan-Türkiye Manas Üniversitesi", top_k=1)
+    logging.getLogger(__name__).info("Arama hazır: %s parça, %.1f saniye", store.count(),
+                                     time.perf_counter() - started)

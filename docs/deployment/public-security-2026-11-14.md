@@ -2,16 +2,40 @@
 
 ## Durum
 
-Canlı `6796af5` / `0.4.3` tabanından ayrı `codex/public-security` dalında
-`0.4.4` hazırlandı. Ana çalışma alanındaki marka/araştırma değişiklikleri
-bu sürüme taşınmadı. **Henüz canlıya uygulanmadı.**
+`0.4.4` / `fa7274b` KTMÜ sunucusuna uygulandı. 249 Linux testi,
+üretim derlemesi, API/arayüz sürüm eşleşmesi, gerçek Turnstile ve kaynaklı
+yanıt doğrulandı. Ayrı frontend hesabı özel ortamı ve DB'yi okuyamıyor;
+izin dışı panel/docs 403. İlk istek kanıtsız JSON/SSE/yabancı Origin denemeleri
+sıfır ücretli çağrıyla 403 döndü. Kontrollü anlamsız ve üniversiteye sarılmış
+kod istekleri kapsam kapısında reddedildi. Gerçek Haiku devam yanıtı 975 çıktı
+tokenında 4,4 sn üretim, 5,7 sn toplam ile tamamlandı.
 
-14 Kasım kontrolünde `192.168.3.13` TCP 22 ve 443 erişilebilir. Kayıtlı SSH
-anahtarıyla root girişi `Permission denied (publickey,password)` döndü;
-parola denenmedi. Kullanıcı kurum/VPN CIDR aralığını bilmiyor. Girişten sonra doğrulanmış yönetici
-istemci IP’si /32 veya /128 olarak başlangıç listesine alınabilir; geniş ağ
-aralığı tahmin edilmez. IP değişirse panel erişimi için SSH tüneli veya BT
-tarafından güncellenmiş izin gerekir.
+Panel başlangıçta yalnız doğrulanmış SSH istemcisinin /32 adresine ve loopback'e
+izinlidir. Kullanıcı kurum/VPN CIDR aralığını bilmiyor; IP değişirse SSH tüneli
+veya BT tarafından güncellenmiş izin gerekir. Geniş ağ aralığı tahmin edilmedi.
+
+### İlk sorgu ve mobil takip sürümü: 0.4.5
+
+Canlı ilk soru: retrieval 49.921 ms, üretim 0 ms, toplam 51.101 ms.
+Takip sorusu: retrieval 175 ms, üretim 4.407 ms, toplam 5.742 ms.
+İlk aramada 39.659 parçalık sözcüksel indeks ve model çıkarımı hazırlanıyordu.
+`RETRIEVAL_WARMUP=true` ile aynı arama yolu lifespan içinde ücretli LLM ve
+kullanıcı sorgu kaydı oluşturmadan çalıştırılır. Hazırlık bitmeden Uvicorn
+istek kabul etmez; hazırlık hatasında sağlıklı hizmet sunulmuş sayılmaz.
+Dağıtım hazır olma bekleme süresi bu aşamayı kapsayacak şekilde artırıldı.
+Mobil: opak başlık, en az 44 px öneri/oy/altbilgi alanı, kısa kaynak doğrulama
+uyarısı ve kaynak kartlarından benzerlik yüzdesinin kaldırılması.
+Bu takip sürümünün canlı restart/ilk soru ölçümü dağıtım sonunda eklenecek.
+
+### Kurum dışı erişim
+
+14 Kasım yerel DNS: `192.168.3.13` (özel ağ). Google ve Cloudflare genel DNS
+DoH sorguları `Status:3` (NXDOMAIN) döndü; dış web aracı da siteye erişemedi.
+Uygulama kurum/VPN içinde HTTPS ile çalışır; internetten erişim doğrulanmış
+değildir. BT'nin genel DNS kaydı, kurum ters proxy/NAT üzerinden yalnız HTTPS
+443 yönlendirmesi ve mobil veriyle dış test gerekir. Sunucu SSH/panel/docs
+internete açılmamalıdır; bu sürümün panel kısıtı korunur. Genel IP/yönlendirme
+bilinmeden rastgele tünel veya yeni DNS kaydı oluşturulmadı.
 
 ## Tehdit ve sınırlar
 
@@ -66,8 +90,8 @@ kalitesinin/yanlış ret oranının canlı örneklerle değerlendirilmesi gereki
 Canlı Anthropic yanıtının üst sınırı 1200 token; hem ortam ayarında hem runtime
 korumasında uygulanır. Uzun/adaptive-thinking yanıtlar bu sınıra ulaşabilir.
 Sağlayıcının `max_tokens` ile kestiği yanıt, eksik mevzuat cevabı gibi sunulmaz;
-kullanıcıya daha dar bir soruyla devam etmesi söylenir. Gerçek Haiku testi
-henüz yapılmadı; yanıt kalitesi/uzunluğu yayın doğrulamasının parçasıdır.
+kullanıcıya daha dar bir soruyla devam etmesi söylenir. Gerçek Haiku kaynaklı takip yanıtı 975 çıktı tokenında tamamlandı; daha uzun
+yanıtlar için kesilme davranışı korunur.
 
 Açık `/health` yalnız durum, sürüm ve parça sayısını verir. Model/sağlayıcı ve
 embedding bilgisi özel yönetim metriklerinde kalır.
@@ -162,8 +186,8 @@ ortam/servis/Apache geri dönüşünü dener; HTTPS son testi ayrıca zorunludur
   ikinci soruda CAPTCHA olmadan bütçe mesajı görüldü. Cloudflare'ın resmî test
   widget'ı kullanıldı; gerçek hostname/action kontrolü testte sahtelenmiştir.
   Canlı Cloudflare doğrulamasının testi yerine geçmez.
-- OS/Python bağımlılık taraması ve Linux systemd/Apache kurulum doğrulaması,
-  root erişimi sağlanınca tamamlanacak; yerel sonuç bunları tamamlanmış saymaz.
+- Linux systemd/Apache kurulumu, configtest, hizmet hesapları ve gerçek HTTPS
+  doğrulandı. OS/Python bağımlılıklarının tam denetimi bu çalışmada tamamlanmadı.
 
 Resmî kaynaklar:
 [Turnstile sunucu doğrulaması](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/),

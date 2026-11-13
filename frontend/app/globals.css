@@ -72,7 +72,7 @@ textarea:focus-visible {
   top: 0;
   z-index: 50;
   height: 72px;
-  background: rgba(255, 255, 255, 0.96);
+  background: #fff;
   border-bottom: 1px solid var(--line);
 }
 
@@ -432,6 +432,7 @@ textarea:focus-visible {
 }
 
 .example-line button {
+  min-height: 44px;
   padding: 0;
   border: 0;
   border-bottom: 1px solid transparent;
@@ -955,10 +956,11 @@ textarea:focus-visible {
 }
 
 .footer-project strong { color: var(--ink-soft); font-weight: 650; }
-.footer-about { display: inline-flex; align-items: center; gap: 8px; color: var(--teal); font-size: 12px; font-weight: 650; text-decoration: none; white-space: nowrap; }
+.footer-about { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; color: var(--teal); font-size: 12px; font-weight: 650; text-decoration: none; white-space: nowrap; }
 .footer-about svg { transform: rotate(45deg); }
 .footer-about:hover { text-decoration: underline; }
-.conversation-composer-wrap > p a { color: var(--teal); }
+.conversation-composer-wrap > p a { display: inline-flex; min-height: 44px; align-items: center; color: var(--teal); white-space: nowrap; }
+.notice-mobile { display: none; }
 
 /* Görüşme çalışma alanı */
 .conversation-mode {
@@ -1250,7 +1252,7 @@ a.source-card:hover {
   -webkit-line-clamp: 2;
 }
 
-.source-score {
+.source-link-icon {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -1285,8 +1287,8 @@ a.source-card:hover {
 }
 
 .feedback-button {
-  width: 31px;
-  height: 31px;
+  width: 44px;
+  height: 44px;
   color: var(--muted);
 }
 
@@ -1428,7 +1430,11 @@ a.source-card:hover {
 }
 
 .conversation-composer-wrap > p {
-  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 4px;
   color: var(--faint);
   text-align: center;
   font-size: 10.5px;
@@ -1603,6 +1609,8 @@ a.source-card:hover {
 
   .menu-button {
     display: inline-grid;
+    width: 44px;
+    height: 44px;
   }
 
   .hero {
@@ -1919,9 +1927,12 @@ a.source-card:hover {
     grid-template-columns: 25px minmax(0, 1fr);
   }
 
-  .source-score {
-    grid-column: 2;
-  }
+  .source-link-icon { display: none; }
+
+  .notice-desktop { display: none; }
+  .notice-mobile { display: inline; }
+  .conversation-composer-wrap > p { font-size: 12px; text-align: left; }
+  .conversation-composer-wrap .send-button { width: 44px; height: 44px; }
 
   .action-label {
     display: none;

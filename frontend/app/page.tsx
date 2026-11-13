@@ -713,10 +713,7 @@ export default function Home() {
                                   <strong>{source.title || sourceLabel(source.document)}</strong>
                                   <span className="source-snippet">{source.snippet}</span>
                                 </span>
-                                <span className="source-score">
-                                  %{Math.round(source.score * 100)}
-                                  {isLink && <ExternalLink size={13} />}
-                                </span>
+                                {isLink && <ExternalLink className="source-link-icon" size={15} aria-hidden="true" />}
                               </>
                             );
                             return isLink ? (
@@ -784,11 +781,14 @@ export default function Home() {
                 onAsk={ask}
               />
               <p>
-                {historySaved
-                  ? "Sohbet bu tarayıcıda saklanır. Yeni sohbet, geçmişi ve konuşma bağlamını temizler."
-                  : "Tarayıcı sohbeti kaydedemedi; sayfa yenilenirse geçmiş kaybolabilir."}
-                {" "}bak.ai hata yapabilir; önemli kararlar için gösterilen kaynağı doğrulayın.
-                {" "}<a href="/hakkinda">Proje hakkında</a>
+                <span>
+                  <span className="notice-desktop">{historySaved
+                    ? "Sohbet bu tarayıcıda saklanır. Yeni sohbet geçmişi temizler. "
+                    : "Sohbet kaydedilemedi; sayfa yenilenirse geçmiş kaybolabilir. "}</span>
+                  <span className="notice-desktop">bak.ai hata yapabilir; önemli kararlar için gösterilen kaynağı doğrulayın.</span>
+                  <span className="notice-mobile">{!historySaved && "Sohbet kaydedilemedi. "}Yanıtı kaynağından doğrulayın.</span>
+                </span>
+                <a href="/hakkinda">Proje hakkında</a>
               </p>
             </div>
           </section>
@@ -1022,7 +1022,7 @@ export default function Home() {
                   <span>03</span>
                   <div>
                     <strong>Kaynağı gösterir</strong>
-                    <p>Yanıtla birlikte kullanılan metni ve eşleşme düzeyini sunar.</p>
+                    <p>Yanıtla birlikte kullanılan metni ve kaynak bağlantısını sunar.</p>
                   </div>
                 </li>
               </ol>

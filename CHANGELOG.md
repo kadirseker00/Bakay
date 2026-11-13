@@ -6,6 +6,11 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.4.5 — 2026-11-14
+
+- İlk sorguda yaklaşık 50 saniye süren arama indeksi/model hazırlığı servis açılışına taşındı; hazırlık bitmeden istek kabul edilmez.
+- Mobilde opak başlık, en az 44 px öneri/oy/bağlantı dokunma alanları ve kısa kaynak doğrulama uyarısı. Kaynak kartlarındaki kullanıcıya güven oranı gibi görünebilen benzerlik yüzdeleri kaldırıldı.
+
 ## 0.4.4 — 2026-11-14
 
 - Canlı güvenlik modunda ilk sorgudan önce sunucuda doğrulanan Turnstile;
