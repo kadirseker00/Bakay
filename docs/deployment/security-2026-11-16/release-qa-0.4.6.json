@@ -1,0 +1,760 @@
+[
+  {
+    "question": "bölüm başkanı zorunlu ders yükü kaçtır?",
+    "status": 200,
+    "seconds": 2.92,
+    "query_id": "42109eb3a070492f88873177df4d990e",
+    "answer": "Kaynaklara göre bölüm başkanı, idari görevi nedeniyle haftalık ders yükü en az 8 saati fiilen yürütmek üzere **12 saat** olarak belirlenmiştir.\n\n**Temel şartlar:**\n- Dekan yardımcısı, müdür yardımcısı, bölüm başkanı ve idari birimlerde yöneticilik yapan akademik personelin haftalık ders yükü, **haftada en az 8 saati fiilen yürütmek üzere 12 saattir**.\n\nBu hüküm, \"İdari Görevi Olan Öğretim Elemanlarının Haftalık Ders Yükleri\" başlıklı KTMÜ Mevzuatı'nın öğretim elemanlarının ders yükünün belirlenmesine ilişkin usul ve esasları kapsamındadır.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "AKTS’lik sektörel uygulama, öğretmenlik uygulaması ve yarıyıl içinde yapılan \nbenzeri stajların takibi görevi öğrenci sayısına bakılmaksızın 2 saat. \n(2) \nÖğretim elemanının fiilen yürüttüğü dersler, diğer öğretim faaliyetleri ve görevleri Ders Yükü \nDağılımı Çizelgesinde gösterilir. \n \nTam Zamanlı ",
+        "score": 0.5253
+      }
+    ],
+    "latency_ms": 2885,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 973,
+        "output_tokens": 5,
+        "cost_usd": 9.98e-05,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 4783,
+        "output_tokens": 294,
+        "cost_usd": 0.0006253,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Öğretim üyesinin zorunlu ders yükü kaçtır?",
+    "status": 403,
+    "seconds": 0.01,
+    "detail": {
+      "code": "captcha_required",
+      "site_key": "0x4AAAAAAFU2WI2N2quHGXkd",
+      "message": "Devam etmek için kısa güvenlik kontrolünü tamamlayın."
+    }
+  },
+  {
+    "question": "bölüm başkanı zorunlu ders yükü kaçtır?",
+    "status": 200,
+    "seconds": 3.01,
+    "query_id": "e781db94c19c4e9f82acc18e33703b60",
+    "answer": "Kaynaklara göre bölüm başkanı, dekan yardımcısı, müdür yardımcısı ve idari birimlerde yöneticilik yapan akademik personelin haftalık ders yükü, haftada en az 8 saati fiilen yürütmek üzere 12 saattir.\n\n**Temel şartlar:**\n- Bölüm başkanının haftalık ders yükü **12 saattir**.\n- Bu yükün **en az 8 saatinin fiilen yürütülmesi** gerekir.\n\nBu bilgi, \"KTMÜ Mevzuatı\" içindeki öğretim elemanının ders yükünün belirlenmesine ilişkin usul ve esasların idari görevi olan öğretim elemanlarını düzenleyen maddesinden alınmıştır.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "AKTS’lik sektörel uygulama, öğretmenlik uygulaması ve yarıyıl içinde yapılan \nbenzeri stajların takibi görevi öğrenci sayısına bakılmaksızın 2 saat. \n(2) \nÖğretim elemanının fiilen yürüttüğü dersler, diğer öğretim faaliyetleri ve görevleri Ders Yükü \nDağılımı Çizelgesinde gösterilir. \n \nTam Zamanlı ",
+        "score": 0.5253
+      }
+    ],
+    "latency_ms": 2960,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 973,
+        "output_tokens": 5,
+        "cost_usd": 9.98e-05,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 4783,
+        "output_tokens": 272,
+        "cost_usd": 0.0006143,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "öğretim üyesiyim.",
+    "status": 200,
+    "seconds": 3.75,
+    "query_id": "a9526770b9024d939fabda0deb5f2a39",
+    "answer": "Kaynaklara göre, dekan yardımcısı, müdür yardımcısı, bölüm başkanı ve idari birimlerde yöneticilik yapan akademik personelin haftalık ders yükü, fiilen en az 8 saati yürütmek üzere **12 saattir**. Bu hüküm, idari görevi olan öğretim elemanlarının ders yüküne ilişkindir ve öğretim üyesi statüsündeki personel için de bu görev kapsamında geçerlidir.\n\nAyrıca öğretim üyesinin genel ders yükü, Öğretim Elemanının Ders Yükünün Belirlenmesi ve Ders Saati Ücretinin Ödenmesine İlişkin Usul ve Esaslar kapsamında haftada en az 10 saati fiilen yürütmek üzere **en az 14 saattir**.\n\nBu bilgiler yalnızca mevcut kaynaklardaki hükümlere dayanmaktadır; bölüm başkanlığı görevinin ders yükünü belirleyen en güncel düzenlemeyi görmek için ilgili birimden teyit almanız önerilir.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "KTMÜ MEVZUATI \n \n \n \n633 \n ÖĞRETİM ELEMANININ DERS YÜKÜNÜN BELİRLENMESİ VE DERS SAATİ ÜCRETİNİN ÖDEMESİNE İLİŞKİN USUL VE ESASLAR \nSayfa:633 \n \nİdari Görevi Olan Öğretim Elemanlarının Haftalık Ders Yükleri \nMadde 4- (1) Rektör yardımcısı ve genel sekreter olarak görev yapan öğretim elemanının hafta",
+        "score": 0.516
+      }
+    ],
+    "latency_ms": 3718,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 997,
+        "output_tokens": 5,
+        "cost_usd": 0.0001022,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 5113,
+        "output_tokens": 397,
+        "cost_usd": 0.0007098,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Öğretim üyesinin haftalık zorunlu ders yükü kaç saattir?",
+    "status": 200,
+    "seconds": 2.64,
+    "query_id": "c4a4ed18959c41d1acd348f745b20825",
+    "answer": "Öğretim üyesinin haftalık zorunlu ders yükü en az 14 saattir; bu yük haftada en az 10 saati fiilen yürütmek üzere belirlenmiştir. Bilgi, KTMÜ Mevzuatı'nda yer alan \"Öğretim Elemanının Ders Yükünün Belirlenmesi ve Ders Saati Ücretinin Ödemesine İlişkin Usul ve Esaslar\" metnine dayanmaktadır.\n\n**Temel şartlar:**\n- **Haftalık ders yükü:** **en az 14 saat**\n- **Fiilen yürütülmesi gereken asgari süre:** haftada **en az 10 saat**",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "elemanlarının haftalık ders yükleri şöyledir: \na) Öğretim üyesinin ders yükü haftada en az 10 saati fiilen yürütmek üzere en az 14 saattir. \nb) Öğretim görevlisi doktorun ders yükü haftada en az 16 saati fiilen yürütmek üzere en az \n18 saattir. \nc) Öğretim görevlisinin ders yükü haftada en az 18 saa",
+        "score": 0.6391
+      }
+    ],
+    "latency_ms": 2611,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 980,
+        "output_tokens": 5,
+        "cost_usd": 0.0001005,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 5347,
+        "output_tokens": 239,
+        "cost_usd": 0.0006542,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Dekan ve dekan yardımcısının ders yükü farklı mı?",
+    "status": 200,
+    "seconds": 2.96,
+    "query_id": "d36ba74bf6ca4da4881db6cad2e29389",
+    "answer": "Evet, dekan ile dekan yardımcısının haftalık ders yükü farklıdır.\n\n**Temel şartlar:**\n- **Dekan:** Haftada en az **6 saati** fiilen yürütmek üzere toplam **8 saat** ders yükü belirlenmiştir.\n- **Dekan yardımcısı:** Haftada en az **8 saati** fiilen yürütmek üzere toplam **12 saat** ders yükü belirlenmiştir.\n\nBu düzenleme, \"İdari Görevi Olan Öğretim Elemanlarının Haftalık Ders Yükleri\" hükmünü içeren KTMÜ Mevzuatı'ndaki Öğretim Elemanının Ders Yükünün Belirlenmesi ve Ders Saati Ücretinin Ödenmesine İlişkin Usul ve Esaslar'a dayanmaktadır.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "KTMÜ MEVZUATI \n \n \n \n633 \n ÖĞRETİM ELEMANININ DERS YÜKÜNÜN BELİRLENMESİ VE DERS SAATİ ÜCRETİNİN ÖDEMESİNE İLİŞKİN USUL VE ESASLAR \nSayfa:633 \n \nİdari Görevi Olan Öğretim Elemanlarının Haftalık Ders Yükleri \nMadde 4- (1) Rektör yardımcısı ve genel sekreter olarak görev yapan öğretim elemanının hafta",
+        "score": 0.5641
+      }
+    ],
+    "latency_ms": 2927,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 975,
+        "output_tokens": 5,
+        "cost_usd": 0.0001,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 5768,
+        "output_tokens": 310,
+        "cost_usd": 0.0007318,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Tam zamanlı öğretim elemanına ek ders ücreti hangi şartlarda ödenir?",
+    "status": 200,
+    "seconds": 3.97,
+    "query_id": "e7804cc8e60d4f73aba65ada8ae583dc",
+    "answer": "Tam zamanlı öğretim elemanına ek ders ücreti, haftalık zorunlu ders yükünü tamamladıktan sonra fiilen yürüttüğü fazla derslerin **dört (4) saatine kadarı** için ödenir.\n\n**Temel şartlar:**\n- Haftalık zorunlu ders yükünün tamamlanmış olması.\n- Fazla derslerin fiilen yürütülmüş olması.\n- Ödeme, fazla derslerin **en fazla dört (4) saatine** kadar yapılır.\n- Ara sınav haftalarında yapılan dersler için ek ders ücreti ödenmez.\n- Resmi tatil günlerinde işlenmeyen dersler, haftalık ders yükü hesabına dahil edilmez.\n- Yönetmelikteki 5. maddе kapsamındaki fazladan öğretim faaliyetleri için ek ders ücreti ödenmez.\n\nEk ders saati ücreti, kadro unvanı için belirlenen esas ücretin **%0,5'i** tutarında hesaplanır. Bu hesap, KTMÜ Akademik Personel Ücret Baremi Cetveli ile Öğretim Elemanının Ders Yükünün Belirlenmesi ve Ders Saati Ücretinin Ödenmesine İlişkin Usul ve Esaslar'a dayanır. Rektör yardımcısı, genel sekreter (akademik personel ise), dekan ve enstitü/yüksekokul müdürleri için ek ders ücreti ödenmez.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "AKTS’lik sektörel uygulama, öğretmenlik uygulaması ve yarıyıl içinde yapılan \nbenzeri stajların takibi görevi öğrenci sayısına bakılmaksızın 2 saat. \n(2) \nÖğretim elemanının fiilen yürüttüğü dersler, diğer öğretim faaliyetleri ve görevleri Ders Yükü \nDağılımı Çizelgesinde gösterilir. \n \nTam Zamanlı ",
+        "score": 0.6194
+      }
+    ],
+    "latency_ms": 3942,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 986,
+        "output_tokens": 5,
+        "cost_usd": 0.0001011,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 5071,
+        "output_tokens": 542,
+        "cost_usd": 0.0007781,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Yarı zamanlı öğretim elemanının haftalık ders yükü kaç saattir?",
+    "status": 200,
+    "seconds": 3.76,
+    "query_id": "f782c00af2fd487c9a48aa015d002fbb",
+    "answer": "Yarı zamanlı öğretim elemanının haftalık ders yükü, unvanına bakılmaksızın **en az 14 saattir**; bu yükün tamamının fiilen yürütülmesi şarttır.\n\n**Temel şartlar:**\n- Haftalık ders yükü **en az 14 saat** olmalıdır.\n- Ders yükünün **tamamı fiilen yürütülmelidir**.\n- Fazladan yürütülen ders saatleri için ayrıca ders ücreti **ödenmez**.\n- Yarı zamanlı öğretim elemanı, Usul ve Esasların 5. maddesi kapsamındaki öğretim faaliyetleri için görevlendirilemez.\n- Fiilen okutulacak dersler ve ders yükü, Bölüm Ders Yükü Dağılımı Çizelgesinde gösterilir.\n\nBu bilgiler, \"KTMÜ Mevzuatı\" içinde yer alan \"Öğretim Elemanının Ders Yükünün Belirlenmesi ve Ders Saati Ücretinin Ödenmesine İlişkin Usul ve Esaslar\" başlıklı belgenin 7. maddesine dayanmaktadır.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "manının Haftalık Ders Yükü \nMadde 8- (1) Ders saati ücretli öğretim elemanının unvanına bakılmaksızın haftalık ders yükü, \ntamamını fiilen yürütmek şartıyla en çok on (10) saattir. Haftalık ders yükü on (10) saatten \nfazla olsa bile en çok 10 saati ücretlendirilir. \n(2) \nBu Usul ve Esasların 5’inci ",
+        "score": 0.5995
+      }
+    ],
+    "latency_ms": 3730,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 982,
+        "output_tokens": 5,
+        "cost_usd": 0.0001007,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 5969,
+        "output_tokens": 422,
+        "cost_usd": 0.0008079,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Ders saati ücretli öğretim elemanı haftada en çok kaç saat ders verebilir?",
+    "status": 200,
+    "seconds": 3.64,
+    "query_id": "d082e0bef6144d3f96df1663bb3ed480",
+    "answer": "Ders saati ücretli öğretim elemanının haftalık ders yükü, tamamını fiilen yürütmek şartıyla en çok on (10) saattir.\n\n**Temel şartlar:**\n- Haftalık ders yükü **en çok 10 saat** olup tamamının fiilen yürütülmesi gerekir. Ders yükü 10 saatten fazla olsa bile en çok 10 saati ücretlendirilir.\n- Ara sınavların yapıldığı haftalarda ders ücreti ödenmez.\n- Resmi tatil nedeniyle yapılmayan dersler için ders ücreti ödenmez.\n\nBu bilgi, KTMÜ Öğretim Elemanının Ders Yükünün Belirlenmesi ve Ders Saati Ücretinin Ödenmesine İlişkin Usul ve Esaslar'ın 8. maddesine dayanmaktadır. Ayrıca KTMÜ Akademik Personel Yönetmeliği'nin 26. maddesi de ders saati ücretli öğretim elemanının haftalık ders yükünün **en fazla on saat** olduğunu belirtmektedir.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "manının Haftalık Ders Yükü \nMadde 8- (1) Ders saati ücretli öğretim elemanının unvanına bakılmaksızın haftalık ders yükü, \ntamamını fiilen yürütmek şartıyla en çok on (10) saattir. Haftalık ders yükü on (10) saatten \nfazla olsa bile en çok 10 saati ücretlendirilir. \n(2) \nBu Usul ve Esasların 5’inci ",
+        "score": 0.6358
+      }
+    ],
+    "latency_ms": 3614,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 984,
+        "output_tokens": 5,
+        "cost_usd": 0.0001009,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 5939,
+        "output_tokens": 399,
+        "cost_usd": 0.0007934,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Lisans öğrencisi daha önce aldığı dersleri hangi şartlarla saydırabilir?",
+    "status": 200,
+    "seconds": 3.93,
+    "query_id": "d9303b6a9d7741bcbfe2118b44470d07",
+    "answer": "Lisans öğrencisi, üniversiteye ilk kez kayıt yaptırdığı programda, daha önce kaydolduğu yükseköğretim kurumunda aldığı ve başardığı dersleri saydırabilir.\n\n**Temel şartlar:**\n- Dersin **son 5 yıl** içinde alınmış olması gerekir.\n- Başarı notunun en az **CC** olması gerekir.\n- Dersin AKTS'si ve içeriği, muaf olunacak derslerle uygun olmalıdır.\n- Muaf tutulacak derslerin toplam AKTS sayısı, kayıtlı olunan programın AKTS sayısının **1/3'ünden fazla olamaz**.\n\nBaşvuru, ders saydırma ve muafiyet işlemleri için öğrencinin Bölüm Başkanlığına, not durum belgesi ve ders içerikleriyle birlikte yazılı başvuruda bulunmasıyla başlatılır. Bölüm öğretim elemanlarından oluşan üç kişilik komisyon değerlendirme yapar. İntibak işlemleri Bölüm Akademik Kurulunun kararı ve Birim Yönetim Kurulunun kabulüyle kesinleşir. Muaf olunan dersin harf notu öğrencinin Not Durum Belgesine işlenir.\n\nBu bilgi, Önlisans ve Lisans Eğitim-Öğretim Yönetmeliği'nin ders saydırma ve muafiyet hükümlerine dayanmaktadır.\n\nAyrıntılar için [ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)](https://oidb.manas.edu.kg/upload/global/Onlisans%20ve%20lisans%20egitim.pdf) belgesini okuyabilirsiniz.",
+    "sources": [
+      {
+        "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+        "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+        "snippet": "enci dersten muaf tutulur ve \nmuafiyet notu öğrencinin Not Durum Belgesine işlenir. \n \nDers Saydırma, Ders Muafiyeti ve İntibak \nMadde 25– (1) Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha \nönce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersl",
+        "score": 0.4488
+      },
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": " değiştirilebilir. \nc) Yaz Okuluna kayıt yaptıran her öğrenci en fazla 2 (iki) ders alabilir. \nd) Birinci sınıf öğrencisi, üçüncü ve dördüncü sınıftan; ikinci sınıf öğrencisi ise dördüncü \nsınıftan ders alamaz. \ne) Öğrenci, aynı zamanda hem staj yapıp hem de yaz okulundan ders alamaz. \nf) Yaz Okulun",
+        "score": 0.5469
+      },
+      {
+        "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+        "title": "Kırgızistan-Türkiye Manas Üniversitesi",
+        "snippet": "18/130 \ntamamlanarak yarıyıl genel baĢarı notu hesaplandıktan ve değerlendirme sonuçları \nsisteme aktarıldıktan sonraki not değiĢiklikleri o dersin ilan edilmiĢ bağıl \ndeğerlendirme notları dikkate alınarak yapılır. \n \nBaĢarılı öğrenciler \nMadde 24: GANO ve YANO‘su en az 2.00 olan öğrenciler baĢarıl",
+        "score": 0.5035
+      }
+    ],
+    "latency_ms": 3906,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 986,
+        "output_tokens": 5,
+        "cost_usd": 0.0001011,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 6313,
+        "output_tokens": 535,
+        "cost_usd": 0.0008988,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Lisans öğrencisinin ders saydırma başvurusu nereye yapılır?",
+    "status": 200,
+    "seconds": 2.36,
+    "query_id": "b7406f2485de4700a560fb60aca0da94",
+    "answer": "Lisans öğrencisinin ders saydırma başvurusu Bölüm Başkanlığına yapılır. Başvuru, ekinde not durum belgesi ve ders içerikleri bulunan yazılı olarak sunulur. Bu işlem, Önlisans ve Lisans Eğitim-Öğretim Yönetmeliği'nde belirtilmektedir.\n\nAyrıntılar için [ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)](https://oidb.manas.edu.kg/upload/global/Onlisans%20ve%20lisans%20egitim.pdf) belgesini okuyabilirsiniz.",
+    "sources": [
+      {
+        "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+        "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+        "snippet": "enci dersten muaf tutulur ve \nmuafiyet notu öğrencinin Not Durum Belgesine işlenir. \n \nDers Saydırma, Ders Muafiyeti ve İntibak \nMadde 25– (1) Üniversitenin bir önlisans ve lisans programına ilk kez kayıt yaptıran öğrenci, daha \nönce kaydolduğu yükseköğretim kurumundan almış ve başarmış olduğu dersl",
+        "score": 0.4442
+      },
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "KTMÜ MEVZUATI \n \n \n \n \n206 \n LİSANSÜSTÜ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ \nSayfa:206 \n \nÖğrenci Alım İlanının Hazırlanması \nMadde 9- Enstitü lisansüstü programlarına öğrenci alım ilanını; öğrenci kontenjanları, başvuru \nve kesin kayıt için gerekli belgeleri ve başvuru şartlarını, bilim sınavı ve ",
+        "score": 0.4892
+      },
+      {
+        "document": "tr_faq_7_3bc18714.html",
+        "title": "Hazırlık Dil Eğitimi",
+        "snippet": "Hazırlık sınıfı eğitim-öğretim süresinden sayılıyor mu?\nHazırlık sınıfı öğrencileri burs alabiliyorlar mı?\nHazırlık sınıfı öğrencilerinin askerlik tecil işlemleri Üniversite tarafından mı yapiliyor?\nEvet, askerliğini yapmamış olan erkek öğrencilerin askerlik tecil işlemleri Hazırlık sınıfından itiba",
+        "score": 0.5491
+      }
+    ],
+    "latency_ms": 2340,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 979,
+        "output_tokens": 5,
+        "cost_usd": 0.0001004,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 6111,
+        "output_tokens": 132,
+        "cost_usd": 0.0006771,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Yüksek lisansa başvuruda asgari not ortalaması nedir?",
+    "status": 200,
+    "seconds": 3.35,
+    "query_id": "c0bcf206e06241f6beb598b5d8adbde2",
+    "answer": "Kaynaklarda yüksek lisans başvurusu için tek bir \"asgari not ortalaması\" ifadesi yer almıyor; mevzuatta yüksek lisans kabulü, bilim sınavı, lisans not ortalaması ve yabancı dil puanının birlikte değerlendirildiği bir başarı puanına dayanıyor.\n\n**Temel şartlar:**\n- Yüksek lisans programlarında başarı puanı; bilim sınavı notunun **%50**'si, lisans not ortalamasının **%35**'i ve yabancı dil puanının **%15**'i alınarak hesaplanır.\n- Yüksek lisans programlarına kabul için başarı puanının **en az 60** olması gerekir.\n- Yabancı dil belgesi bulunmayan adayların yabancı dil puanı sıfır (0) kabul edilerek başarı puanı hesaplanır.\n\nBaşvuru için hangi ALES puan türünün kabul edileceği, ilgili EABD/EASD'nin teklifiyle Enstitü Yönetim Kurulu tarafından belirlenir.\n\nAyrıntılar için [Orhun Değişim Programı](https://iro.manas.edu.kg/tr/orhun) belgesini okuyabilirsiniz.",
+    "sources": [
+      {
+        "document": "tr_orhun_55ef2a11.html",
+        "title": "Orhun Değişim Programı",
+        "snippet": "Orhun Değişim Programına başvurabilmek için öğrencinin lisans, yüksek lisans veya doktora yapıyor olması gerekir. Katılmaya hak kazanabilmek için önlisans ve lisans öğrencilerinin Genel Not Ortalamasının (GPA) 4 üzerinden en az 2,5 olması gerekir. Lisansüstü öğrencilerinin genel not ortalamasının %5",
+        "score": 0.5013
+      },
+      {
+        "document": "tr_students_students-exchange_46d508a2.html",
+        "title": "Değişim Programları",
+        "snippet": "1- Örgün eğitim veren, Erasmus Üniversite Beyannamesi sahibi bir yüksek öğretim kurumunda öğrenci olunması.\n2- Önlisans / lisans / yüksek lisans / doktora düzeyinde öğrenci olunması.\n3- Önlisans ve lisans öğrencileri için 1. yılın tamamlanması. (hazırlık sınıfları dahil değildir)\n4- Öğrencisi olunan",
+        "score": 0.4149
+      },
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "ik ekindeki Tablo 2’e göre hesaplanır. Başvuru için hangi ALES puan türünün kabul \nedileceği EABD/EASD’nin teklifiyle Enstitü Yönetim Kurulu tarafından belirlenir. \nLisansüstü eğitim ve öğretim ile ilgili başvuruların değerlendirilmesi aşağıdaki esaslara göre \nyapılır: \na) Yüksek lisans programların",
+        "score": 0.4762
+      }
+    ],
+    "latency_ms": 3328,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 976,
+        "output_tokens": 5,
+        "cost_usd": 0.0001001,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 5019,
+        "output_tokens": 382,
+        "cost_usd": 0.0006929,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Lisans öğrencisi mazeret sınavı için nasıl başvurur?",
+    "status": 200,
+    "seconds": 4.03,
+    "query_id": "e2cfc4eaed0a4da4950096bd145d0d64",
+    "answer": "Lisans öğrencisi, mazeret sınavına girmek için mazeretinin bitiminden sonraki hafta içinde Mazeret Sınavı Başvuru Formunu doldurarak bölüm başkanlığına başvurur. Başvuru formuna, Üniversitenin Sağlık Merkezi tarafından onaylanmış sağlık raporu ile doğal afet, birinci veya ikinci dereceden akraba ölümü, gözaltına alınma veya tutuklanma gibi diğer mazeretlere ilişkin belgeler eklenir. Bu bilgiler Önlisans ve Lisans Eğitim-Öğretim Yönetmeliği (Yeni) kapsamındadır.\n\n**Temel şartlar:**\n- Başvuru, mazeretin bitiminden sonraki **bir hafta içinde** yapılmalıdır.\n- Formun ekinde mazereti gösteren belgeler bulunmalıdır.\n- Sağlık mazeretinde rapor, Üniversitenin Sağlık Merkezi tarafından **onaylanmış** olmalıdır.\n- Mazeret sınavına belirlenen tarihte herhangi bir sebeple girilmezse tekrar mazeret sınavı yapılmaz.\n\nBaşvuru bölüm başkanlığına yapılır; mazeretin kabul edilip edilmediği ve sınav tarihlerine ilişkin karar Birim Yönetim Kurulu tarafından verilir.\n\nAyrıntılar için [ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)](https://oidb.manas.edu.kg/upload/global/Onlisans%20ve%20lisans%20egitim.pdf) belgesini okuyabilirsiniz.",
+    "sources": [
+      {
+        "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+        "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+        "snippet": "ler hariç ilan edilen sınav tarihi \ndeğiştirilemez. \n(3) \nDevam şartını yerine getirmeyen öğrenci yarıyıl sonu sınavına alınmaz. \n(4) \nBir dersin yarıyıl sonu sınavına girmeyen veya sınava girdiği halde 40/100 puandan daha az \npuan alan öğrenci o dersten başarısız sayılır. \n \nMazeret Sınavı \nMadde 3",
+        "score": 0.4583
+      },
+      {
+        "document": "docs_IDARE_FAALIYET_RAPORU_2023.pdf",
+        "title": "Idare Faaliyet Raporu 2023",
+        "snippet": "bul Yöntemi \nA) Sınav Başvuruları \nÖğrenci Seçme ve Yerleştirme Sınavı (Manas ÖSYS) ve Manas Öğrenci Seçme ve Yerleştirme Yabancı Dil Sınavı \n(Manas ÖSYS – Yabancı Dil Sınavı) başvuruları 2022 yılından itibaren internet ortamında yapılmaktadır. \nB) Sınava Kimler Başvurabilir? \nKırgız Cumhuriyeti’nde",
+        "score": 0.5274
+      },
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "aşarı \nMadde 22. \n1) Yüksek lisans yapan öğrencinin tez aşamasına geçebilmesi için ağırlıklı genel not \nortalaması 2.50'den az olması halinde, ortalama şartını sağlayıncaya kadar tekrar veya \nyeni ders almakla yükümlüdür. \n2) Doktora yapan öğrencinin yeterlilik sınavına girmesi için ağırlıklı not or",
+        "score": 0.5238
+      }
+    ],
+    "latency_ms": 4004,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 977,
+        "output_tokens": 5,
+        "cost_usd": 0.0001002,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 6451,
+        "output_tokens": 516,
+        "cost_usd": 0.0009031,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Lisans öğrencisinin mezuniyet koşulları nelerdir?",
+    "status": 200,
+    "seconds": 2.76,
+    "query_id": "6c07a250746b4b75b4f380696f106809",
+    "answer": "Bu konuda elimdeki belgelerde bilgi bulamadım.",
+    "sources": [],
+    "latency_ms": 2738,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 976,
+        "output_tokens": 5,
+        "cost_usd": 0.0001001,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 5524,
+        "output_tokens": 162,
+        "cost_usd": 0.0006334,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "KTMÜ öğrenci burslarının türleri ve başvuru koşulları nelerdir?",
+    "status": 200,
+    "seconds": 3.71,
+    "query_id": "00036c50c9974683adec3a9c9349ee89",
+    "answer": "KTMÜ, öğrencilere üniversite bütçesinden **3 kademeli** burs verdiğini belirtmektedir. Ayrıca Türkiye'de öğrenim gören öğrenciler, T.C. Yüksek Öğrenim Kredi ve Yurtlar Kurumu (KYK) tarafından verilen öğrenim kredisi/bursundan yararlanabilmektedir.\n\n**Temel şartlar:**\n- Üniversite bütçesinden verilen burslar için kademe ve koşullar **Burs Yönetmeliği** kapsamında belirlenmektedir.\n- KYK öğrenim kredisi/bursu için başvuru koşulları KYK mevzuatına tabidir.\n\nBu bilgiler, retrieve edilen kaynaklarda yer alan **Öğrenci Bursları** başlıklı belgeye dayanmaktadır. Her bir kademenin tutarı, başvuru tarihleri ve uygunluk kriterleri için güncel **Burs Yönetmeliği**'nin incelenmesi gerekir.\n\nAyrıntılar için [Öğrenci Bursları](https://oidb.manas.edu.kg/tr/faq/6) belgesini okuyabilirsiniz.",
+    "sources": [
+      {
+        "document": "tr_faq_6_45028bc6.html",
+        "title": "Öğrenci Bursları",
+        "snippet": "Evet, Öğrencilere Üniversite bütçesinden 3 kademeli olarak burs vermektedir. Öğrenci Bursları ile ilgili olarak daha detaylı bilgileri '\n \nBurs Yönetmeliği\n \n'nden edinebilirsiniz.\nÜniversitede öğrenim gören Türkiyeli Öğrenciler, Türkiye'deki Devlet Burslarından yararlanabiliyor mu?\nEvet, T.C. Yükse",
+        "score": 0.5878
+      }
+    ],
+    "latency_ms": 3689,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 983,
+        "output_tokens": 5,
+        "cost_usd": 0.0001008,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 4810,
+        "output_tokens": 375,
+        "cost_usd": 0.0006685,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Öğrenci evlerine başvuruda hangi kurallar geçerlidir?",
+    "status": 200,
+    "seconds": 3.91,
+    "query_id": "ca76e89346214448bd3c586a56425a72",
+    "answer": "Öğrenci evlerine başvuru, Öğrenci Evleri Müdürlüğüne süresi içinde yapılır; başvurular Öğrenci Evleri Yönetim Kurulunun belirlediği ve Rektörlükçe onaylanan puan cetveline göre değerlendirilir.\n\n**Temel şartlar:**\n- Başvurunun **süresi içinde** Öğrenci Evleri Müdürlüğüne yapılması gerekir.\n- Başvurular, **Rektörlükçe onaylanan puan cetveline göre** değerlendirilir.\n- Öğrenci Evleri Müdürü, başvuruları Yönetim Kurulunun belirlediği ilke ve kurallar çerçevesinde kabul eder, değerlendirir ve Yönetim Kurulunun onayına sunar.\n\nKabul ve barınma süreci, Öğrenci Evleri Yönetim Kurulunun onayı ve müdürlüğün işleyişi çerçevesinde yürütülür. Bu yönerge, başvuru sonrasında barınma ücretleri ve disiplin kurallarını da düzenler. Kaynaklarda başvuru için belirtilen süre, belge listesi ve kesin puan eşikleri yer almadığından bunları ayrıca kontrol etmeniz gerekir.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "KTMÜ MEVZUATI \n \n \n \n520 \n ÖĞRENCİ EVLERİ YÖNERGESİ \nSayfa:520 \n \nÖğrenci Evleri Yönetim Kurulunun görevleri şunlardır: \na) Öğrenci Evleri’nin yönetimiyle ilgili genel ilkeleri ve kuralları belirlemek, \nb) Daire Başkanlığının önerilerini değerlendirerek karara bağlamak, \nc) Öğrenci Evleri’nin yönet",
+        "score": 0.6012
+      }
+    ],
+    "latency_ms": 3881,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 978,
+        "output_tokens": 5,
+        "cost_usd": 0.0001003,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 5906,
+        "output_tokens": 462,
+        "cost_usd": 0.0008216,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Kütüphaneden ödünç kitap alma ve iade koşulları nelerdir?",
+    "status": 200,
+    "seconds": 4.43,
+    "query_id": "0a0535e585fc49daae4be0e8666e554e",
+    "answer": "Kütüphaneden en fazla beş (5) kitap ve kitap dışı materyal ödünç alınabilir; ödünç süresi onbeş (15) gündür.\n\n**Temel şartlar:**\n- Ödünç alma için Üniversiteye ait **\"Kimlik Kartı\"** bulunmalıdır; başkasına ait kimlik kartıyla materyal alınamaz.\n- Materyal **15 gün** süreyle verilir. Başka isteyen yoksa internet üzerinden veya ödünç verme bölümünden **15'er günlük** ek sürelerle uzatılabilir; kütüphanenin kurallarına göre uzatma, süre bitiminden **3 gün önce** de yapılabilir.\n- Ansiklopediler, sözlükler ve referans kitapları ödünç verilmez.\n- Kitap zamanında iade edilmezse **günde 3 som** para cezası uygulanır.\n- Ödünç verilen materyal başka bir kullanıcı tarafından talep edilirse ayırtma işlemi yapılır; ayırtma, materyalin iadesinden **2 gün** sonra iptal edilir.\n- Gerektiğinde kütüphane, süre dolmadan materyali geri isteyebilir.\n\nBu kurallar Kütüphane Kuralları ve KTMÜ Mevzuatı kapsamında belirtilmiştir. Kurallara ikazlara rağmen uymayan kullanıcılar **bir ay** süreyle ödünç verme hizmetinden yoksun bırakılabilir; izinsiz materyal çıkarma veya kütüphane mallarına kasten zarar verme durumunda ise ödünç verme hizmetinden süresiz yoksun bırakılma ve soruşturma söz konusu olabilir.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "ri ödünç alabilirler. \nb) Üniversitenin akademik ve idari personeli ile öğrencilerinin Kütüphane hizmetlerinden \nyararlanabilmeleri için Üniversiteye ait “Kimlik Kartı”na sahip olmaları gerekir. \nBaşkasına ait kimlik kartı ile ödünç materyal alınamaz. \nc) Kullanıcılar en fazla beş (5) kitap ve kitap",
+        "score": 0.4955
+      }
+    ],
+    "latency_ms": 4411,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 980,
+        "output_tokens": 5,
+        "cost_usd": 0.0001005,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 4821,
+        "output_tokens": 619,
+        "cost_usd": 0.0007916,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Lisans programına yatay geçiş başvuru koşulları nelerdir?",
+    "status": 200,
+    "seconds": 5.74,
+    "query_id": "319e37f6c7ab4e359ec52b11e964274d",
+    "answer": "Lisans programına yatay geçiş için kaynaklarda belirtilen temel koşullar şunlardır.\n\n**Temel şartlar:**\n- Genel Akademik Not Ortalaması 4 üzerinden **en az 2,75** olmalı ve öğrenci tüm derslerini alarak başarılı olmuş olmalıdır.\n- Önlisans programlarının ilk ve son yarıyılına, lisans programlarının ise **ilk iki ve son iki yarıyılına** yatay geçiş yapılamaz.\n- Kayıt dondurmuş olmak yatay geçiş hakkına engel değildir.\n- Uyarma ve kınama dışında bir disiplin cezası almamış olmak gerekir.\n- Geçiş yapılacak programın eğitim-öğretim dili dışında bir dilde hazırlık sınıfı varsa, yabancı dil şartı aranır: hazırlık sınıfında veya muafiyet sınavında başarılı olmak, YDS'den **en az 60** puan almak ya da Üniversitenin eşdeğerlik tablosuna uygun eşdeğer bir puana sahip olmak gerekir.\n- Yetenek sınavıyla öğrenci alan programlarda yetenek sınavında da başarılı olunmalıdır.\n\n**Başvuru ve değerlendirme:**\nBaşvuru, ilan edilen süre içinde tercihler, transkript ve disiplin cezası almadığını gösteren belgeyle birlikte yazılı olarak doğrudan ilgili bölüme yapılır. Süresinde yapılmayan veya eksik belgeli başvurular değerlendirilmez. Kontenjanlar ilan edilir ve yatay geçişte, geçiş yapılacak programın son ilan edilen kontenjanının **en fazla %10**'u kadar öğrenci kabul edilebilir. Değerlendirmede genel akademik not ortalamaları esas alınır; eşitlik durumunda ders eşdeğerliği gibi ölçütler devreye girer.\n\nAyrıntılar için [YATAY VE DİKEY GEÇİŞ YÖNERGESİ](https://oidb.manas.edu.kg/upload/global/Yatay%20ve%20Dikey%20gecis.pdf) belgesini okuyabilirsiniz.",
+    "sources": [
+      {
+        "document": "upload_global_Yatay_20ve_20Dikey_20gecis.pdf_6a78070b.pdf",
+        "title": "YATAY VE DİKEY GEÇİŞ YÖNERGESİ",
+        "snippet": "unu, \ndikey geçişlerde % 15’sini aşamaz. \n6) Kayıt dondurmuş olmak, yatay ve dikey geçiş hakkından yararlanmak için engel teşkil etmez. \n7) Öğrencinin yatay ve dikey geçiş başvurusu yapabilmesi için uyarma ve kınama dışında disiplin \ncezası almamış olması gerekir. \n8) Yetenek sınavı ile öğrenci alan",
+        "score": 0.5373
+      },
+      {
+        "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+        "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+        "snippet": "e Dikey Geçişler \nMadde 26- (1) Başka yükseköğretim kurumlarından Üniversiteye yatay ve dikey geçiş yoluyla \nöğrenci kabul edilmez. Gerekli şartları sağlayan Üniversitenin öğrencisi ilgili bölüme/programa \nyatay ve dikey geçiş yapabilir. Yatay ve dikey geçiş işlemleri Kırgızistan Türkiye Manas Ünive",
+        "score": 0.5172
+      },
+      {
+        "document": "tr_site_single_08de371a.html",
+        "title": "Duyurular",
+        "snippet": "Anasayfa\n -Kurum içi Yatay ve Dikey Geçiş Son Başvuru Tarihi\nKurum içi Yatay ve Dikey Geçiş Son Başvuru Tarihi\n1)\n Aynı puan türleri ile ve eş değer kabul edilen programlar arasında yatay geçiş yapılabilir. Hangi\nbölümlerin eşdeğer sayılacağı ilgili bölümün teklifi ve fakülte/yüksekokul kurulu karar",
+        "score": 0.4864
+      }
+    ],
+    "latency_ms": 5720,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 976,
+        "output_tokens": 5,
+        "cost_usd": 0.0001001,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 6101,
+        "output_tokens": 708,
+        "cost_usd": 0.0009641,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Lisans öğrencisi çift anadal programına hangi koşullarda başvurabilir?",
+    "status": 200,
+    "seconds": 4.17,
+    "query_id": "a2b75087fa4040b2b75a5fce0066909e",
+    "answer": "Lisans öğrencileri, Çift Anadal Programına ilgili bölümün her akademik yıl başında duyurduğu kontenjanlar çerçevesinde başvurabilir. Ayrıntılı kabul koşulları Çift Anadal Programı Yönergesi'nin 3. maddesinde düzenlenmiştir; kaynakta bu maddenin tamamı yer almadığından başvuru için aranan tüm şartlar bu bölümde eksiksiz verilememektedir.\n\n**Temel şartlar:**\n- Çift anadal programı, ilgili bölümün ve Fakülte, Yüksek Okul veya Meslek Yüksek Okulu Yönetim Kurulu'nun önerisi ve Üniversite Senatosu'nun onayı ile açılır; program en az **36 kredi** olmalıdır.\n- Anadal programında genel not ortalaması **2.00'ın altına düşen** öğrencinin çift anadal programı kaydı silinir.\n- Anadal programında mezuniyet hakkını elde etmeden çift anadal programından lisans diploması verilmez.\n\nBaşvuru, bölümün duyurduğu kontenjanlar ve ilgili yönerge çerçevesinde yapılır. Kabul ve yerleşme kararları ilgili Fakülte, Yüksek Okul veya Meslek Yüksek Okulu Yönetim Kurulu tarafından alınır.",
+    "sources": [
+      {
+        "document": "docs_ogrenci_el_kitabi_kilavuz_2010_tr.pdf",
+        "title": "Kırgızistan-Türkiye Manas Üniversitesi",
+        "snippet": "ramında dersin açılmaması veya ders çakıĢması gibi \nnedenlerle ders alamayacak olan öğrencilere çift anadal programı veren \nbölümün ve çift anadal programının bağlı olduğu Dekanlık, Yüksek Okul veya \nMeslek Yüksek Okulu Müdürlüğü onayı ile dönem izni verilebilir. \nb) Çift Anadal Programında, izin al",
+        "score": 0.5045
+      },
+      {
+        "document": "tr_orhun_55ef2a11.html",
+        "title": "Orhun Değişim Programı",
+        "snippet": "Orhun Değişim Programına başvurabilmek için öğrencinin lisans, yüksek lisans veya doktora yapıyor olması gerekir. Katılmaya hak kazanabilmek için önlisans ve lisans öğrencilerinin Genel Not Ortalamasının (GPA) 4 üzerinden en az 2,5 olması gerekir. Lisansüstü öğrencilerinin genel not ortalamasının %5",
+        "score": 0.5352
+      }
+    ],
+    "latency_ms": 4142,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 981,
+        "output_tokens": 5,
+        "cost_usd": 0.0001006,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 6090,
+        "output_tokens": 496,
+        "cost_usd": 0.000857,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Hazırlık sınıfı muafiyet sınavına kimler girebilir?",
+    "status": 200,
+    "seconds": 1.28,
+    "query_id": "eaf1d1c7295e46d9b8002d1dca6b0f7d",
+    "answer": "Bu konuda önlisans/lisans ve lisansüstü için farklı hükümler var. Hangi öğrenim düzeyi için soruyorsunuz: önlisans/lisans, yüksek lisans veya doktora?",
+    "sources": [],
+    "latency_ms": 1255,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 977,
+        "output_tokens": 5,
+        "cost_usd": 0.0001002,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Lisans öğrencileri için staj başvuru ve değerlendirme süreci nasıldır?",
+    "status": 200,
+    "seconds": 4.14,
+    "query_id": "d238dae3e986468fb21542caf6d6fa39",
+    "answer": "Kaynaklarda lisans öğrencilerinin staj başvuru ve değerlendirme sürecine ilişkin hüküm bulunmaktadır; ancak belgeler bu süreci bütünüyle tanımlamamaktadır.\n\n**Temel şartlar:**\n- Kurumsal işletmelerde yapılması teklif edilen staj başvuruları staj komisyonu tarafından değerlendirmeye alınır.\n- Aracı kurumlar üzerinden yapılan başvurular ile turizm meslek alanıyla ilgisi bulunmayan staj yerleri staj komisyonu tarafından değerlendirmeye alınmaz.\n- Öğrencinin staj komisyonundan onay almadan yaptığı staj geçerli değildir.\n- Staj başlamadan önce öğrencinin staj yapacağı işletmeye ilgili birim yöneticisi tarafından bilgilendirme yazısı yazılır.\n\nMeslek stajı için Türkiye Cumhuriyeti'ne gönderilecek öğrencinin gidiş dönüş uçak biletleri staj yapılacak işletme tarafından karşılanır. Vize, sağlık, barınma ve yeme-içme gibi konular ise staj komisyonunun işletmelerle yapacağı görüşmelerle karara bağlanır. Bu bilgiler \"KTMÜ Mevzuatı\" başlıklı belgeye dayanmaktadır.\n\nKaynaklarda lisans öğrencileri için staj değerlendirme ölçütleri, başvuru takvimi ve belge listesi yer almamaktadır. Bu nedenle daha ayrıntılı bilgi için ilgili bölümün staj komisyonu ile iletişime geçilmesi önerilir.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": " kurumsal işletmelerde yapılması teklif edilen staj başvurularını değerlendirmeye alır. \nAracı kurumlar üzerinden yapılan başvurular ile turizm meslek alanıyla ilgisi bulunmayan staj \nyerleri, staj komisyonu tarafından değerlendirmeye alınmaz. Öğrencinin staj komisyonundan \nonay almadan yaptığı staj",
+        "score": 0.3922
+      }
+    ],
+    "latency_ms": 4117,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 983,
+        "output_tokens": 5,
+        "cost_usd": 0.0001008,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 4987,
+        "output_tokens": 615,
+        "cost_usd": 0.0008062,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "KTMÜ akademik personelinin görevlendirilmesinde hangi kurallar geçerlidir?",
+    "status": 200,
+    "seconds": 5.4,
+    "query_id": "4517e07c0d25463196e9b094012ed0bc",
+    "answer": "KTMÜ akademik personelinin görevlendirilmesi, \"Akademik ve İdari Personelinin Yurt İçi ve Yurt Dışında Görevlendirilme Usul ve Esasları\" hükümlerine tabidir.\n\n**Temel şartlar:**\n- Görevlendirme, tam zamanlı akademik ve idari personelin kısa süreli (**1 aya kadar**) veya uzun süreli (**1 aydan 1 yıla kadar**) bilimsel toplantı, ders verme, inceleme, araştırma ve uygulama amaçlı görevlerini kapsar.\n- İnceleme, araştırma ve uygulama için gerekçeli talebin Fakülte, Enstitü veya Yüksekokul Yönetim Kurulunca kabul edilmiş olması **şarttır**.\n- Kongre, sempozyum ve benzeri bilimsel toplantılara katılım için bir bildiri ile katılmış olmak **esastır**.\n- **7 güne kadar** olan, yolluk ve yevmiye gerektirmeyen katılımlar Rektör veya Rektör Vekilinin oluru ile yapılabilir.\n- **7 günü aşan** ve yolluk-yevmiye gerektiren görevlendirmeler, ilgili birim Yönetim Kurulunun önerisi, Üniversite Yönetim Kurulunun uygun görüşü ve Rektör veya Rektör Vekilinin onayı ile yapılır.\n- Yolluk ve diğer ödemeler, Harcırah Yönetmeliğine göre gerçekleştirilir.\n\n**Başvuru ve karar süreci:** Görevlendirme talebi ilgili birim yönetim kurulu üzerinden iletilir; yolluklu görevlendirmelerde üniversite yönetim kurulunun uygun görüşü alınır ve nihai onay Rektör veya Rektör Vekili tarafından verilir.\n\nBu bilgiler, kaynaklarda yer alan \"Akademik ve İdari Personelinin Yurt İçi ve Yurt Dışında Görevlendirilme Usul ve Esasları\" metnine dayanmaktadır.",
+    "sources": [
+      {
+        "document": "docs_mevzuattr.pdf",
+        "title": "KTMÜ Mevzuatı",
+        "snippet": "KTMÜ MEVZUATI \n \n \n \n623 \n AKADEMİK VE İDARİ PERSONELİNİN YURT İÇİ VE YURT DIŞINDA \nGÖREVLENDİRİLME USUL VE ESASLARI \nSayfa:623 \n \nKIRGIZİSTAN-TÜRKİYE MANAS ÜNİVERSİTESİ \nAKADEMİK VE İDARİ PERSONELİNİN YURT İÇİ VE YURT DIŞINDA \nGÖREVLENDİRİLME USUL VE ESASLARI \n \nBİRİNCİ KISIM \nGENEL HÜKÜMLER \nAmaç",
+        "score": 0.5354
+      },
+      {
+        "document": "docs_2012_2013_idare_faaliyet_raporu.pdf",
+        "title": "2012 2013 Idare Faaliyet Raporu",
+        "snippet": "2012 İDARE FALİYET RAPORU \nStrateji Geliştirme Dairesi Başkanlığı \n62 \n4.3. Başka Üniversitelere Görevlendirilen Akademik Personel Sayısı \nÜniversitemiz ile diğer eğitim kurumları arasında yapılan anlaşma ve protokoller çerçevesinde \nçeşitli üniversitelerde görevlendirilen 13 akademik personelimiz b",
+        "score": 0.4118
+      }
+    ],
+    "latency_ms": 5380,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 986,
+        "output_tokens": 5,
+        "cost_usd": 0.0001011,
+        "status": "ok"
+      },
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 5937,
+        "output_tokens": 760,
+        "cost_usd": 0.0009737,
+        "status": "ok"
+      }
+    ]
+  },
+  {
+    "question": "Akademik danışmanın görevleri nelerdir?",
+    "status": 200,
+    "seconds": 1.3,
+    "query_id": "75d16b13a4954e8aae33b7641f58ea36",
+    "answer": "**Önlisans/lisans için**, **ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)** (Madde 12) şöyle diyor:\n\n> Kayıt yaptıran her öğrenci için bölüm başkanlığı tarafından bir öğretim elemanı akademik danışman olarak görevlendirilir.\n\nBu konuda önlisans/lisans ve lisansüstü için farklı hükümler var. Hangi öğrenim düzeyi için soruyorsunuz: önlisans/lisans, yüksek lisans veya doktora?",
+    "sources": [
+      {
+        "document": "upload_global_Onlisans_20ve_20lisans_20egitim.pdf_528e6665.pdf",
+        "title": "ÖNLİSANS VE LİSANS EĞİTİM-ÖĞRETİM YÖNETMELİĞİ (YENİ)",
+        "snippet": "e belirlenir. \n \nAkademik Danışmanlık \nMadde 12– (1) Kayıt yaptıran her öğrenci için bölüm başkanlığı tarafından bir öğretim elemanı \nakademik danışman olarak görevlendirilir. Danışman öğrencinin eğitim-öğretim çalışmaları \nve üniversite yaşamı ile ilgili sorunların çözümünde öğrenciye yardımcı olur",
+        "score": 0.4884
+      }
+    ],
+    "latency_ms": 1279,
+    "calls": [
+      {
+        "model": "claude-haiku-5-5",
+        "input_tokens": 968,
+        "output_tokens": 5,
+        "cost_usd": 9.93e-05,
+        "status": "ok"
+      }
+    ]
+  }
+]
