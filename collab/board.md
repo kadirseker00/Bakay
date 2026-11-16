@@ -5,6 +5,7 @@
 
 | Durum | Görev | Sahip | Tarih | Kilitli dosyalar |
 |---|---|---|---|---|
+| ⏸ | Acil v0.4.6 yerelde hazır: 2000/disabled/low, ikinci soruda doğrulama, personel ders yükü/statü bağlamı; 260 test ve üretim derlemesi geçti. Gerçek yerel/resmî Madde 4(3) bulundu (12 saat/en az 8 fiilen); canlı yayın ve kalite kontrolü root girişi bekliyor | codex | 2026-11-16 | backend/app/, backend/tests/, frontend/, deploy/, sürüm/dokümanlar |
 | ✅ | v0.4.5 canlı: 1bd6092; v0.4.4 güvenlik kontrolleri, açılışta arama hazırlığı ve Claude mobil düzeltmeleri. İlk kullanıcı ön yanıtı 51,1→1,6 sn (arama 49,9 sn→120 ms), ayrıntılı yanıt 7,2 sn. 252 yerel test, 6 hedef Linux testi, üretim derlemesi; gerçek mobil/HTTPS/403/sıfır izinsiz ücretli çağrı geçti. Genel DNS NXDOMAIN; internet yayını BT DNS/NAT bilgisine bağlı, kurum/VPN erişimi hazır | codex | 2026-11-14 | — |
 | ✅ | Olumsuz geri bildirim düzeltme formu ve atomik hazır cevap taslağı; özgün soru/yanıt/bağlam, yönetici incelemesi ve onaylı JSONL golden geliştirme seti. 205 test, üretim derlemesi, gerçek tarayıcı kayıt/onay/indirme/arşiv geçti; yalnız ayrı QA verisi, canlıya yayın yapılmadı | codex | 2026-10-18 | — |
 | ✅ | Panelden kalıcı ve anında IP/global dakika/saat/24 saat/eşzamanlı sınır ayarları; sayaçlar/çalışan işler korunur, sürüm çakışması ve denetim geçmişi. 7 yeni sınır testi dahil 205 test ve üretim derlemesi; tarayıcı kaydet/yenile/geri al geçti, canlıya yayın yapılmadı | codex | 2026-10-18 | — |

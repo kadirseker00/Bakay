@@ -77,6 +77,8 @@ class Settings(BaseSettings):
     # Canlıda zorunlu; geliştirme/testte dış doğrulama bağımlılığı yoktur.
     public_security_enabled: bool = False
     visitor_session_seconds: int = Field(default=1800, ge=60, le=3600)
+    visitor_trial_per_ip_day: int = Field(default=10, ge=0, le=100)
+    visitor_trial_global_day: int = Field(default=100, ge=0, le=10000)
     monitor_allowed_networks: str = "127.0.0.1/32,::1/128"
     budget_enabled: bool = False
     budget_daily_usd: float = Field(default=5, gt=0, le=1000)

@@ -54,7 +54,7 @@ def education_level(text: str) -> str | None:
 
 def needs_education_level(question: str, hits: list[dict]) -> bool:
     """Aynı terim birden çok düzeyde farklı kurallara bağlıysa kapsamı netleştir."""
-    if education_level(question):
+    if education_level(question) or staff_question(question):
         return False
     phrases = {term for term in terms(question) if term.startswith("#")}
     scopes_by_phrase: dict[str, set[str]] = defaultdict(set)
@@ -65,6 +65,16 @@ def needs_education_level(question: str, hits: list[dict]) -> bool:
         for phrase in phrases.intersection(terms(hit.get("context_text", hit["text"]))):
             scopes_by_phrase[phrase].add(level)
     return any(len(scopes) > 1 for scopes in scopes_by_phrase.values())
+
+
+def staff_question(question: str) -> bool:
+    """Özlük/görev sorusunu öğrenci öğrenim düzeyi ayrımından ayır."""
+    text = ' '.join(words(question))
+    role = re.search(r'\b(?:bölüm başkan\w*|öğretim (?:üye\w*|eleman\w*|görevli\w*)|'
+                     r'dekan\w*|rektör\w*|akademik personel|idari personel)\b', text)
+    # Unvandaki “görevlisiyim” sözcüğünü bir özlük konusu sayma.
+    topic = re.search(r'\b(?:ders yük\w*|ek ders|maaş\w*|özlük\w*|görev(?:i|leri| süresi)|atama\w*|izin\w*|ücret\w*)\b', text)
+    return bool(role and topic)
 
 
 class LexicalIndex:

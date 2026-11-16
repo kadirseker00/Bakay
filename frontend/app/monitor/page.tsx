@@ -148,7 +148,7 @@ export default function MonitorPage() {
         <div className={styles.healthGrid}>
           <div className={styles.healthItem}><span>Günlük maliyet alarmı</span><strong>{money(data.alerts.daily_usd_limit)}</strong><small>Bişkek 00.00’dan itibaren · sorguları durdurmaz</small></div>
           <div className={styles.healthItem}><span>E-posta bildirimleri</span><strong>{data.alerts.email_configured ? "Gönderim hazır" : "Hesap bağlantısı bekleniyor"}</strong><small>{data.alerts.email_configured ? "Sorun açıldığında ve düzeldiğinde bildirim" : "Uyarılar şimdilik bu panelde görünür"}</small></div>
-          <div className={styles.healthItem}><span>Şüpheli trafik doğrulaması</span><strong>{data.protection?.captcha_configured ? "Turnstile etkin" : "Cloudflare bağlantısı bekleniyor"}</strong><small>{data.protection?.visitor_required ? "İlk sorguda zorunlu · IP/tarayıcı bağlı 30 dakika oturum" : "Tekrarlanan hız ihlallerinde · kotalar geçerlidir"}</small></div>
+          <div className={styles.healthItem}><span>Şüpheli trafik doğrulaması</span><strong>{data.protection?.captcha_configured ? "Turnstile etkin" : "Cloudflare bağlantısı bekleniyor"}</strong><small>{data.protection?.visitor_required ? "İkinci soruda doğrulama · IP/tarayıcı bağlı 30 dakika oturum" : "Tekrarlanan hız ihlallerinde · kotalar geçerlidir"}</small></div>
         </div>
         {data.alerts.active.map(alert => <div className={styles.alertItem} key={alert.key} role="status"><strong>{alert.title}</strong><p>{alert.message}</p><small>{dateTime(alert.changed_at)}</small></div>)}
         <div className={styles.backupGrid}>

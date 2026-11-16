@@ -30,9 +30,10 @@ class AnthropicLLM:
                 "ANTHROPIC_API_KEY tanımlı değil. Proje kökündeki .env dosyasına ekleyin."
             )
         self.model = model or settings.anthropic_model
-        self.max_tokens = min(settings.anthropic_max_tokens, 1200) if settings.public_security_enabled else settings.anthropic_max_tokens
-        self.thinking = settings.anthropic_thinking
-        self.effort = settings.anthropic_effort
+        self.max_tokens = min(settings.anthropic_max_tokens, 2000) if settings.public_security_enabled else settings.anthropic_max_tokens
+        # Kısa kaynaklı yanıtta düşünme tokenları görünür yanıt payını tüketmesin.
+        self.thinking = 'disabled' if settings.public_security_enabled else settings.anthropic_thinking
+        self.effort = 'low' if settings.public_security_enabled else settings.anthropic_effort
         self.http = httpx.Client(
             base_url="https://api.anthropic.com",
             headers={

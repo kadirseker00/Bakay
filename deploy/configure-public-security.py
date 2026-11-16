@@ -33,7 +33,7 @@ if args.check:
     raise SystemExit(0)
 updates = {'PUBLIC_SECURITY_ENABLED': 'true', 'VISITOR_SESSION_SECONDS': '1800',
            'RETRIEVAL_WARMUP': 'true',
-           'ANTHROPIC_MAX_TOKENS': '1200',
+           'ANTHROPIC_MAX_TOKENS': '2000', 'ANTHROPIC_THINKING': 'disabled', 'ANTHROPIC_EFFORT': 'low',
            'BUDGET_ENABLED': 'true', 'BUDGET_DAILY_USD': '5',
            'MONITOR_ALLOWED_NETWORKS': ','.join(map(str, networks))}
 content = args.env.read_text()

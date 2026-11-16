@@ -101,9 +101,9 @@ class ShortClassificationTests(unittest.TestCase):
         self.assertEqual(requests[0]['max_tokens'],32)
         self.assertEqual(requests[0]['thinking'],{'type':'disabled'})
         self.assertEqual(requests[0]['output_config'],{'effort':'low'})
-        self.assertEqual(requests[1]['max_tokens'],1200)
-        self.assertEqual(requests[1]['thinking'],{'type':'adaptive'})
-        self.assertEqual(client.max_tokens,1200)
+        self.assertEqual(requests[1]['max_tokens'],2000)
+        self.assertEqual(requests[1]['thinking'],{'type':'disabled'})
+        self.assertEqual(client.max_tokens,2000)
         with patch.object(client,'generate_result',return_value={'response':'EVET','stop_reason':'max_tokens'}):
             self.assertEqual(client.classify('Soru',system='Kapsam kontrolü'),'')
 

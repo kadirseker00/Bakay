@@ -22,7 +22,7 @@ class VisitorTests(unittest.TestCase):
             log_dir=str(Path(directory)/'logs'), public_security_enabled=True,
             monitor_session_secret='S'*48, monitor_public_url='https://bakai.example',
             captcha_site_key='public-site', captcha_secret_key='PRIVATE-TEST', captcha_hostname='bakai.example',
-            rate_chat_per_minute=100, rate_chat_per_hour=1000, rate_chat_global_per_minute=1000)
+            visitor_trial_per_ip_day=0, rate_chat_per_minute=100, rate_chat_per_hour=1000, rate_chat_global_per_minute=1000)
         for module in (main, monitoring, telemetry):
             self.enterContext(patch.object(module, 'settings', self.config))
         self.client = self.enterContext(TestClient(main.app, base_url='https://bakai.example', client=('192.0.2.1', 50000)))
@@ -36,6 +36,46 @@ class VisitorTests(unittest.TestCase):
 
     def chat(self, **kwargs):
         return self.client.post('/chat', json={'question': 'Kayıt nasıl yapılır?'}, **kwargs)
+
+    def test_first_trial_json_or_sse_second_question_requires_proof(self):
+        self.config.visitor_trial_per_ip_day = 10
+        for accept in ('application/json', 'text/event-stream'):
+            self.client.cookies.clear()
+            first = self.chat(headers={'Accept': accept})
+            self.assertEqual(first.status_code, 200)
+            self.assertIn('HttpOnly', first.headers['set-cookie'])
+            self.assertTrue(self.client.cookies.get(visitor.COOKIE))
+            self.assertEqual(self.chat().status_code, 403)
+            self.assertEqual(self.proof('proof-'+accept).status_code, 200)
+            self.assertEqual(self.chat().status_code, 200)
+        self.assertEqual(self.answer.call_count, 4)
+
+    def test_trial_feedback_ownership_is_preserved_before_verification(self):
+        self.config.visitor_trial_per_ip_day = 10
+        self.assertEqual(self.chat().status_code, 200)
+        with patch.object(telemetry, 'log_feedback', return_value=True):
+            self.assertEqual(self.client.post('/feedback',json={'query_id':'1'*32,'rating':'up'}).status_code,200)
+            self.assertEqual(self.client.post('/feedback',json={'query_id':'2'*32,'rating':'up'}).status_code,403)
+
+    def test_cookie_deletion_and_restart_do_not_reset_trial_ip_limit(self):
+        self.config.visitor_trial_per_ip_day = 1
+        self.assertEqual(self.chat().status_code, 200)
+        self.client.cookies.clear()
+        main.app.state.abuse = AbuseGuard(self.config)
+        self.assertEqual(self.chat().status_code, 403)
+        self.answer.assert_called_once()
+
+    def test_trial_global_limit_is_atomic_across_different_ips(self):
+        self.config.visitor_trial_per_ip_day = 10
+        self.config.visitor_trial_global_day = 1
+        def send(index):
+            with TestClient(main.app, base_url='https://bakai.example',client=(f'192.0.2.{index+10}',50000)) as client:
+                return client.post('/chat',json={'question':'Kayıt nasıl yapılır?'},
+                                   headers={'Origin':'https://bakai.example'}).status_code
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            results=list(pool.map(send,range(4)))
+        self.assertEqual(results.count(200),1)
+        self.assertEqual(results.count(403),3)
 
     def test_first_request_and_fake_captcha_never_reach_model_json_or_sse(self):
         for accept in ('application/json', 'text/event-stream'):

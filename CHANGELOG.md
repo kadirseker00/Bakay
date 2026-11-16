@@ -6,6 +6,12 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.4.6 — 2026-11-16
+
+- İlk soru tek kullanımlık imzalı deneme oturumu, ikinci soruda Turnstile. Denemeler IP başına 10, toplam 100/24 saat ile kalıcı ve atomik sınırlı; şüpheli trafikte ilk soruda da doğrulama. JSON/SSE ve ilk sorunun geri bildirim sahipliği korunur.
+- Canlı Anthropic yanıt payı 2000 token; düşünme kapalı/low. Kesilmiş mevzuat cevabı tamamlanmış gibi gösterilmez, günlük 5 USD koruması sürer.
+- Personelin görev/özlük soruları öğrenci öğrenim düzeyi ayrımına sokulmaz. “Öğretim üyesiyim” gibi kısa statü açıklamaları önceki asıl soruyu korur; öğrencinin ders saydırma ayrımı devam eder.
+
 ## 0.4.5 — 2026-11-14
 
 - İlk sorguda yaklaşık 50 saniye süren arama indeksi/model hazırlığı servis açılışına taşındı; hazırlık bitmeden istek kabul edilmez.

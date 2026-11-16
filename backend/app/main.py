@@ -118,14 +118,18 @@ def health() -> dict:
 
 
 @app.post("/chat", response_model=ChatResponse)
-def chat(req: ChatRequest, request: Request) -> ChatResponse | StreamingResponse:
-    visitor.require(request, consume=True)
+def chat(req: ChatRequest, request: Request, response: Response) -> ChatResponse | StreamingResponse:
+    visitor.require(request, consume=True, response=response)
     if not settings.public_security_enabled:
         captcha.require(request.app.state.abuse, request.state.rate_client, req.captcha_token)
     # Uvicorn güvenilir proxy bilgisini uygular; ham istemci başlıklarına güvenme.
     client_ip = request.client.host if request.client else None
     if 'text/event-stream' in request.headers.get('accept', ''):
-        return stream_chat(req, request, client_ip)
+        streaming = stream_chat(req, request, client_ip)
+        # FastAPI geçici Response çerezlerini döndürülen StreamingResponse'a taşımaz.
+        streaming.raw_headers.extend((key, value) for key, value in response.raw_headers
+                                     if key.lower() == b'set-cookie')
+        return streaming
     with request.app.state.abuse.processing(request.state.rate_client), telemetry.client_scope(client_ip, req.history):
         result = pipeline.answer(req.question, top_k=req.top_k, history=req.history)
         visitor.own_query(request, result.query_id)

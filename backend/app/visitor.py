@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS visitor_queries (
  query_id TEXT PRIMARY KEY, session_id TEXT NOT NULL, expires REAL NOT NULL);
 CREATE TABLE IF NOT EXISTS visitor_hits (session_id TEXT NOT NULL, ts REAL NOT NULL);
 CREATE INDEX IF NOT EXISTS visitor_hits_session ON visitor_hits(session_id,ts);
+CREATE TABLE IF NOT EXISTS visitor_trials (client TEXT NOT NULL, ts REAL NOT NULL);
+CREATE INDEX IF NOT EXISTS visitor_trials_client ON visitor_trials(client,ts);
 '''
 
 
@@ -87,17 +89,46 @@ def create(request, response, token):
         challenge(guard)
     data = {'id': secrets.token_hex(24), 'exp': int(now + config.visitor_session_seconds),
             **binding(request, guard)}
+    set_cookie(response, data, config)
+    guard.pass_captcha(request.state.rate_client)
+    return {'ok': True, 'expires_in': config.visitor_session_seconds}
+
+
+def set_cookie(response, data, config):
+    key = signing_key(config)
     payload = base64.urlsafe_b64encode(json.dumps(data, separators=(',', ':')).encode()).decode().rstrip('=')
     signed = payload + '.' + hmac.new(key, payload.encode(), hashlib.sha256).hexdigest()
     response.set_cookie(COOKIE, signed, max_age=config.visitor_session_seconds, httponly=True,
                         secure=urlsplit(config.monitor_public_url).scheme == 'https',
                         samesite='strict', path='/')
     response.headers['Cache-Control'] = 'no-store'
-    guard.pass_captcha(request.state.rate_client)
-    return {'ok': True, 'expires_in': config.visitor_session_seconds}
 
 
-def require(request, *, consume=False):
+def trial(request, response):
+    """İlk soru için tek kullanımlık imzalı oturum; çerez silme IP kotasını silmez."""
+    guard = request.app.state.abuse
+    config, now = guard.config, guard.clock()
+    if guard.needs_captcha(request.state.rate_client):
+        challenge(guard)
+    try:
+        with guard.connect() as connection:
+            connection.execute('BEGIN IMMEDIATE')
+            connection.execute('DELETE FROM visitor_trials WHERE ts<=?', (now-86400,))
+            count = connection.execute('SELECT COUNT(*) FROM visitor_trials WHERE client=?',
+                                       (request.state.rate_client,)).fetchone()[0]
+            total = connection.execute('SELECT COUNT(*) FROM visitor_trials').fetchone()[0]
+            if count >= config.visitor_trial_per_ip_day or total >= config.visitor_trial_global_day:
+                challenge(guard)
+            connection.execute('INSERT INTO visitor_trials VALUES (?,?)', (request.state.rate_client, now))
+    except sqlite3.Error:
+        raise unavailable() from None
+    data = {'id': secrets.token_hex(24), 'exp': int(now + config.visitor_session_seconds),
+            'trial': True, **binding(request, guard)}
+    set_cookie(response, data, config)
+    return data
+
+
+def require(request, *, consume=False, response=None):
     guard = request.app.state.abuse
     if not guard.config.public_security_enabled:
         return None
@@ -106,13 +137,17 @@ def require(request, *, consume=False):
     origin(request, guard.config)
     key = signing_key(guard.config)
     token = request.cookies.get(COOKIE, '')
+    first = not token and consume and response is not None
+    if first:
+        data = trial(request, response)
     try:
-        if len(token) > 1024:
-            raise ValueError
-        payload, signature = token.split('.')
-        if not hmac.compare_digest(signature, hmac.new(key, payload.encode(), hashlib.sha256).hexdigest()):
-            raise ValueError
-        data = json.loads(base64.urlsafe_b64decode(payload + '=' * (-len(payload) % 4)))
+        if not first:
+            if len(token) > 1024:
+                raise ValueError
+            payload, signature = token.split('.')
+            if not hmac.compare_digest(signature, hmac.new(key, payload.encode(), hashlib.sha256).hexdigest()):
+                raise ValueError
+            data = json.loads(base64.urlsafe_b64decode(payload + '=' * (-len(payload) % 4)))
         bound = binding(request, guard)
         if (not isinstance(data['exp'], int) or data['exp'] <= guard.clock() or
                 data['exp'] > guard.clock() + guard.config.visitor_session_seconds or
@@ -120,6 +155,8 @@ def require(request, *, consume=False):
                 any(data[name] != value for name, value in bound.items())):
             raise ValueError
     except (ValueError, KeyError, TypeError):
+        challenge(guard)
+    if consume and data.get('trial') and not first:
         challenge(guard)
     if guard.needs_captcha(request.state.rate_client):
         challenge(guard)

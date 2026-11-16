@@ -76,6 +76,8 @@ Kurallar:
 - Aynı konuda farklı öğrenim düzeylerinin kuralları varsa ve soru düzeyi belirtmiyorsa,
   kısa ve koşullu bir yanıt ver, ardından öğrenim düzeyini sor. Bu durumda not eşikleri,
   süreler ve kredi oranları gibi ayrıntıları düzey netleştikten sonra açıkla.
+- Personelin ders yükü, idari görevi ve özlük hakları için öğrenci öğrenim düzeyi
+  sorma. Bu sorularda göreve ve personel statüsüne ilişkin kaynak hükmünü kullan.
 - Kaynak gösterirken teknik dosya adını veya "[1] numaralı belge" ifadesini kullanma;
   bunun yerine ilgili retrieved_document içindeki title başlığını doğal cümle içinde an.
 - Yalnızca kaynaklarda verilen başlıkları kullan; başlık uydurma veya
@@ -334,6 +336,10 @@ def _verify_grounding(answer_text: str, context: str, llm) -> bool:
 def _needs_history(question: str) -> bool:
     """Açık konulu soruları hafızadan ayırır; Türkçe göndermeleri tanır."""
     text = question.casefold().replace("i\u0307", "i").strip()
+    if re.fullmatch(r'(?:ben\s+)?(?:bir\s+)?(?:öğretim üyesi|öğretim görevlisi|'
+                    r'araştırma görevlisi|bölüm başkanı|akademik personel|idari personel|'
+                    r'öğrenci)(?:yim|yım|yum|yüm|im|ım|um|üm)[.!?]*', text):
+        return True
     if re.search(
         r"\b(bunun|bunların|bunlara|bunları|bunlar|buna|bunu|burada|buraya|"
         r"onun|onların|onlara|onları|onlar|ona|onu|aynı|bu|o)\b|"
@@ -356,6 +362,14 @@ def _resolve_question(question: str, history: list[ChatMessage], llm) -> str | N
     """Son altı turdaki göndermeleri açar; belirsizlikte açıklama ister."""
     # Düzey seçimi önceki yanıtın metnine bağlı değildir. Modelin asıl sorudaki
     # "saydırma" gibi arama terimlerini kaybetmesini önlemek için konuyu koru.
+    role_pattern = (r'\s*(?:ben\s+)?(?:bir\s+)?(?:öğretim üyesi|öğretim görevlisi|'
+                    r'araştırma görevlisi|bölüm başkanı|akademik personel|idari personel|'
+                    r'öğrenci)(?:yim|yım|yum|yüm|im|ım|um|üm)[.!?]*\s*')
+    if re.fullmatch(role_pattern, question, flags=re.IGNORECASE):
+        for message in reversed(history[-12:]):
+            if message.role == 'user' and not _needs_history(message.content):
+                return f'{message.content} (Soruyu soranın belirttiği statü: {question})'
+        return None
     selection_pattern = (
         r"\s*(?:peki[ ,]+)?(önlisans|ön lisans|lisans|yüksek lisans|doktora)"
         r"(?:\s+için(?:\s+soruyorum)?)?\s*[.!?]*\s*"
