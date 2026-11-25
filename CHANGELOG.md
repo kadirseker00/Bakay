@@ -6,6 +6,10 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.4.8 — 2026-11-25
+
+- Vize rehberi animasyonu karakterli hikâyeye dönüştü: belge çantalı bir hoca yeşil pasaportla çevirmene gider, ЦОН’da PIN sırasına girer, yanlış bankada 12 000 som’u görüp Eldik Bank’a döner, poliklinikte 304’e, test merkezine girer ve belgeleri telefondan gönderir. Sahneler ölçeklenen 600×340 tuvalde çizilir; altyazı, belge çantası ve denetimler korunur.
+
 ## 0.4.7 — 2026-11-25
 
 - Türkiye’den gelen personel ve aile bireyleri için `/rehber/vize` sayfası: KTMÜ Vize Birimi yönergesine (21.09.2026) göre altı adım (çeviriler, PIN, zorunlu sağlık sigortası, 086 raporu, AIDS testi, başvuru), adres ve harita bağlantıları, Eldik Bank ödeme bilgileri, çalışan/aile belge listeleri ve dikkat edilecekler.
