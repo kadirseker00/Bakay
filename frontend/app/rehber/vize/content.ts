@@ -64,7 +64,7 @@ export const STEPS: Step[] = [
     cost: "1840 som · yalnız Eldik Bank",
     where: [{
       label: "Eldik Bank (Cal) · Jal-23 mikrorayon, 101",
-      yandex: "https://yandex.com/maps/-/CTdJV02u",
+      yandex: "https://yandex.com/maps/-/CXcpjHzh",
     }],
     points: [
       "Pasaportunuzla Eldik Bank’a gidip aşağıdaki hesap bilgileriyle ödeyin. Sizin yerinize başkası ödeyecekse pasaport kopyanızı verin.",
