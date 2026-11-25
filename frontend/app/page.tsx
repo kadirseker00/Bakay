@@ -328,6 +328,18 @@ export default function Home() {
       .catch(() => setConnection("offline"));
   }, []);
 
+  // Rehber sayfalarından gelen ?q= sorusunu yalnız kutuya yazar; gönderimi
+  // kullanıcı yapar (doğrulama ve kota akışı değişmez).
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const prefilled = params.get("q")?.trim().slice(0, 500);
+    if (!prefilled) return;
+    setInput(prefilled);
+    params.delete("q");
+    const rest = params.toString();
+    window.history.replaceState(null, "", `${window.location.pathname}${rest ? `?${rest}` : ""}${window.location.hash}`);
+  }, []);
+
   useEffect(() => {
     if (historyReady) setHistorySaved(persistHistory(messages));
 
@@ -615,6 +627,9 @@ export default function Home() {
               </a>
               <a href="#sss" onClick={() => setMenuOpen(false)}>
                 SSS
+              </a>
+              <a href="/rehber/vize" onClick={() => setMenuOpen(false)}>
+                Personel Vize Rehberi
               </a>
               <a href="/hakkinda" onClick={() => setMenuOpen(false)}>
                 Hakkında

@@ -6,6 +6,13 @@ uyumlu hata düzeltmeleri PATCH, kırıcı değişiklikler MAJOR artırır.
 frontend paket ve kilit dosyasının sürümleri onunla birlikte güncellenir.
 Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
+## 0.4.7 — 2026-11-25
+
+- Türkiye’den gelen personel ve aile bireyleri için `/rehber/vize` sayfası: KTMÜ Vize Birimi yönergesine (21.09.2026) göre altı adım (çeviriler, PIN, zorunlu sağlık sigortası, 086 raporu, AIDS testi, başvuru), adres ve harita bağlantıları, Eldik Bank ödeme bilgileri, çalışan/aile belge listeleri ve dikkat edilecekler.
+- Sayfanın başında 60 saniyelik, duraklatılabilir süreç animasyonu; ekran dışında ve “hareketi azalt” tercihinde kendiliğinden oynamaz.
+- Ana menüye “Personel Vize Rehberi” bağlantısı. Rehberdeki örnek sorular `/?q=` ile soru kutusunu doldurur, gönderim kullanıcıda kalır.
+- Yönerge metni `docs/rehber/` altında; canlıda `data/raw/staff/` içine kopyalanıp indekslenir (14 parça).
+
 ## 0.4.6 — 2026-11-16
 
 - İlk soru tek kullanımlık imzalı deneme oturumu, ikinci soruda Turnstile. Denemeler IP başına 10, toplam 100/24 saat ile kalıcı ve atomik sınırlı; şüpheli trafikte ilk soruda da doğrulama. JSON/SSE ve ilk sorunun geri bildirim sahipliği korunur.
