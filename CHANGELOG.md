@@ -8,7 +8,10 @@ Git sürüm etiketleri `vMAJOR.MINOR.PATCH` biçimindedir.
 
 ## 0.4.8 — 2026-11-25
 
-- Vize rehberi animasyonu karakterli hikâyeye dönüştü: belge çantalı bir hoca yeşil pasaportla çevirmene gider, ЦОН’da PIN sırasına girer, yanlış bankada 12 000 som’u görüp Eldik Bank’a döner, poliklinikte 304’e, test merkezine girer ve belgeleri telefondan gönderir. Sahneler ölçeklenen 600×340 tuvalde çizilir; altyazı, belge çantası ve denetimler korunur.
+- Vize rehberi animasyonu karakterli bir hikâyeye dönüştü. Kravatlı, gözlüklü, sevimli bir hoca önce Manas’a (KTMÜ logolu kampüs) girer, yeşil pasaportla çevirmene gider, ЦОН’da ПИН031–034 sırasını bekler, yanlış bankada 12 000 som’u görüp Eldik Bank’a döner, poliklinikte 304’e girer, AIDS test merkezinin önünde farklı ülkelerden insanlarla sıra bekler ve yorulur; sonuç ertesi gün gelir, başvuruyu bitirince havai fişekler patlar.
+- Karakter yolda profilden yürür (omuzdan bağlı, dirsekli kollar; dizli bacaklar, karşıt kol-bacak salınımı); yalnız iş bitince önden izleyiciye döner.
+- Arka planda karlı Tanrı Dağları. Kurum tabelalarında Türkçe ad, Kırgızca (Kiril) ad ve küçük yazıyla adres; ek bilgiler kısa cümle notları olarak verilir.
+- KTMÜ logosu `frontend/public/ktmu-logo.png` (resmî logo PDF’inden). İstek listesi: `docs/rehber/animasyon-istekleri.md`.
 
 ## 0.4.7 — 2026-11-25
 
